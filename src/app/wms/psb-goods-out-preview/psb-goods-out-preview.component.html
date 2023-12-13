@@ -1,0 +1,1842 @@
+<ibm-loading
+  *ngIf="isLoading"
+  [isActive]="isLoading"
+  size="normal"
+  [overlay]="overlay"
+>
+</ibm-loading>
+<div
+  ibmGrid
+  class="bx--grid--full-width"
+  [ngClass]="{ 'disable-on-print': temporaryTableState }"
+  style="padding-bottom: 133px"
+>
+  <div
+    id="topPartPrint"
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 10, md: 10, sm: 10 }">
+      <ibm-breadcrumb [noTrailingSlash]="true">
+        <ibm-breadcrumb-item [current]="true">
+          Warehouse Management System
+        </ibm-breadcrumb-item>
+
+        <ibm-breadcrumb-item>
+          <a routerLink="/wms/psb-inventory-list">Petroleum Supply Base</a>
+        </ibm-breadcrumb-item>
+        <ibm-breadcrumb-item>
+          <a routerLink="/wms/psb-goods-in-out-list">Goods In / Goods Out</a>
+        </ibm-breadcrumb-item>
+
+        <ibm-breadcrumb-item [current]="true">
+          Goods Out Form
+        </ibm-breadcrumb-item>
+      </ibm-breadcrumb>
+    </div>
+  </div>
+
+  <div [ngClass]="{ printableIssueOut: issueOutTableState }">
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24 printable"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 12, sm: 12 }">
+        <div style="width: 100%">
+          <table>
+            <tbody>
+              <tr>
+                <td style="vertical-align: middle">
+                  <img
+                    src="./assets/images/KSB_Logo.png"
+                    alt="KSB logo"
+                    style="width: 80px"
+                  />
+                </td>
+                <td style="padding-top: 25px; padding-bottom: 20px">
+                  <p class="title-text">
+                    PANGKALAN BEKALAN KEMAMAN SDN. BHD. (69363-D)
+                  </p>
+                  <p class="ph01" style="padding-top: 5px">
+                    A Subsidiary of Eastern Pacific Industrial Corporation Bhd.
+                  </p>
+                  <p class="letter-header-Text">
+                    P.O Box 64, 24007 Kemaman, Terengganu Darul Iman, Malaysia
+                  </p>
+                  <p class="letter-header-Text">
+                    Tel : 09 - 860 2343, 860 2344 Fax : 09 - 869 1191
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+        <div #toTopRef tabindex="1">
+          <span class="ph03">Goods Out Form</span>
+        </div>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Company Name</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ detailsCompanyName }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Request By</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ detailsRequestBy }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Request No.</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ detailsRequestNo }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Form Type</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ detailsFormType }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Form No.</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ detailsRegistrationNo }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Move Date</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ detailsMoveDate }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+        Transaction Type
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ detailsTransactionType }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Destination</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ detailsDestination }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Remarks</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ detailsRemark }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Status</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        <span style="color: red" *ngIf="detailsStatus == 'Pending Approval'">{{
+          detailsStatus
+        }}</span>
+        <span *ngIf="detailsStatus != 'Pending Approval'">{{
+          detailsStatus
+        }}</span>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64"
+      *ngIf="issueOutTableState"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+        <ibm-table-container>
+          <ibm-table-header class="pb-48">
+            <h4 ibmTableHeaderTitle>Issue Out Goods</h4>
+          </ibm-table-header>
+
+          <table class="bx--data-table">
+            <thead>
+              <tr>
+                <th>No.</th>
+                <th>Form Type</th>
+                <th>Form No.</th>
+                <th>Goods Description</th>
+                <th style="text-align: right">Withdrawal Qty.</th>
+                <th style="text-align: right">Remaining Qty.</th>
+                <!-- <th>Total Value (RM)</th> -->
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr
+                *ngIf="listOfGoodsOut.length == 0"
+                [ngClass]="{ 'invalid-tableRow': goodsOutTableInvalid }"
+              >
+                <td align="center" colspan="8">
+                  No data is entered yet. Please add a new entry
+                </td>
+              </tr>
+
+              <tr
+                *ngFor="
+                  let GoodsOutlist of listOfGoodsOut;
+                  let postIndex = index
+                "
+                class="white-bg"
+              >
+                <td>{{ postIndex + 1 }}</td>
+                <td>
+                  {{ GoodsOutlist.form_type }}
+                </td>
+                <td>
+                  {{ GoodsOutlist.registration_no }}
+                </td>
+                <td>
+                  {{ GoodsOutlist.goodsDescription }}
+                </td>
+                <td style="text-align: right">
+                  {{ GoodsOutlist.withdrawal_qty }}
+                </td>
+                <td style="text-align: right">
+                  {{ GoodsOutlist.remainingQTY }}
+                </td>
+                <!-- <td>
+                                    {{GoodsOutlist.totalValue}}
+                                </td> -->
+              </tr>
+            </tbody>
+          </table>
+        </ibm-table-container>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64"
+      *ngIf="temporaryTableState"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+        <ibm-table-container>
+          <ibm-table-header class="pb-48">
+            <h4 ibmTableHeaderTitle>Temporary Out Goods</h4>
+          </ibm-table-header>
+
+          <table class="bx--data-table">
+            <thead>
+              <tr>
+                <th class="header1">No.</th>
+                <th>Form No.</th>
+                <th>Goods Description</th>
+                <th style="text-align: right">Withdrawal Qty.</th>
+                <th style="text-align: right">Pending Return Qty.</th>
+                <!-- <th>Total Value (RM)</th> -->
+                <th style="text-align: right">Completed Return Qty.</th>
+                <th>Form Type</th>
+                <!-- <th>Form No.</th> -->
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr
+                *ngIf="listOfTemporaryGoodsOut.length == 0"
+                [ngClass]="{ 'invalid-tableRow': goodsOutTableInvalid }"
+              >
+                <td align="center" colspan="6">
+                  No data is entered yet. Please add a new entry
+                </td>
+              </tr>
+
+              <tr
+                *ngFor="
+                  let TemporaryGoodsOutlist of listOfTemporaryGoodsOut;
+                  let postIndex = index
+                "
+                class="white-bg"
+              >
+                <td>{{ postIndex + 1 }}</td>
+                <td>
+                  {{ TemporaryGoodsOutlist.registration_no }}
+                </td>
+                <td>
+                  {{ TemporaryGoodsOutlist.goodsDescription }}
+                </td>
+                <!-- <td>
+                                {{GoodsOutlist.withdrawalQTY}}
+                            </td> -->
+
+                <td class="w-130" style="text-align: right">
+                  {{ TemporaryGoodsOutlist.withdrawal_qty }}
+                </td>
+                <!-- <td>
+                                    {{TemporaryGoodsOutlist.remainingQTY}}
+                                </td> -->
+                <!-- <td>
+                                    {{TemporaryGoodsOutlist.totalValue}}
+                                </td> -->
+                <td style="text-align: right">
+                  {{ TemporaryGoodsOutlist.pendingRtnQty }}
+                </td>
+                <td style="text-align: right">
+                  {{ TemporaryGoodsOutlist.completedRtnQty }}
+                </td>
+                <td>
+                  {{ TemporaryGoodsOutlist.form_type }}
+                </td>
+                <!-- <td>
+                                    {{TemporaryGoodsOutlist.form_number}}
+                                </td> -->
+              </tr>
+            </tbody>
+          </table>
+        </ibm-table-container>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32 disable-on-print"
+      *ngIf="temporaryTableState && formNoTypeEnabled"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 12 }">
+        <div class="form-item d-flex justify-content-end">
+          <ibm-dropdown
+            label="Form Type"
+            placeholder="Select"
+            [dropUp]="false"
+            itemValueKey="content"
+            name="formTypeSelected"
+            [(ngModel)]="formTypeSelected"
+            [invalid]="invalidFormType"
+            invalidText="Form Type Required"
+            (selected)="inputValueChange()"
+            [disabled]="isDisabledNewFlow"
+          >
+            <ibm-dropdown-list [items]="formTypeList"></ibm-dropdown-list>
+          </ibm-dropdown>
+        </div>
+      </div>
+    </div>
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 disable-on-print"
+      *ngIf="temporaryTableState && formNoTypeEnabled"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 12 }">
+        <div class="form-item d-flex justify-content-end">
+          <ibm-label
+            [invalid]="invalidRegNo"
+            invalidText="{{ invalidTextRegNo }}"
+          >
+            Form No.
+            <input
+              ibmText
+              type="text"
+              required
+              name="regNo"
+              [(ngModel)]="formNo"
+              [invalid]="invalidRegNo"
+              (ngModelChange)="inputValueChange()"
+              [disabled]="isDisabledNewFlow"
+            />
+          </ibm-label>
+        </div>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3"
+      [ngClass]="{ 'padding-top-on-display': !formNoTypeEnabled }"
+      *ngIf="temporaryTableState"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Due Date :</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ detailsDueDate }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32 disable-on-print"
+      *ngIf="temporaryTableState"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 12 }">
+        <div class="d-flex justify-content-end">
+          <ibm-date-picker
+            label="Due Date"
+            [placeholder]="placeholder"
+            [size]="size"
+            [dateFormat]="dateFormat"
+            required
+            name="dueDate"
+            [(ngModel)]="dueDate"
+            (change)="dateChange(dueDate)"
+            invalidText="{{ invalidTextDate }}"
+            [invalid]="invalidDueDate"
+            [disabled]="isDisabledDueDateRemark"
+          >
+          </ibm-date-picker>
+        </div>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32 disable-on-print"
+      *ngIf="temporaryTableState"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 12 }">
+        <div class="form-item">
+          <!-- <div class="d-flex justify-content-end"> -->
+          <!-- <ibm-label>
+                        Remarks (Optional)
+                        <textarea ibmTextArea placeholder="Placeholder text" style="width:500px" aria-label="textarea" maxlength="500" [rows]="6" name="remarks" [(ngModel)]="remarks" [disabled]="isDisabledDueDateRemark">
+            </textarea>
+                    </ibm-label> -->
+
+          <label class="bx--label">Remarks (Optional)</label
+          ><label
+            class="bx--label"
+            [ngStyle]="{ color: invalidNumericRemarks ? '#da1e28' : '' }"
+            style="float: right"
+            >{{ numericRemarks }}/100</label
+          >
+          <textarea
+            ibmTextArea
+            aria-label="textarea"
+            style="width: 500px"
+            maxlength="100"
+            [rows]="6"
+            name="remarks"
+            [(ngModel)]="remarks"
+            (ngModelChange)="numericCount('remarks', remarks)"
+            [disabled]="isDisabledDueDateRemark"
+          >
+          </textarea>
+          <div *ngIf="invalidNumericRemarks" class="invalid-class-label">
+            Reach maximum characters
+          </div>
+          <!-- </div> -->
+        </div>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32 disable-on-print"
+      *ngIf="temporaryTableState"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 12 }">
+        <div class="d-flex justify-content-end">
+          <ibm-label
+            *ngIf="
+              detailsStatus != 'Temporary Out' && detailsStatus != 'On Hold'
+            "
+            [helperText]="customsHelperText"
+          >
+            <button
+              type="button"
+              ibmButton="secondary"
+              (click)="updateNewFlow()"
+              style="width: 206px"
+              [disabled]="isLoading"
+              [disabled]="isDisabledNewFlow"
+            >
+              Update
+            </button>
+          </ibm-label>
+
+          <ibm-label
+            *ngIf="
+              detailsStatus == 'Temporary Out' || detailsStatus == 'On Hold'
+            "
+            [helperText]="customsHelperText"
+          >
+            <button
+              type="button"
+              ibmButton="secondary"
+              (click)="updateSubmit()"
+              style="width: 206px"
+              [disabled]="isLoading"
+            >
+              Update
+            </button>
+          </ibm-label>
+        </div>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+      *ngIf="temporaryTableState"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+        <ibm-table-container>
+          <ibm-table-header class="pb-48">
+            <h4 ibmTableHeaderTitle>Due Date Change Logs</h4>
+          </ibm-table-header>
+
+          <table class="bx--data-table">
+            <thead>
+              <tr>
+                <th>No.</th>
+                <th>Previous Due Date</th>
+                <th>New Due Date</th>
+                <th>Date Changed</th>
+                <th>Changed By</th>
+                <th>Remarks</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngIf="listOfDueDateChangeLog.length == 0">
+                <td align="center" colspan="8">
+                  No data is entered yet. Please add a new row
+                </td>
+              </tr>
+
+              <tr
+                *ngFor="
+                  let dueDateChangeLog of listOfDueDateChangeLog;
+                  let postIndex = index
+                "
+                class="white-bg"
+              >
+                <td>{{ postIndex + 1 }}</td>
+                <td>
+                  {{ dueDateChangeLog.previus_expected_date }}
+                </td>
+                <td>
+                  {{ dueDateChangeLog.expected_date }}
+                </td>
+                <td>
+                  {{ dueDateChangeLog.request_date }}
+                </td>
+                <td>
+                  {{ dueDateChangeLog.request_by }}
+                </td>
+                <td>
+                  {{ dueDateChangeLog.remarks }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </ibm-table-container>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+      *ngIf="returnGoodStatus"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+        <ibm-table-container>
+          <ibm-table-header class="pb-48">
+            <h4 ibmTableHeaderTitle>Return Goods</h4>
+          </ibm-table-header>
+          <ibm-table-toolbar>
+            <ibm-table-toolbar-content *ngIf="!checkSelectedReturnGoods()">
+              <button
+                ibmButton="primary"
+                [disabled]="addNewDisabled"
+                class="addNewBtn"
+                type="button"
+                (click)="addNewReturnGoods()"
+              >
+                Add new
+                <div class="icon-btn" ibmIcon="add" size="20"></div>
+              </button>
+            </ibm-table-toolbar-content>
+
+            <div class="table-action" *ngIf="checkSelectedReturnGoods()">
+              <div class="actions">
+                <div class="del">
+                  <Button
+                    ibmButton="primary"
+                    size="sm"
+                    type="button"
+                    (click)="deleteReturnGoods()"
+                  >
+                    Delete
+                    <div
+                      class="icon-trashCan"
+                      ibmIcon="trash-can"
+                      size="20"
+                    ></div>
+                  </Button>
+                </div>
+                <div class="cancel">
+                  <button
+                    ibmButton="primary"
+                    size="sm"
+                    type="button"
+                    (click)="cancelMethodReturnGoods()"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          </ibm-table-toolbar>
+          <div class="horizontal-overflow-table">
+            <table class="bx--data-table returnGoodsTable">
+              <thead>
+                <tr>
+                  <th>No.</th>
+                  <th>Form No.</th>
+                  <th>Goods Description</th>
+                  <th style="text-align: right">Return Qty.</th>
+                  <th style="text-align: right">Pending Return Qty.</th>
+                  <th>Date Return</th>
+                  <th>Form Type</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr
+                  *ngIf="listOfReturnGoods.length == 0"
+                  [ngClass]="{ 'invalid-tableRow': goodsOutTableInvalid }"
+                >
+                  <td align="center" colspan="8">
+                    No data is entered yet. Please add a new entry.
+                  </td>
+                </tr>
+
+                <tr
+                  *ngFor="
+                    let returnGoodsList of listOfReturnGoods;
+                    let postIndex = index
+                  "
+                  class="white-bg"
+                >
+                  <td>{{ postIndex + 1 }}</td>
+                  <td>
+                    {{ returnGoodsList.registration_no }}
+                  </td>
+                  <td>
+                    {{ returnGoodsList.good_name }}
+                  </td>
+                  <td style="text-align: right">
+                    {{ returnGoodsList.return_qty }}
+                  </td>
+                  <td style="text-align: right">
+                    {{ returnGoodsList.pendingRtnQty }}
+                  </td>
+                  <td>
+                    {{ returnGoodsList.dateReturn }}
+                  </td>
+                  <td>
+                    {{ returnGoodsList.form_type }}
+                  </td>
+                  <td>
+                    {{ returnGoodsList.status }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ibm-table-container>
+      </div>
+    </div>
+
+    <!-- <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32" *ngIf="returnGoodStatusReturned">
+            <div ibmCol [columnNumbers]="{'lg': 12, 'md': 10, 'sm': 6}">
+                <ibm-table-container>
+
+                    <ibm-table-header class="pb-48">
+                        <h4 ibmTableHeaderTitle>Return Goods</h4>
+                    </ibm-table-header>
+                    <div class="horizontal-overflow-table">
+                        <table class="bx--data-table">
+                            <thead>
+                                <tr>
+                                    <th class="header1">No.</th>
+                                    <th class="header2">Tariff Code</th>
+                                    <th class="header3">Form No.</th>
+                                    <th class="header4">Goods Description</th>
+                                    <th class="header5">Used Qty.</th>
+                                    <th class="header6">Return Qty.</th>
+                                    <th class="header7">Remaining Qty.</th>
+                                    <th class="header8">Value (RM)</th>
+                                    <th class="header9">UOM</th>
+                                    <th class="header10">Total Value (RM)</th>
+                                    <th class="header11">Form Type</th>
+                                    <th class="header12">Status</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr *ngIf="listOfReturnGoods.length == 0" [ngClass]="{'invalid-tableRow': goodsOutTableInvalid}">
+                                    <td align="center" colspan="13">No data is entered yet. Please add a new row</td>
+                                </tr>
+
+                                <tr *ngFor="let returnGoodsList of listOfReturnGoods; let postIndex=index;" class="white-bg">
+                                    <td>{{ postIndex + 1 }}</td>
+                                    <td>
+                                        {{returnGoodsList.customs_code}}
+                                    </td>
+                                    <td>
+                                        {{returnGoodsList.registration_no}}
+                                    </td>
+                                    <td>
+                                        {{returnGoodsList.good_name}}
+                                    </td>
+                                    <td>
+                                        {{returnGoodsList.used_qty}}
+                                    </td>
+                                    <td>
+                                        {{returnGoodsList.return_qty}}
+                                    </td>
+                                    <td>{{returnGoodsList.remain_qty}}
+                                    </td>
+                                    <td>
+                                        {{returnGoodsList.value}}
+                                    </td>
+                                    <td>
+                                        {{returnGoodsList.uom}}
+                                    </td>
+                                    <td>
+                                        {{returnGoodsList.totalValue}}
+                                    </td>
+                                    <td>
+                                        {{returnGoodsList.form_type}}
+                                    </td>
+                                    <td>
+                                        {{returnGoodsList.status}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </ibm-table-container>
+            </div>
+        </div> -->
+  </div>
+
+  <div
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64 disable-on-print"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 12 }">
+      <!-- <div class="d-flex justify-content-end">
+                <button type="button" ibmButton="secondary" class="mr-32" (click)="redirectToPrevious()">Back</button>
+                <button type="button" ibmButton="secondary" (click)="onPrint()">Print</button>
+            </div> -->
+
+      <div
+        class="form-item width-unset"
+        style="display: flex; justify-content: space-between; padding-top: 35px"
+      >
+        <div>
+          <button
+            type="button"
+            ibmButton="secondary"
+            class="mr-32"
+            (click)="redirectToPrevious()"
+          >
+            Back
+          </button>
+          <button
+            *ngIf="detailsStatus == 'Approved' || issueOutTableState"
+            type="button"
+            ibmButton="secondary"
+            (click)="onPrint()"
+          >
+            Print
+          </button>
+        </div>
+        <!-- <div *ngIf="returnGoodStatus">
+
+                    <button type="button" ibmButton="primary" (click)="openReturnModal()">Submit for Return</button>
+                </div> -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal-->
+  <div ibmRow>
+    <div #confirmationModal ibmCol [columnNumbers]="{ lg: 10 }">
+      <ibm-modal [open]="openModal" (overlaySelected)="openModal = false">
+        <ibm-modal-header (closeSelect)="openModal = false">
+          <h3 ibmModalHeaderHeading>Confirmation</h3>
+        </ibm-modal-header>
+        <section ibmModalContent style="height: unset">
+          <h3
+            ibmModalContentText
+            class="bx--modal-content__regular-content modal-text"
+          >
+            Are you sure want to return?<br />
+            Kindly make sure all details are correct.
+          </h3>
+        </section>
+        <ibm-modal-footer>
+          <button
+            class="bx--btn bx--btn--secondary"
+            (click)="openModal = false"
+          >
+            Back
+          </button>
+
+          <button
+            type="submit"
+            class="bx--btn bx--btn--primary"
+            (click)="submitReturnGoods()"
+            [disabled]="isLoading"
+          >
+            Submit for Return
+          </button>
+        </ibm-modal-footer>
+      </ibm-modal>
+    </div>
+  </div>
+
+  <!-- Return Goods Table Modal -->
+  <ibm-modal
+    [open]="ReturnGoodsModal"
+    [trigger]="ReturnGoodsModalTrigger"
+    (overlaySelected)="ReturnGoodsModal = false"
+    class="ReturnGoodsModal-width"
+  >
+    <ibm-modal-header (closeSelect)="ReturnGoodsModal = false">
+      <p class="bx--modal-header__label bx--type-delta">Add Goods</p>
+      <p class="bx--modal-header__heading bx--type-beta">
+        Return Goods Details
+      </p>
+    </ibm-modal-header>
+
+    <div class="bx--modal-content">
+      <ibm-dropdown
+        label="Goods Description"
+        class="full-width existing-goods-dropdown"
+        placeholder="Select"
+        [dropUp]="false"
+        itemValueKey="content"
+        name="returnGoods"
+        [(ngModel)]="returnGoodsDescDropDown"
+        [invalid]="invalidReturnGoodsDesc"
+        invalidText="Return Goods Required"
+        required
+        (selected)="selectReturnGoods($event)"
+        [appendInline]="true"
+      >
+        <ibm-dropdown-list
+          [items]="returnGoodsSelectionList"
+        ></ibm-dropdown-list>
+      </ibm-dropdown>
+
+      <ibm-number
+        class="width pt-32"
+        label="Return Qty"
+        [(ngModel)]="RGReturnQuantity"
+        name="returnQuantity"
+        value="{{ RGReturnQuantity }}"
+        [step]="step"
+        [min]="1"
+        [max]="maxReturnQty"
+        (ngModelChange)="returnGoodsQuantityChange(RGReturnQuantity)"
+        [invalid]="invalidwithReturnQuantity"
+        invalidText="Invalid Quantity"
+        required
+      >
+      </ibm-number>
+
+      <div ibmRow class="pt-32">
+        <div ibmCol [columnNumbers]="{ lg: 3 }" class="ph01">
+          Pending Return Qty. :
+        </div>
+        <div ibmCol [columnNumbers]="{ lg: 9 }" class="bs01">
+          {{ pendingReturnQty }}
+        </div>
+      </div>
+
+      <div ibmRow class="pt-32">
+        <div ibmCol [columnNumbers]="{ lg: 12 }">
+          <div class="d-flex justify-content-end">
+            <ibm-date-picker
+              label="Date Return"
+              [placeholder]="placeholder"
+              [size]="size"
+              [dateFormat]="dateFormat"
+              required
+              name="dateReturn"
+              [(ngModel)]="dateReturn"
+              (change)="dateReturnChange(dateReturn)"
+              invalidText="{{ invalidTextDateReturn }}"
+              [invalid]="invalidReturnDate"
+            >
+            </ibm-date-picker>
+          </div>
+        </div>
+      </div>
+
+      <div ibmRow class="pt-32">
+        <div ibmCol [columnNumbers]="{ lg: 12 }">
+          <div class="d-flex justify-content-end">
+            <ibm-checkbox
+              [(ngModel)]="confirmationChkBox"
+              [checked]="confirmationChkBox"
+              (change)="onChangeChkBox($event)"
+            >
+              Please ensure all details are correct
+            </ibm-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ibm-modal-footer>
+      <ng-container>
+        <button
+          class="bx--btn bx--btn--secondary"
+          (click)="ReturnGoodsModal = false"
+        >
+          Cancel
+        </button>
+        <button
+          ibmButton="primary"
+          [disabled]="returnSubmitDisabled"
+          (click)="saveReturnGoodsModal()"
+          [attr.modal-primary-focus]="true"
+        >
+          Submit for Return
+        </button>
+      </ng-container>
+    </ibm-modal-footer>
+  </ibm-modal>
+</div>
+
+<div
+  [ngClass]="
+    temporaryTableState ? 'printable' : 'disable-on-print-TemporaryTable'
+  "
+>
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 12, sm: 12 }">
+      <div style="width: 100%">
+        <table>
+          <tbody>
+            <tr>
+              <td style="vertical-align: middle">
+                <img
+                  src="./assets/images/KSB_Logo.png"
+                  alt="KSB logo"
+                  style="width: 80px"
+                />
+              </td>
+              <td style="padding-top: 25px; padding-bottom: 20px">
+                <p class="title-text">
+                  PANGKALAN BEKALAN KEMAMAN SDN. BHD. (69363-D)
+                </p>
+                <p class="ph01" style="padding-top: 5px">
+                  A Subsidiary of Eastern Pacific Industrial Corporation Bhd.
+                </p>
+                <p class="letter-header-Text">
+                  P.O Box 64, 24007 Kemaman, Terengganu Darul Iman, Malaysia
+                </p>
+                <p class="letter-header-Text">
+                  Tel : 09 - 860 2343, 860 2344 Fax : 09 - 869 1191
+                </p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 12, sm: 12 }">
+      <div>
+        <span class="title-text"
+          >PERMOHONAN MENGELUARKAN DAGANGAN SEMENTARA UNTUK TUJUAN FABRIKASI
+          DARIPADA PANGKALAN BEKALAN PETROLEUM KEMAMAN (PBPK)</span
+        >
+      </div>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-16">
+    <div ibmCol [columnNumbers]="{ lg: 12 }" class="content-text">
+      <table style="width: 100%">
+        <tbody>
+          <tr>
+            <td class="content-text">
+              <span>No. Permohonan :</span>
+            </td>
+            <td>
+              {{ detailsRequestNo }}
+            </td>
+            <td
+              rowspan="11"
+              style="text-align: center; vertical-align: middle; width: 50%"
+            >
+              <img
+                src="./assets/images/Stamp_PBKSB_Opt B-Disokong-updated-blue.png"
+                alt="KSB Stamp"
+                style="width: 170px"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td class="content-text">
+              <span>Status :</span>
+            </td>
+            <td>
+              {{ detailsStatus }}
+            </td>
+          </tr>
+          <tr>
+            <td class="content-text">
+              <span>Jenis Borang :</span>
+            </td>
+            <td>
+              {{ detailsFormType }}
+            </td>
+          </tr>
+          <tr>
+            <td class="content-text-move-date">
+              <span>No. Borang :</span>
+            </td>
+            <td>
+              <!-- {{detailsRegistrationNo}} -->
+              <input ibmText name="borangNo" />
+            </td>
+          </tr>
+          <tr>
+            <td class="content-text-move-date">
+              <span>Tarikh Permohonan :</span>
+            </td>
+            <td>
+              {{ detailsMoveDate }}
+            </td>
+          </tr>
+          <tr>
+            <td class="content-text">
+              <span>Pengirim :</span>
+            </td>
+            <td>
+              {{ detailsCompanyName }}
+            </td>
+          </tr>
+          <tr>
+            <td class="content-text">
+              <span>Nama Agen :</span>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="content-text">
+              <span>Jenis Transaksi :</span>
+            </td>
+            <td>
+              {{ detailsTransactionType }}
+            </td>
+          </tr>
+          <tr>
+            <td class="content-text">
+              <span>Destinasi :</span>
+            </td>
+            <td>
+              {{ detailsDestination }}
+            </td>
+          </tr>
+          <tr>
+            <td class="content-text">
+              <span>Nota Lain :</span>
+            </td>
+            <td>
+              {{ detailsRemark }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 12, sm: 12 }">
+      <div>
+        <span class="title-text">Barangan Keluar Sementara</span>
+      </div>
+      <div>
+        <table class="standard-table">
+          <thead>
+            <!-- <tr>
+                            <td>
+                                No.
+                            </td>
+                            <td>
+                                Form No.
+                            </td>
+                            <td>
+                                Form Type
+                            </td>
+                            <td>
+                                Nama Dagangan
+                            </td>
+                            <td>
+                                Withdraw Qty.
+                            </td>
+                            <td>
+                                Pending Return Qty.
+                            </td>
+                            <td>
+                                Complete Return Qty
+                            </td>
+                        </tr> -->
+
+            <tr>
+              <td>No.</td>
+              <td>Nama Dagangan</td>
+              <td>Kod Tarif Dagangan</td>
+              <td style="text-align: right">Kuantiti</td>
+              <td>Nilai</td>
+              <td>No. Rujukan K1/K8/K9</td>
+              <td>Nama Dagangan (Barangan Siap)</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngIf="listOfTemporaryGoodsOut.length == 0"
+              [ngClass]="{ 'invalid-tableRow': goodsOutTableInvalid }"
+            >
+              <td align="center" colspan="8">No data.</td>
+            </tr>
+            <!--
+                        <tr *ngFor="let TemporaryGoodsOutlist of listOfTemporaryGoodsOut; let postIndex=index;">
+                            <td>
+                                {{postIndex + 1}}
+                            </td>
+                            <td>
+                                {{TemporaryGoodsOutlist.registration_no}}
+                            </td>
+                            <td>
+                                {{TemporaryGoodsOutlist.form_type}}
+                            </td>
+                            <td>
+                                {{TemporaryGoodsOutlist.goodsDescription}}
+                            </td>
+                            <td>
+                                {{TemporaryGoodsOutlist.withdrawal_qty}}
+                            </td>
+                            <td>
+                                {{TemporaryGoodsOutlist.pendingRtnQty}}
+                            </td>
+                            <td>
+                                {{TemporaryGoodsOutlist.completedRtnQty}}
+                            </td>
+                        </tr> -->
+
+            <tr
+              *ngFor="
+                let TemporaryGoodsOutlist of listOfTemporaryGoodsOut;
+                let postIndex = index
+              "
+            >
+              <td>
+                {{ postIndex + 1 }}
+              </td>
+              <td>
+                {{ TemporaryGoodsOutlist.goodsDescription }}
+              </td>
+              <td>
+                {{ TemporaryGoodsOutlist.customs_code }}
+              </td>
+              <td style="text-align: right">
+                {{ TemporaryGoodsOutlist.withdrawal_qty }}
+              </td>
+              <td style="text-align: right">
+                {{ TemporaryGoodsOutlist.value }}
+              </td>
+              <td>
+                {{ TemporaryGoodsOutlist.registration_no }}
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 12, sm: 12 }">
+      <div>
+        <span class="title-text">Maklumat Perubahan Tarikh Kembali</span>
+      </div>
+      <div>
+        <table class="standard-table">
+          <thead>
+            <!-- <tr>
+                            <td>
+                                No.
+                            </td>
+                            <td>
+                                Tarikh Kembali ke PBPK
+                            </td>
+                            <td>
+                                Previous Expected Date
+                            </td>
+                            <td>
+                                Tarikh Memohon Tempoh Lanjutan
+                            </td>
+                            <td>
+                                Nama Pemohon
+                            </td>
+                            <td>
+                                Request Date
+                            </td>
+                            <td>
+                                Nota Lain / Remarks
+                            </td>
+                        </tr> -->
+            <tr>
+              <td>No.</td>
+              <td>Tarikh Kembali ke PBPK</td>
+              <td>Tarikh Memohon Tempoh Lanjutan</td>
+              <td>Nama Pemohon</td>
+              <td>Rujukan Permohonan</td>
+              <td>Tarikh Diluluskan</td>
+              <td>Nota Lain / Remarks</td>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- <tr *ngFor="let dueDateChangeLog of listOfDueDateChangeLog; let postIndex=index;">
+                            <td>
+                                {{postIndex + 1}}
+                            </td>
+                            <td>
+                                N/A
+                            </td>
+                            <td>
+                                {{dueDateChangeLog.previus_expected_date}}
+                            </td>
+                            <td>
+                                {{dueDateChangeLog.expected_date}}
+                            </td>
+                            <td>
+                                {{dueDateChangeLog.request_by}}
+                            </td>
+                            <td>
+                                {{dueDateChangeLog.request_date}}
+                            </td>
+                            <td>
+                                {{dueDateChangeLog.remarks}}
+                            </td>
+                        </tr> -->
+            <tr style="height: 140px">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 12, sm: 12 }">
+      <div class="page-break-inside">
+        <div>
+          <span class="title-text">UNTUK KEGUNAAN PEJABAT KASTAM</span>
+        </div>
+        <div>
+          <!-- <table class="letter-cop-table">
+                    <thead>
+                        <tr>
+                            <td style="font-weight: bold;">
+                                Recommended By
+                            </td>
+                            <td style="font-weight: bold;">
+                                Approved By
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Pangkalan Bekalan Kemaman Sdn. Bhd.
+                            </td>
+                            <td>
+                                Royal Malaysian Customs Department
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="2" style="vertical-align: middle;text-align: center;border-right:1px solid black;">
+                                <img src="./assets/images/KSB_stamp.png" style="width: 150px;" alt="KSB logo" />
+                            </td>
+                            <td style="border-bottom: 1px solid black;padding-bottom: 20px;">
+
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td style="padding-top: 10px;
+                                            padding-bottom: 10px;width:200px;">
+                                                Temporary Out Goods (Date)
+                                            </td>
+                                            <td> : </td>
+                                            <td style="border-bottom: 1px solid black; width: 65%;">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div>
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td style="padding-top: 10px;
+                                                padding-bottom: 10px;width:90px;">
+                                                    Name
+                                                </td>
+                                                <td> : </td>
+                                                <td style="border-bottom: 1px solid black; width: 80%;">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding-top: 10px;
+                                                padding-bottom: 10px;width:90px;">
+                                                    Position
+                                                </td>
+                                                <td> : </td>
+                                                <td style="border-bottom: 1px solid black; width: 80%;">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding-top: 10px;
+                                                padding-bottom: 10px;width:90px;">
+                                                    Stamp
+                                                </td>
+                                                <td> : </td>
+                                                <td style="border-bottom: 1px solid black; width: 80%;">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 20px;">
+                                <div>
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td style="padding-top: 10px;
+                                                padding-bottom: 10px;width:90px;">
+                                                    Return Date
+                                                </td>
+                                                <td> : </td>
+                                                <td style="border-bottom: 1px solid black; width: 80%;">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding-top: 10px;
+                                                padding-bottom: 10px;width:90px;">
+                                                    Name
+                                                </td>
+                                                <td> : </td>
+                                                <td style="border-bottom: 1px solid black; width: 80%;">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding-top: 10px;
+                                                padding-bottom: 10px;width:90px;">
+                                                    Position
+                                                </td>
+                                                <td> : </td>
+                                                <td style="border-bottom: 1px solid black; width: 80%;">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding-top: 10px;
+                                                padding-bottom: 10px;width:90px;">
+                                                    Stamp
+                                                </td>
+                                                <td> : </td>
+                                                <td style="border-bottom: 1px solid black; width: 80%;">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table> -->
+
+          <table class="letter-cop-table">
+            <tbody>
+              <tr>
+                <td style="width: 50%">
+                  <div>
+                    <table style="width: 100%">
+                      <tbody>
+                        <tr>
+                          <td colspan="4">
+                            <span
+                              class="title-text"
+                              style="text-transform: uppercase"
+                              >TINDAKAN KASTAM - PELEPASAN</span
+                            >
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="4">
+                            <table style="width: 100%">
+                              <tbody>
+                                <tr>
+                                  <td
+                                    style="
+                                      padding-top: 10px;
+                                      padding-bottom: 10px;
+                                      width: 33%;
+                                    "
+                                  >
+                                    Diperiksa oleh (No. Staf)
+                                  </td>
+                                  <td style="width: 1%">:</td>
+                                  <td
+                                    style="
+                                      border-bottom: 1px solid black;
+                                      width: 33%;
+                                    "
+                                  ></td>
+                                  <td class="stamp-space"></td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </td>
+                          <!-- <td style="padding-top: 10px;
+                                                padding-bottom: 10px;width:200px;">
+                                                    Checked By (Staff No.)
+                                                </td>
+                                                <td> : </td>
+                                                <td style="border-bottom: 1px solid black; width: 40%;">
+                                                </td>
+                                                <td class="stamp-space">
+
+                                                </td> -->
+                        </tr>
+                        <tr>
+                          <td
+                            style="
+                              padding-top: 10px;
+                              padding-bottom: 10px;
+                              width: 10%;
+                            "
+                          >
+                            Nama
+                          </td>
+                          <td style="width: 1%">:</td>
+                          <td
+                            style="border-bottom: 1px solid black; width: 33%"
+                          ></td>
+                          <td class="stamp-space"></td>
+                        </tr>
+                        <tr>
+                          <td
+                            style="
+                              padding-top: 10px;
+                              padding-bottom: 10px;
+                              width: 10%;
+                            "
+                          >
+                            Cop
+                          </td>
+                          <td style="width: 1%">:</td>
+                          <td
+                            style="border-bottom: 1px solid black; width: 33%"
+                          ></td>
+                          <td class="stamp-space"></td>
+                        </tr>
+                        <tr>
+                          <td
+                            style="
+                              padding-top: 10px;
+                              padding-bottom: 10px;
+                              width: 10%;
+                            "
+                          >
+                            Tarikh
+                          </td>
+                          <td>:</td>
+                          <td
+                            style="border-bottom: 1px solid black; width: 33%"
+                          ></td>
+                          <td class="stamp-space"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </td>
+                <td>
+                  <div>
+                    <table style="width: 100%">
+                      <tbody>
+                        <tr>
+                          <td colspan="4">
+                            <span
+                              class="title-text"
+                              style="text-transform: uppercase"
+                              >DILULUSKAN / TIDAK DILULUSKAN</span
+                            >
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="4">
+                            <table style="width: 100%">
+                              <tbody>
+                                <tr>
+                                  <td
+                                    style="
+                                      padding-top: 10px;
+                                      padding-bottom: 10px;
+                                      width: 25%;
+                                    "
+                                  >
+                                    Kelulusan sah sehingga
+                                  </td>
+                                  <td style="width: 1%">:</td>
+                                  <td
+                                    style="
+                                      border-bottom: 1px solid black;
+                                      width: 33%;
+                                    "
+                                  ></td>
+                                  <td class="stamp-space"></td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            style="
+                              padding-top: 10px;
+                              padding-bottom: 10px;
+                              width: 10%;
+                            "
+                          >
+                            Tandatangan
+                          </td>
+                          <td style="width: 1%">:</td>
+                          <td
+                            style="border-bottom: 1px solid black; width: 33%"
+                          ></td>
+                          <td class="stamp-space"></td>
+                        </tr>
+                        <tr>
+                          <td
+                            style="
+                              padding-top: 10px;
+                              padding-bottom: 10px;
+                              width: 10%;
+                            "
+                          >
+                            Cop Jawatan
+                          </td>
+                          <td style="width: 1%">:</td>
+                          <td
+                            style="border-bottom: 1px solid black; width: 33%"
+                          ></td>
+                          <td class="stamp-space"></td>
+                        </tr>
+                        <tr>
+                          <td
+                            style="
+                              padding-top: 10px;
+                              padding-bottom: 10px;
+                              width: 10%;
+                            "
+                          >
+                            Tarikh
+                          </td>
+                          <td style="width: 1%">:</td>
+                          <td
+                            style="border-bottom: 1px solid black; width: 33%"
+                          ></td>
+                          <td class="stamp-space"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td style="width: 50%">
+                  <div>
+                    <table style="width: 100%">
+                      <tbody>
+                        <tr>
+                          <td colspan="4">
+                            <span
+                              class="title-text"
+                              style="text-transform: uppercase"
+                              >TINDAKAN KASTAM - PENERIMAAN</span
+                            >
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="4">
+                            <span>Pengesahan Dikembalikan ke PBPK</span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="4">
+                            <table style="width: 100%">
+                              <tbody>
+                                <tr>
+                                  <td
+                                    style="
+                                      padding-top: 10px;
+                                      padding-bottom: 10px;
+                                      width: 33%;
+                                    "
+                                  >
+                                    Diperiksa oleh (No. Staf)
+                                  </td>
+                                  <td style="width: 1%">:</td>
+                                  <td
+                                    style="
+                                      border-bottom: 1px solid black;
+                                      width: 33%;
+                                    "
+                                  ></td>
+                                  <td class="stamp-space"></td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            style="
+                              padding-top: 10px;
+                              padding-bottom: 10px;
+                              width: 10%;
+                            "
+                          >
+                            Nama
+                          </td>
+                          <td style="width: 1%">:</td>
+                          <td
+                            style="border-bottom: 1px solid black; width: 33%"
+                          ></td>
+                          <td class="stamp-space"></td>
+                        </tr>
+                        <tr>
+                          <td
+                            style="
+                              padding-top: 10px;
+                              padding-bottom: 10px;
+                              width: 10%;
+                            "
+                          >
+                            Cop
+                          </td>
+                          <td style="width: 1%">:</td>
+                          <td
+                            style="border-bottom: 1px solid black; width: 33%"
+                          ></td>
+                          <td class="stamp-space"></td>
+                        </tr>
+                        <tr>
+                          <td
+                            style="
+                              padding-top: 10px;
+                              padding-bottom: 10px;
+                              width: 10%;
+                            "
+                          >
+                            Tarikh
+                          </td>
+                          <td style="width: 1%">:</td>
+                          <td
+                            style="border-bottom: 1px solid black; width: 33%"
+                          ></td>
+                          <td class="stamp-space"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </td>
+                <td>
+                  <div>
+                    <table style="width: 100%">
+                      <tbody>
+                        <tr>
+                          <td colspan="4">
+                            <span
+                              class="title-text"
+                              style="text-transform: uppercase"
+                              >DISAHKAN PENERIMAAN</span
+                            >
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            style="
+                              padding-top: 10px;
+                              padding-bottom: 10px;
+                              width: 10%;
+                            "
+                          >
+                            Nama
+                          </td>
+                          <td style="width: 1%">:</td>
+                          <td
+                            style="border-bottom: 1px solid black; width: 33%"
+                          ></td>
+                          <td class="stamp-space"></td>
+                        </tr>
+                        <tr>
+                          <td
+                            style="
+                              padding-top: 10px;
+                              padding-bottom: 10px;
+                              width: 10%;
+                            "
+                          >
+                            Jawatan
+                          </td>
+                          <td style="width: 1%">:</td>
+                          <td
+                            style="border-bottom: 1px solid black; width: 33%"
+                          ></td>
+                          <td class="stamp-space"></td>
+                        </tr>
+                        <tr>
+                          <td
+                            style="
+                              padding-top: 10px;
+                              padding-bottom: 10px;
+                              width: 10%;
+                            "
+                          >
+                            Cop
+                          </td>
+                          <td style="width: 1%">:</td>
+                          <td
+                            style="border-bottom: 1px solid black; width: 33%"
+                          ></td>
+                          <td class="stamp-space"></td>
+                        </tr>
+                        <tr>
+                          <td
+                            style="
+                              padding-top: 10px;
+                              padding-bottom: 10px;
+                              width: 10%;
+                            "
+                          >
+                            Tarikh
+                          </td>
+                          <td style="width: 1%">:</td>
+                          <td
+                            style="border-bottom: 1px solid black; width: 33%"
+                          ></td>
+                          <td class="stamp-space"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64"
+    *ngIf="issueOutTableState"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+      <ibm-table-container>
+        <ibm-table-header class="pb-48">
+          <h4 ibmTableHeaderTitle>Issue Out Goods</h4>
+        </ibm-table-header>
+
+        <table class="bx--data-table">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Form Type</th>
+              <th>Form No.</th>
+              <th>Goods Description</th>
+              <th style="text-align: right">Withdrawal Qty.</th>
+              <th style="text-align: right">Remaining Qty.</th>
+              <!-- <th>Total Value (RM)</th> -->
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr
+              *ngIf="listOfGoodsOut.length == 0"
+              [ngClass]="{ 'invalid-tableRow': goodsOutTableInvalid }"
+            >
+              <td align="center" colspan="8">
+                No data is entered yet. Please add a new entry
+              </td>
+            </tr>
+
+            <tr
+              *ngFor="let GoodsOutlist of listOfGoodsOut; let postIndex = index"
+              class="white-bg"
+            >
+              <td>{{ postIndex + 1 }}</td>
+              <td>
+                {{ GoodsOutlist.form_type }}
+              </td>
+              <td>
+                {{ GoodsOutlist.registration_no }}
+              </td>
+              <td>
+                {{ GoodsOutlist.goodsDescription }}
+              </td>
+              <td style="text-align: right">
+                {{ GoodsOutlist.withdrawal_qty }}
+              </td>
+              <td style="text-align: right">
+                {{ GoodsOutlist.remainingQTY }}
+              </td>
+              <!-- <td>
+                                {{GoodsOutlist.totalValue}}
+                            </td> -->
+            </tr>
+          </tbody>
+        </table>
+      </ibm-table-container>
+    </div>
+  </div>
+</div>

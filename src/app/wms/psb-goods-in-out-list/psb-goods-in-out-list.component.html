@@ -1,0 +1,48 @@
+<div ibmGrid class="bx--grid--full-width" style="padding-bottom: 133px;">
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-33">
+        <div ibmCol [columnNumbers]="{ 'lg': 10, 'md': 10, 'sm': 10 }">
+            <ibm-breadcrumb [noTrailingSlash]="true">
+                <ibm-breadcrumb-item [current]="true">
+                    Warehouse Management System
+                </ibm-breadcrumb-item>
+                <ibm-breadcrumb-item>
+                    <a routerLink="/wms/psb-inventory-list">Petroleum Supply Base</a>
+
+                </ibm-breadcrumb-item>
+                <ibm-breadcrumb-item [current]="true">
+                    Goods In / Goods Out
+                </ibm-breadcrumb-item>
+            </ibm-breadcrumb>
+        </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+        <div ibmCol [columnNumbers]="{'lg': 6, 'md': 6, 'sm': 6}" class="pl-0 pr-0">
+            <div class="title">
+                <span class="ph03">Goods In / Goods Out</span>
+            </div>
+        </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+
+        <div ibmCol [columnNumbers]="{'lg': 6, 'md': 6, 'sm': 6}" class="pl-0 pr-0 switcher-style">
+            <ibm-content-switcher (selected)="selected($event)">
+                <button ibmContentOption id="goods-in" name="goods-in">Goods In</button>
+                <button ibmContentOption id="goods-out" name="goods-out">Goods Out</button>
+            </ibm-content-switcher>
+        </div>
+
+    </div>
+
+    <div *ngIf="switch == 'goods-in'">
+        <app-goods-in></app-goods-in>
+    </div>
+
+    <div *ngIf="switch == 'goods-out'">
+        <app-goods-out></app-goods-out>
+    </div>
+
+
+</div>

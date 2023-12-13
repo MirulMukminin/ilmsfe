@@ -1,0 +1,883 @@
+<ibm-loading
+  *ngIf="isLoading"
+  [isActive]="isLoading"
+  size="normal"
+  [overlay]="overlay"
+>
+</ibm-loading>
+<div ibmGrid class="bx--grid--full-width" style="padding-bottom: 133px">
+  <form #goodsOutForm="ngForm" (ngSubmit)="onSubmit(goodsOutForm)">
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-33">
+      <div ibmCol [columnNumbers]="{ lg: 10, md: 10, sm: 10 }">
+        <ibm-breadcrumb [noTrailingSlash]="true">
+          <ibm-breadcrumb-item [current]="true">
+            Warehouse Management System
+          </ibm-breadcrumb-item>
+          <ibm-breadcrumb-item>
+            <a routerLink="/wms/psb-inventory-list">Petroleum Supply Base</a>
+          </ibm-breadcrumb-item>
+          <ibm-breadcrumb-item>
+            <a routerLink="/wms/psb-goods-in-out-list">Goods In / Goods Out</a>
+          </ibm-breadcrumb-item>
+          <ibm-breadcrumb-item [current]="true">
+            Goods Out Form
+          </ibm-breadcrumb-item>
+        </ibm-breadcrumb>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }" class="pl-0 pr-0">
+        <div class="title">
+          <span class="ph03">Goods Out Form</span>
+        </div>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Company Name</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ companyName }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Request By</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ requestBy }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Request No.</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ detailsRequestNo }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Status</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ detailsStatus }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64">
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }" class="pl-0 pr-0">
+        <div class="form-item">
+          <ibm-label>Transaction Type</ibm-label>
+          <ibm-radio-group
+            name="transactionType"
+            [(ngModel)]="GoodsOut.transactionType"
+            (change)="onChange($event)"
+          >
+            <ibm-radio
+              *ngFor="let radio of typeOfTransaction"
+              [value]="radio.value"
+              [checked]="radio.checked"
+            >
+              {{ radio.type | titlecase }}
+            </ibm-radio>
+          </ibm-radio-group>
+        </div>
+
+        <div
+          *ngIf="GoodsOut.transactionType == 'ISSUE_OUT'"
+          class="form-item"
+          #formTypeElement
+          tabindex="1"
+        >
+          <ibm-dropdown
+            [label]="formTypeLabel"
+            placeholder="Select"
+            [dropUp]="false"
+            itemValueKey="content"
+            name="formType"
+            [(ngModel)]="GoodsOut.form_type"
+            [invalid]="invalidFormType"
+            invalidText="Form Type Required"
+            [required]="GoodsOut.transactionType == 'ISSUE_OUT' ? true : null"
+            (selected)="inputValueChange(GoodsOut.form_type)"
+          >
+            <ibm-dropdown-list [items]="formTypeList"></ibm-dropdown-list>
+          </ibm-dropdown>
+        </div>
+
+        <div
+          *ngIf="GoodsOut.transactionType == 'ISSUE_OUT'"
+          class="form-item"
+          #regNoElement
+          tabindex="4"
+        >
+          <ibm-label
+            [invalid]="invalidRegNo"
+            invalidText="{{ invalidTextRegNo }}"
+          >
+            {{ formNoLabel }}
+            <input
+              ibmText
+              type="text"
+              required
+              name="regNo"
+              [(ngModel)]="GoodsOut.registration_no"
+              [invalid]="invalidRegNo"
+              (ngModelChange)="inputValueChange(GoodsOut.registration_no)"
+              [required]="GoodsOut.transactionType == 'ISSUE_OUT' ? true : null"
+            />
+          </ibm-label>
+        </div>
+
+        <div class="form-item" #moveDateElement tabindex="2">
+          <ibm-date-picker
+            label="Move Date"
+            [placeholder]="placeholder"
+            [size]="size"
+            [dateFormat]="dateFormat"
+            required
+            name="moveDate"
+            [(ngModel)]="GoodsOut.moveDate"
+            (change)="inputValueChange(GoodsOut.moveDate)"
+            invalidText="{{ invalidTextDate }}"
+            [invalid]="invalidMoveDate"
+          >
+          </ibm-date-picker>
+        </div>
+
+        <div class="form-item">
+          <ibm-label
+            [invalid]="invalidDestination"
+            invalidText="Destination Required"
+          >
+            Destination
+            <input
+              ibmText
+              #destinationElement
+              type="text"
+              required
+              name="destination"
+              [(ngModel)]="GoodsOut.destination"
+              [invalid]="invalidDestination"
+              (ngModelChange)="inputValueChange(GoodsOut.destination)"
+            />
+          </ibm-label>
+        </div>
+
+        <div class="form-item" #remarksElement tabindex="5">
+          <!-- <ibm-label>
+                        Remarks (Optional)
+                        <textarea ibmTextArea aria-label="textarea" maxlength="500" [rows]="6" name="remarks" [(ngModel)]="GoodsOut.reason"></textarea>
+                    </ibm-label> -->
+
+          <label class="bx--label">Remarks (Optional)</label
+          ><label
+            class="bx--label"
+            [ngStyle]="{ color: invalidNumericRemarks ? '#da1e28' : '' }"
+            style="float: right"
+            >{{ numericRemarks }}/100</label
+          >
+          <textarea
+            ibmTextArea
+            aria-label="textarea"
+            maxlength="100"
+            [rows]="6"
+            name="remarks"
+            [(ngModel)]="GoodsOut.reason"
+            (ngModelChange)="numericCount('remarks', GoodsOut.reason)"
+          >
+          </textarea>
+          <div *ngIf="invalidNumericRemarks" class="invalid-class-label">
+            Reach maximum characters
+          </div>
+        </div>
+
+        <div
+          class="form-item width-unset out-goodsList"
+          *ngIf="issueOutTableSelected"
+        >
+          <ibm-table-container>
+            <ibm-table-header>
+              <h4 ibmTableHeaderTitle>Issue Out Goods</h4>
+              <p ibmTableHeaderDescription>
+                Please add required goods in the table below. To remove, select
+                the check box and press remove button in the console
+              </p>
+            </ibm-table-header>
+            <ibm-table-toolbar>
+              <ibm-table-toolbar-content *ngIf="!checkLengthGoodsOut()">
+                <button
+                  type="button"
+                  ibmButton="secondary"
+                  class="reset1Btn"
+                  (click)="resetTable()"
+                >
+                  Reset
+                </button>
+
+                <button
+                  ibmButton="primary"
+                  class="addNewBtn"
+                  type="button"
+                  (click)="GoodsDetailModal()"
+                >
+                  Add new
+                  <div class="icon-btn" ibmIcon="add" size="20"></div>
+                </button>
+              </ibm-table-toolbar-content>
+
+              <div class="table-action" *ngIf="checkLengthGoodsOut()">
+                <div class="actions">
+                  <div class="del">
+                    <Button
+                      ibmButton="primary"
+                      size="sm"
+                      type="button"
+                      (click)="deleteGoodsOut()"
+                    >
+                      Delete
+                      <div
+                        class="icon-trashCan"
+                        ibmIcon="trash-can"
+                        size="20"
+                      ></div>
+                    </Button>
+                  </div>
+                  <div class="cancel">
+                    <button
+                      ibmButton="primary"
+                      size="sm"
+                      type="button"
+                      (click)="cancelMethodGoodsOut()"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </ibm-table-toolbar>
+
+            <div class="horizontal-overflow-table">
+              <table class="bx--data-table">
+                <thead>
+                  <tr>
+                    <th>No.</th>
+                    <th>Form Type</th>
+                    <th>Form No.</th>
+                    <th>Goods Description</th>
+                    <th style="text-align: right">Withdrawal Qty.</th>
+                    <th style="text-align: right">Remaining Qty.</th>
+                    <!-- <th>Total Value (RM)</th> -->
+                    <th>Action</th>
+                  </tr>
+                </thead>
+
+                <tbody class="white-bg">
+                  <tr
+                    *ngIf="listOfGoodsOut.length == 0"
+                    [ngClass]="{ 'invalid-tableRow': goodsOutTableInvalid }"
+                  >
+                    <td align="center" colspan="8">
+                      No data is entered yet. Please add a new entry
+                    </td>
+                  </tr>
+
+                  <tr
+                    *ngFor="
+                      let GoodsOutlist of listOfGoodsOut;
+                      let postIndex = index
+                    "
+                    class="white-bg"
+                  >
+                    <td>{{ postIndex + 1 }}</td>
+                    <td>
+                      {{ GoodsOutlist.form_type }}
+                    </td>
+                    <td>
+                      {{ GoodsOutlist.registration_no }}
+                    </td>
+                    <td>
+                      {{ GoodsOutlist.goodsDescription }}
+                    </td>
+                    <!-- <td>
+                                            {{GoodsOutlist.withdrawalQTY}}
+                                        </td> -->
+
+                    <td class="w-130" style="text-align: right">
+                      <ibm-number
+                        [(ngModel)]="GoodsOutlist.withdrawal_qty"
+                        name="withdrawalQuantity_{{ postIndex }}"
+                        value="{{ GoodsOutlist.withdrawal_qty }}"
+                        [step]="step"
+                        min="1"
+                        [max]="GoodsOutlist.maxQTY"
+                        (ngModelChange)="inputValueChange()"
+                        [invalid]="invalidwithdrawalQuantity[postIndex]"
+                        [required]="issueOutRequired[postIndex]"
+                        invalidText="Invalid Quantity"
+                        [attr.required]="required || null"
+                      >
+                      </ibm-number>
+                    </td>
+                    <td style="text-align: right">
+                      {{ GoodsOutlist.remainingQTY }}
+
+                      <!-- {{GoodsOutlist.maxQTY - GoodsOutlist.withdrawal_qty}} -->
+                    </td>
+                    <!-- <td>
+                                            {{GoodsOutlist.totalValue}}
+                                        </td> -->
+                    <td>
+                      <ibm-checkbox
+                        name="checkbox_{{ GoodsOutModal.id }}"
+                        [(ngModel)]="GoodsOutlist.Selected"
+                        (ngModelChange)="onSelectGoodsOutlist($event)"
+                      >
+                      </ibm-checkbox>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </ibm-table-container>
+        </div>
+
+        <div
+          class="form-item width-unset out-goodsList"
+          *ngIf="temporaryTableSelected"
+        >
+          <ibm-table-container>
+            <ibm-table-header>
+              <h4 ibmTableHeaderTitle>Temporary Out Goods</h4>
+              <p ibmTableHeaderDescription>
+                Please add required goods in the table below. To remove, select
+                the check box and press remove button in the console
+              </p>
+            </ibm-table-header>
+            <ibm-table-toolbar>
+              <ibm-table-toolbar-content
+                *ngIf="!checkLengthTemporaryGoodsOut()"
+              >
+                <button
+                  type="button"
+                  ibmButton="secondary"
+                  class="reset1Btn"
+                  (click)="resetTable()"
+                >
+                  Reset
+                </button>
+                <button
+                  ibmButton="primary"
+                  type="button"
+                  class="addNewBtn"
+                  (click)="GoodsDetailModal()"
+                >
+                  Add new
+                  <div class="icon-btn" ibmIcon="add" size="20"></div>
+                </button>
+              </ibm-table-toolbar-content>
+              <div class="table-action" *ngIf="checkLengthTemporaryGoodsOut()">
+                <div class="actions">
+                  <div class="del">
+                    <Button
+                      ibmButton="primary"
+                      size="sm"
+                      type="button"
+                      (click)="deleteTemporaryGoodsOut()"
+                    >
+                      Delete
+                      <div
+                        class="icon-trashCan"
+                        ibmIcon="trash-can"
+                        size="20"
+                      ></div>
+                    </Button>
+                  </div>
+                  <div class="cancel">
+                    <button
+                      ibmButton="primary"
+                      size="sm"
+                      type="button"
+                      (click)="cancelMethodTemporaryGoodsOut()"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </ibm-table-toolbar>
+
+            <div class="horizontal-overflow-table">
+              <table id="tempOutGoodsTable" class="bx--data-table">
+                <thead>
+                  <tr>
+                    <th class="header1">No.</th>
+                    <th class="header2">Form No.</th>
+                    <th class="header3">Goods Description</th>
+                    <th class="header4" style="text-align: right">Withdrawal Qty.</th>
+                    <th class="header5" style="text-align: right">Remaining Qty.</th>
+                    <!-- <th class="header6">Total Value (RM)</th> -->
+                    <th class="header7">Form Type</th>
+                    <!-- <th class="header8">Form No.</th> -->
+                    <th class="header9">Action</th>
+                  </tr>
+                </thead>
+
+                <tbody class="white-bg">
+                  <tr
+                    *ngIf="listOfTemporaryGoodsOut.length == 0"
+                    [ngClass]="{ 'invalid-tableRow': goodsOutTableInvalid }"
+                  >
+                    <td align="center" colspan="8">
+                      No data is entered yet. Please add a new entry
+                    </td>
+                  </tr>
+
+                  <tr
+                    *ngFor="
+                      let TemporaryGoodsOutlist of listOfTemporaryGoodsOut;
+                      let postIndex = index
+                    "
+                    class="white-bg"
+                  >
+                    <td>{{ postIndex + 1 }}</td>
+                    <td>
+                      {{ TemporaryGoodsOutlist.registration_no }}
+                    </td>
+                    <td>
+                      {{ TemporaryGoodsOutlist.goodsDescription }}
+                    </td>
+                    <td class="w-130" style="text-align: right">
+                      <ibm-number
+                        [(ngModel)]="TemporaryGoodsOutlist.withdrawal_qty"
+                        name="withdrawalQuantity_{{ postIndex }}"
+                        value="{{ TemporaryGoodsOutlist.withdrawal_qty }}"
+                        [step]="step"
+                        min="1"
+                        [max]="TemporaryGoodsOutlist.maxQTY"
+                        (ngModelChange)="inputValueChange()"
+                        [required]="withdrawalTemporary[postIndex]"
+                        [invalid]="
+                          invalidwithdrawalQuantityTemporary[postIndex]
+                        "
+                        invalidText="Invalid Quantity"
+                        required
+                      >
+                      </ibm-number>
+                    </td>
+                    <td style="text-align: right">
+                      {{ TemporaryGoodsOutlist.remainingQTY }}
+                    </td>
+                    <!-- <td>
+
+                                            {{TemporaryGoodsOutlist.totalValue}}
+                                        </td> -->
+                    <td>
+                      {{ TemporaryGoodsOutlist.form_type }}
+                    </td>
+                    <!-- <td>
+                                            <ibm-label [invalid]="invalidGoodsFormNo[postIndex]" invalidText="Form No. Required" class="pb-10">
+                                                <input ibmText type="text" name="goodsFormNo_{{TemporaryGoodsOutlist.id}}" value="{{TemporaryGoodsOutlist.form_number}}" [invalid]="invalidGoodsFormNo[postIndex]" [(ngModel)]="TemporaryGoodsOutlist.form_number" (ngModelChange)="inputValueChange()" [required]="formNoTemporary[postIndex]">
+                                            </ibm-label>
+                                        </td> -->
+                    <td>
+                      <ibm-checkbox
+                        name="checkbox_{{ GoodsOutModal.id }}"
+                        [(ngModel)]="TemporaryGoodsOutlist.Selected"
+                        (ngModelChange)="onSelectGoodsOutlist($event)"
+                      >
+                      </ibm-checkbox>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </ibm-table-container>
+        </div>
+        <!-- <div #returnDateElement tabindex="3" *ngIf="temporaryTableSelected" class="form-item-date"> -->
+        <!-- <div *ngIf="GoodsOut.transactionType == 'ISSUE_OUT'" #returnDateElement tabindex="3" class="form-item-date">
+
+                    <ibm-date-picker label="Due Date (optional)" [placeholder]="placeholder" [size]="size" [dateFormat]="dateFormat" [(ngModel)]="expectedReturnDate" name="expectedReturnDate" [invalid]="invalidexpectedReturnDate" invalidText="{{invalidTextReturnDate}}" (change)="dateValueChange($event)">
+                    </ibm-date-picker>
+                    <div *ngIf="backDatedDate" class="invalid-class-label">Please select today's date or after today's date</div>
+                    <div *ngIf="invalidSingleDate" class="invalid-class-label">Date Required</div>
+                </div> -->
+
+        <div
+          class="form-item width-unset"
+          style="
+            display: flex;
+            justify-content: space-between;
+            padding-top: 35px;
+          "
+        >
+          <div>
+            <button
+              ibmButton="secondary"
+              type="button"
+              (click)="redirectToPrevious()"
+            >
+              Back
+            </button>
+            <!-- <button class="ml-24" ibmButton="ghost" type="button" [disabled]="deleteDisabled" (click)="openDeleteModal()">Delete</button> -->
+            <button
+              class="ml-24"
+              ibmButton="secondary"
+              type="button"
+              [disabled]="deleteDisabled"
+              (click)="openDeleteModal()"
+            >
+              Cancel Request
+            </button>
+            <button
+              class="ml-24"
+              type="button"
+              ibmButton="ghost"
+              (click)="openSaveModal()"
+              [disabled]="buttonSubmitDisabled"
+            >
+              Save
+            </button>
+          </div>
+          <div>
+            <button
+              type="button"
+              ibmButton="primary"
+              (click)="openSubmitModal()"
+              [disabled]="buttonSubmitDisabled"
+            >
+              Submit for KSB Approval
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal-->
+    <div ibmRow>
+      <div ibmCol [columnNumbers]="{ lg: 10 }">
+        <ibm-modal [open]="openModal" (overlaySelected)="openModal = false">
+          <ibm-modal-header (closeSelect)="openModal = false">
+            <h3 ibmModalHeaderHeading>Confirmation</h3>
+          </ibm-modal-header>
+          <section ibmModalContent style="height: unset">
+            <h3
+              ibmModalContentText
+              *ngIf="viewSaveModal"
+              class="bx--modal-content__regular-content modal-text"
+            >
+              Are you sure want to save?<br />
+              Kindly make sure all details are correct.
+            </h3>
+            <h3
+              ibmModalContentText
+              *ngIf="viewSubmitModal"
+              class="bx--modal-content__regular-content modal-text"
+            >
+              Are you sure want to submit?<br />
+              Kindly make sure all details are correct.
+            </h3>
+            <h3
+              ibmModalContentText
+              *ngIf="viewDeleteModal"
+              class="bx--modal-content__regular-content modal-text"
+            >
+              Are you sure want to cancel this item?
+            </h3>
+          </section>
+          <ibm-modal-footer>
+            <button
+              class="bx--btn bx--btn--secondary"
+              (click)="openModal = false"
+            >
+              Back
+            </button>
+            <button
+              class="bx--btn bx--btn--primary"
+              *ngIf="viewSaveModal"
+              (click)="onSaveSubmit()"
+              [disabled]="isLoading"
+            >
+              Save
+            </button>
+
+            <button
+              type="submit"
+              class="bx--btn bx--btn--primary"
+              *ngIf="viewSubmitModal"
+              (click)="onKSBApprovalSubmit()"
+              [disabled]="isLoading"
+            >
+              Submit
+            </button>
+
+            <button
+              type="button"
+              class="bx--btn bx--btn--primary"
+              *ngIf="viewDeleteModal"
+              (click)="cancelSubmission()"
+              [disabled]="isLoading"
+            >
+              Cancel
+            </button>
+          </ibm-modal-footer>
+        </ibm-modal>
+      </div>
+    </div>
+  </form>
+</div>
+<!-- Goods Out Table Modal -->
+<ibm-modal
+  [open]="OutGoodsModal"
+  [trigger]="OutGoodsModalTrigger"
+  (overlaySelected)="OutGoodsModal = false"
+  class="modal-width"
+>
+  <ibm-modal-header (closeSelect)="OutGoodsModal = false">
+    <p class="bx--modal-header__label bx--type-delta">Add Goods</p>
+    <p class="bx--modal-header__heading bx--type-beta">Goods Details</p>
+  </ibm-modal-header>
+  <!-- <div ibmGrid class="bx--grid--full-width" style="padding-bottom: 133px;">
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-33">
+
+            <div ibmCol [columnNumbers]="{'lg': 12, 'md': 10, 'sm': 6}" class="pl-0 pr-0">
+            </div>
+        </div>
+    </div> -->
+  <section ibmModalContent>
+    <form
+      #goodsOutModalForm="ngForm"
+      (ngSubmit)="onSubmitGoodsOutModal(goodsOutModalForm)"
+    >
+      <div class="bx--modal-content">
+        <div
+          class="bx--text-input__field-wrapper"
+          style="align-items: flex-end"
+        >
+          <ibm-combo-box
+            *ngIf="formNumberListed"
+            class="width-35"
+            label="Form No."
+            [appendInline]="true"
+            [dropUp]="false"
+            itemValueKey="content"
+            required
+            invalidText="Form No Required"
+            [invalid]="invalidFormNumber"
+            name="formNumber"
+            [disabled]="formNumberDisabled"
+            [(ngModel)]="formNumberComboListModel"
+            [items]="formNumberComboList"
+            (search)="onSearch($event)"
+            (selected)="onSelectedCombo($event)"
+          >
+            <ibm-dropdown-list></ibm-dropdown-list>
+          </ibm-combo-box>
+
+          <!-- <button class="ml-24 loadDataBtn" [ngClass]="{'modal-add-new': invalidFormNumber}" ibmButton="primary" (click)="loadDataButton()" size="sm">
+                Load Data
+            </button> -->
+        </div>
+
+        <div ibmRow class="form-item width-unset pt-32">
+          <div
+            ibmCol
+            [columnNumbers]="{ lg: 12, md: 10, sm: 6 }"
+            class="pl-0 pr-0"
+          >
+            <ibm-table-container class="table-style">
+              <div class="horizontal-overflow-table">
+                <table id="GoodsOutModalTable" class="bx--data-table">
+                  <thead>
+                    <tr>
+                      <th>Action</th>
+                      <th>No.</th>
+                      <th>Form Type</th>
+                      <th>Form No.</th>
+                      <th>Goods Description</th>
+                      <th style="text-align: right">Original Qty.</th>
+                      <th style="text-align: right">Current Qty.</th>
+                      <th style="text-align: right">Value (RM)</th>
+                    </tr>
+                  </thead>
+
+                  <tbody class="white-bg">
+                    <tr *ngIf="listOfGoodsOutModal.length == 0">
+                      <td align="center" colspan="8">
+                        No data is entered yet. Please add a new entry
+                      </td>
+                    </tr>
+                    <tr
+                      *ngFor="
+                        let GoodsOutModal of listOfGoodsOutModal;
+                        let postIndex = index
+                      "
+                      class="white-bg"
+                    >
+                      <td>
+                        <ibm-checkbox
+                          name="checkbox_{{ GoodsOutModal.id }}"
+                          [(ngModel)]="GoodsOutModal.Selected"
+                          (ngModelChange)="onSelectGoodsOutModal($event)"
+                        >
+                        </ibm-checkbox>
+                      </td>
+                      <td>{{ postIndex + 1 }}</td>
+                      <td>
+                        {{ GoodsOutModal.form_type }}
+                      </td>
+                      <td>
+                        {{ GoodsOutModal.registration_no }}
+                      </td>
+                      <td>
+                        {{ GoodsOutModal.goodsDescription }}
+                      </td>
+                      <td style="text-align: right">
+                        {{ GoodsOutModal.originalQTY }}
+                      </td>
+                      <td style="text-align: right">
+                        {{ GoodsOutModal.currentQTY }}
+                      </td>
+                      <td style="text-align: right">
+                        {{ addZeroes(GoodsOutModal.value) }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </ibm-table-container>
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <ibm-modal-footer>
+    <ng-container>
+      <button
+        class="bx--btn bx--btn--secondary"
+        (click)="OutGoodsModal = false"
+      >
+        Close
+      </button>
+      <button
+        *ngIf="issueOutTableSelected"
+        ibmButton="primary"
+        (click)="OutGoodsModalButton()"
+        [disabled]="outGoodsModalDisabled"
+        [attr.modal-primary-focus]="true"
+      >
+        Add To Goods Out
+      </button>
+      <button
+        *ngIf="temporaryTableSelected"
+        ibmButton="primary"
+        (click)="OutGoodsModalButtonTemporary()"
+        [disabled]="tempporaryOutGoodsModalDisabled"
+        [attr.modal-primary-focus]="true"
+      >
+        Add To Temporary Out
+      </button>
+    </ng-container>
+  </ibm-modal-footer>
+</ibm-modal>
+
+<!-- Return Goods Table Modal -->
+<!-- <ibm-modal [open]="ReturnGoodsModal" [trigger]="ReturnGoodsModalTrigger" (overlaySelected)="ReturnGoodsModal = false" class="ReturnGoodsModal-width">
+
+    <ibm-modal-header (closeSelect)="ReturnGoodsModal = false">
+        <p class="bx--modal-header__label bx--type-delta">Add Goods</p>
+        <p class="bx--modal-header__heading bx--type-beta">Return Goods Details</p>
+    </ibm-modal-header>
+
+    <div class="bx--modal-content">
+
+
+        <ibm-radio-group orientation="vertical" name="goodsType" [(ngModel)]="typesOfGoodsSelected" (change)="onChangeGoodType($event)">
+
+            <ibm-radio value="{{typeOfGoods[0].value}}" class="d-flex-row pb-8" [checked]="!goodsTypeDropDownDisabled">
+                {{typeOfGoods[0].type}}
+
+            </ibm-radio>
+
+            <ibm-dropdown [disabled]="goodsTypeDropDownDisabled" class="full-width existing-goods-dropdown" placeholder="Select" [dropUp]="false" itemValueKey="content" name="existingGoods" [(ngModel)]="existingGoodsDropDown" [invalid]="invalidExistingGoods" invalidText="Existing Goods Required"
+                required (selected)="existingGoodsDropdownChange($event)" [appendInline]="true">
+                <ibm-dropdown-list [items]="existingGoodsList"></ibm-dropdown-list>
+            </ibm-dropdown>
+
+            <ibm-radio [checked]="!goodsTypeTxtAreaDisabled" value="{{typeOfGoods[1].value}}" class="d-flex-row pt-32">
+                {{typeOfGoods[1].type}}
+
+
+            </ibm-radio>
+            <ibm-label class="full-width" [invalid]="invalidNewGoodsDescription" invalidText="Please specify">
+                <textarea [(ngModel)]="newGoodsDescription" [invalid]="invalidNewGoodsDescription" (click)="txtAreaClick()" class="full-width" ibmTextArea [rows]="7" placeholder="(Please specify)" (ngModelChange)="returnModalInputChange()"></textarea>
+            </ibm-label>
+        </ibm-radio-group>
+
+
+
+        <div *ngIf="goodsTypeTxtAreaDisabled" ibmRow class="pt-32">
+            <div ibmCol [columnNumbers]="{ 'lg':4 }" class="ph01">
+                Original Quantity
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bs01">
+                {{RGOriginalQuantity}}
+            </div>
+        </div>
+
+        <div *ngIf="goodsTypeTxtAreaDisabled" ibmRow class="pt-32">
+            <div ibmCol [columnNumbers]="{ 'lg':4 }" class="ph01">
+                Current Quantity
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bs01">
+                {{RGCurrentQuantity}}
+            </div>
+        </div>
+
+        <ibm-number *ngIf="goodsTypeTxtAreaDisabled" class="width pt-32" label="Return Quantity" [(ngModel)]="RGReturnQuantity" name="returnQuantity" value="{{RGReturnQuantity}}" [step]="step" min="1" [max]="RGCurrentQuantity" (ngModelChange)="returnGoodsQuantityChange(RGReturnQuantity)"
+            [invalid]="invalidwithReturnQuantity" invalidText="Invalid Quantity" required>
+        </ibm-number>
+        <ibm-number *ngIf="!goodsTypeTxtAreaDisabled" class="width pt-32" label="Return Quantity" [(ngModel)]="RGReturnQuantity" name="returnQuantity" value="{{RGReturnQuantity}}" [step]="step" min="1" (ngModelChange)="returnGoodsQuantityChange(RGReturnQuantity)"
+            [invalid]="invalidwithReturnQuantity" invalidText="Invalid Quantity" required>
+        </ibm-number>
+
+        <ibm-label class="pb-10 pt-32" [invalid]="invalidModalValue" invalidText="Please insert value">
+            Value (RM) *per item
+            <input [(ngModel)]="RGValue" [invalid]="invalidModalValue" name="returnGoodsValue" (ngModelChange)="returnGoodsValueChange(RGValue)" ibmText type="text" placeholder="0.00" value="{{RGValue}}">
+        </ibm-label>
+
+        <div ibmRow class="pt-32">
+            <div ibmCol [columnNumbers]="{ 'lg':4 }" class="ph01">
+                Total Value (RM)
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bs01">
+                {{RGTotalValue}}
+            </div>
+        </div>
+
+        <div ibmRow class="pt-32">
+            <div ibmCol [columnNumbers]="{ 'lg':4 }" class="ph01">
+                Form Type
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bs01">
+                {{RGFormType}}
+            </div>
+        </div>
+
+        <ibm-label class="pt-32 pb-64">
+            Form No.
+            <input ibmText [invalid]="invalidReturnModalFormNo" name="returnModalFormNo" [(ngModel)]="returnModalFormNo" [required]="true" (change)="returnModalInputChange()" (input)="validateFormNoLength($event)">
+        </ibm-label>
+
+    </div>
+
+    <ibm-modal-footer>
+        <ng-container>
+            <button class="bx--btn bx--btn--secondary" (click)="ReturnGoodsModal = false">Cancel</button>
+            <button ibmButton="primary" (click)="saveReturnGoodsModal()" [attr.modal-primary-focus]="true">
+                Save
+            </button>
+        </ng-container>
+    </ibm-modal-footer>
+
+</ibm-modal> -->

@@ -1,0 +1,26 @@
+{
+  "name": "cuba-rest-js",
+  "description": "JavaScript library for working with CUBA Platform's REST API v2",
+  "main": [
+    "dist-browser/cuba.js"
+  ],
+  "ignore": [
+    "*",
+    "!/dist-browser/*",
+    "!/package.json",
+    "!/bower.json"
+  ],
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/cuba-platform/cuba-rest-js",
+  "version": "0.6.0",
+  "_release": "0.6.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.6.0",
+    "commit": "75ac3a66f5b57dec3bd2c9a734175fba423c6862"
+  },
+  "_source": "https://github.com/cuba-platform/cuba-rest-js.git",
+  "_target": "^0.6.0",
+  "_originalSource": "cuba-platform/cuba-rest-js",
+  "_direct": true
+}

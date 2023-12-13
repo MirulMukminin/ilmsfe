@@ -1,0 +1,240 @@
+@import "~carbon-components/scss/globals/scss/vendor/@carbon/type/scss/font-family";
+@import "~carbon-components/scss/globals/scss/typography";
+
+.combobox {
+    min-width: 564px;
+    // max-width: 564px;
+}
+
+.pt-32 {
+    padding-top: 32px;
+}
+
+.pt-64 {
+    padding-top: 64px;
+}
+
+.indicator-class {
+    padding: 50px;
+}
+
+.form-item {
+    padding-bottom: 32px;
+}
+
+.mt-32 {
+    margin-top: 32px;
+}
+
+.selectedItem {
+    top: 15px;
+    position: absolute;
+    left: 20px;
+    color: #ffff;
+}
+
+.table-action {
+    background: #0f62fe;
+    width: 100%;
+}
+
+.actions {
+    display: flex;
+    float: right;
+}
+
+.del,
+.cancel {
+    padding-top: 7px;
+}
+
+.del button {
+    border-right: 2px solid white;
+}
+
+.cancel button,
+.del button {
+    padding: 0px 20px;
+}
+
+
+.icon-addAlt {
+    position: relative;
+    left: 40px;
+    top: 2px;
+}
+
+.icon-trashCan {
+    position: relative;
+    left: 9px;
+    top: 1px;
+  }
+
+.icon-close {
+    height: 20px;
+    position: relative;
+    left: -6%;
+    top: 64px;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.bx--data-table tbody tr td {
+    background-color: #ffff;
+}
+
+.bx--data-table tbody tr td.no-data {
+    color: #161616;
+}
+
+.white-bg {
+    background-color: #fff;
+}
+
+.table-header-berth-form-step2 {
+    padding-left: 0px;
+}
+
+.full-width {
+    width: 100%
+}
+
+.invalid-class-label {
+    color: #da1e28;
+    max-height: 12.5rem;
+    font-weight: 400;
+    margin: 0.25rem 0 0;
+    line-height: 1.34;
+    letter-spacing: 0.32px;
+    font-size: 0.75rem;
+}
+
+.downloadBtn {
+    text-align: left;
+    padding: 0;
+  }
+  
+  .downloadBtn:hover {
+    background-color: transparent;
+  }
+
+  
+
+  
+
+::ng-deep {
+
+    @media screen and (min-width: 1441px) {
+        .stepIndicator .bx--progress-step {
+            width: 25% !important;
+        }
+    }
+
+    @media screen and (max-width: 1440px) and (min-width: 768px) {
+        .stepIndicator .bx--progress-step {
+            width: 30% !important;
+        }
+
+        .bx--date-picker__input {
+            width: 16rem !important;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        .bx--date-picker__input {
+            width: 15rem !important;
+        }
+
+        .stepIndicator .bx--progress {
+            width: 50rem !important;
+        }
+
+        .indicator .indicator-wrapper {
+            width: 47rem !important;
+        }
+
+        .stepIndicator .bx--progress-step {
+            width: 30% !important;
+        }
+    }
+
+    
+    
+
+    .invalid-icon-50 .bx--text-area__invalid-icon {
+        top: 1.1rem;
+    }
+
+    .invalid-file .bx--file .bx--file-browse-btn {
+        outline: 2px solid #da1e28;
+        outline-offset: -2px;
+    }
+    
+    .stepOneModal ibm-overlay .bx--modal .bx--modal-container {
+        background-color: #ffffff;
+        width: 629px;
+    }
+    .stepOneModal ibm-overlay .bx--modal .bx--modal-container .bx--modal-content .bx--text-input__field-wrapper {
+        display: flex;
+        flex-direction: column;
+    }
+    .stepOneModal ibm-overlay .bx--modal .bx--modal-container .bx--modal-content .bx--text-input__field-wrapper .form-item .bx--dropdown__wrapper .bx--list-box,
+    .stepOneModal ibm-overlay .bx--modal .bx--modal-container .bx--modal-content .bx--text-input__field-wrapper .form-item .bx--form-item .bx--text-input__field-wrapper .bx--text-input {
+        background-color: #f4f4f4;
+    }
+    .stepOneModal ibm-overlay .bx--modal .bx--modal-container .bx--modal-content--overflow-indicator {
+        background-image: linear-gradient(to bottom, transparent, #ffff);
+        height: unset;
+    }
+    .indicator .bx--progress-line {
+        bottom: -25px;
+    }
+    .bx--progress-step--complete .bx--progress-line {
+        width: 100%
+    }
+    .bx--progress-step {
+        width: 20%
+    }
+    .bx--progress-step--incomplete {
+        width: 20%
+    }
+    .bx--progress-step--current .bx--progress-line {
+        width: 100%
+    }
+    .bx--progress-step--incomplete .bx--progress-line {
+        width: 100%
+    }
+    .bx--progress-step svg {
+        width: 1.5rem;
+        height: 1.5rem;
+        margin: 1.1rem 0.5rem 0 0;
+        // fix broken circle
+        border-radius: 0px;
+    }
+    .bx--progress-label {
+        font-size: 18px;
+        font-weight: 600;
+    }
+    .bx--progress-optional {
+        margin-left: 32px;
+        font-size: 18px;
+    }
+    .indicator .bx--progress-line {
+        bottom: -25px;
+    }
+    .bx--tabs--scrollable .bx--tabs--scrollable__nav {
+        width: 100%;
+    }
+    .bx--tabs--scrollable__nav-link {
+        width: 100% !important;
+    }
+
+    .dropdownTime .bx--dropdown {
+        height: 48px !important;
+    }
+    
+    .dropdownTime .bx--list-box {
+        max-height: 48px !important;
+    }
+}

@@ -1,0 +1,109 @@
+<div class="pt-32">
+  <ibm-table-container>
+    <ibm-table-header>
+      <h4 ibmTableHeaderTitle style="font-size: 1.25rem">
+        General Works Request
+      </h4>
+
+      <span ibmTableHeaderDescription
+        >Please fill in the forms below for any service request from KSB</span
+      >
+    </ibm-table-header>
+
+    <div>
+      <table class="bx--data-table">
+        <thead>
+          <tr>
+            <th style="width: 60px">Select</th>
+            <th style="width: 20%">Item</th>
+            <th>Remarks</th>
+          </tr>
+        </thead>
+
+        <tbody
+          [ngClass]="{ 'invalid-class': generalWorksInvalid }"
+          class="white-bg"
+        >
+          <tr
+            *ngFor="
+              let generalWorks of listOfGeneralWorks;
+              let postIndex = index
+            "
+            class="white-bg"
+          >
+            <td>
+              <ibm-checkbox
+                name="checkbox_{{ generalWorks.id }}"
+                [(ngModel)]="generalWorks.Selected"
+                (ngModelChange)="onSelected()"
+              >
+              </ibm-checkbox>
+            </td>
+            <td>
+              {{ generalWorks.Item }}
+            </td>
+            <td class="w-130">
+              <ibm-label
+                [invalid]="invalidRemarks[postIndex]"
+                invalidText="Remarks Required"
+                class="pb-10"
+              >
+                <input
+                  ibmText
+                  type="text"
+                  name="remarks{{ generalWorks.id }}"
+                  value="{{ generalWorks.Remarks }}"
+                  [invalid]="invalidRemarks[postIndex]"
+                  [(ngModel)]="generalWorks.Remarks"
+                  (ngModelChange)="validateRemarks(postIndex)"
+                  maxlength="100"
+                  required
+                />
+              </ibm-label>
+            </td>
+          </tr>
+        </tbody>
+        <div
+          style="width: 200px"
+          *ngIf="generalWorksInvalid"
+          class="invalid-class-label"
+        >
+          Please select one or more item
+        </div>
+      </table>
+    </div>
+  </ibm-table-container>
+
+  <div ibmRow class="pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 10, md: 10, sm: 6 }">
+      <div class="form-item">
+        <div class="btn-action">
+          <button
+            type="button"
+            ibmButton="secondary"
+            style="margin-right: 24px"
+            (click)="changeStep(0)"
+          >
+            Back
+          </button>
+          <button
+            (click)="onSave()"
+            type="button"
+            ibmButton="primary"
+            style="margin-right: 24px"
+          >
+            Save
+          </button>
+          <button
+            type="submit"
+            ibmButton="primary"
+            (click)="changeStep(2)"
+            [disabled]="!onSubmit"
+          >
+            Preview
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

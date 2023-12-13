@@ -1,0 +1,58 @@
+.white-bg {
+  background-color: #fff;
+}
+
+.white-bg td {
+  background: #ffff;
+}
+
+.pt-24 {
+  padding-top: 24px;
+}
+
+.table-action {
+  background: #0f62fe;
+  width: 100%;
+}
+
+.actions {
+  display: flex;
+  float: right;
+}
+
+.selectedItem {
+  top: 15px;
+  position: absolute;
+  left: 20px;
+  color: #ffff;
+}
+
+.del,
+.cancel {
+  padding-top: 7px;
+}
+
+.del button {
+  border-right: 2px solid white;
+}
+
+.cancel button,
+.del button {
+  padding: 0px 20px;
+}
+
+.del img {
+  left: -39%;
+  position: relative;
+  top: 15%;
+}
+
+.icon-trashCan {
+  position: relative;
+  left: 9px;
+  top: 1px;
+}
+
+.bx--data-table tr {
+  height: 4rem;
+}

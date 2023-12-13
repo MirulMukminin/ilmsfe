@@ -1,0 +1,223 @@
+<ibm-loading *ngIf="isLoading" [isActive]="isLoading" size="normal" [overlay]="overlay">
+</ibm-loading>
+<div ibmGrid class="bx--grid--full-width pb-133">
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32 hidden-in-print">
+        <div ibmCol [columnNumbers]="{'lg': 10, 'md': 10, 'sm': 10}">
+            <ibm-breadcrumb [noTrailingSlash]="true">
+                <ibm-breadcrumb-item [current]="true" href="#1">
+                    Warehouse Management System
+                </ibm-breadcrumb-item>
+                <ibm-breadcrumb-item>
+                    <a style="text-decoration: none;" [routerLink]="['/wms/psb-inventory-list']">Petroleum Supply Base</a>
+                </ibm-breadcrumb-item>
+                <ibm-breadcrumb-item>
+                    <a style="text-decoration: none;" [routerLink]="['/wms/psb-transfer-location-list']">Transfer Location</a>
+                </ibm-breadcrumb-item>
+                <ibm-breadcrumb-item [current]="true" href="#2">
+                    Request Form
+                </ibm-breadcrumb-item>
+            </ibm-breadcrumb>
+        </div>
+    </div>
+
+    <div class="printable">
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24 printable-special">
+            <div ibmCol [columnNumbers]="{'lg': 12, 'md': 12, 'sm': 12}">
+                <div style="width: 100%;">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td style="vertical-align: middle;">
+                                    <img src="./assets/images/KSB_Logo.png" alt="KSB logo" style="
+                                width: 80px;">
+                                </td>
+                                <td style="padding-top: 25px;padding-bottom: 20px;">
+                                    <p class="title-text">
+                                        PANGKALAN BEKALAN KEMAMAN SDN. BHD. (69363-D)
+                                    </p>
+                                    <p class="ph01" style="padding-top: 5px;">
+                                        A Subsidiary of Eastern Pacific Industrial Corporation Bhd.
+                                    </p>
+                                    <p class="letter-header-Text">
+                                        P.O Box 64, 24007 Kemaman, Terengganu Darul Iman, Malaysia
+                                    </p>
+                                    <p class="letter-header-Text">
+                                        Tel : 09 - 860 2343, 860 2344 Fax : 09 - 869 1191
+                                    </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+            <div ibmCol [columnNumbers]="{'lg': 6, 'md': 6, 'sm': 6}" class="pl-0 pr-0">
+                <div class="title">
+                    <span class="ph03">Transfer Location Request Form</span>
+                </div>
+            </div>
+        </div>
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Company Name
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="bl01">
+                {{companyName}}
+            </div>
+        </div>
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Request By
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="bl01">
+                {{requestBy}}
+            </div>
+        </div>
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Transfer Date
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="bl01">
+                {{transferDate}}
+            </div>
+        </div>
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Category
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="bl01">
+                {{category}}
+            </div>
+        </div>
+
+        <!-- <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+        <div ibmCol [columnNumbers]="{'lg': 6, 'md': 6, 'sm': 6}" class="pl-0 pr-0">
+            <div class="d-flex">
+                <div class="w-40"><span class="ph01 text-bold">Type of Goods</span></div>
+                <div><span class="bs01">Dangerous Chemical</span></div>
+            </div>
+        </div>
+    </div> -->
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Remarks
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="bl01">
+                {{remarks}}
+            </div>
+        </div>
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64">
+            <div ibmCol [columnNumbers]="{'lg': 12, 'md': 10, 'sm': 6}" class="pl-0 pr-0">
+
+                <ibm-table-container>
+                    <ibm-table-header class="white-bg">
+                        <h4 ibmTableHeaderTitle>From Location</h4>
+                    </ibm-table-header>
+                    <div class="horizontal-overflow-table">
+                        <table class="bx--data-table">
+
+                            <thead>
+                                <tr>
+                                    <th scope="col" ibmTableHeadCell *ngFor="let column of fromLocationModal.header" [column]="column">
+
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr ibmTableRow *ngFor="let data of fromLocation; let index=index" class="tr-border">
+                                    <td>{{index + 1}}</td>
+                                    <td>{{ data.item }}</td>
+                                    <td>{{ data.formtype }}</td>
+                                    <td>{{ data.regNo }}</td>
+                                    <td style="text-align: right">{{ data.qty }}</td>
+                                    <td>{{ data.location }}</td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                </ibm-table-container>
+
+            </div>
+        </div>
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64">
+            <div ibmCol [columnNumbers]="{'lg': 12, 'md': 10, 'sm': 6}" class="pl-0 pr-0">
+
+                <ibm-table-container>
+                    <ibm-table-header class="white-bg">
+                        <h4 ibmTableHeaderTitle>To Location</h4>
+                    </ibm-table-header>
+                    <div class="horizontal-overflow-table">
+                        <table class="bx--data-table">
+
+                            <thead>
+                                <tr>
+                                    <th scope="col" ibmTableHeadCell *ngFor="let column of toLocationModal.header" [column]="column">
+
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr ibmTableRow *ngFor="let data of toLocation; let index=index" class="tr-border">
+                                    <td>{{index + 1}}</td>
+                                    <td>{{ data.item }}</td>
+                                    <td>{{ data.formtype }}</td>
+                                    <td>{{ data.regNo }}</td>
+                                    <td style="text-align: right">{{ data.qty }}</td>
+                                    <td>{{ data.location }}</td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+                    </div>
+
+                    <div class="pt-64 hidden-in-print">
+                        <hr>
+                    </div>
+                </ibm-table-container>
+
+            </div>
+        </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32 hidden-in-print">
+        <div ibmCol [columnNumbers]="{'lg': 12, 'md': 10, 'sm': 5}" class="d-flex-row" style="justify-content: flex-start;" *ngIf="submitted">
+            <button ibmButton="secondary" size="md" [routerLink]="['/wms/psb-transfer-location-list']">Back</button>
+            <button class="ml-24" ibmButton="secondary" size="md" (click)="onPrint()">Print</button>
+        </div>
+        <div ibmCol [columnNumbers]="{'lg': 12, 'md': 10, 'sm': 5}" class="d-flex-row" style="justify-content: flex-end;" *ngIf="!submitted">
+            <button ibmButton="secondary" size="md" (click)="edit()">Edit</button>
+            <button class="ml-24" ibmButton="primary" size="md" (click)="open = true">Confirm</button>
+        </div>
+    </div>
+
+</div>
+
+
+<ibm-modal [open]="open" (overlaySelected)="open = false">
+    <ibm-modal-header (closeSelect)="open = false" class="ph03">
+        <div style="font-weight: bold;" class="d-flex-row">Confirmation</div>
+        <div class="d-flex-row pb-48">Are you sure want to submit? Kindly make sure all details are correct.</div>
+    </ibm-modal-header>
+    <ibm-modal-footer>
+        <button ibmButton="secondary" (click)="open = false">Cancel</button>
+        <button ibmButton="primary" (click)="open = false" (click)="submit()" [disabled]="isLoading">Submit</button>
+    </ibm-modal-footer>
+</ibm-modal>

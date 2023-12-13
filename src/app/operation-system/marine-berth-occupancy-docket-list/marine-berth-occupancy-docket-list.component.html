@@ -1,0 +1,113 @@
+<div ibmGrid class="bx--grid--full-width">
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-33">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+      <ibm-breadcrumb [noTrailingSlash]="true">
+        <ibm-breadcrumb-item [current]="true">
+          Operations System
+        </ibm-breadcrumb-item>
+        <ibm-breadcrumb-item [current]="true">
+          <a routerLink="/operation-system/marine-berth-occupancy-docket-list"
+            >Berth Occupancy Docket</a
+          >
+        </ibm-breadcrumb-item>
+      </ibm-breadcrumb>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-40">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+      <!-- <span class="ph03">Berth Occupancy Docket</span> -->
+      <span class="ph03">Vessel Listings</span>
+    </div>
+  </div>
+
+  <div
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-16 pb-60"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }" class="pl-0 pr-0">
+      <ibm-table-container class="table-style">
+        <ibm-table-header class="white-bg">
+          <span ibmTableHeaderTitle class="ph03"
+            >Berth Occupancy Docket List</span
+          >
+          <p ibmTableHeaderDescription>
+            Current and previous BOD in ILMS application
+          </p>
+        </ibm-table-header>
+
+        <ibm-table-toolbar>
+          <ibm-table-toolbar-content class="white-bg">
+            <ibm-table-toolbar-search
+              (valueChange)="searchFilter($event)"
+              (clear)="searchFilter($event)"
+              [(ngModel)]="searchModel"
+            >
+            </ibm-table-toolbar-search>
+
+            <!-- <button
+              ibmButton="primary"
+              size="sm"
+              type="button"
+              routerLink="/operation-system/marine-berth-occupancy-docket-list"
+              style="width: 180px"
+            >
+              Filter
+              <div class="icon-editAlt" ibmIcon="filter" size="20"></div>
+            </button> -->
+            <button
+              ibmButton="secondary"
+              *ngIf="sortingOn"
+              size="sm"
+              type="button"
+              (click)="userInfo()"
+              (click)="clearSearch()"
+              class="addNew"
+            >
+              Reset Sorting
+              <div class="icon-addAlt" ibmIcon="filter--reset" size="20"></div>
+            </button>
+            <button
+              ibmButton="secondary"
+              size="sm"
+              type="button"
+              class="addNew"
+              (click)="userInfo()"
+            >
+              Refresh
+              <div class="icon-addAlt" ibmIcon="renew" size="20"></div>
+            </button>
+          </ibm-table-toolbar-content>
+        </ibm-table-toolbar>
+
+        <div class="horizontal-overflow-table">
+          <ng-template #customTableItemTemplate let-data="data">
+            <a
+              [routerLink]="[
+                '/operation-system/marine-berth-occupancy-docket-details',
+                data.link
+              ]"
+              >{{ data.bod_number }}</a
+            >
+          </ng-template>
+
+          <ng-template #customTableItemTemplate2 let-data="data">
+            <span style="color: red">{{ data.status }}</span>
+          </ng-template>
+
+          <ibm-table
+            [model]="model"
+            [striped]="false"
+            [showSelectionColumn]="false"
+            (sort)="doSort($event)"
+          ></ibm-table>
+        </div>
+        <ibm-pagination
+          [model]="model"
+          [itemsPerPageOptions]="itemsPerPageOptions"
+          (selectPage)="selectPage($event)"
+        ></ibm-pagination>
+      </ibm-table-container>
+    </div>
+  </div>
+</div>

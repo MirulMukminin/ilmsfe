@@ -1,0 +1,61 @@
+.pt-64 {
+    padding-top: 64px;
+}
+
+.w-40 {
+    width: 40%;
+}
+
+.white-bg {
+    background-color: #ffff;
+}
+
+table tbody .tr-border {
+    border-top: 1px solid #f4f4f4;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.printable-special {
+    display: none;
+}
+
+.pb-133 {
+    padding-bottom: 133px
+}
+
+::ng-deep {
+    @media print {
+        body * {
+            visibility: hidden;
+        }
+        .printable-special {
+            display: revert !important;
+        }
+        .printable,
+        .printable * {
+            visibility: visible;
+            padding: 0px;
+            margin: 3px;
+        }
+        .page-break {
+            page-break-after: always;
+            // padding: 0px;
+            // margin: 0px;
+        }
+        // button {
+        //     display: none !important;
+        // }
+        table {
+            page-break-inside: avoid;
+        }
+        .hidden-in-print {
+            display: none;
+        }
+        .pb-133 {
+            padding-bottom: 0px !important;
+        }
+         ::-webkit-scrollbar {
+            display: none;
+        }
+    }
+}

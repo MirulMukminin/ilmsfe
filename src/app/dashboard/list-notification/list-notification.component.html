@@ -1,0 +1,61 @@
+<ibm-modal [open]="open" (overlaySelected)="open = false">
+
+  <ibm-modal-header (closeSelect)="open = false">
+    <p class="bx--modal-header__heading bx--type-beta">Notifications List</p>
+  </ibm-modal-header>
+
+  <div class="bx--modal-content">
+
+     <ol ibmList  *ngFor="let items of notificationList; let index=index">
+      <li >{{ index + 1 }}.&nbsp;&nbsp;<a [routerLink]="[items.Path,items.JTReqNo]">{{items.JTReqNo}}</a> {{items.StatusMessage}}<br>
+       <p class="bx--modal-header__label">{{items.updateDate}}</p>
+       
+      </li>
+    </ol> 
+    <!-- <ol ibmList>
+      <li ibmListItem><a [routerLink]="[notificationList[0].Path,notificationList[0].JTReqNo]">{{notificationList[0].JTReqNo}}</a> {{notificationList[0].StatusMessage}}<br>
+        <p class="bx--modal-header__label">{{notificationList[0].updatedDate}}</p>
+        
+      </li>
+      <li ibmListItem><a [routerLink]="[notificationList[1].Path,notificationList[1].JTReqNo]">{{notificationList[1].JTReqNo}}</a> {{notificationList[1].StatusMessage}}<br>
+        <p class="bx--modal-header__label">{{notificationList[1].updatedDate}}</p>
+        
+      </li>
+      <li ibmListItem><a [routerLink]="[notificationList[2].Path,notificationList[2].JTReqNo]">{{notificationList[2].JTReqNo}}</a> {{notificationList[2].StatusMessage}}<br>
+        <p class="bx--modal-header__label">{{notificationList[2].updatedDate}}</p>
+        
+      </li>
+      <li ibmListItem><a [routerLink]="[notificationList[3].Path,notificationList[3].JTReqNo]">{{notificationList[3].JTReqNo}}</a> {{notificationList[3].StatusMessage}}<br>
+        <p class="bx--modal-header__label">{{notificationList[3].updatedDate}}</p>
+        
+      </li>
+      <li ibmListItem><a [routerLink]="[notificationList[4].Path,notificationList[4].JTReqNo]">{{notificationList[4].JTReqNo}}</a> {{notificationList[4].StatusMessage}}<br>
+        <p class="bx--modal-header__label">{{notificationList[4].updatedDate}}</p>
+        
+      </li>
+      <li ibmListItem><a [routerLink]="[notificationList[5].Path,notificationList[5].JTReqNo]">{{notificationList[5].JTReqNo}}</a> {{notificationList[5].StatusMessage}}<br>
+        <p class="bx--modal-header__label">{{notificationList[5].updatedDate}}</p>
+        
+      </li>
+      <li ibmListItem><a [routerLink]="[notificationList[6].Path,notificationList[6].JTReqNo]">{{notificationList[6].JTReqNo}}</a> {{notificationList[6].StatusMessage}}<br>
+        <p class="bx--modal-header__label">{{notificationList[6].updatedDate}}</p>
+        
+      </li>
+      <li ibmListItem><a [routerLink]="[notificationList[7].Path,notificationList[7].JTReqNo]">{{notificationList[7].JTReqNo}}</a> {{notificationList[7].StatusMessage}}<br>
+        <p class="bx--modal-header__label">{{notificationList[7].updatedDate}}</p>
+        
+      </li>
+      <li ibmListItem><a [routerLink]="[notificationList[8].Path,notificationList[8].JTReqNo]">{{notificationList[8].JTReqNo}}</a> {{notificationList[8].StatusMessage}}<br>
+        <p class="bx--modal-header__label">{{notificationList[8].updatedDate}}</p>
+        
+      </li>
+      <li ibmListItem><a [routerLink]="[notificationList[9].Path,notificationList[9].JTReqNo]">{{notificationList[9].JTReqNo}}</a> {{notificationList[9].StatusMessage}}<br>
+        <p class="bx--modal-header__label">{{notificationList[9].updatedDate}}</p>
+        
+      </li>
+
+    </ol> -->
+
+  </div>
+
+</ibm-modal>

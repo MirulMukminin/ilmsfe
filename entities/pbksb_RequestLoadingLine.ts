@@ -1,0 +1,81 @@
+import { RequestLine } from "./pbksb_RequestLine";
+export class RequestLoadingLine extends RequestLine {
+  static NAME = "pbksb_RequestLoadingLine";
+}
+export type RequestLoadingLineViewName = "_base" | "_local" | "_minimal";
+export type RequestLoadingLineView<
+  V extends RequestLoadingLineViewName
+> = V extends "_base"
+  ? Pick<
+      RequestLoadingLine,
+      | "id"
+      | "container"
+      | "requestType"
+      | "storageBillingStatus"
+      | "lastBilled"
+      | "containerNumber"
+      | "containerType"
+      | "repairRequest"
+      | "cablingOnVessel"
+      | "fourCoreDNV"
+      | "repair"
+      | "lotNumber"
+      | "storageStartDate"
+      | "storageEndDate"
+      | "plugOnDate"
+      | "plugOffDate"
+      | "plugOn"
+      | "plugOff"
+      | "remarks"
+      | "location"
+      | "temperatureReading"
+      | "temperatureStart"
+      | "temperature"
+      | "requestTicketNumber"
+      | "housekeepingRequired"
+      | "cleaningRequired"
+      | "stuffingRequired"
+      | "outsideInsideBonded"
+      | "containerReturn"
+      | "time"
+      | "status"
+      | "completedDateTime"
+    >
+  : V extends "_local"
+  ? Pick<
+      RequestLoadingLine,
+      | "id"
+      | "requestType"
+      | "storageBillingStatus"
+      | "lastBilled"
+      | "containerNumber"
+      | "containerType"
+      | "repairRequest"
+      | "cablingOnVessel"
+      | "fourCoreDNV"
+      | "repair"
+      | "lotNumber"
+      | "storageStartDate"
+      | "storageEndDate"
+      | "plugOnDate"
+      | "plugOffDate"
+      | "plugOn"
+      | "plugOff"
+      | "remarks"
+      | "location"
+      | "temperatureReading"
+      | "temperatureStart"
+      | "temperature"
+      | "requestTicketNumber"
+      | "housekeepingRequired"
+      | "cleaningRequired"
+      | "stuffingRequired"
+      | "outsideInsideBonded"
+      | "containerReturn"
+      | "time"
+      | "status"
+      | "completedDateTime"
+    >
+  : V extends "_minimal"
+  ? Pick<RequestLoadingLine, "id" | "container">
+  : never;

@@ -1,0 +1,177 @@
+<div ibmRow class="pt-32" style="padding-left: 0rem !important">
+  <!-- <div ibmCol [columnNumbers]="{'lg': 12, 'md': 10, 'sm': 6}"> -->
+  <div ibmCol [columnNumbers]="{ lg: 12 }">
+    <!-- <ibm-tile [theme]="'dark'">
+            <span ibmTableHeaderTitle class="ph03">Heavy Package List</span>
+            <p ibmTableHeaderDescription>Please add the required heavy packages.</p>
+        </ibm-tile> -->
+    <ibm-table-container>
+      <ibm-table-header>
+        <h4>Heavy Package List</h4>
+        <p>Please add the required heavy packages.</p>
+      </ibm-table-header>
+      <ibm-table-toolbar>
+        <ibm-table-toolbar-content *ngIf="!checkSelected()">
+          <button
+            ibmButton="primary"
+            size="sm"
+            type="button"
+            (click)="addItem()"
+          >
+            <span style="margin-right: 42px">Add New Item</span>
+            <div class="icon-addAlt" ibmIcon="add--alt" size="20"></div>
+          </button>
+        </ibm-table-toolbar-content>
+        <div class="table-action" *ngIf="checkSelected()">
+          <div class="actions">
+            <div class="del" *ngIf="checkSelected()">
+              <Button
+                ibmButton="primary"
+                size="sm"
+                type="button"
+                (click)="onClearItem()"
+              >
+                Clear
+                <div
+                  class="icon-trashCan ml-16 mt-4"
+                  ibmIcon="trash-can"
+                  size="20"
+                ></div>
+              </Button>
+            </div>
+            <div class="cancel" *ngIf="checkSelected()">
+              <button
+                ibmButton="primary"
+                size="sm"
+                type="button"
+                (click)="onCancel()"
+              >
+                Cancel
+              </button>
+            </div>
+            <div class="cancel" *ngIf="checkSelected()">
+              <button
+                ibmButton="primary"
+                size="sm"
+                type="button"
+                (click)="onDeleteItem()"
+              >
+                <span style="margin-right: 42px">Delete Item</span>
+                <div class="icon-addAlt" ibmIcon="add--alt" size="20"></div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </ibm-table-toolbar>
+      <div class="">
+        <table class="bx--data-table" #itemDetailTable tabindex="6">
+          <thead>
+            <tr>
+              <th class="bx--table-header-label">No.</th>
+              <th class="bx--table-header-label">Heavy Packages</th>
+              <th class="bx--table-header-label">Weight In (MT)</th>
+              <th class="bx--table-header-label">Weight Out (MT)</th>
+              <th class="bx--table-header-label">Total (MT)</th>
+              <th class="bx--table-header-label" rowspan="2">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngIf="itemList.length == 0"
+              [ngClass]="{ 'invalid-tableRow': externalItemTableInvalid }"
+            >
+              <td align="center" colspan="6">
+                No data is entered yet. Please add new row
+              </td>
+            </tr>
+            <tr
+              *ngFor="let item of itemList; let itemIndex = index"
+              class="white-bg"
+            >
+              <td>{{ itemIndex + 1 }}.</td>
+              <td>
+                <ibm-dropdown
+                  placeholder="Select"
+                  itemValueKey="content"
+                  [dropUp]="false"
+                  [name]="'heavy_packages_' + itemIndex"
+                  [invalid]="item.invalidheavyPackage"
+                  #itemTypeElement
+                  required
+                  [(ngModel)]="item.heavyPackage"
+                  (selected)="heavyPackageSelected($event, itemIndex)"
+                >
+                  <ibm-dropdown-list
+                    [items]="heavyPackageSelect"
+                  ></ibm-dropdown-list>
+                </ibm-dropdown>
+              </td>
+              <td>
+                <ibm-label
+                  ><input
+                    ibmText
+                    [name]="'qty_' + itemIndex"
+                    [(ngModel)]="item.weightIn"
+                    tabindex="5"
+                    (change)="inputValueChange($event, itemIndex)"
+                /></ibm-label>
+              </td>
+              <td>
+                <ibm-label
+                  ><input
+                    ibmText
+                    [name]="'qty_' + itemIndex"
+                    [(ngModel)]="item.weightOut"
+                    tabindex="5"
+                    (change)="inputValueChange($event, itemIndex)"
+                /></ibm-label>
+              </td>
+              <td>{{ item.totalWeight | number : "1.2-2" }}</td>
+              <td>
+                <ibm-checkbox
+                  [hideLabel]="true"
+                  name="checkbox_{{ itemIndex }}"
+                  (change)="onSelected($event, itemIndex)"
+                  [checked]="item.selected"
+                ></ibm-checkbox>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </ibm-table-container>
+  </div>
+</div>
+
+<div ibmRow class="pt-32">
+  <div ibmCol [columnNumbers]="{ lg: 10, md: 10, sm: 6 }">
+    <div class="form-item">
+      <div class="btn-action">
+        <button
+          type="button"
+          ibmButton="secondary"
+          style="margin-right: 24px"
+          (click)="changeStep(0)"
+        >
+          Back
+        </button>
+        <button
+          (click)="onSave()"
+          type="button"
+          ibmButton="primary"
+          style="margin-right: 24px"
+        >
+          Save
+        </button>
+        <button
+          type="submit"
+          ibmButton="primary"
+          (click)="changeStep(2)"
+          [disabled]="!onSubmit"
+        >
+          Preview
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

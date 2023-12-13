@@ -1,0 +1,91 @@
+<div class="body">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item home">Property Rental</li>
+    <li class="breadcrumb-item">
+      <a (click)="onClickBreadcrumb()">Termination List</a>
+    </li>
+    <li class="breadcrumb-item current">Form Preview</li>
+  </ol>
+
+  <div class="category-title">Property Rental</div>
+
+  <div class="page-title">Property Rental Request Form Preview</div>
+
+  <table class="request-preview-table">
+    <tr class="table-item">
+      <th class="table-header">Form No</th>
+      <td class="table-data">{{ terminationData?.formNo }}</td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Status</th>
+      <td class="table-data">{{ terminationData?.status }}</td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Company Name</th>
+      <td class="table-data">{{ companyData?.companyName }}</td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Registered Address</th>
+      <td class="table-data">
+        {{ companyData?.companyAddress }}
+      </td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Registered Telephone/Fax</th>
+      <td class="table-data">{{ companyData?.companyPhone }}</td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Business Contact Person</th>
+      <td class="table-data">{{ companyData?.companyContactPerson }}</td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Business Contact Person's Designation</th>
+      <td class="table-data">
+        {{ companyData?.companyContactPersonDesignation }}
+      </td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Business Contact Person's Email</th>
+      <td class="table-data">{{ companyData?.companyContactPersonEmail }}</td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Space Type</th>
+      <td class="table-data">{{ propertyData?.propertyType }}</td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Space Area (sq.m.)</th>
+      <td class="table-data">{{ propertyData?.propertySpace }}</td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Location</th>
+      <td class="table-data">{{ propertyData?.propertyName }}</td>
+    </tr>
+
+    <tr class="table-item">
+      <th class="table-header">Reason of Termination</th>
+      <td class="table-data">{{ terminationData?.reason }}</td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Outstanding Payment</th>
+      <td class="table-data">RM {{ terminationData?.payment }}</td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Remarks</th>
+      <td class="table-data">{{ terminationData?.remarks }}</td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Action to be Taken</th>
+      <td class="table-data">{{ terminationData?.action }}</td>
+    </tr>
+  </table>
+  <div class="buttons request-view">
+    <button class="btn-back">Back</button>
+    <button class="btn-cancel">Cancel</button>
+    <label class="table-file-upload">
+      <input type="file" />
+      Upload Premise Status Checklist
+    </label>
+    <button class="btn-endorse">Endorse</button>
+  </div>
+  <div class="footer"></div>
+</div>

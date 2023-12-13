@@ -1,0 +1,32 @@
+@import "~carbon-components/scss/globals/scss/vendor/@carbon/type/scss/font-family";
+@import "~carbon-components/scss/globals/scss/typography";
+.bx--col-max-2 {
+    width: 100%;
+    padding-right: 0rem;
+}
+
+.white-bg {
+    background-color: #fff;
+}
+
+::ng-deep {
+    .bx--content-switcher-btn:focus {
+        box-shadow: unset;
+    }
+    .bx--content-switcher-btn {
+        border: 0px !important;
+        text-align: center;
+        padding: 11px 16px 11px 16px;
+        background-color: #f3f3f3;
+        display: inline;
+        width: 168px;
+    }
+    .bx--content-switcher {
+        justify-content: unset;
+    }
+    @media print {
+        .topPartPrint {
+            display: none;
+        }
+    }
+}

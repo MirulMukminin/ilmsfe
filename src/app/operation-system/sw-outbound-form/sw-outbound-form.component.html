@@ -1,0 +1,517 @@
+<div ibmGrid class="bx--grid--full-width">
+    <form #swOutboundForm="ngForm" (ngSubmit)="onSubmit(swOutboundForm)">
+        <div ibmRow class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 pt-32">
+            <div ibmCol [columnNumbers]="{ lg: 16 }">
+                <ibm-breadcrumb [noTrailingSlash]="true">
+                    <ibm-breadcrumb-item [current]="true" href="#1">
+                        Operation System
+                    </ibm-breadcrumb-item>
+                    <ibm-breadcrumb-item [current]="true" href="#1">
+                        Schedule Waste Management
+                    </ibm-breadcrumb-item>
+                    <ibm-breadcrumb-item>
+                        <a style="text-decoration: none" [routerLink]="['/operation-system/sw-inbound-outbound-list']">Inbound / Outbound</a
+            >
+          </ibm-breadcrumb-item>
+          <ibm-breadcrumb-item [current]="true" href="#1">
+            Request Form - Outbound
+          </ibm-breadcrumb-item>
+        </ibm-breadcrumb>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32">
+      <div ibmCol [columnNumbers]="{ max: 16, xlg: 16, lg: 16 }" class="ph03">
+        Request Form - Outbound
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Company Name</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ companyName }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Request By</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ requestBy }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+        Services Order No.
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ serviceOrderNo }}
+      </div>
+    </div>
+    <br />
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+        <div class="form-item"  #reqOnBehalfRef tabindex="1">
+          <!-- <ibm-dropdown
+            label="Request on Behalf (Optional)"
+            placeholder="Choose an option"
+            itemValueKey="content"
+            [dropUp]="false"
+            name="reqOnBehalf"
+            [(ngModel)]="reqOnBehalf"
+            invalidText="Option Required"
+          >
+            <ibm-dropdown-list [items]="requestOnBehalfList"></ibm-dropdown-list>
+          </ibm-dropdown> -->
+          
+          <ibm-combo-box 
+          id="dropdown"
+          label="Request on Behalf" 
+          name="requestOnBehalf" 
+          [appendInline]="true"
+          [dropUp]="false"
+          placeholder="Choose an option" 
+          [(ngModel)]="outBoundForm.requestOnBehalf"
+          [invalid]="invalidOnBehalf"
+          invalidText="Request on Behalf is required"
+          [items]="requestOnBehalfList"
+          itemValueKey="content"
+          (selected)="inputValueChange($event)"
+          required>
+              <ibm-dropdown-list></ibm-dropdown-list>
+          </ibm-combo-box>
+        </div>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }" #jobDescRef tabindex="2">
+        <ibm-label
+          [invalid]="invalidJobDesc"
+          invalidText="Job Description Required"
+        >
+          Job Description
+          <textarea
+            ibmTextArea
+            [placeholder]=""
+            [rows]="5"
+            [cols]="20"
+            aria-label="textarea"
+            name="jobDesc"
+            [(ngModel)]="outBoundForm.jobDescription"
+            maxlength="100"
+            [invalid]="invalidJobDesc"
+            required
+            (ngModelChange)="inputValueChange($event)"
+          ></textarea>
+        </ibm-label>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }" #poNumberRef tabindex="3">
+        <ibm-label
+          helperText="Please insert dash(-) if not applicable"
+          [invalid]="invalidPONo"
+          invalidText="PO No Required"
+        >
+          PO Number
+          <input
+            ibmText
+            name="PONo"
+            [(ngModel)]="outBoundForm.PONumber"
+            [invalid]="invalidPONo"
+            required
+            (ngModelChange)="inputValueChange($event)"
+          />
+        </ibm-label>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 4 }" #bookingDateRef tabindex="4">
+        <ibm-date-picker
+          name="bookingDate"
+          label="Booking Date"
+          [placeholder]="placeholder"
+          [size]="size"
+          [dateFormat]="dateFormat"
+          [(ngModel)]="outBoundForm.bookingDate"
+          [invalid]="invalidBookingDate"
+          invalidText="Booking Date Required"
+          required
+          (ngModelChange)="inputValueChange($event)"
+        >
+        </ibm-date-picker>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }" #remarksElement tabindex="6">
+        <!-- <ibm-label>
+          Remarks (Optional)
+          <textarea
+            ibmTextArea
+            [placeholder]="'Placeholder Text'"
+            [rows]="5"
+            [cols]="20"
+            aria-label="textarea"
+            name="remarks"
+            [(ngModel)]="outBoundForm.remarks"
+          ></textarea>
+        </ibm-label> -->
+        
+        <label class="bx--label">Remarks (Optional)</label><label class="bx--label" [ngStyle]="{'color' : invalidNumericRemarks ? '#da1e28' : ''}" style="float: right;">{{numericRemarks}}/100</label>
+        <textarea ibmTextArea aria-label="textarea" maxlength="100" [rows]="6" name="remarks" [(ngModel)]="outBoundForm.remarks" (ngModelChange)="numericCount('remarks', outBoundForm.remarks)">
+        </textarea>
+        <div *ngIf="invalidNumericRemarks" class="invalid-class-label">
+            Reach maximum characters
+        </div>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32 pt-24"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }" #refNoRef tabindex="5">
+        <ibm-label [invalid]="invalidRefNo"
+        invalidText="Ref. No. Required">
+          Ref. No. (Manual Form Number)
+          <input ibmText name="refNo" [(ngModel)]="outBoundForm.refNo" 
+          [invalid]="invalidRefNo"
+          (ngModelChange)="inputValueChange($event)"/>
+        </ibm-label>
+      </div>
+    </div>
+
+    <br /><br />
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-48"
+      [leftGutter]="false"
+      [rightGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 12 }">
+        <div class="form-item width-unset">
+          <ibm-table-container>
+            <ibm-table-header>
+              <h4 ibmTableHeaderTitle>Outbound Waste Details</h4>
+              <p ibmTableHeaderDescription>
+                Please add required services in the table below. To remove,
+                select the check box and press remove button in the console.
+              </p>
+            </ibm-table-header>
+            <ibm-table-toolbar>
+              <ibm-table-toolbar-content *ngIf="!checkSelected()">
+                <button
+                  ibmButton="primary"
+                  size="sm"
+                  type="button"
+                  (click)="modalOpen = true"
+                >
+                  <span style="margin-right: 42px">Add Item</span>
+                  <div class="icon-addAlt" ibmIcon="add--alt" size="20"></div>
+                </button>
+              </ibm-table-toolbar-content>
+              <div class="table-action" *ngIf="checkSelected()">
+                <div class="actions">
+                  <div class="del">
+                    <Button
+                      ibmButton="primary"
+                      size="sm"
+                      type="button"
+                      (click)="deleteWasteDetails()"
+                    >
+                      Delete
+                      <div
+                        class="icon-trashCan"
+                        ibmIcon="trash-can"
+                        size="20"
+                      ></div>
+                    </Button>
+                  </div>
+                  <div class="cancel">
+                    <button
+                      ibmButton="primary"
+                      size="sm"
+                      type="button"
+                      (click)="cancelWasteDetails()"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </ibm-table-toolbar>
+
+            <div class="horizontal-overflow-table">
+              <table class="bx--data-table">
+                <thead>
+                  <tr>
+                    <th class="header1">No.</th>
+                    <th class="header2">Pallet ID</th>
+                    <th class="header3">Waste Code</th>
+                    <th class="header4">Qty.</th>
+                    <th class="header5">UOM</th>
+                    <th class="header6">Pallet Weight (MT)</th>
+                    <th class="header7">Location ID</th>
+                    <th class="header8">Expiry Date</th>
+                    <th class="header9">Action</th>
+                  </tr>
+                </thead>
+
+                <tbody class="white-bg">
+                  <tr
+                    *ngIf="outboundWasteDetails.length === 0"
+                    [ngClass]="{ 'invalid-tableRow': goodsInTableInvalid }"
+                  >
+                    <td align="center" colspan="9">
+                      No data is entered yet. Please add new row
+                    </td>
+                  </tr>
+                  <tr
+                    *ngFor="
+                      let outboundRow of outboundWasteDetails;
+                      let postIndex = index
+                    "
+                  >
+                    <td>{{ postIndex + 1 }}</td>
+                    <td>{{ outboundRow.palletId }}</td>
+                    <td>{{ outboundRow.wasteCode }}</td>
+                    <td>{{ outboundRow.quantity }}</td>
+                    <td>{{ outboundRow.oum }}</td>
+                    <td>{{ outboundRow.weight }}</td>
+                    <td>{{ outboundRow.location }}</td>
+                    <td>{{ outboundRow.expireDate }}</td>
+                    <td>
+                      <ibm-checkbox
+                        [(ngModel)]="outboundRow.selected"
+                        [ngModelOptions]="{ standalone: true }"
+                      ></ibm-checkbox>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </ibm-table-container>
+        </div>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3"
+      [leftGutter]="false"
+      [rightGutter]="false"
+    >
+      <div
+        ibmCol
+        [columnNumbers]="{ lg: 12 }"
+        class="d-flex-row pt-64"
+        style="justify-content: flex-start"
+      >
+        <button
+          ibmButton="secondary"
+          class="mr-24"
+          size="xl"
+          routerLink="/operation-system/sw-inbound-outbound-list"
+          type="button"
+        >
+          Cancel
+        </button>
+
+         <button
+          ibmButton="primary"
+          type="submit"
+          [disabled]="outboundWasteDetails.length < 1"
+        >
+          Preview
+        </button> 
+      </div>
+    </div>
+    <!-- <ibm-modal [open]="open" size="sm" (overlaySelected)="open = false">
+      <ibm-modal-header (closeSelect)="open = false">
+        <p class="bx--modal-header__heading bx--type-beta">Confirmation</p>
+      </ibm-modal-header>
+      <div class="bx--modal-content">
+        <p>Are you sure you want to submit?</p>
+        <p>Kindly make sure all details are correct.</p>
+        <br />
+      </div>
+
+      <ibm-modal-footer>
+        <ng-container>
+          <button ibmButton="secondary" (click)="open = false">Cancel</button>
+          <button
+            ibmButton="primary"
+            type="submit"
+            [attr.modal-primary-focus]="true"
+          >
+            Continue
+          </button>
+        </ng-container>
+      </ibm-modal-footer>
+    </ibm-modal> -->
+  </form>
+
+  <br /><br /><br /><br />
+
+  <ibm-modal
+    [open]="modalOpen"
+    [trigger]="false"
+    (overlaySelected)="modalOpen = false"
+    class="modal-width"
+    size="lg"
+  >
+    <ibm-modal-header (closeSelect)="modalOpen = false">
+      <p class="bx--modal-header__label bx--type-delta">Add Waste Code</p>
+      <p class="bx--modal-header__heading bx--type-beta">Waste Code</p>
+    </ibm-modal-header>
+    <section ibmModalContent style="padding-right: 1rem">
+      <form #outboundWasteModal="ngForm">
+        <div>
+          <div ibmRow class="form-item width-unset">
+            <div
+              ibmCol
+              [columnNumbers]="{ lg: 12 }"
+              class="pl-0 pr-0 div-inline"
+            >
+              <!-- <ibm-dropdown
+                label="Waste Code"
+                placeholder="Choose an option"
+                itemValueKey="content"
+                [dropUp]="false"
+                name="wasteCode"
+                class="modal-dropdown"
+                invalidText="Option Required"
+                [(ngModel)]="wasteCodeChoice"
+              >
+                <ibm-dropdown-list [items]="wasteCodeList"></ibm-dropdown-list>
+              </ibm-dropdown> -->
+              
+              <ibm-combo-box class="width-35" label="Waste Code" [appendInline]="true" [dropUp]="false" itemValueKey="content" required invalidText="Waste Code Required" [invalid]="invalidWasteCode" name="formNumber" 
+              [(ngModel)]="wasteCodeComboListModel" [items]="wasteCodeComboList" (search)="onSearch($event)" (selected)="onSelectedCombo($event)">
+              <ibm-dropdown-list></ibm-dropdown-list>
+          </ibm-combo-box>
+              <!-- <button
+                ibmButton="primary"
+                type="button"
+                size="sm"
+                style="height: 2.5rem"
+                (click)="modalLoadData()"
+              >
+                Load Data
+              </button> -->
+            </div>
+          </div>
+          <br />
+          <br />
+          <div ibmRow class="form-item width-unset">
+            <div ibmCol [columnNumbers]="{ lg: 12 }" class="pl-0 pr-0">
+              <ibm-table-container class="table-style">
+                <div class="horizontal-overflow-table">
+                  <table id="GoodsOutModalTable" class="bx--data-table">
+                    <thead>
+                      <tr>
+                        <th class="header1">Issue Out</th>
+                        <th class="header2">No.</th>
+                        <th class="header3">Pallet ID</th>
+                        <th class="header4">Waste Code</th>
+                        <th class="header5">Qty.</th>
+                        <th class="header6">UOM</th>
+                        <th class="header7">Pallet Weight (MT)</th>
+                        <th class="header8">Location ID</th>
+                        <th class="header9">Expiry Date</th>
+                      </tr>
+                    </thead>
+
+                    <tbody class="white-bg">
+                      <tr
+                        *ngIf="listWasteCodeModal.length === 0"
+                        [ngClass]="{ 'invalid-tableRow': goodsInTableInvalid }"
+                      >
+                        <td align="center" colspan="9">
+                          No data is entered yet. Please add new row
+                        </td>
+                      </tr>
+                      <tr
+                        *ngFor="
+                          let outboundWaste of listWasteCodeModal;
+                          let postIndex = index
+                        "
+                      >
+                        <td>
+                          <!-- <ibm-checkbox
+                            name="issueOut"
+                            [(ngModel)]="outboundWaste.selected"
+                          ></ibm-checkbox> -->
+                          <ibm-checkbox name="checkbox_{{ outboundWaste.palletId }}" [(ngModel)]="outboundWaste.Selected">
+                          </ibm-checkbox>
+                        </td>
+                        <td>{{ postIndex + 1 }}</td>
+                        <td>{{ outboundWaste.palletId }}</td>
+                        <td>{{ outboundWaste.wasteCode }}</td>
+                        <td>{{ outboundWaste.quantity }}</td>
+                        <td>{{ outboundWaste.oum }}</td>
+                        <td>{{ outboundWaste.weight }}</td>
+                        <td>{{ outboundWaste.location }}</td>
+                        <td>{{ outboundWaste.expireDate }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </ibm-table-container>
+            </div>
+          </div>
+        </div>
+      </form>
+      <br /><br />
+    </section>
+    <ibm-modal-footer>
+      <ng-container>
+        <button ibmButton="secondary" type="button" (click)="modalOpen = false">
+          Close
+        </button>
+        <button ibmButton="primary" type="button" (click)="addToOutboundList()">
+          Add to OutBound List
+        </button>
+      </ng-container>
+    </ibm-modal-footer>
+  </ibm-modal>
+</div>

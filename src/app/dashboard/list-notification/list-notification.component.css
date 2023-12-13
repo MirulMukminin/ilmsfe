@@ -1,0 +1,13 @@
+:host ::ng-deep .bx--modal-container {
+    width: 630px;
+    height: 645px;
+}
+
+:host ::ng-deep .bx--modal-content{
+    padding-left: 40px;
+}
+
+.bx--modal-header__label {
+    font-size: 14px;
+    margin-bottom: 0.9rem;
+}

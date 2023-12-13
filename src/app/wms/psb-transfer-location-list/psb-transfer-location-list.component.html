@@ -1,0 +1,114 @@
+<div ibmGrid class="bx--grid--full-width">
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 10, md: 10, sm: 10 }">
+      <ibm-breadcrumb [noTrailingSlash]="true">
+        <ibm-breadcrumb-item [current]="true" href="#1">
+          Warehouse Management System
+        </ibm-breadcrumb-item>
+        <ibm-breadcrumb-item>
+          <a
+            style="text-decoration: none"
+            [routerLink]="['/wms/psb-inventory-list']"
+            >Petroleum Supply Base</a
+          >
+        </ibm-breadcrumb-item>
+        <ibm-breadcrumb-item [current]="true" href="#3">
+          Transfer Location
+        </ibm-breadcrumb-item>
+      </ibm-breadcrumb>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-32">
+    <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }" class="ph03">
+      Transfer Location
+    </div>
+  </div>
+
+  <!-- <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-64">
+        <div ibmCol [columnNumbers]="{'lg': 12, 'md': 10, 'sm': 6}" class="ph03">
+            Transfer Location List
+        </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3">
+        <div ibmCol [columnNumbers]="{'lg': 12, 'md': 10, 'sm': 6}" style="color: #515151;">
+            Current and previous Transfer Location in PSB Zone
+        </div>
+    </div> -->
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-24">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+      <ibm-table-container class="mb-24">
+        <ibm-table-header class="white-bg">
+          <h4 ibmTableHeaderTitle>
+            <span class="ph03">Transfer Location List</span>
+          </h4>
+          <p ibmTableHeaderDescription>
+            Current and previous Transfer Location in PSB Zone
+          </p>
+        </ibm-table-header>
+        <ibm-table-toolbar class="tableToolbar">
+          <ibm-table-toolbar-content>
+            <ibm-table-toolbar-search
+              (valueChange)="searchFilter($event)"
+              (clear)="searchFilter($event)"
+              [(ngModel)]="searchModel"
+            >
+            </ibm-table-toolbar-search>
+            <button
+              ibmButton="primary"
+              size="sm"
+              type="button"
+              routerLink="/wms/psb-transfer-location-form"
+            >
+              <span style="margin-right: 42px">New Request</span>
+              <div class="icon-addAlt" ibmIcon="add--alt" size="20"></div>
+            </button>
+            <button
+              ibmButton="secondary"
+              *ngIf="sortingOn"
+              size="sm"
+              type="button"
+              (click)="userInfo()"
+              (click)="clearSearch()"
+            >
+              <span style="margin-right: 42px"> Reset Sorting</span>
+              <div class="icon-addAltn" ibmIcon="filter--reset" size="20"></div>
+            </button>
+            <button
+              ibmButton="secondary"
+              size="sm"
+              type="button"
+              class="addNew"
+              (click)="userInfo()"
+            >
+              Refresh
+              <div class="icon-addAlt" ibmIcon="renew" size="20"></div>
+            </button>
+          </ibm-table-toolbar-content>
+        </ibm-table-toolbar>
+        <div class="horizontal-overflow-table">
+          <ng-template #customTableItemTemplate let-data="data">
+            <a
+              style="text-decoration: none"
+              [routerLink]="['/wms/psb-transfer-location-preview', data.link]"
+              >{{ data.requestNo }}</a
+            >
+          </ng-template>
+          <ibm-table
+            [model]="model"
+            [striped]="false"
+            [showSelectionColumn]="false"
+            (sort)="doSort($event)"
+          ></ibm-table>
+        </div>
+        <ibm-pagination
+          [model]="model"
+          [itemsPerPageOptions]="itemsPerPageOptions"
+          (selectPage)="selectPage($event)"
+        ></ibm-pagination>
+      </ibm-table-container>
+    </div>
+  </div>
+</div>

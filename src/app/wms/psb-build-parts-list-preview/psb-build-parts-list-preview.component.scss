@@ -1,0 +1,58 @@
+.downloadBtn:hover {
+    background-color: transparent;
+}
+
+.printable-special {
+    display: none;
+}
+
+.pb-133 {
+    padding-bottom: 133px
+}
+
+::ng-deep {
+    .bx--modal-container--lg {
+        height: 90%;
+        background-color: white;
+    }
+    .bx--modal-content--overflow-indicator {
+        background-image: none;
+    }
+    .bx--modal-content {
+        margin-bottom: unset;
+    }
+    @media print {
+        body * {
+            visibility: hidden;
+        }
+        .printable-special {
+            display: revert !important;
+        }
+        .printable,
+        .printable * {
+            visibility: visible;
+            padding: 0px;
+            margin: 3px;
+        }
+        .page-break {
+            page-break-after: always;
+            // padding: 0px;
+            // margin: 0px;
+        }
+        // button {
+        //     display: none !important;
+        // }
+        table {
+            page-break-inside: avoid;
+        }
+        .pb-133 {
+            padding-bottom: 0px !important;
+        }
+        .disable-on-print {
+            display: none !important;
+        }
+         ::-webkit-scrollbar {
+            display: none;
+        }
+    }
+}

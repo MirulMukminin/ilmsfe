@@ -1,0 +1,349 @@
+<div ibmGrid class="bx--grid--full-width" style="padding-left: 4rem;">
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-33">
+    <div ibmCol [columnNumbers]="{ lg: 16 }">
+      <ibm-breadcrumb [noTrailingSlash]="true">
+        <ibm-breadcrumb-item [current]="true">
+          Operations System
+        </ibm-breadcrumb-item>
+        <ibm-breadcrumb-item [current]="true">
+          <a routerLink="/operation-system/marine-berth-request-list">Marine</a>
+        </ibm-breadcrumb-item>
+        <ibm-breadcrumb-item [current]="true">
+          Fuel/Water Request Form Preview
+        </ibm-breadcrumb-item>
+      </ibm-breadcrumb>
+    </div>
+  </div>
+</div>
+
+<div class="endorseFuelWaterPrintable" style="padding-left: 2rem;">
+  <div ibmGrid class="bx--grid--full-width page-break">
+    <div
+      *ngIf="logo"
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 justify-content-center"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 16, md: 16, sm: 16 }">
+        <img src="./assets/images/ksb-logo-97.svg" alt="KSB logo" />
+      </div>
+    </div>
+    <div
+      *ngIf="logo"
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 justify-content-center mt-3"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 16, md: 16, sm: 16 }">
+        <span class="ph02">PANGKALAN BEKALAN KEMAMAN SDN. BHD. (69363-D)</span>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-40">
+      <div ibmCol [columnNumbers]="{ lg: 16 }">
+        <span class="ph03">Water/Fuel Job Ticket Details Preview</span>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01 pl-0">Supply To</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ supplyTo | titlecase }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01 pl-0">
+        Company Name
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ companyName | titlecase }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01 pl-0">Request By</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ requestBy | titlecase }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+      *ngIf="supplyTo.toLowerCase().includes('other')"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01 pl-0">
+        Request on Behalf
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ requestOnBehalf | titlecase }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+      *ngIf="!supplyTo.toLowerCase().includes('other')"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01 pl-0">
+        Vessel Name
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ vesselName }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01 pl-0">Location</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ location | titlecase }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01 pl-0">PO Number</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ poNumber }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01 pl-0">
+        Booking Date
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ bookingDate }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01 pl-0">Remarks</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ remarks }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01 pl-0">Status</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ status | titlecase }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64 pb-64"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 12, sm: 12 }" class="pl-0">
+        <hr />
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01 pl-0">
+        Fuel Water Request No.
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ requestNo }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01 pl-0">Job Ticket</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ jobTicket }}
+      </div>
+    </div>
+    
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64 pb-64"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 12, sm: 12 }" class="pl-0">
+        <hr />
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3">
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }" class="ph03">
+        Water Fuel Job Details
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      [leftGutter]="false"
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-3 pb-64"
+    >
+      <div
+        ibmCol
+        [columnNumbers]="{ lg: 12, md: 10, sm: 6 }"
+        class="ph03 full-width"
+      >
+        <ibm-table-container>
+          <div class="horizontal-overflow-table">
+            <table class="bx--data-table endorseFuelWaterTable">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th colspan="2" style="text-align: center">
+                    Actual Qty. (L)
+                  </th>
+                  <th></th>
+                  <th colspan="3">Session 1</th>
+                  <th colspan="3">Session 2</th>
+                  <th colspan="3">Session 3</th>
+                  <th></th>
+                  <th></th>
+                </tr>
+                <tr>
+                  <th>Service Code</th>
+                  <th>Qty.</th>
+                  <th>Requested Qty. (L)</th>
+                  <th>In</th>
+                  <th>Out</th>
+                  <th>Booking Time</th>
+                  <th>Start</th>
+                  <th>End</th>
+                  <th>Hours</th>
+                  <th>Start</th>
+                  <th>End</th>
+                  <th>Hours</th>
+                  <th>Start</th>
+                  <th>End</th>
+                  <th>Hours</th>
+                  <th>Total Hours</th>
+                  <th>Remarks</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr
+                  ibmTableRow
+                  *ngFor="let data of fuelWaterList; let index = index"
+                  class="tr-border"
+                >
+                  <td>{{ data.serviceCode | titlecase }}</td>
+                  <td>{{ data.qty }}</td>
+                  <td>{{ data.requestedQty }}</td>
+                  <td>{{ data.qtyIn }}</td>
+                  <td>{{ data.qtyOut }}</td>
+                  <td style="text-align: center">{{ data.bookingTime }}</td>
+                  <td>{{ data.session1Start }}</td>
+                  <td>{{ data.session1End }}</td>
+                  <td>{{ data.session1Hours }}</td>
+                  <td>{{ data.session2Start }}</td>
+                  <td>{{ data.session2End }}</td>
+                  <td>{{ data.session2Hours }}</td>
+                  <td>{{ data.session3Start }}</td>
+                  <td>{{ data.session3End }}</td>
+                  <td>{{ data.session3Hours }}</td>
+                  <td>{{ data.totalHours }}</td>
+                  <td class="remarks">
+                    {{ data.remarks }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ibm-table-container>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01 pl-0">Remarks</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ remarks }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01 pl-0">
+        Booking Date
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ bookingDate }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div ibmGrid class="bx--grid--full-width">
+  <div
+    ibmRow
+    [leftGutter]="false"
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-3"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 12, sm: 12 }" style="padding-left: 1.5rem;">
+      <div class="form-item pt-64 pb-64">
+        <div class="btn-action">
+          <button
+            type="button"
+            ibmButton="secondary"
+            style="margin-right: 24px"
+            class="btn-178"
+            routerLink="/operation-system/marine-endorse-fuelwater-list"
+          >
+            Back
+          </button>
+
+          <button
+            type="submit"
+            ibmButton="secondary"
+            class="btn-178"
+            (click)="print()"
+          >
+            Print
+          </button>
+          <button
+            *ngIf="status.toLowerCase().includes('pending')"
+            type="submit"
+            ibmButton="primary"
+            style="float: right"
+            class="btn-178"
+            (click)="openModal = true"
+          >
+            Endorse
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div ibmGrid class="bx--grid--full-width">
+  <div ibmRow>
+    <div ibmCol [columnNumbers]="{ lg: 10 }">
+      <ibm-modal [open]="openModal" (overlaySelected)="openModal = false">
+        <ibm-modal-header (closeSelect)="openModal = false">
+          <h3 style="font-weight: bold" ibmModalHeaderHeading>Confirmation</h3>
+        </ibm-modal-header>
+        <section ibmModalContent style="height: unset">
+          <h4
+            ibmModalContentText
+            class="bx--modal-content__regular-content modal-text"
+          >
+            Are you sure want to endorse?<br />
+          </h4>
+        </section>
+        <ibm-modal-footer>
+          <button
+            class="bx--btn bx--btn--secondary"
+            (click)="openModal = false"
+          >
+            Back
+          </button>
+
+          <button
+            type="submit"
+            class="bx--btn bx--btn--primary"
+            (click)="onEndorse()"
+          >
+            Endorse
+          </button>
+        </ibm-modal-footer>
+      </ibm-modal>
+    </div>
+  </div>
+</div>

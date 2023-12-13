@@ -1,0 +1,252 @@
+<ibm-loading *ngIf="isLoading" [isActive]="isLoading" size="normal" [overlay]="overlay">
+</ibm-loading>
+<div ibmGrid class="bx--grid--full-width">
+    <form #swInboundView="ngForm">
+        <div ibmRow class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 pt-32">
+            <div ibmCol [columnNumbers]="{ lg: 16 }">
+                <ibm-breadcrumb [noTrailingSlash]="true">
+                    <ibm-breadcrumb-item [current]="true" href="#1">
+                        Operation System
+                    </ibm-breadcrumb-item>
+                    <ibm-breadcrumb-item [current]="true" href="#1">
+                        Schedule Waste Management
+                    </ibm-breadcrumb-item>
+                    <ibm-breadcrumb-item>
+                        <a style="text-decoration: none" [routerLink]="['/operation-system/sw-inbound-outbound-list']">Inbound / Outbound</a
+            >
+          </ibm-breadcrumb-item>
+          <ibm-breadcrumb-item [current]="true" href="#1">
+            Request Form - Outbound
+          </ibm-breadcrumb-item>
+        </ibm-breadcrumb>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 pt-24 printable">
+      <div ibmCol [columnNumbers]="{ max: 16, xlg: 16, lg: 16 }" class="ph03">
+        Request Form - Outbound Preview
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 pt-24 printable"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Company Name</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ companyName }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 pt-24 printable"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Request By</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ requestBy }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 pt-24 printable"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+        Services Order No.
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ serviceOrderNo }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 pt-24 printable"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+        Request on Behalf
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ reqOnBehalf }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 pt-24 printable"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Job Description</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ jobDesc }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 pt-24 printable"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">PO No.</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ poNo }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 pt-24 printable"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Booking Date</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ bookingDate }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 pt-24 printable"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Remarks</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ remarks }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 pt-24 printable"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Status</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ status }}
+      </div>
+    </div>
+
+    <br /><br />
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 printable"
+      [leftGutter]="false"
+      [rightGutter]="false"
+      style="margin-top: 1rem"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 12 }">
+        <h4 ibmTableHeaderTitle>Outbound Waste Details</h4>
+        <div class="form-item width-unset pt-24">
+          <ibm-table-container>
+            <div class="horizontal-overflow-table">
+              <table class="bx--data-table">
+                <thead>
+                  <tr>
+                    <th class="header1">No.</th>
+                    <th class="header2">Pallet ID</th>
+                    <th class="header3">Waste Code</th>
+                    <th class="header4">UOM</th>
+                    <th class="header5">Qty.</th>
+                    <th class="header6">Pallet Weight (MT)</th>
+                    <th class="header7">Location ID</th>
+                    <th class="header8">Expiry Date</th>
+                  </tr>
+                </thead>
+
+                <tbody class="white-bg">
+                  <tr
+                    *ngIf="outboundWasteDetails.length === 0"
+                    [ngClass]="{ 'invalid-tableRow': goodsInTableInvalid }"
+                  >
+                    <td align="center" colspan="9">
+                      No data is entered yet. Please add new row
+                    </td>
+                  </tr>
+                  <tr
+                    *ngFor="
+                      let rowDetails of outboundWasteDetails;
+                      let postIndex = index
+                    "
+                    [ngClass]="{ 'invalid-tableRow': goodsInTableInvalid }"
+                  >
+                    <!-- <tr class="white-bg"> -->
+                    <td>{{ postIndex + 1 }}.</td>
+
+                    <td>{{ rowDetails.palletId }}</td>
+
+                    <td class="w-130">{{ rowDetails.wasteCode }}</td>
+
+                    <td>{{ rowDetails.oum }}</td>
+
+                    <td class="w-130">{{ rowDetails.quantity }}</td>
+
+                    <td>{{ rowDetails.palletWeight }}</td>
+
+                    <td>{{ rowDetails.location }}</td>
+
+                    <td>
+                      {{ rowDetails.niceFormatExpiryDate }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </ibm-table-container>
+        </div>
+      </div>
+    </div>
+
+    <br /><br />
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+      <div
+        ibmCol
+        [columnNumbers]="{ lg: 12, md: 10, sm: 5 }"
+        class="d-flex-row"
+        style="justify-content: flex-start"
+      >
+        <button
+          class="mr-24"
+          ibmButton="secondary"
+          size="md"
+          (click)="redirectToPrevious()"
+        >
+          Back
+        </button>
+        <button class="mr-24" ibmButton="secondary" size="md" (click)="onPrint()">Print</button>
+        <button class="mr-24" ibmButton="primary" (click)="onclickOpenModal()" size="md">Submit</button>
+      </div>
+    </div>
+  </form>
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+</div>
+<ibm-modal [open]="openModal" (overlaySelected)="openModal = false">
+  <ibm-modal-header (closeSelect)="openModal = false">
+      <h3 ibmModalHeaderHeading>Confirmation</h3>
+  </ibm-modal-header>
+  <section ibmModalContent style="
+  height: unset;">
+      <h3 ibmModalContentText class="bx--modal-content__regular-content modal-text">
+          Are you sure want to submit?<br> Kindly make sure all details are correct.
+      </h3>
+     
+  </section>
+  <ibm-modal-footer>
+      <button class="bx--btn bx--btn--secondary" (click)="openModal = false">Back</button>
+
+      <button type="submit" class="bx--btn bx--btn--primary" (click)="onSubmit()" [disabled]="isLoading">Confirm</button>
+
+  </ibm-modal-footer>
+</ibm-modal>

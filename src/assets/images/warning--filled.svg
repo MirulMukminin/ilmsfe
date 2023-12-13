@@ -1,0 +1,5 @@
+<svg id="warning--filled" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <rect id="Transparent_Rectangle" width="20" height="20" fill="none"/>
+  <path id="Compound_Path" d="M10.75,2a8.75,8.75,0,1,0,8.75,8.75A8.776,8.776,0,0,0,10.75,2Zm-.687,3.75h1.375v6.875H10.063Zm.688,10.625a.938.938,0,1,1,.938-.937A.961.961,0,0,1,10.75,16.375Z" transform="translate(-0.75 -0.75)" fill="#f0c11b"/>
+  <path id="inner-path" d="M16.375,17.688a.938.938,0,1,1-.937-.937A.961.961,0,0,1,16.375,17.688ZM16.125,8H14.75v6.875h1.375Z" transform="translate(-5.438 -3)" fill="#f0c11b" opacity="0"/>
+</svg>

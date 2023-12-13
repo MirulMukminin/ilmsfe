@@ -1,0 +1,110 @@
+<div ibmGrid class="bx--grid--full-width" style="padding-bottom: 133px;">
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32 topPartPrint">
+
+        <div ibmCol [columnNumbers]="{ 'lg': 10, 'md': 10, 'sm': 10 }">
+
+            <ibm-breadcrumb [noTrailingSlash]="true">
+
+                <ibm-breadcrumb-item href="#">
+                    <span class="bl01">Warehouse Management System</span>
+                </ibm-breadcrumb-item>
+
+                <div *ngIf="switch == 'InventoryTransaction'">
+                    <ibm-breadcrumb-item [current]="true">
+                        <span class="bl01">Petroleum Supply Base</span>
+                    </ibm-breadcrumb-item>
+                </div>
+                <div *ngIf="switch == 'CurrentInventory'">
+                    <ibm-breadcrumb-item [current]="true">
+                        <span class="bl01">Current Inventory</span>
+                    </ibm-breadcrumb-item>
+                </div>
+
+            </ibm-breadcrumb>
+
+        </div>
+
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32 topPartPrint">
+        <div ibmCol [columnNumbers]="{'lg': 6, 'md': 6, 'sm': 6}">
+            <div>
+                <span class="ph03">Petroleum Supply Base</span>
+            </div>
+        </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32 topPartPrint">
+
+        <div ibmCol [columnNumbers]="{'md': 2, 'lg': 2, 'max': 2}">
+            <div class="gray-10-bg">
+
+                <ibm-clickable-tile [route]="['/wms/psb-goods-in-out-list']">
+                    <span class="sans-semibold-14">Goods In / Goods Out</span>
+                </ibm-clickable-tile>
+
+            </div>
+        </div>
+
+        <!-- <div ibmCol [columnNumbers]="{'md': 2, 'lg': 2, 'max': 2}">
+            <div class="gray-10-bg">
+
+                <ibm-clickable-tile [route]="['/wms/psb-goods-in-out-list']">
+                    <span class="sans-semibold-14">Daily Movement</span>
+                </ibm-clickable-tile>
+
+            </div>
+        </div> -->
+
+        <div ibmCol [columnNumbers]="{'md': 2, 'lg': 2, 'max': 2}">
+            <div class="gray-10-bg">
+
+                <ibm-clickable-tile [route]="['/wms/psb-transfer-owner-list']">
+                    <span class="sans-semibold-14">Transfer Ownership</span>
+                </ibm-clickable-tile>
+
+            </div>
+        </div>
+
+        <div ibmCol [columnNumbers]="{'md': 2, 'lg': 2, 'max': 2}">
+            <div class="gray-10-bg">
+
+                <ibm-clickable-tile [route]="['/wms/psb-transfer-location-list']">
+                    <span class="sans-semibold-14">Transfer Location</span>
+                </ibm-clickable-tile>
+
+            </div>
+        </div>
+
+        <div ibmCol [columnNumbers]="{'md': 2, 'lg': 2, 'max': 2}">
+            <div class="gray-10-bg">
+
+                <ibm-clickable-tile [route]="['/wms/psb-build-parts-list']">
+                    <span class="sans-semibold-14">Build from Parts</span>
+                </ibm-clickable-tile>
+
+            </div>
+        </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32 topPartPrint">
+
+        <div ibmCol [columnNumbers]="{'lg': 6, 'md': 6, 'sm': 6}" class="switcher-style">
+            <ibm-content-switcher (selected)="selected($event)">
+                <button ibmContentOption id="InventoryTransaction" name="InventoryTransaction">Inventory Transaction</button>
+                <button ibmContentOption id="CurrentInventory" name="CurrentInventory">Current Inventory</button>
+            </ibm-content-switcher>
+        </div>
+
+    </div>
+
+    <div *ngIf="switch == 'InventoryTransaction'">
+        <app-inventory-transaction></app-inventory-transaction>
+    </div>
+
+    <div *ngIf="switch == 'CurrentInventory'">
+        <app-current-inventory></app-current-inventory>
+    </div>
+
+</div>

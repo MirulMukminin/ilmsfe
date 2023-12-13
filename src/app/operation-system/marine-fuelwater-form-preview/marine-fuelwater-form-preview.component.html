@@ -1,0 +1,662 @@
+<div ibmGrid class="bx--grid--full-width" style="padding-left: 4rem">
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-33">
+    <div ibmCol [columnNumbers]="{ lg: 16 }">
+      <ibm-breadcrumb [noTrailingSlash]="true">
+        <ibm-breadcrumb-item [current]="true">
+          Operations System
+        </ibm-breadcrumb-item>
+        <ibm-breadcrumb-item [current]="true">
+          <a routerLink="/operation-system/marine-berth-request-list">Marine</a>
+        </ibm-breadcrumb-item>
+        <ibm-breadcrumb-item [current]="true">
+          Fuel/Water Request Form Preview
+        </ibm-breadcrumb-item>
+      </ibm-breadcrumb>
+    </div>
+  </div>
+</div>
+
+<div class="fuelWaterPrintable" style="padding-left: 2rem">
+  <div ibmGrid class="bx--grid--full-width page-break">
+    <div
+      *ngIf="logo"
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 justify-content-center"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 16, md: 16, sm: 16 }">
+        <img src="./assets/images/ksb-logo-97.svg" alt="KSB logo" />
+      </div>
+    </div>
+    <div
+      *ngIf="logo"
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 justify-content-center mt-3"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 16, md: 16, sm: 16 }">
+        <span class="ph02">PANGKALAN BEKALAN KEMAMAN SDN. BHD. (69363-D)</span>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-40">
+      <div ibmCol [columnNumbers]="{ lg: 16 }">
+        <span class="ph03">Fuel/Water Job Ticket Details Preview</span>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01 pl-0">
+        Fuel Water Request No.
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ requestNo }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01 pl-0">Supply To</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ supplyTo | titlecase }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01 pl-0">
+        Company Name
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ companyName | titlecase }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01 pl-0">Request By</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ requestByName | titlecase }}
+      </div>
+    </div>
+
+    <div
+      *ngIf="supplyTo.toLowerCase().includes('vessel')"
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01 pl-0">
+        Vessel Name
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ vesselName | titlecase }}
+      </div>
+    </div>
+
+    <div
+      *ngIf="supplyTo.toLowerCase() != 'vessel'"
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01 pl-0">
+        Request on Behalf
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ requestOnBehalf | titlecase }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01 pl-0">Terminal</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ terminal }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01 pl-0">PO Number</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ poNumber }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01 pl-0">
+        Booking Date
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ bookingDate }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01 pl-0">Remarks</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ remarks }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01 pl-0">Status</div>
+      <div
+        ibmCol
+        [columnNumbers]="{ lg: 6 }"
+        class="bl01"
+        [ngStyle]="{
+          color: status.toLowerCase().includes('pending') ? 'red' : '#161616'
+        }"
+      >
+        {{ status | titlecase }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+      [leftGutter]="false"
+      *ngIf="status.toLowerCase().includes('endorsed')"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01 pl-0">
+        Endorsed By
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ endorsedBy }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+      [leftGutter]="false"
+      *ngIf="status.toLowerCase().includes('endorsed')"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01 pl-0">
+        Endorsed Date
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ endorsedDate }}
+      </div>
+    </div>
+
+    <!-- <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01 pl-0">Job Ticket</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ jobTicket }}
+      </div>
+    </div> -->
+
+    <div
+      *ngIf="!status.toLowerCase().includes('cancel')"
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01 pl-0"></div>
+      <div
+        ibmCol
+        [columnNumbers]="{ lg: 6 }"
+        style="padding-left: 0rem !important"
+      >
+        <button
+          *ngIf="status.toLowerCase().includes('book')"
+          ibmButton="secondary"
+          (click)="openCancel = true"
+          [disabled]="
+            status.toLowerCase().includes('cancel') ||
+            status.toLowerCase().includes('endorse') ||
+            status.toLowerCase().includes('progress') ||
+            status.toLowerCase().includes('pending')
+          "
+        >
+          Cancel Request
+        </button>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32 dateFlagForm"
+      *ngIf="status.toLowerCase().includes('book')"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01"></div>
+      <div
+        ibmCol
+        [columnNumbers]="{ lg: 6 }"
+        style="padding-left: 0rem !important"
+      >
+        <div class="singleDate-notif">
+          <div class="pt-16" *ngIf="dateFlag == true">
+            <ibm-toast
+              style="width: 100%"
+              [notificationObj]="{
+                type: 'info',
+                template: customToastContent,
+                lowContrast: true,
+                title: 'You will be charged if you cancel this request',
+                myData: {
+                  subtitle:
+                    'Charges could be applied to this cancellation under certain conditions. For more information, please contact KSB Admin.'
+                },
+                showClose: showClose
+              }"
+            >
+            </ibm-toast>
+            <ng-template #customToastContent let-data>
+              <div class="d-flex">
+                <div>
+                  <p class="ph01" style="margin-bottom: 0px" ibmToastTitle>
+                    {{ data.title }}
+                  </p>
+                  <p ibmToastSubtitle>{{ data.myData.subtitle }}</p>
+                </div>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64 pb-64 clear"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 12, sm: 12 }" class="pl-0">
+        <hr />
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3">
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }" class="pl-0 pr-0">
+        <div class="form-item">
+          <ibm-table-container>
+            <div class="horizontal-overflow-table">
+              <table class="bx--data-table fuelwaterTable">
+                <thead>
+                  <tr>
+                    <th>No.</th>
+                    <th>Item</th>
+                    <th>Full Tank</th>
+                    <th
+                      *ngIf="
+                        status.toLowerCase().includes('pending') ||
+                        status.toLowerCase().includes('progress') ||
+                        status.toLowerCase().includes('endorse')
+                      "
+                    >
+                      Actual Time
+                    </th>
+                    <th
+                      *ngIf="
+                        !status.toLowerCase().includes('pending') &&
+                        !status.toLowerCase().includes('progress') &&
+                        !status.toLowerCase().includes('endorse')
+                      "
+                    >
+                      Booking Time
+                    </th>
+                    <th
+                      *ngIf="
+                        status.toLowerCase().includes('pending') ||
+                        status.toLowerCase().includes('progress') ||
+                        status.toLowerCase().includes('endorse')
+                      "
+                    >
+                      Act. Quantity (L)
+                    </th>
+                    <th
+                      *ngIf="
+                        !status.toLowerCase().includes('pending') &&
+                        !status.toLowerCase().includes('progress') &&
+                        !status.toLowerCase().includes('endorse')
+                      "
+                    >
+                      Quantity (L)
+                    </th>
+                    <th>Status</th>
+                    <th>Job Ticket</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of fuelWaterList; let i = index">
+                    <td>{{ i + 1 }}.</td>
+                    <td>{{ item.item | titlecase }}</td>
+                    <td>{{ item.full_tank }}</td>
+                    <td>{{ item.bookingTime }}</td>
+                    <td>{{ item.weight }}</td>
+                    <td
+                      [ngStyle]="{
+                        color: item.status.toLowerCase().includes('pending')
+                          ? 'red'
+                          : '#161616'
+                      }"
+                    >
+                      {{ item.status | titlecase }}
+                    </td>
+                    <td>
+                      <a
+                        *ngIf="
+                          item.status.toLowerCase().includes('pending') ||
+                          item.status.toLowerCase().includes('endorse')
+                        "
+                        [routerLink]="[
+                          '/operation-system/pbkss-job-ticket-preview',
+                          item.jobTicket
+                        ]"
+                        (click)="viewJobTicket()"
+                        >{{ item.jobTicket }}</a
+                      >
+                    </td>
+                  </tr>
+                  <tr *ngIf="fuelWaterList.length <= 0">
+                    <td align="center" colspan="9" class="no-data">
+                      No data available
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </ibm-table-container>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div ibmRow>
+    <div ibmCol [columnNumbers]="{ lg: 10 }">
+      <ibm-modal [open]="openCancel" (overlaySelected)="openCancel = false">
+        <ibm-modal-header (closeSelect)="openCancel = false">
+        </ibm-modal-header>
+        <section ibmModalContent *ngIf="!flagCharge || !dateFlag">
+          <h4 style="font-weight: bold">Confirmation</h4>
+          <h4>Are you sure you want to cancel this fuel water request?</h4>
+          <h4>Any cancellation of request cannot be undone after this.</h4>
+        </section>
+        <section ibmModalContent *ngIf="flagCharge && dateFlag">
+          <h4 style="font-weight: bold">Confirmation</h4>
+          <h4>
+            Charges could be applied to this fuel water request cancellation
+            under certain conditions.
+          </h4>
+          <h4>
+            Any cancellation of fuel water request cannot be undone after this.
+          </h4>
+          <h4>
+            For more information, please contact Marine Admin - Tel: 09-863 4378
+          </h4>
+        </section>
+        <ibm-modal-footer>
+          <button
+            class="bx--btn bx--btn--secondary"
+            (click)="openCancel = false"
+          >
+            Back
+          </button>
+          <button class="bx--btn bx--btn--primary" (click)="deleteJobRequest()">
+            Cancel Request
+          </button>
+        </ibm-modal-footer>
+      </ibm-modal>
+    </div>
+  </div>
+
+  <div ibmRow>
+    <div ibmCol [columnNumbers]="{ lg: 10 }">
+      <ibm-modal
+        [open]="openSubmitModal"
+        (overlaySelected)="openSubmitModal = false"
+      >
+        <ibm-modal-header (closeSelect)="openSubmitModal = false">
+        </ibm-modal-header>
+        <section ibmModalContent>
+          <h4>
+            Are you sure you want to submit this request? Make sure all the
+            details are correct before you submit.
+          </h4>
+        </section>
+        <ibm-modal-footer>
+          <button
+            class="bx--btn bx--btn--secondary"
+            (click)="openSubmitModal = false"
+          >
+            Cancel
+          </button>
+          <button
+            class="bx--btn bx--btn--primary"
+            modal-primary-focus
+            (click)="onSubmit()"
+          >
+            Submit
+          </button>
+        </ibm-modal-footer>
+      </ibm-modal>
+    </div>
+  </div>
+
+  <!-- Modal-->
+  <div ibmRow>
+    <div ibmCol [columnNumbers]="{ lg: 10 }">
+      <ibm-modal [open]="openModal" (overlaySelected)="openModal = false">
+        <ibm-modal-header (closeSelect)="openModal = false">
+          <h4 ibmModalHeaderHeading>Confirmation</h4>
+        </ibm-modal-header>
+        <section ibmModalContent style="height: unset">
+          <h4
+            ibmModalContentText
+            class="bx--modal-content__regular-content modal-text"
+          >
+            Are you sure want to endorse?<br />
+          </h4>
+        </section>
+        <ibm-modal-footer>
+          <button
+            class="bx--btn bx--btn--secondary"
+            (click)="openModal = false"
+          >
+            Back
+          </button>
+
+          <button
+            type="submit"
+            class="bx--btn bx--btn--primary"
+            (click)="endorseJob()"
+          >
+            Endorse
+          </button>
+        </ibm-modal-footer>
+      </ibm-modal>
+    </div>
+  </div>
+</div>
+
+<div ibmGrid class="bx--grid--full-width" style="padding-left: 4rem">
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 12, sm: 12 }" class="pl-0">
+      <div class="form-item pt-64 pb-64">
+        <div class="btn-action">
+          <button
+            *ngIf="
+              !status.toLowerCase().includes('book') &&
+              !status.toLowerCase().includes('pending') &&
+              !status.toLowerCase().includes('endorse') &&
+              !status.toLowerCase().includes('progress') &&
+              !status.toLowerCase().includes('cancel')
+            "
+            type="button"
+            ibmButton="secondary"
+            style="margin-right: 24px"
+            class="btn-178"
+            [routerLink]="[
+              '/operation-system/marine-fuelwater-request-form',
+              requestNo
+            ]"
+          >
+            Edit
+          </button>
+          <button
+            *ngIf="
+              status.toLowerCase().includes('book') ||
+              status.toLowerCase().includes('pending') ||
+              status.toLowerCase().includes('progress') ||
+              status.toLowerCase().includes('endorse') ||
+              status.toLowerCase().includes('cancel')
+            "
+            type="button"
+            ibmButton="secondary"
+            style="margin-right: 24px"
+            class="btn-178"
+            [routerLink]="[
+              status.toLowerCase() === 'endorsed'
+                ? '/operation-system/marine-endorse-fuelwater-list'
+                : '/operation-system/marine-fuel-water-request-list'
+            ]"
+          >
+            Back
+          </button>
+          <button
+            type="submit"
+            ibmButton="secondary"
+            class="btn-178"
+            (click)="print()"
+            *ngIf="
+              status.toLowerCase().includes('book') ||
+              status.toLowerCase().includes('pending') ||
+              status.toLowerCase().includes('progress') ||
+              status.toLowerCase().includes('endorse') ||
+              status.toLowerCase().includes('cancel')
+            "
+            style="margin-right: 24px"
+          >
+            Print
+          </button>
+
+          <button
+            type="submit"
+            ibmButton="primary"
+            class="btn-178"
+            (click)="openModal = true"
+            *ngIf="status.toLowerCase().includes('endorsement')"
+          >
+            Endorse
+          </button>
+          <!-- <button
+            *ngIf="status.toLowerCase().includes('pending')"
+            (click)="openModalAmmend = true"
+            type="submit"
+            ibmButton="primary"
+            class="btn-178"
+            style="float: right"
+          >
+            Amend
+          </button> -->
+          <button
+            *ngIf="
+              !status.toLowerCase().includes('book') &&
+              !status.toLowerCase().includes('pending') &&
+              !status.toLowerCase().includes('endorse') &&
+              !status.toLowerCase().includes('progress') &&
+              !status.toLowerCase().includes('cancel')
+            "
+            type="submit"
+            ibmButton="primary"
+            class="btn-178"
+            [disabled]="editedStatus"
+            (click)="saveFuelWaterForm()"
+            style="margin-right: 24px"
+          >
+            Save
+          </button>
+
+          <button
+            *ngIf="status.toLowerCase().includes('init')"
+            type="submit"
+            ibmButton="primary"
+            style="float: right"
+            class="btn-178"
+            (click)="openSubmitModal = true"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div ibmRow class="mt-24">
+    <div ibmCol [columnNumbers]="{ lg: 10 }">
+      <ibm-modal
+        [open]="openModalAmmend"
+        (overlaySelected)="openModalAmmend = false"
+      >
+        <ibm-modal-header (closeSelect)="openModalAmmend = false">
+          <h3 ibmModalHeaderHeading>Amendment</h3>
+        </ibm-modal-header>
+        <section ibmModalContent style="height: unset">
+          <ibm-label ibmModalContentText>
+            Description
+            <textarea
+              ibmTextArea
+              aria-label="textarea"
+              [rows]="6"
+              name="ammend"
+              placeholder="Descriptions here"
+              (blur)="onblurAmend($event)"
+              [value]="amendNotes"
+            ></textarea>
+          </ibm-label>
+        </section>
+        <ibm-modal-footer>
+          <button
+            class="bx--btn bx--btn--secondary"
+            (click)="openModalAmmend = false"
+          >
+            Back
+          </button>
+
+          <button
+            type="submit"
+            class="bx--btn bx--btn--primary"
+            (click)="submitAmmend()"
+          >
+            Submit
+          </button>
+        </ibm-modal-footer>
+      </ibm-modal>
+    </div>
+  </div>
+</div>

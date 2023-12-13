@@ -1,0 +1,46 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+@import '~carbon-components/scss/globals/scss/vendor/@carbon/type/scss/font-family';
+@import '~carbon-components/scss/globals/scss/typography';
+
+.pt-33 {
+    padding-top: 34px;
+}
+
+.pt-32 {
+    padding-top: 32px;
+}
+
+.pl-32 {
+    padding-left: 32px;
+}
+
+.pr-72 {
+    padding-right: 4.5rem;
+}
+
+.form-item {
+    padding-bottom: 32px;
+}
+
+.form-item.btn-spacing{
+    padding-top: 32px;
+}
+
+.btn-spacing button {
+    margin-right: 24px;
+    width: 178px;
+}
+
+.display-flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.eh01 {
+    @include carbon--type-style('expressive-heading-01');
+    @include carbon--font-weight('bold');
+}
+
+.width-50 {
+    width: 50%;
+}

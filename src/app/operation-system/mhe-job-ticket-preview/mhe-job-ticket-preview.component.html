@@ -1,0 +1,867 @@
+<!-- <span (click)="open = true" class="customLink">{{ticketNumber}}</span>
+
+<ibm-modal size="lg" [open]="open" (overlaySelected)="open = false">
+    <ibm-modal-header (closeSelect)="open = false"></ibm-modal-header>
+    <section ibmModalContent class="pt-4"> -->
+<div class="printable">
+  <div ibmGrid class="bx--grid--full-width bottom-padding-without-print">
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3">
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+        <div ibmRow class="justify-content-center mt-32">
+          <img src="./assets/images/ksb-logo-97.svg" alt="KSB logo" />
+        </div>
+        <div ibmRow class="justify-content-center mt-3">
+          <span class="ph02"
+            >PANGKALAN BEKALAN KEMAMAN SDN. BHD. (69363-D)</span
+          >
+        </div>
+        <span class="ph03">MHE Job Ticket</span>
+
+        <div ibmRow class="mt-24">
+          <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+            <span class="ph01">Job Ticket Number</span>
+          </div>
+          <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+            <span class="bl01">{{ strJobTicket }}</span>
+          </div>
+        </div>
+
+        <div ibmRow class="mt-24">
+          <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+            <span class="ph01">Company Name</span>
+          </div>
+          <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+            <span class="bl01">{{ strCompanyName }}</span>
+          </div>
+        </div>
+
+        <div ibmRow class="mt-24">
+          <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+            <span class="ph01">Request By</span>
+          </div>
+          <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+            <span class="bl01">{{ strRequestBy }}</span>
+          </div>
+        </div>
+
+        <div ibmRow class="mt-24">
+          <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+            <span class="ph01">Request Number</span>
+          </div>
+          <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+            <span class="bl01">{{ strRequestNumber }}</span>
+          </div>
+        </div>
+
+        <div ibmRow class="mt-24">
+          <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+            <span class="ph01">Request Type</span>
+          </div>
+          <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+            <div class="bl01 first-cap">{{ strRequestType }}</div>
+          </div>
+        </div>
+
+        <div ibmRow class="mt-24">
+          <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+            <span class="ph01">Booking Type</span>
+          </div>
+          <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+            <div class="bl01 first-cap">{{ strBookingType }}</div>
+          </div>
+        </div>
+
+        <div ibmRow class="mt-24">
+          <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+            <span class="ph01">Booking Date</span>
+          </div>
+          <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+            <span *ngIf="!strDateEnd" class="bl01">{{ strDateStart }}</span>
+            <span *ngIf="strDateStart && strDateEnd" class="bl01"
+              >{{ strDateStart }} - {{ strDateEnd }}
+            </span>
+          </div>
+        </div>
+
+        <div ibmRow class="mt-24">
+          <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+            <span class="ph01">Location</span>
+          </div>
+          <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+            <span class="bl01">{{ strLocation }}</span>
+          </div>
+        </div>
+
+        <div ibmRow class="mt-24">
+          <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+            <span class="ph01">Request on Behalf</span>
+          </div>
+          <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+            <span class="bl01">{{ strRequestOnBehalf }}</span>
+          </div>
+        </div>
+
+        <div ibmRow class="mt-24">
+          <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+            <span class="ph01">Job Description</span>
+          </div>
+          <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+            <span class="bl01">{{ strJobDescription }}</span>
+          </div>
+        </div>
+
+        <div ibmRow class="mt-24">
+          <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+            <span class="ph01">PO Number</span>
+          </div>
+          <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+            <span class="bl01">{{ strPONumber }}</span>
+          </div>
+        </div>
+
+        <div ibmRow class="mt-24">
+          <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+            <span class="ph01">Ref. Number</span>
+          </div>
+          <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+            <span class="bl01">{{ strRefNumber }}</span>
+          </div>
+        </div>
+
+        <div ibmRow class="mt-24">
+          <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+            <span class="ph01">JR Number</span>
+          </div>
+          <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+            <span class="bl01">{{ strJRNumber }}</span>
+          </div>
+        </div>
+
+        <div ibmRow class="mt-24">
+          <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+            <span class="ph01">Vessel Name</span>
+          </div>
+          <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+            <div
+              *ngFor="
+                let vessel of vesselList;
+                let last = last;
+                let index = index
+              "
+            >
+              {{ vessel }}<span *ngIf="!last" class="pr-4">, </span>
+            </div>
+            <div *ngIf="vesselList.length == 0">-</div>
+          </div>
+        </div>
+
+        <div ibmRow class="mt-24">
+          <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+            <span class="ph01">Date Submitted</span>
+          </div>
+          <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+            <span class="bl01">{{ strRequestDate }}</span>
+          </div>
+        </div>
+
+        <div ibmRow class="mt-24">
+          <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+            <span class="ph01">Status</span>
+          </div>
+          <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+            <div
+              class="bl01"
+              [ngClass]="{ 'red-text': strStatus1 == 'Pending Endorsement' }"
+            >
+              {{ strStatus1 }}
+            </div>
+          </div>
+        </div>
+
+        <div *ngFor="let item of endorserArr; let postIndex = index">
+          <div ibmRow class="mt-24">
+            <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+              <span class="ph01">Endorser {{ postIndex + 1 }}</span>
+            </div>
+            <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+              <div class="bl01">
+                {{ item.endorsedBy }}
+              </div>
+            </div>
+          </div>
+
+          <div ibmRow class="mt-24">
+            <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+              <span class="ph01">Endorsed Date </span>
+            </div>
+            <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+              <div class="bl01">
+                {{ item.endorsedDate }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="div-page-break">
+          <div ibmRow class="mt-64" *ngIf="machineryState">
+            <div ibmCol class="ph03">Machinery</div>
+          </div>
+          <div ibmRow class="mt-3" *ngIf="machineryState">
+            <div ibmCol class="ph03 full-width">
+              <ibm-table-container>
+                <div class="horizontal-overflow-table">
+                  <table class="bx--data-table border">
+                    <thead>
+                      <tr>
+                        <th rowspan="2">
+                          <span class="bx--table-header-label">No.</span>
+                        </th>
+                        <th rowspan="2">
+                          <span class="bx--table-header-label">Item</span>
+                        </th>
+                        <th rowspan="2">
+                          <span class="bx--table-header-label">Qty.</span>
+                        </th>
+                        <th colspan="3">
+                          <div class="d-flex justify-content-center">
+                            <span class="bx--table-header-label"
+                              >Session 1</span
+                            >
+                          </div>
+                        </th>
+                        <th colspan="3">
+                          <div class="d-flex justify-content-center">
+                            <span class="bx--table-header-label"
+                              >Session 2</span
+                            >
+                          </div>
+                        </th>
+                        <th colspan="3">
+                          <div class="d-flex justify-content-center">
+                            <span class="bx--table-header-label"
+                              >Session 3</span
+                            >
+                          </div>
+                        </th>
+                        <th colspan="3">
+                          <div class="d-flex justify-content-center">
+                            <span class="bx--table-header-label"
+                              >Session 4</span
+                            >
+                          </div>
+                        </th>
+                        <th rowspan="2">
+                          <span class="bx--table-header-label"
+                            >Total Hours</span
+                          >
+                        </th>
+                        <th rowspan="2">
+                          <span class="bx--table-header-label">Remarks</span>
+                        </th>
+                      </tr>
+                      <tr>
+                        <th>
+                          <span class="bx--table-header-label">Start</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">End</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">Hours</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">Start</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">End</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">Hours</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">Start</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">End</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">Hours</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">Start</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">End</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">Hours</span>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let input of machineRow">
+                        <td>{{ input.id }}</td>
+                        <td>{{ input.item }}</td>
+                        <td>{{ input.quantity }}</td>
+                        <td>{{ input.Sesh1Start }}</td>
+                        <td>{{ input.Sesh1End }}</td>
+                        <td>{{ input.Sesh1Hours }}</td>
+                        <td>{{ input.Sesh2Start }}</td>
+                        <td>{{ input.Sesh2End }}</td>
+                        <td>{{ input.Sesh2Hours }}</td>
+                        <td>{{ input.Sesh3Start }}</td>
+                        <td>{{ input.Sesh3End }}</td>
+                        <td>{{ input.Sesh3Hours }}</td>
+                        <td>{{ input.Sesh4Start }}</td>
+                        <td>{{ input.Sesh4End }}</td>
+                        <td>{{ input.Sesh4Hours }}</td>
+                        <td>{{ input.totalHours }}</td>
+                        <td>{{ input.remark }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </ibm-table-container>
+            </div>
+          </div>
+        </div>
+
+        <div class="div-page-break">
+          <div ibmRow class="mt-64" *ngIf="manPowerState">
+            <div ibmCol class="ph03">Manpower</div>
+          </div>
+          <div ibmRow class="mt-3" *ngIf="manPowerState">
+            <div ibmCol class="ph03 full-width">
+              <ibm-table-container>
+                <div class="horizontal-overflow-table">
+                  <table class="bx--data-table border">
+                    <thead>
+                      <tr>
+                        <th rowspan="2">
+                          <span class="bx--table-header-label">No.</span>
+                        </th>
+                        <th rowspan="2">
+                          <span class="bx--table-header-label">Item</span>
+                        </th>
+                        <th rowspan="2" style="width: 120px">
+                          <span
+                            class="bx--table-header-label"
+                            style="display: inline-block; width: 250px"
+                            >Operator</span
+                          >
+                        </th>
+                        <th rowspan="2">
+                          <span class="bx--table-header-label">Qty.</span>
+                        </th>
+                        <th colspan="3">
+                          <div class="d-flex justify-content-center">
+                            <span class="bx--table-header-label"
+                              >Session 1</span
+                            >
+                          </div>
+                        </th>
+                        <th colspan="3">
+                          <div class="d-flex justify-content-center">
+                            <span class="bx--table-header-label"
+                              >Session 2</span
+                            >
+                          </div>
+                        </th>
+                        <th colspan="3">
+                          <div class="d-flex justify-content-center">
+                            <span class="bx--table-header-label"
+                              >Session 3</span
+                            >
+                          </div>
+                        </th>
+                        <th colspan="3">
+                          <div class="d-flex justify-content-center">
+                            <span class="bx--table-header-label"
+                              >Session 4</span
+                            >
+                          </div>
+                        </th>
+                        <th rowspan="2">
+                          <span class="bx--table-header-label"
+                            >Total Hours</span
+                          >
+                        </th>
+                        <th rowspan="2">
+                          <span class="bx--table-header-label">Remarks</span>
+                        </th>
+                      </tr>
+                      <tr>
+                        <th>
+                          <span class="bx--table-header-label">Start</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">End</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">Hours</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">Start</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">End</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">Hours</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">Start</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">End</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">Hours</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">Start</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">End</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">Hours</span>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let input of manPowerRow">
+                        <td>{{ input.id }}</td>
+                        <td>{{ input.item }}</td>
+                        <td>
+                          <ol style="list-style: auto">
+                            <li
+                              *ngFor="let opName of input.operator"
+                              style="margin-top: 1rem"
+                            >
+                              {{ opName }}
+                            </li>
+                          </ol>
+                        </td>
+                        <td>{{ input.quantity }}</td>
+                        <td>{{ input.Sesh1Start }}</td>
+                        <td>{{ input.Sesh1End }}</td>
+                        <td>{{ input.Sesh1Hours }}</td>
+                        <td>{{ input.Sesh2Start }}</td>
+                        <td>{{ input.Sesh2End }}</td>
+                        <td>{{ input.Sesh2Hours }}</td>
+                        <td>{{ input.Sesh3Start }}</td>
+                        <td>{{ input.Sesh3End }}</td>
+                        <td>{{ input.Sesh3Hours }}</td>
+                        <td>{{ input.Sesh4Start }}</td>
+                        <td>{{ input.Sesh4End }}</td>
+                        <td>{{ input.Sesh4Hours }}</td>
+                        <td>{{ input.totalHours }}</td>
+                        <td>{{ input.remark }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </ibm-table-container>
+            </div>
+          </div>
+        </div>
+
+        <div class="div-page-break">
+          <div ibmRow class="mt-64" *ngIf="equipmentState">
+            <div ibmCol class="ph03">Equipment</div>
+          </div>
+          <div ibmRow class="mt-3" *ngIf="equipmentState">
+            <div ibmCol class="ph03 full-width">
+              <ibm-table-container>
+                <div class="horizontal-overflow-table">
+                  <table class="bx--data-table border">
+                    <thead>
+                      <tr>
+                        <th rowspan="2">
+                          <span class="bx--table-header-label">No.</span>
+                        </th>
+                        <th rowspan="2">
+                          <span class="bx--table-header-label">Item</span>
+                        </th>
+                        <th rowspan="2">
+                          <span class="bx--table-header-label">Qty.</span>
+                        </th>
+                        <th colspan="3">
+                          <div class="d-flex justify-content-center">
+                            <span class="bx--table-header-label"
+                              >Session 1</span
+                            >
+                          </div>
+                        </th>
+                        <th colspan="3">
+                          <div class="d-flex justify-content-center">
+                            <span class="bx--table-header-label"
+                              >Session 2</span
+                            >
+                          </div>
+                        </th>
+                        <th colspan="3">
+                          <div class="d-flex justify-content-center">
+                            <span class="bx--table-header-label"
+                              >Session 3</span
+                            >
+                          </div>
+                        </th>
+                        <th colspan="3">
+                          <div class="d-flex justify-content-center">
+                            <span class="bx--table-header-label"
+                              >Session 4</span
+                            >
+                          </div>
+                        </th>
+                        <th rowspan="2">
+                          <span class="bx--table-header-label"
+                            >Total Hours</span
+                          >
+                        </th>
+                        <th rowspan="2">
+                          <span class="bx--table-header-label">Remarks</span>
+                        </th>
+                      </tr>
+                      <tr>
+                        <th>
+                          <span class="bx--table-header-label">Start</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">End</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">Hours</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">Start</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">End</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">Hours</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">Start</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">End</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">Hours</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">Start</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">End</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">Hours</span>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let input of otherMachineryRow">
+                        <td>{{ input.id }}</td>
+                        <td>{{ input.item }}</td>
+                        <td>{{ input.quantity }}</td>
+                        <td>{{ input.Sesh1Start }}</td>
+                        <td>{{ input.Sesh1End }}</td>
+                        <td>{{ input.Sesh1Hours }}</td>
+                        <td>{{ input.Sesh2Start }}</td>
+                        <td>{{ input.Sesh2End }}</td>
+                        <td>{{ input.Sesh2Hours }}</td>
+                        <td>{{ input.Sesh3Start }}</td>
+                        <td>{{ input.Sesh3End }}</td>
+                        <td>{{ input.Sesh3Hours }}</td>
+                        <td>{{ input.Sesh4Start }}</td>
+                        <td>{{ input.Sesh4End }}</td>
+                        <td>{{ input.Sesh4Hours }}</td>
+                        <td>{{ input.totalHours }}</td>
+                        <td>{{ input.remark }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </ibm-table-container>
+            </div>
+          </div>
+        </div>
+        <div class="div-page-break">
+          <div ibmRow class="mt-64" *ngIf="externalItemState">
+            <div ibmCol class="ph03">External Item</div>
+          </div>
+          <div
+            ibmRow
+            class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-3"
+            *ngIf="externalItemState"
+          >
+            <div
+              ibmCol
+              [columnNumbers]="{ lg: 16, md: 16, sm: 16 }"
+              class="ph03 full-width"
+            >
+              <ibm-table-container>
+                <div class="horizontal-overflow-table">
+                  <table class="bx--data-table border">
+                    <thead>
+                      <tr>
+                        <th rowspan="2">
+                          <span class="bx--table-header-label">No.</span>
+                        </th>
+                        <th rowspan="2">
+                          <span class="bx--table-header-label">Item</span>
+                        </th>
+                        <th rowspan="2">
+                          <span class="bx--table-header-label">Qty.</span>
+                        </th>
+                        <th colspan="3">
+                          <div class="d-flex justify-content-center">
+                            <span class="bx--table-header-label"
+                              >Session 1</span
+                            >
+                          </div>
+                        </th>
+                        <th colspan="3">
+                          <div class="d-flex justify-content-center">
+                            <span class="bx--table-header-label"
+                              >Session 2</span
+                            >
+                          </div>
+                        </th>
+                        <th colspan="3">
+                          <div class="d-flex justify-content-center">
+                            <span class="bx--table-header-label"
+                              >Session 3</span
+                            >
+                          </div>
+                        </th>
+                        <th colspan="3">
+                          <div class="d-flex justify-content-center">
+                            <span class="bx--table-header-label"
+                              >Session 4</span
+                            >
+                          </div>
+                        </th>
+                        <th rowspan="2">
+                          <span class="bx--table-header-label"
+                            >Total Hours</span
+                          >
+                        </th>
+                        <th rowspan="2">
+                          <span class="bx--table-header-label">Remarks</span>
+                        </th>
+                      </tr>
+                      <tr>
+                        <th>
+                          <span class="bx--table-header-label">Start</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">End</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">Hours</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">Start</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">End</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">Hours</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">Start</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">End</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">Hours</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">Start</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">End</span>
+                        </th>
+                        <th>
+                          <span class="bx--table-header-label">Hours</span>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let input of externalItemRow">
+                        <td>{{ input.id }}</td>
+                        <td>{{ input.item }}</td>
+                        <td>{{ input.quantity }}</td>
+                        <td>{{ input.Sesh1Start }}</td>
+                        <td>{{ input.Sesh1End }}</td>
+                        <td>{{ input.Sesh1Hours }}</td>
+                        <td>{{ input.Sesh2Start }}</td>
+                        <td>{{ input.Sesh2End }}</td>
+                        <td>{{ input.Sesh2Hours }}</td>
+                        <td>{{ input.Sesh3Start }}</td>
+                        <td>{{ input.Sesh3End }}</td>
+                        <td>{{ input.Sesh3Hours }}</td>
+                        <td>{{ input.Sesh4Start }}</td>
+                        <td>{{ input.Sesh4End }}</td>
+                        <td>{{ input.Sesh4Hours }}</td>
+                        <td>{{ input.totalHours }}</td>
+                        <td>{{ input.remark }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </ibm-table-container>
+            </div>
+          </div>
+        </div>
+        <!-- <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-64" [leftGutter]=false>
+            <div ibmCol [columnNumbers]="{'lg': 12, 'md': 10, 'sm': 6}">
+                <hr>
+            </div>
+        </div> -->
+
+        <div ibmRow class="mt-64">
+          <div ibmCol [columnNumbers]="{ lg: 2 }">
+            <span class="ph01">Remarks</span>
+          </div>
+          <div ibmCol [columnNumbers]="{ lg: 6 }">
+            <span class="bl01">{{ strRemark }}</span>
+          </div>
+        </div>
+        <div ibmRow class="mt-32">
+          <div ibmCol [columnNumbers]="{ lg: 2 }">
+            <span class="ph01">Date</span>
+          </div>
+          <div ibmCol [columnNumbers]="{ lg: 6 }">
+            <!-- <span class="bl01">04/05/2021</span> -->
+            <span class="bl01">{{ strDate }}</span>
+          </div>
+        </div>
+
+        <div ibmRow class="mt-32 mb-4 hide-print">
+          <div ibmCol>
+            <button
+              [ibmButton]="'secondary'"
+              class="mr-24"
+              [routerLink]="[
+                '/operation-system/mhe-request-preview-endorse',
+                strRequestNumber
+              ]"
+            >
+              Back
+            </button>
+            <button [ibmButton]="'secondary'" class="mr-24" (click)="onPrint()">
+              Print
+            </button>
+            <button
+              *ngIf="ammendState"
+              [ibmButton]="'secondary'"
+              (click)="openModalAmmend = true"
+              class="mr-24"
+            >
+              Amend
+            </button>
+            <button
+              *ngIf="endorseState"
+              [ibmButton]="'primary'"
+              (click)="openEndorseModal()"
+              class="mr-24"
+            >
+              Endorse
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal-->
+  <div ibmRow class="hide-print">
+    <div ibmCol [columnNumbers]="{ lg: 10 }">
+      <ibm-modal [open]="openModal" (overlaySelected)="openModal = false">
+        <ibm-modal-header (closeSelect)="openModal = false">
+          <h3 ibmModalHeaderHeading>Confirmation</h3>
+        </ibm-modal-header>
+        <section ibmModalContent style="height: unset">
+          <h3
+            ibmModalContentText
+            class="bx--modal-content__regular-content modal-text"
+          >
+            Are you sure want to endorse?<br />
+          </h3>
+        </section>
+        <ibm-modal-footer>
+          <button
+            class="bx--btn bx--btn--secondary"
+            (click)="openModal = false"
+          >
+            Back
+          </button>
+
+          <button
+            type="submit"
+            class="bx--btn bx--btn--primary"
+            (click)="submitEndorse()"
+          >
+            Endorse
+          </button>
+        </ibm-modal-footer>
+      </ibm-modal>
+    </div>
+  </div>
+
+  <div ibmRow class="mt-24">
+    <div ibmCol [columnNumbers]="{ lg: 10 }">
+      <ibm-modal
+        [open]="openModalAmmend"
+        (overlaySelected)="openModalAmmend = false"
+      >
+        <ibm-modal-header (closeSelect)="openModalAmmend = false">
+          <h3 ibmModalHeaderHeading>Amendment</h3>
+        </ibm-modal-header>
+        <section ibmModalContent style="height: unset">
+          <ibm-label ibmModalContentText>
+            Description
+            <textarea
+              ibmTextArea
+              aria-label="textarea"
+              [rows]="6"
+              name="ammend"
+              placeholder="Descriptions here"
+              (blur)="onblurAmend($event)"
+            ></textarea>
+          </ibm-label>
+        </section>
+        <ibm-modal-footer>
+          <button
+            class="bx--btn bx--btn--secondary"
+            (click)="openModalAmmend = false"
+          >
+            Back
+          </button>
+
+          <button
+            type="submit"
+            class="bx--btn bx--btn--primary"
+            (click)="submitAmmend()"
+          >
+            Submit
+          </button>
+        </ibm-modal-footer>
+      </ibm-modal>
+    </div>
+  </div>
+</div>
+<!-- </div> -->
+<!-- </section> -->
+<!-- <ibm-modal-footer>
+            <button class="bx--btn bx--btn--primary closeBtn" modal-primary-focus (click)="open = false">Close</button>
+        </ibm-modal-footer> -->
+<!-- </ibm-modal> -->

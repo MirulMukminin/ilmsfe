@@ -1,0 +1,448 @@
+<div ibmGrid class="bx--grid--full-width">
+  <form #transferForm="ngForm" (ngSubmit)="onSubmit(transferForm)">
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 10 }">
+        <ibm-breadcrumb [noTrailingSlash]="true">
+          <ibm-breadcrumb-item [current]="true" href="#1">
+            Warehouse Management System
+          </ibm-breadcrumb-item>
+          <ibm-breadcrumb-item>
+            <a
+              style="text-decoration: none"
+              [routerLink]="['/wms/psb-inventory-list']"
+              >Petroleum Supply Base</a
+            >
+          </ibm-breadcrumb-item>
+          <ibm-breadcrumb-item>
+            <a
+              style="text-decoration: none"
+              [routerLink]="['/wms/psb-transfer-location-list']"
+              >Transfer Location</a
+            >
+          </ibm-breadcrumb-item>
+          <ibm-breadcrumb-item [current]="true" href="#3">
+            Request Form
+          </ibm-breadcrumb-item>
+        </ibm-breadcrumb>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-32">
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="ph03">
+        Transfer Location Request Form
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-32">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Company Name</div>
+      <div ibmCol [columnNumbers]="{ lg: 4 }" class="bl01">
+        {{ companyName }}
+        <input
+          type="text"
+          name="companyname"
+          [(ngModel)]="transferForm.companyname"
+          value="{{ companyName }}"
+          style="display: none"
+        />
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Request By</div>
+      <div ibmCol [columnNumbers]="{ lg: 4 }" class="bl01">
+        {{ requestBy }}
+        <input
+          type="text"
+          name="requestby"
+          [(ngModel)]="transferForm.requestby"
+          value="{{ requestBy }}"
+          style="display: none"
+        />
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-32">
+      <div ibmCol [columnNumbers]="{ lg: 6 }" style="color: #515151">
+        {{ transferForm.transferdate }}
+        <ibm-date-picker
+          name="transferdate"
+          [(ngModel)]="datepickerval"
+          label="Transfer Date"
+          [placeholder]="'dd/mm/yyyy'"
+          size="md"
+          [dateFormat]="'d/m/Y'"
+          invalidText="Please select date"
+          [invalid]="invalidDate"
+          required
+        >
+        </ibm-date-picker>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-32">
+      <div ibmCol [columnNumbers]="{ lg: 6 }" style="color: #515151">
+        <legend class="bx--label-sm mb-8">Category</legend>
+        <ibm-radio-group
+          name="category"
+          [(ngModel)]="category"
+          aria-label="radiogroup"
+          required
+        >
+          <ibm-radio value="LOCAL" [checked]="true"> Local </ibm-radio>
+          <ibm-radio value="BONDED"> Bonded </ibm-radio>
+        </ibm-radio-group>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-32">
+      <div ibmCol [columnNumbers]="{ lg: 4 }" style="color: #515151">
+        <!-- <legend class="bx--label-sm mb-8">Type of Goods</legend>
+            <ibm-radio-group aria-label="radiogroup" orientation="vertical">
+                <ibm-radio value="" [checked]="true">
+                    Dangerous Chemical
+                </ibm-radio>
+                <ibm-radio value="" class="mt-32">
+                    Others
+                </ibm-radio>
+            </ibm-radio-group>
+
+            <ibm-label helperText="Please specify the Types of Goods" class="d-flex-row">
+                <input ibmText disabled="true">
+            </ibm-label> -->
+
+        <!-- <ibm-label class="d-flex-row">
+                Remarks (Optional)
+                <textarea ibmTextArea name="remarks" [(ngModel)]="remarks" [rows]="7" placeholder="Remarks"></textarea>
+            </ibm-label> -->
+
+        <label class="bx--label">Remarks (Optional)</label
+        ><label
+          class="bx--label"
+          [ngStyle]="{ color: invalidNumericRemarks ? '#da1e28' : '' }"
+          style="float: right"
+          >{{ numericRemarks }}/100</label
+        >
+        <textarea
+          ibmTextArea
+          aria-label="textarea"
+          maxlength="100"
+          [rows]="6"
+          name="remarks"
+          [(ngModel)]="remarks"
+          (ngModelChange)="numericCount('remarks', remarks)"
+        >
+        </textarea>
+        <div *ngIf="invalidNumericRemarks" class="invalid-class-label">
+          Reach maximum characters
+        </div>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3">
+      <div ibmCol [columnNumbers]="{ lg: 12 }">
+        <ibm-table-container style="margin-top: 4rem">
+          <ibm-table-header>
+            <h4 ibmTableHeaderTitle>Current Location or Previous Location</h4>
+            <p ibmTableHeaderDescription>
+              Please add required items in the table below. To remove, select
+              the checkbox and press remove button in the console
+            </p>
+          </ibm-table-header>
+
+          <ibm-table-toolbar>
+            <div class="table-action" *ngIf="checkActionCurr()">
+              <div class="actions">
+                <div class="del">
+                  <Button
+                    ibmButton="primary"
+                    size="sm"
+                    type="button"
+                    (click)="deleteCurrLocationRow()"
+                  >
+                    Delete
+                    <div
+                      class="icon-trashCan ml-16 mt-4"
+                      ibmIcon="trash-can"
+                      size="20"
+                    ></div>
+                  </Button>
+                </div>
+                <div class="cancel">
+                  <button
+                    ibmButton="primary"
+                    size="sm"
+                    type="button"
+                    (click)="cancelActionCurr()"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+            <ibm-table-toolbar-content *ngIf="!checkActionCurr()">
+              <button
+                ibmButton="primary"
+                (click)="open = true"
+                size="sm"
+                type="button"
+              >
+                <span style="margin-right: 67px">Add Item</span>
+                <div class="icon-addAlt" ibmIcon="add--alt" size="20"></div>
+              </button>
+            </ibm-table-toolbar-content>
+          </ibm-table-toolbar>
+          <div class="horizontal-overflow-table">
+            <table class="bx--data-table">
+              <thead>
+                <tr>
+                  <th class="bx--table-header-label">No.</th>
+                  <th class="bx--table-header-label">Goods Description</th>
+                  <th class="bx--table-header-label">Form Type</th>
+                  <th class="bx--table-header-label">Registration No.</th>
+                  <th class="bx--table-header-label" style="text-align: right">Qty.</th>
+                  <th class="bx--table-header-label">Location</th>
+                  <th class="bx--table-header-label" align="center">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngIf="!selectedGoods.length">
+                  <td colspan="7" align="center">
+                    No data is entered yet. Please Add a New entry.
+                  </td>
+                </tr>
+                <tr
+                  *ngFor="let currLocation of selectedGoods; let rowIdx = index"
+                >
+                  <td>{{ rowIdx + 1 }}</td>
+                  <td>{{ currLocation.items }}</td>
+                  <td>{{ currLocation.formtype }}</td>
+                  <td>{{ currLocation.regNo }}</td>
+                  <td style="text-align: right">
+                    {{ currLocation.qty }}
+                    <!-- <input type="text" name="currLocation-qty" [(ngModel)]="currLocation.qty" value="{{currLocation.qty}}"> -->
+                    <!-- <ibm-number value="{{currLocation.qty}}" [step]="step" [min]="min" max="{{currLocation.qty}}" required>
+                                    </ibm-number> -->
+                  </td>
+                  <td>{{ currLocation.location }}</td>
+                  <td>
+                    <ibm-checkbox
+                      name="checkbox_curr_{{ rowIdx }}"
+                      [(ngModel)]="currLocation.selected"
+                    >
+                    </ibm-checkbox>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ibm-table-container>
+
+        <ibm-table-container style="margin-top: 4rem">
+          <ibm-table-header>
+            <h4 ibmTableHeaderTitle>New Location</h4>
+            <p ibmTableHeaderDescription>
+              Please add required services in the table below. To remove, select
+              Action checkbox and press remove button in the console
+            </p>
+          </ibm-table-header>
+          <ibm-table-toolbar>
+            <div class="table-action" *ngIf="checkActionNew()">
+              <div class="actions">
+                <div class="del d-flex-row">
+                  <Button
+                    ibmButton="primary"
+                    size="sm"
+                    type="button"
+                    (click)="removeLocation()"
+                  >
+                    Remove Location
+                    <div
+                      class="icon-trashCan iconPost ml-16 mt-4"
+                      ibmIcon="trash-can"
+                      size="20"
+                    ></div>
+                  </Button>
+                </div>
+                <div class="del d-flex-row">
+                  <Button
+                    ibmButton="primary"
+                    size="sm"
+                    type="button"
+                    (click)="addLocation()"
+                  >
+                    Add Location
+                    <div
+                      class="icon-addAlt iconPost"
+                      ibmIcon="add--alt"
+                      size="20"
+                      class="ml-16 mt-4"
+                    ></div>
+                  </Button>
+                </div>
+                <div class="cancel">
+                  <button
+                    ibmButton="primary"
+                    size="sm"
+                    type="button"
+                    (click)="cancelActionNew()"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          </ibm-table-toolbar>
+          <div>
+            <table class="bx--data-table">
+              <thead>
+                <tr>
+                  <th class="bx--table-header-label">No.</th>
+                  <th class="bx--table-header-label">Goods Description</th>
+                  <th class="bx--table-header-label">Form Type</th>
+                  <th class="bx--table-header-label">Registration No.</th>
+                  <th class="bx--table-header-label" >Qty.</th>
+                  <th class="bx--table-header-label">Location</th>
+                  <th class="bx--table-header-label" align="center">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngIf="!selectedGoodsNew.length">
+                  <td colspan="7" align="center">
+                    No data is entered yet. Please Add a New entry.
+                  </td>
+                </tr>
+                <tr
+                  *ngFor="
+                    let newLocation of selectedGoodsNew;
+                    let rowIdx = index
+                  "
+                >
+                  <td>{{ rowIdx + 1 }}</td>
+                  <td>{{ newLocation.items }}</td>
+                  <td>{{ newLocation.formtype }}</td>
+                  <td>{{ newLocation.regNo }}</td>
+                  <td>
+                    <!-- <ibm-number [(ngModel)]="" name="transferqty_{{rowIdx}}" value="{{newLocation.qty}}" [step]="step" [min]="min" [max]="max" (ngModelChange)="inputValueChange()" [invalid]="invalidGoodsQuantity[postIndex]" invalidText="Quantity Required"
+                                        required>
+                                    </ibm-number> -->
+                    <ibm-number
+                      name="qty_{{ rowIdx }}"
+                      [(ngModel)]="newLocation.qty"
+                      value="0"
+                      [step]="step"
+                      [min]="min"
+                      max="{{ newLocation.maxQty }}"
+                      invalidText="Please input quantity"
+                      [invalid]="invalidQty[rowIdx]"
+                      (change)="updateQty($event, newLocation.pair, rowIdx)"
+                      required
+                    >
+                    </ibm-number>
+                  </td>
+                  <td>
+                    <ibm-combo-box
+                      name="location_{{ rowIdx }}"
+                      [items]="location"
+                      [appendInline]="true"
+                      [dropUp]="false"
+                      placeholder="Select"
+                      [(ngModel)]="newLocation.location"
+                      invalidText="Please select location"
+                      [invalid]="invalidLocation[rowIdx]"
+                      required
+                    >
+                      <ibm-dropdown-list></ibm-dropdown-list>
+                    </ibm-combo-box>
+                  </td>
+                  <td>
+                    <ibm-checkbox
+                      name="checkbox_new_{{ rowIdx }}"
+                      [(ngModel)]="newLocation.selected"
+                    >
+                    </ibm-checkbox>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ibm-table-container>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3">
+      <div ibmCol [columnNumbers]="{ lg: 12 }">
+        <hr style="margin-top: 8rem" />
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3">
+      <div
+        ibmCol
+        [columnNumbers]="{ lg: 12 }"
+        class="d-flex-row pt-64 pb-64"
+        style="justify-content: flex-end"
+      >
+        <button
+          ibmButton="secondary"
+          class="mr-24"
+          size="xl"
+          routerLink="/wms/psb-transfer-location-list"
+        >
+          Cancel
+        </button>
+        <button ibmButton="primary">Preview</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<ibm-modal [open]="open" (overlaySelected)="open = false">
+  <ibm-modal-header
+    (closeSelect)="open = false"
+    style="width: 100%; height: 669"
+  >
+    <span class="bx--modal-header__label bx--type-delta">Add Item</span>
+    <p class="bx--modal-header__heading bx--type-beta">Goods Details</p>
+  </ibm-modal-header>
+  <div class="bx--modal-content">
+    <div class="bx--text-input__field-wrapper" style="align-items: flex-end">
+      <ibm-combo-box
+        *ngIf="regNoListed"
+        class="combobox"
+        [disabled]="disableRegNoCombo"
+        label="Registration No."
+        [items]="regNoList"
+        (selected)="selected($event)"
+        [appendInline]="true"
+        [dropUp]="false"
+      >
+        <ibm-dropdown-list></ibm-dropdown-list>
+      </ibm-combo-box>
+
+      <!-- <button style="height: 40px;" class="ml-24" ibmButton="primary" size="sm">Load Data</button> -->
+    </div>
+
+    <div ibmRow class="pt-32" style="margin-left: unset">
+      <div ibmCol [columnNumbers]="{ lg: 16, md: 16, sm: 16 }">
+        <div class="horizontal-overflow-table">
+          <ibm-table-container>
+            <ibm-table
+              [sortable]="false"
+              [showSelectionColumn]="true"
+              [model]="goodDetailsModel"
+            >
+            </ibm-table>
+          </ibm-table-container>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ibm-modal-footer>
+    <ng-container>
+      <button ibmButton="secondary" (click)="open = false">Close</button>
+      <button ibmButton="primary" (click)="open = false" (click)="addItems()">
+        Add Goods to Transfer List
+      </button>
+    </ng-container>
+  </ibm-modal-footer>
+</ibm-modal>

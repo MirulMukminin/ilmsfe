@@ -1,0 +1,127 @@
+<div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-48">
+  <div ibmCol [columnNumbers]="{ lg: 12, md: 12, sm: 12 }" class="pl-0 pr-0">
+    <ibm-table-container class="table-style">
+      <ibm-table-header class="white-bg">
+        <h4 ibmTableHeaderTitle>
+          <span class="ph03">Inbound Request List</span>
+        </h4>
+        <p ibmTableHeaderDescription>
+          Current and previous Schedule Waste Inbound requested in ILMS
+          application
+        </p>
+      </ibm-table-header>
+      <ibm-table-toolbar>
+        <ibm-table-toolbar-content class="white-bg">
+          <!-- <ibm-table-toolbar-search
+                        ngDefaultControl
+                        [expandable]="true"
+                        [(ngModel)]="searchModel">
+                    </ibm-table-toolbar-search> -->
+
+          <ibm-table-toolbar-search
+            [(ngModel)]="searchModel"
+            (valueChange)="searchFilter($event)"
+            (clear)="searchFilter($event)"
+          >
+          </ibm-table-toolbar-search>
+          <button
+            ibmButton="primary"
+            size="sm"
+            type="button"
+            (click)="onClickAddNew()"
+            class="addNew"
+          >
+            Add New
+            <div class="icon-addAlt" ibmIcon="add--alt" size="20"></div>
+          </button>
+          <button
+            ibmButton="secondary"
+            *ngIf="sortingOn"
+            size="sm"
+            type="button"
+            (click)="userInfo()"
+            (click)="clearSearch()"
+            class="addNew"
+          >
+            Reset Sorting
+            <div class="icon-addAlt" ibmIcon="filter--reset" size="20"></div>
+          </button>
+          <button
+            ibmButton="secondary"
+            size="sm"
+            type="button"
+            class="addNew"
+            (click)="userInfo()"
+          >
+            <span style="margin-right: 42px">Refresh</span>
+            <div class="icon-addAlt" ibmIcon="renew" size="20"></div>
+          </button>
+        </ibm-table-toolbar-content>
+      </ibm-table-toolbar>
+
+      <div class="horizontal-overflow-table">
+        <ng-template #customTableItemTemplate let-data="data">
+          <a
+            class="customLink2"
+            [routerLink]="['/operation-system/sw-inbound-view', data.link]"
+            >{{ data.orderNo }}</a
+          >
+        </ng-template>
+
+        <ibm-table
+          [model]="model"
+          [striped]="false"
+          [showSelectionColumn]="false"
+          (sort)="doSort($event)"
+        ></ibm-table>
+      </div>
+      <ibm-pagination
+        [model]="model"
+        [itemsPerPageOptions]="itemsPerPageOptions"
+        (selectPage)="selectPage($event)"
+        >></ibm-pagination
+      >
+    </ibm-table-container>
+  </div>
+
+  <ibm-modal [open]="open" size="sm" (overlaySelected)="open = false">
+    <ibm-modal-header ibmModalHeaderHeading (closeSelect)="open = false">
+      <p style="font-size: 12px">Notice</p>
+      <h4>Please Fill Up the TWG Form</h4>
+    </ibm-modal-header>
+    <div style="margin-bottom: 0" ibmModalContent class="bx--modal-content">
+      <p>
+        ILMS can’t find your credentials for Scheduled Waste Management in the
+        existing Customer Master Data.
+      </p>
+      <br />
+      <p>
+        For first time request on Scheduled Waste Management services, please
+        fill up the TWG form for an approval from the Malaysian Department of
+        Environment (DOE).
+      </p>
+      <br />
+      <p>
+        Upon receiving the approval, ILMS will notify you via email to proceed
+        with your booking.
+      </p>
+      <br />
+      <p>For any enquiries please call</p>
+      <p style="font-weight: bold">Operation Hotline No.: 09-8602343/2344</p>
+    </div>
+    <br /><br />
+
+    <ibm-modal-footer>
+      <ng-container>
+        <button ibmButton="secondary" (click)="open = false">Cancel</button>
+        <button
+          ibmButton="primary"
+          routerLink="/operation-system/sw-twg-form"
+          [attr.modal-primary-focus]="true"
+        >
+          Open TWG Form
+        </button>
+      </ng-container>
+    </ibm-modal-footer>
+  </ibm-modal>
+</div>

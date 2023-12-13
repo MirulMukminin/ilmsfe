@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <g id="Group_53917" data-name="Group 53917" transform="translate(-80 -322)">
+    <rect id="Rectangle_15109" data-name="Rectangle 15109" width="20" height="20" transform="translate(80 322)" fill="#fff" opacity="0"/>
+    <g id="noun_warehouse_4250426" transform="translate(83 320)">
+      <path id="Path_28669" data-name="Path 28669" d="M13.75,6H1.25A1.251,1.251,0,0,0,0,7.25V17.5a.5.5,0,0,0,.5.5h14a.5.5,0,0,0,.5-.5V7.25A1.251,1.251,0,0,0,13.75,6Zm-12.5.5h12.5a.75.75,0,0,1,.75.75v.5H.5v-.5a.75.75,0,0,1,.75-.75ZM12.75,12H2.25V10.75a.25.25,0,0,1,.25-.25h10a.25.25,0,0,1,.25.25Zm-4.5,3.5H6.75V14h1.5ZM6.5,16h.75v1.5H5.75V16Zm1.25,1.5V16h1.5v1.5Zm2,0V16a.5.5,0,0,0-.5-.5h-.5V14a.5.5,0,0,0-.5-.5H6.75a.5.5,0,0,0-.5.5v1.5h-.5a.5.5,0,0,0-.5.5v1.5h-3v-5h10.5v5Zm3.5,0V10.75A.75.75,0,0,0,12.5,10H2.5a.75.75,0,0,0-.75.75V17.5H.5V8.25h14V17.5Z" fill="#525252" stroke="#525252" stroke-width="0.2"/>
+      <path id="Path_28670" data-name="Path 28670" d="M21.25,26h-8a.25.25,0,0,0,0,.5h8a.25.25,0,0,0,0-.5Z" transform="translate(-9.75 -15)" fill="#525252"/>
+    </g>
+  </g>
+</svg>

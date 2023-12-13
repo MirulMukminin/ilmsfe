@@ -1,0 +1,21 @@
+.rowCon {
+  height: calc(100vh - 3rem - 30px);
+  background-color: white;
+}
+.con {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+h1 {
+  padding: 1rem;
+  border-bottom: 4px solid black;
+}
+:host ::ng-deep {
+  .warning-alt-filled svg {
+    width: 100;
+    height: 100;
+  }
+}

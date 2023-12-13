@@ -1,0 +1,193 @@
+<ibm-header
+  name="ILMS"
+  [brand]="brandTemplate"
+  (window:resize)="onResize($event)"
+>
+  <ibm-hamburger
+    *ngIf="hasHamburger"
+    [active]="active"
+    (selected)="active = !active"
+    class="hamburger"
+  ></ibm-hamburger>
+  <ng-template #brandTemplate>
+    <!-- <img class="header_logo_KSB" src="../../assets/images/temporary-logo.png" alt="KSB logo" /> -->
+    <div class="logoTemplate">
+      <img
+        class="header_logo_KSB"
+        src="./assets/images/ksb_ilms_logo.png"
+        alt="KSB logo"
+      />
+      <!-- <img
+        class="header_logo_KSB"
+        src="./assets/images/temporary-logo.png"
+        alt="KSB logo"
+      /> -->
+      <!-- <img
+        class="header_logo_KSB"
+        src="./assets/images/ilms_logo.jpeg"
+        alt="ILMS logo"
+      /> -->
+    </div>
+    <!-- <a class="bx--header__name"> -->
+    <!-- <ibm-icon-carbon size="32" style="stroke:white;fill:white"></ibm-icon-carbon> -->
+    <!-- <span class="bx--header__name--prefix">ILMS</span>
+        </a> -->
+  </ng-template>
+  <ibm-header-navigation ariaLabel="ILMS">
+    <ibm-header-item routerLink="/dashboard" class="brandTitle"
+      ><strong><span>INTEGRATED LOGISTICS</span></strong
+      ><strong><span>MANAGEMENT SYSTEM</span></strong>
+    </ibm-header-item>
+  </ibm-header-navigation>
+  <ibm-header-global>
+    <!-- <ibm-header-action title="Notifications" [ibmOverflowMenu]="noti" placement="bottom" flip="'true'" [offset]="{ x: -168, y: 48}" (click)="showToast()">
+            <svg ibmIcon="notification" size="20"></svg>
+        </ibm-header-action> -->
+    <!-- <ibm-header-action title="User" [ibmOverflowMenu]="user" placement="bottom" flip="'true'" [offset]="{ x: 4, y: 48}">
+            <svg ibmIcon="user--avatar" size="20"></svg>
+        </ibm-header-action> -->
+    <!-- backup solution overflow menu issue -->
+    <div class="timeCon">
+      <span class="time">{{
+        time | date : "EEEE, dd/MM/yyyy, h:mm:ss a"
+      }}</span>
+    </div>
+    <div class="divider"></div>
+    <ibm-header-action
+      class="userBtn"
+      title="User"
+      #userTest
+      [(active)]="isActive"
+    >
+      <svg
+        ibmIcon="user--avatar--filled--alt"
+        size="20"
+        class="mr-8 ml-8"
+      ></svg>
+      <span class="username">Hi, {{ username }}</span>
+      <svg
+        ibmIcon="chevron--left"
+        size="16"
+        class="ml-8 mr-8 mt-2"
+        *ngIf="!isActive"
+      ></svg>
+      <svg
+        ibmIcon="chevron--right"
+        size="16"
+        class="ml-8 mr-8 mt-2"
+        *ngIf="isActive"
+      ></svg>
+    </ibm-header-action>
+  </ibm-header-global>
+</ibm-header>
+
+<ng-template #noti>
+  <div class="noti-menu-container">
+    <div class="noti-menu-head">
+      <span class="ph01 noti-title" style="float: left">Notifications</span>
+      <a href="#" ibmLink class="noti-title" style="float: right">View all</a>
+    </div>
+    <ibm-notification
+      [notificationObj]="{
+        type: 'info',
+        template: customNotiContent1,
+        showClose: false,
+        lowContrast: false
+      }"
+    >
+    </ibm-notification>
+    <ng-template #customNotiContent1>
+      <!-- <div class="noti-menu-body"> -->
+      <div style="width: 80%">
+        <div class="noti-status">New</div>
+        <div class="noti-head ph02">Job Ticket Completed</div>
+        <div class="noti-caption">
+          JT10002125-A is completed. Please endorse this Job Ticket
+        </div>
+      </div>
+      <div style="width: 20%"></div>
+      <!-- </div> -->
+    </ng-template>
+    <ibm-notification
+      [notificationObj]="{
+        type: 'info',
+        template: customNotiContent2,
+        showClose: false,
+        lowContrast: false
+      }"
+    >
+    </ibm-notification>
+    <ng-template #customNotiContent2>
+      <div style="width: 80%">
+        <div class="noti-status">1hr ago</div>
+        <div class="noti-head ph02">Job Ticket Completed</div>
+        <div class="noti-caption">
+          JT20008578-D is completed. Please endorse this Job Ticket
+        </div>
+      </div>
+      <div style="width: 20%"></div>
+    </ng-template>
+    <ibm-notification
+      [notificationObj]="{
+        type: 'error',
+        template: customNotiContent3,
+        showClose: false,
+        lowContrast: false
+      }"
+    >
+    </ibm-notification>
+    <ng-template #customNotiContent3>
+      <div style="width: 80%">
+        <div class="noti-status">12hrs ago</div>
+        <div class="noti-head ph02">Request Cancelled</div>
+        <div class="noti-caption">
+          CH-0012245-C is cancelled by admin as requested
+        </div>
+      </div>
+      <div style="width: 20%"></div>
+    </ng-template>
+    <ibm-notification
+      [notificationObj]="{
+        type: 'warning',
+        template: customNotiContent4,
+        showClose: false,
+        lowContrast: false
+      }"
+    >
+    </ibm-notification>
+    <ng-template #customNotiContent4>
+      <div style="width: 80%">
+        <div class="noti-status">14hrs ago</div>
+        <div class="noti-head ph02">Request On-Hold</div>
+        <div class="noti-caption">
+          JWD-58745-AA is On-Hold, please make the required payment
+        </div>
+      </div>
+      <div style="width: 20%"></div>
+    </ng-template>
+  </div>
+</ng-template>
+<!--
+<ng-template #user>
+    <ibm-overflow-menu-option class="user-menu-btn" routerLink="/settings/my-profile">My profile</ibm-overflow-menu-option>
+    <ibm-overflow-menu-option class="user-menu-btn" (click)="logout()">Logout</ibm-overflow-menu-option>
+</ng-template> -->
+
+<!-- backup solution overflow menu issue -->
+<ibm-panel [expanded]="isActive">
+  <ibm-switcher-list>
+    <ibm-switcher-list-item class="bl02" routerLink="/settings/my-profile"
+      >My profile</ibm-switcher-list-item
+    >
+    <ibm-switcher-list-item
+      class="bl02"
+      routerLink="/settings/user-registration"
+      >User Registration</ibm-switcher-list-item
+    >
+    <ibm-switcher-list-item class="bl02" (click)="logout()"
+      >Logout</ibm-switcher-list-item
+    >
+  </ibm-switcher-list>
+</ibm-panel>
+
+<app-navigation [expand]="active"></app-navigation>

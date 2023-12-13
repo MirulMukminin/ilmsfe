@@ -1,0 +1,252 @@
+<div
+  ibmGrid
+  class="bx--grid--full-width background"
+  style="
+    padding-bottom: 143px;
+    background-image: url(assets/images/19449741.png);
+  "
+>
+  <div ibmRow class="pt-64">
+    <div
+      ibmCol
+      [columnNumbers]="{ lg: 6, md: 6, sm: 6 }"
+      style="margin-left: 116px; height: 550px"
+    >
+      <ng-container>
+        <div ibmGrid>
+          <div ibmRow class="white-bg" style="width: 650px; float: right">
+            <div
+              style="
+                width: 148px;
+                height: 60px;
+                background: #333333 0% 0% no-repeat padding-box;
+              "
+            >
+              <p class="announcement">ANNOUNCEMENT</p>
+            </div>
+
+            <div style="width: 440px; margin-left: 16px; margin-top: 18px">
+              <ng-container *ngFor="let paragraph of paragraphs; let i = index">
+                <span [@fadeInOut] *ngIf="i === currentParagraph">{{
+                  paragraph.desc
+                }}</span>
+              </ng-container>
+            </div>
+
+            <div style="margin-top: 20px">
+              <img
+                src="./assets/images/chevron--left.svg"
+                (click)="Previousparagraph()"
+              />
+              <img
+                src="./assets/images/chevron--right.svg"
+                (click)="Nextparagraph()"
+              />
+            </div>
+
+            <div>
+              <hr style="margin-top: -1px" />
+              <div class="container">
+                <div class="row">
+                  <div
+                    class="col"
+                    style="width: 600px; margin-left: -12px; margin-top: -16px"
+                  >
+                    <ng-container *ngFor="let image of images; let i = index">
+                      <img
+                        [@fadeInOut]
+                        *ngIf="i === currentImage"
+                        [src]="image.src"
+                      />
+                    </ng-container>
+                  </div>
+
+                  <div class="col">
+                    <div style="margin-top: 208px">
+                      <img
+                        src="./assets/images/chevron--right(Img).svg"
+                        (click)="NextImage()"
+                        style="margin-left: 6px"
+                      />
+                    </div>
+                    <div style="margin-top: -30px">
+                      <img
+                        src="./assets/images/chevron--left (Img).svg"
+                        (click)="PreviousImage()"
+                        style="margin-left: -594px"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div style="margin-top: -28px; margin-left: 260px">
+                  <span *ngFor="let image of images; let i = index">
+                    <img
+                      *ngIf="currentImage == i"
+                      src="./assets/images/Rectangle 14566.svg"
+                    />
+                    <img
+                      *ngIf="currentImage != i"
+                      src="./assets/images/Rectangle 14562.svg"
+                    />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <div
+      ibmCol
+      [columnNumbers]="{ lg: 4, md: 4, sm: 4 }"
+      class="white-bg"
+      style="max-width: 450px"
+    >
+      <ng-container>
+        <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+          <div ibmGrid class="bx--grid--full-width">
+            <div
+              ibmRow
+              class="pt-32"
+              [rightGutter]="false"
+              [leftGutter]="false"
+            >
+              <div>
+                <img src="./assets/images/ilms_logo.jpeg" alt="KSB logo" />
+              </div>
+
+              <label
+                class="form-label"
+                style="padding-top: 7px; padding-left: 8px"
+              >
+                <p class="sans-semibold-14">
+                  INTEGRATED LOGISTICS MANAGEMENT SYSTEM
+                </p>
+                <p style="font-size: 12px; margin-top: -16px">
+                  by Pangkalan Bekalan Kemaman Sdn Bhd
+                </p>
+              </label>
+            </div>
+
+            <div ibmRow class="form-item pt-16">
+              <ibm-label>
+                <p class="sans-semibold-14">Log in to ILMS</p>
+              </ibm-label>
+            </div>
+
+            <div ibmRow class="form-item pt-16">
+              <ibm-label
+                [invalid]="invalidUsername"
+                invalidText="Invalid Username or Password"
+              >
+                Login ID
+                <input
+                  ibmText
+                  type="text"
+                  name="username"
+                  [(ngModel)]="username"
+                  [invalid]="invalidUsername"
+                  (keyup)="onKeyUpUsername(this.username)"
+                />
+              </ibm-label>
+            </div>
+
+            <div ibmRow class="form-item pt-1" style="justify-content: right">
+              <!-- <a href="#" style="font-size: 12px;">Forgot User ID?</a> -->
+            </div>
+
+            <div ibmRow class="form-item pt-32">
+              <ibm-label
+                [invalid]="invalidPassword"
+                invalidText="Invalid Username or Password"
+              >
+                Password
+                <input
+                  ibmText
+                  name="password"
+                  [type]="showPassword ? 'text' : 'password'"
+                  placeholder=""
+                  [(ngModel)]="password"
+                  [invalid]="invalidPassword"
+                  (keyup)="clearInvalid()"
+                />
+                <div style="margin-left: -24px; margin-top: 12px">
+                  <i
+                    alt="show"
+                    ibmIcon="view"
+                    size="16"
+                    (click)="showPassword = !showPassword"
+                    [class.hide]="showPassword"
+                  >
+                  </i>
+                  <i
+                    alt="hide"
+                    ibmIcon="view--off"
+                    size="16"
+                    (click)="showPassword = !showPassword"
+                    [class.hide]="!showPassword"
+                  >
+                  </i>
+                </div>
+              </ibm-label>
+            </div>
+
+            <div ibmRow class="form-item pt-1" style="justify-content: right">
+              <!-- <a href="#" style="font-size: 12px;">Forgot Password?</a> -->
+            </div>
+
+            <div ibmRow class="form-item pt-16">
+              <ibm-label>
+                <fieldset class="bx--fieldset">
+                  <ibm-checkbox
+                    checked=""
+                    [(ngModel)]="remember"
+                    name="remember"
+                  >
+                    Remember me
+                  </ibm-checkbox>
+                </fieldset>
+              </ibm-label>
+            </div>
+
+            <div ibmRow class="form-item pt-24">
+              <button [ibmButton]="'primary'" [size]="'lg'" type="submit">
+                Log in
+                <div
+                  class="icon-ArrowRight16"
+                  ibmIcon="arrow--right"
+                  size="16"
+                ></div>
+              </button>
+            </div>
+
+            <div
+              ibmRow
+              class="pt-24"
+              [leftGutter]="false"
+              [rightGutter]="false"
+            >
+              <div ibmCol>
+                <hr />
+              </div>
+            </div>
+
+            <div ibmRow class="form-item">
+              <p class="bs01">
+                Don’t have an account?
+                <span
+                  ><a
+                    href="mailto:admin_ilms@epicgroup.com.my?subject='ILMS Customer: User account'"
+                    >Contact PBKSB Administrator</a
+                  ></span
+                >
+              </p>
+            </div>
+          </div>
+        </form>
+      </ng-container>
+    </div>
+  </div>
+</div>

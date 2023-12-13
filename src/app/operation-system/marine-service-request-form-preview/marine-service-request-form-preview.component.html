@@ -1,0 +1,536 @@
+<ibm-loading
+  *ngIf="isLoading"
+  [isActive]="isLoading"
+  size="normal"
+  [overlay]="overlay"
+>
+</ibm-loading>
+<div ibmGrid class="bx--grid--full-width" style="padding-left: 1rem">
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64">
+    <div ibmCol [columnNumbers]="{ lg: 10, md: 10, sm: 6 }">
+      <span class="ph03">Service Request Form Preview</span>
+    </div>
+  </div>
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Company Name</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ companyName | titlecase }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Request By</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ requestByName | titlecase }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Terminal</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ terminal }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Vessel Name</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ vessel }}
+    </div>
+  </div>
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Request on Behalf</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ requestOnBehalf | titlecase }}
+    </div>
+  </div>
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">PO Number</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ poNumber }}
+    </div>
+  </div>
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+      Est. Arrival Date & ETA
+    </div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ eaDate | date : "dd/MM/y HH:mm" }}
+    </div>
+  </div>
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+      Est. Departure Date & ETD
+    </div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ edDate | date : "dd/MM/y HH:mm" }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Agent</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ agent | titlecase }}
+    </div>
+  </div>
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Remarks</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ remarks }}
+    </div>
+  </div>
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Status</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ status | titlecase }}
+    </div>
+  </div>
+
+  <!-- <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Created By</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ createdBy | titlecase }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Created Date/Time</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ createTs }}
+    </div>
+  </div> -->
+
+  <!----------------------------------   Documents List Table ----------------------------------->
+  <div>
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+        <div class="form-item">
+          <ibm-table-container>
+            <ibm-table-header>
+              <h4 ibmTableHeaderTitle>Documents List</h4>
+              <!-- <p ibmTableHeaderDescription>
+                Please add related documents in the table below. For example:
+                K4, K5, Delivery Order, Other Documents.
+                <br />
+                To remove, select the checkbox and press remove button in the
+                console
+              </p> -->
+            </ibm-table-header>
+            <ibm-table-toolbar>
+              <!-- <ibm-table-toolbar-content>
+                <div class="table-action" *ngIf="checkLengthDocList()">
+                  <div class="selectedItem">
+                    {{ counterDocList }}
+                    <span *ngIf="counterDocList == 1">item</span
+                    ><span *ngIf="counterDocList > 1">items</span> selected
+                  </div>
+                  <div class="actions">
+                    <div class="del">
+                      <button
+                        ibmButton="primary"
+                        size="sm"
+                        type="button"
+                        (click)="deleteDocList()"
+                      >
+                        Remove
+                        <div
+                          class="icon-trashCan"
+                          ibmIcon="trash-can"
+                          size="20"
+                        ></div>
+                      </button>
+                    </div>
+                    <div class="cancel">
+                      <button
+                        ibmButton="primary"
+                        size="sm"
+                        type="button"
+                        (click)="cancelDocList()"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="!checkLengthDocList()">
+                  <button
+                    *ngIf="status.toLowerCase().includes('init')"
+                    ibmButton="primary"
+                    type="button"
+                    style="width: 178px"
+                    (click)="openModalAddItem()"
+                  >
+                    Add New
+                    <div class="icon-addAlt" ibmIcon="add--alt" size="20"></div>
+                  </button>
+                </div>
+              </ibm-table-toolbar-content> -->
+            </ibm-table-toolbar>
+
+            <div class="horizontal-overflow-table">
+              <table class="bx--data-table">
+                <thead>
+                  <tr>
+                    <th>No.</th>
+                    <th>Doc. Type</th>
+                    <!-- <th>Waste Code</th> -->
+                    <th>Doc. ID</th>
+                    <th>Uploaded By</th>
+                    <th>Date/Time</th>
+                    <!-- <th>Action</th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let list of documentPreview; let index = index">
+                    <td>{{ index + 1 }}</td>
+                    <td *ngIf="list.docPath">
+                      <a
+                        style="text-decoration: none"
+                        (click)="openFile(list.docPath)"
+                        href="javascript:void(0);"
+                        target="_blank"
+                        >{{ list.docType }}</a
+                      >
+                    </td>
+                    <td *ngIf="list.fromApi">
+                      <button
+                        type="button"
+                        ibmButton="ghost"
+                        class="downloadBtn"
+                        (click)="downloadFiles(list.id, list.docID)"
+                      >
+                        {{ list.docType }}
+                      </button>
+                    </td>
+                    <td>{{ list.docID }}</td>
+                    <td>{{ list.uploadBy }}</td>
+                    <td>{{ list.dateTime | date : "dd/MM/y HH:mm" }}</td>
+                    <!-- <td>
+                      <ibm-checkbox
+                        *ngIf="status.toLowerCase().includes('init')"
+                        name="checkbox_{{ list.id }}"
+                        [(ngModel)]="list.select"
+                        [hideLabel]="true"
+                        (ngModelChange)="docListCheckbox($event)"
+                      >
+                      </ibm-checkbox>
+                    </td> -->
+                  </tr>
+                  <tr *ngIf="documentPreview.length < 1">
+                    <td align="center" colspan="8" class="no-data">
+                      No data is entered yet. Please add a new entry.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </ibm-table-container>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!----------------------------------  Work Program table ------------------------------------>
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }" class="pl-0 pr-0">
+      <span class="ph03">General Works</span>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }" class="pl-0 pr-0">
+      <ibm-table-container>
+        <div class="horizontal-overflow-table">
+          <table class="bx--data-table">
+            <thead>
+              <tr>
+                <th>No.</th>
+                <th>Item</th>
+                <th>Remarks</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of generalWorksList; let i = index">
+                <td>{{ i + 1 }}.</td>
+                <td>{{ item.item | titlecase }}</td>
+                <td>{{ item.remarks }}</td>
+              </tr>
+              <tr *ngIf="generalWorksList.length <= 0">
+                <td align="center" colspan="9" class="no-data">
+                  No data available
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ibm-table-container>
+    </div>
+  </div>
+
+  <!----------------------------------  Underdeck table ------------------------------------>
+
+  <div>
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }" class="pl-0 pr-0">
+        <span class="ph03">Scope of Work</span>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }" class="pl-0 pr-0">
+        <div class="form-item">
+          <ibm-table-container>
+            <div class="horizontal-overflow-table">
+              <table class="bx--data-table">
+                <thead>
+                  <tr>
+                    <th>No.</th>
+                    <th>Item</th>
+                    <th>Quantity In (MT)</th>
+                    <th>Quantity Out (MT)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of underdeckList; let i = index">
+                    <td>{{ i + 1 }}.</td>
+                    <td>{{ item.item }}</td>
+                    <td>{{ item.requestQuantityIn }}</td>
+                    <td>{{ item.requestQuantityOut }}</td>
+                  </tr>
+                  <tr *ngIf="underdeckList.length <= 0">
+                    <td align="center" colspan="9" class="no-data">
+                      No data available
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </ibm-table-container>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--------------------------- Button -------------------->
+
+  <div
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32 pb-64"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 12 }">
+      <div class="actions">
+        <!-- untuk testing  -->
+        <button
+          type="button"
+          ibmButton="secondary"
+          [routerLink]="[
+            '/operation-system/marine-service-request-form',
+            RequestNo
+          ]"
+          style="margin-right: 24px; width: 178px; height: 40px"
+        >
+          Edit
+        </button>
+        <!-- end of untuk testing  -->
+
+        <!-- <button
+          *ngIf="status.toLowerCase().includes('init')"
+          type="button"
+          ibmButton="secondary"
+          [routerLink]="[
+          '/operation-system/marine-fuelwater-request-form',
+          requestNo
+        ]"
+          style="margin-right: 24px; width: 178px; height: 40px"
+        >
+          Edit
+        </button> -->
+        <button
+          *ngIf="status.toLowerCase().includes('init')"
+          type="submit"
+          ibmButton="primary"
+          style="width: 178px; height: 40px"
+          (click)="open = true"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <ibm-modal
+    class="addNewDocPreviewModal"
+    [open]="addNewDocPreview"
+    [trigger]="openModal"
+    (overlaySelected)="addNewDocPreview = false"
+  >
+    <ibm-modal-header (closeSelect)="addNewDocPreview = false">
+      <p class="bx--modal-header__label bx--type-delta"></p>
+      <p
+        class="bx--modal-header__heading bx--type-beta ph03"
+        style="font-weight: 600"
+      >
+        Add New Document
+      </p>
+    </ibm-modal-header>
+    <div class="bx--modal-content">
+      <div class="bx--text-input__field-wrapper">
+        <div class="form-item">
+          <ibm-dropdown
+            label="Document Type"
+            placeholder="Please Select"
+            [appendInline]="true"
+            [dropUp]="false"
+            name="docType"
+            #types
+            (selected)="selectDoc($event)"
+            itemValueKey="content"
+            required
+            [invalid]="invalidDocType"
+            invalidText="Document Type is required"
+          >
+            <ibm-dropdown-list [items]="documentTypeList"></ibm-dropdown-list>
+          </ibm-dropdown>
+        </div>
+
+        <div class="form-item">
+          <ibm-label>
+            Waste Code (for Schedule Waste works only)
+            <input
+              ibmText
+              type="text"
+              name="wasteCode"
+              #waste
+              (blur)="onblurWaste($event)"
+            />
+          </ibm-label>
+        </div>
+
+        <!-- <div class="form-item">
+          <ibm-label [invalid]="invalidDocID"
+          helperText="Please insert dash (-) if not applicable">
+            Document ID
+            <input
+              ibmText
+              type="text"
+              placeholder="XXXXXXXXXXXX"
+              name="docID"
+              #docsID
+              (blur)="onblurDoc($event)"
+              required
+              [invalid]="invalidDocID"
+            />
+          </ibm-label>
+        </div> -->
+
+        <div class="form-item">
+          <ibm-label helperText="Please insert dash (-) if not applicable">
+            Document ID
+            <input
+              ibmText
+              type="text"
+              placeholder="XXXXXXXXXXXX"
+              name="docID"
+              #docsID
+              (blur)="onblurDoc($event)"
+            />
+          </ibm-label>
+        </div>
+
+        <div class="form-item">
+          <ibm-file-uploader
+            [ngClass]="{ 'invalid-file': invalidUpload }"
+            title="Upload Related Documents"
+            description="Max. file size is 5mb. Supported file types are .jpg, .png, and .pdf"
+            [accept]="accept"
+            [multiple]="multiple"
+            [(files)]="files"
+            drop="true"
+            #inputFile
+            dropText="Drag and drop ﬁles here or click to upload"
+            name="upload"
+            (filesChange)="onDropped($event)"
+          >
+          </ibm-file-uploader>
+          <div *ngIf="invalidUpload" class="invalid-class-label">
+            File required
+          </div>
+        </div>
+      </div>
+    </div>
+    <ibm-modal-footer>
+      <ng-container>
+        <button
+          class="bx--btn bx--btn--secondary"
+          (click)="addNewDocPreview = false"
+          size="lg"
+        >
+          Cancel
+        </button>
+        <button
+          ibmButton="primary"
+          (click)="onSaveDocumentList()"
+          [attr.modal-primary-focus]="true"
+          size="lg"
+        >
+          Save
+        </button>
+      </ng-container>
+    </ibm-modal-footer>
+  </ibm-modal>
+
+  <div ibmRow>
+    <div ibmCol [columnNumbers]="{ lg: 10 }">
+      <ibm-modal [open]="open" (overlaySelected)="open = false">
+        <ibm-modal-header (closeSelect)="open = false"> </ibm-modal-header>
+        <section ibmModalContent style="margin-bottom: 30px">
+          <h4>
+            Are you sure you want to submit this request? Make sure all the
+            details are correct before you submit.
+          </h4>
+        </section>
+        <ibm-modal-footer>
+          <button class="bx--btn bx--btn--secondary" (click)="open = false">
+            Cancel
+          </button>
+          <button
+            class="bx--btn bx--btn--primary"
+            modal-primary-focus
+            (click)="submitForm()"
+          >
+            Submit
+          </button>
+        </ibm-modal-footer>
+      </ibm-modal>
+    </div>
+  </div>
+
+  <div ibmRow>
+    <div ibmCol [columnNumbers]="{ lg: 10 }">
+      <ibm-modal [open]="modalTimeout" (overlaySelected)="modalTimeout = false">
+        <ibm-modal-header (closeSelect)="modalTimeout = false">
+          <h4 style="font-weight: bold">Session timeout</h4>
+        </ibm-modal-header>
+        <!-- <section ibmModalContent style="height: unset;"> -->
+        <section ibmModalContent>
+          <!-- <h3 ibmModalContentText class="bx--modal-content__regular-content modal-text">
+                    Oops! You need to relogin again and make a new request to continue<br>
+                  </h3> -->
+          <h4 ibmModalContentText>
+            Failed to upload file. Please relogin again to upload file
+          </h4>
+        </section>
+        <ibm-modal-footer>
+          <!-- <button class="bx--btn bx--btn--secondary" (click)="modalTimeout = false">Back</button> -->
+          <button
+            type="submit"
+            class="bx--btn bx--btn--primary"
+            (click)="logout()"
+          >
+            Log Out
+          </button>
+        </ibm-modal-footer>
+      </ibm-modal>
+    </div>
+  </div>
+</div>

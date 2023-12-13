@@ -1,0 +1,113 @@
+<ibm-loading
+  *ngIf="isLoading"
+  [isActive]="isLoading"
+  size="normal"
+  [overlay]="overlay"
+>
+</ibm-loading>
+<div ibmGrid class="bx--grid--full-width" style="padding-left: 1rem">
+  <div>
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+        <div class="form-item">
+          <ibm-table-container>
+            <ibm-table-header>
+              <h4 ibmTableHeaderTitle>PSB Reports</h4>
+              <p ibmTableHeaderDescription>
+                PSB Reports List
+              </p>
+            </ibm-table-header>
+            <ibm-table-toolbar>
+              <ibm-table-toolbar-content>
+                <div class="table-action" *ngIf="checkLengthDocList()">
+                  <div class="selectedItem">
+                    {{ counterDocList }}
+                    <span *ngIf="counterDocList == 1">item</span
+                    ><span *ngIf="counterDocList > 1">items</span> selected
+                  </div>
+                  <div class="actions">
+                    <div class="del">
+                      <button
+                        ibmButton="primary"
+                        size="sm"
+                        type="button"
+                        (click)="deleteDocList()"
+                      >
+                        Remove
+                        <div
+                          class="icon-trashCan"
+                          ibmIcon="trash-can"
+                          size="20"
+                        ></div>
+                      </button>
+                    </div>
+                    <div class="cancel">
+                      <button
+                        ibmButton="primary"
+                        size="sm"
+                        type="button"
+                        (click)="cancelDocList()"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </ibm-table-toolbar-content>
+            </ibm-table-toolbar>
+
+            <div class="horizontal-overflow-table">
+              <table class="bx--data-table">
+                <thead>
+                  <tr>
+                    <th>No.</th>
+                    <th>Doc. Type</th>
+                    <th>Doc. Name</th>
+                    <th>From Date</th>
+                    <th>To Date</th>
+                    <th>Status</th>
+                    <th>Last Print Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let list of documentPreview; let index = index">
+                    <td>{{ index + 1 }}</td>
+                    <td *ngIf="list.docPath">
+                      <a
+                        style="text-decoration: none"
+                        (click)="openFile(list.docPath)"
+                        href="javascript:void(0);"
+                        target="_blank"
+                        >{{ list.docType }}</a
+                      >
+                    </td>
+                    <td *ngIf="list.fromApi">
+                      <button
+                        type="button"
+                        ibmButton="ghost"
+                        class="downloadBtn"
+                        (click)="downloadFiles(list.id, list.docID)"
+                      >
+                        {{ list.docType }}
+                      </button>
+                    </td>
+                    <td>{{ list.fileName }}</td>
+                    <td>{{ list.fromDate | date : "dd/MM/y HH:mm" }}</td>
+                    <td>{{ list.toDate | date : "dd/MM/y HH:mm" }}</td>
+                    <td>{{ list.status }}</td>
+                    <td>{{ list.lastPrintDate }}</td>
+                  </tr>
+                  <tr *ngIf="documentPreview.length < 1">
+                    <td align="center" colspan="8" class="no-data">
+                      No data is entered yet. Please add a new entry.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </ibm-table-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

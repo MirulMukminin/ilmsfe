@@ -1,0 +1,51 @@
+@import "~carbon-components/scss/globals/scss/vendor/@carbon/type/scss/font-family";
+@import "~carbon-components/scss/globals/scss/typography";
+@import "~bootstrap/dist/css/bootstrap.css";
+
+.pt-16 {
+    padding-top: 16px;
+}
+
+.pt-32 {
+    padding-top: 32px;
+}
+
+.pt-64 {
+    padding-top: 110px;
+}
+
+.icon-ArrowRight16 {
+    position: relative;
+    left: 40px;
+    top: 2px;
+}
+
+.background {
+    min-height:100vh;
+    //background: url("/assets/images/19449741.png")  no-repeat fixed;
+    background-size: cover;
+}
+
+.white-bg {
+    background-color: #ffffff;
+}
+
+.bx--col-lg-4 {
+    width: 100%;
+    padding-right: 0rem;
+    padding-left: 0rem;
+}
+
+.announcement {
+    text-align: center;
+    font: normal normal normal 14px/18px IBM Plex Sans;
+    letter-spacing: 0px;
+    color: #ffffff;
+    opacity: 1;
+    margin-top: 20px;
+}
+
+/* Show/Hide Password Eye Icon */
+.hide {
+    display: none;
+}

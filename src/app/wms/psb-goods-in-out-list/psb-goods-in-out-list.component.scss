@@ -1,0 +1,28 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+.pt-33 {
+    padding-top: 33px;
+}
+
+.pt-32 {
+    padding-top: 32px;
+}
+
+::ng-deep {
+    .bx--content-switcher-btn:focus {
+        box-shadow: unset;
+    }
+    .bx--content-switcher-btn {
+        border: 0px !important;
+        text-align: center;
+        padding: 11px 16px 11px 16px;
+        background-color: #f3f3f3;
+        display: inline;
+        width: 163px;
+    }
+    .bx--content-switcher {
+        justify-content: unset;
+    }
+    /* .bx--btn{
+        min-height: 40px;
+    } */
+}

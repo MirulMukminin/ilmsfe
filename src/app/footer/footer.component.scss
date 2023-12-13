@@ -1,0 +1,33 @@
+// @import "~bootstrap/dist/css/bootstrap.css";
+
+footer{
+    background-color: #161616;
+    height: 30px;
+    // margin-top: 32px;
+    color: #ffffff;
+    font-size: 12px;
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 400;
+    padding-top: 7px;
+}
+
+.to-top-icon{
+    background-image: "./assets/image/up-to-top.svg";
+}
+
+#myBtn {
+    display: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border-color: transparent;
+    background: #383838;
+    transition: all .11s;
+    z-index: 9000;
+    padding-top: .325rem;
+    cursor: pointer;
+    position: fixed;
+    bottom: 3rem;
+    right: 24px;
+  }
+  

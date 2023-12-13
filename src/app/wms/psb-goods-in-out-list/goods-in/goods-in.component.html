@@ -1,0 +1,115 @@
+<div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-48">
+  <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }" class="pl-0 pr-0">
+    <ibm-table-container class="table-style">
+      <ibm-table-header class="white-bg">
+        <h4 ibmTableHeaderTitle><span class="ph03">Goods In List</span></h4>
+        <p ibmTableHeaderDescription>Current and previous Goods In Request</p>
+      </ibm-table-header>
+      <ibm-table-toolbar>
+        <ibm-table-toolbar-content class="white-bg">
+          <!-- <ibm-table-toolbar-search
+                        ngDefaultControl
+                        [expandable]="true"
+                        [(ngModel)]="searchModel">
+                    </ibm-table-toolbar-search> -->
+
+          <ibm-table-toolbar-search
+            [(ngModel)]="searchModel"
+            (valueChange)="searchFilter($event)"
+            (clear)="searchFilter($event)"
+          >
+          </ibm-table-toolbar-search>
+          <button
+            ibmButton="primary"
+            size="sm"
+            type="button"
+            routerLink="/wms/psb-goods-in-form"
+            class="addNew"
+          >
+            Add New
+            <div class="icon-addAlt" ibmIcon="add--alt" size="20"></div>
+          </button>
+          <button
+            ibmButton="secondary"
+            *ngIf="sortingOn"
+            size="sm"
+            type="button"
+            (click)="userInfo()"
+            (click)="sortingOn = false"
+            class="addNew"
+          >
+            Reset Sorting
+            <div class="icon-addAlt" ibmIcon="filter--reset" size="20"></div>
+          </button>
+          <button
+            ibmButton="secondary"
+            size="sm"
+            type="button"
+            class="addNew"
+            (click)="userInfo()"
+          >
+            Refresh
+            <div class="icon-addAlt" ibmIcon="renew" size="20"></div>
+          </button>
+        </ibm-table-toolbar-content>
+      </ibm-table-toolbar>
+
+      <div class="horizontal-overflow-table">
+        <ng-template #customTableItemTemplate1 let-data="data">
+          <a
+            class="customLink2"
+            [routerLink]="['/wms/psb-goods-in-form', data.link]"
+            >{{ data.requestNo }}</a
+          >
+        </ng-template>
+
+        <ng-template #customTableItemTemplate2 let-data="data">
+          <a
+            class="customLink2"
+            [routerLink]="['/wms/psb-goods-in-preview', data.link]"
+            >{{ data.requestNo }}</a
+          >
+        </ng-template>
+
+        <ng-template #customTableItemTemplate3 let-data="data">
+          <span style="color: red">{{ data }}</span>
+        </ng-template>
+
+        <ibm-table
+          [model]="model"
+          [striped]="false"
+          [showSelectionColumn]="false"
+          (sort)="doSort($event)"
+        ></ibm-table>
+
+        <!-- <table ibmTable [sortable]="false">
+                    <thead ibmTableHead>
+                        <tr>
+                            <th scope="col" ibmTableHeadCell *ngFor="let column of goodsInModel.header" [column]="column">
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr ibmTableRow *ngFor="let items of goodsIn; let index=index">
+                            <td>{{ index + 1 }}</td>
+                            <td>{{ items.formType }}</td>
+                            <td>{{ items.regNo }}</td>
+                            <td>{{ items.moveDate }}</td>
+                            <td>{{ items.consignor }}</td>
+                            <td>{{ items.storage }}</td>
+                            <td>{{ items.invoiceNo }}</td>
+                            <td>{{ items.goodsDescrip }}</td>
+                        </tr>
+                    </tbody>
+                </table> -->
+      </div>
+      <ibm-pagination
+        [model]="model"
+        [itemsPerPageOptions]="itemsPerPageOptions"
+        (selectPage)="selectPage($event)"
+        >></ibm-pagination
+      >
+    </ibm-table-container>
+  </div>
+</div>

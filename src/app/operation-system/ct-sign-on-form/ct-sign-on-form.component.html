@@ -1,0 +1,637 @@
+<ibm-loading
+  *ngIf="isLoading"
+  [isActive]="isLoading"
+  size="normal"
+  [overlay]="overlay"
+>
+</ibm-loading>
+
+<div ibmGrid class="bx--grid--full-width" style="padding-bottom: 133px">
+  <form #recievingGoodsForm="ngForm" (ngSubmit)="onSubmit(recievingGoodsForm)">
+    <div ibmRow class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 16 }">
+        <ibm-breadcrumb [noTrailingSlash]="true">
+          <ibm-breadcrumb-item [current]="true" href="#1">
+            Operation System
+          </ibm-breadcrumb-item>
+          <ibm-breadcrumb-item [current]="true" href="#1">
+            Crew Transfer
+          </ibm-breadcrumb-item>
+          <ibm-breadcrumb-item>
+            <a
+              style="text-decoration: none"
+              [routerLink]="['/operation-system/ct-sign-on-list']"
+              >Crew Sign On</a
+            >
+          </ibm-breadcrumb-item>
+          <ibm-breadcrumb-item [current]="true" href="#1">
+            Request Form
+          </ibm-breadcrumb-item>
+        </ibm-breadcrumb>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32">
+      <div ibmCol [columnNumbers]="{ max: 16, xlg: 16, lg: 16 }" class="ph03">
+        Crew Sign On Request Form
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-16"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+        <div class="d-flex">
+          <div class="w-40">
+            <span class="ph01 text-bold" *ngIf="!isAgent">Company Name</span>
+            <span class="ph01 text-bold" *ngIf="isAgent"
+              >Agent Company Name</span
+            >
+          </div>
+          <div>
+            <span class="bs01">{{ companyName }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-16"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+        <div class="d-flex">
+          <div class="w-40"><span class="ph01 text-bold">Request By</span></div>
+          <div>
+            <span class="bs01">{{ requestBy }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-16"
+      [leftGutter]="false"
+      *ngIf="isEdit"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+        <div class="d-flex">
+          <div class="w-40"><span class="ph01 text-bold">Request No</span></div>
+          <div>
+            <span class="bs01">{{ requestNo }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-16"
+      [leftGutter]="false"
+      *ngIf="isEdit"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+        <div class="d-flex">
+          <div class="w-40"><span class="ph01 text-bold">Status</span></div>
+          <div>
+            <span class="bs01">{{ status }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+        <div class="d-flex" *ngIf="isEdit">
+          <div class="w-40">
+            <span class="ph01 text-bold">Port Of Origin</span>
+          </div>
+          <div>
+            <span class="bs01">{{ portOfOrigin }}</span>
+          </div>
+        </div>
+        <fieldset class="bx--fieldset" *ngIf="!isEdit">
+          <ibm-label>Port Of Origin</ibm-label>
+          <ibm-radio-group name="portOfOrigin" [(ngModel)]="portOfOrigin">
+            <ibm-radio value="KSB"> KSB </ibm-radio>
+            <ibm-radio value="KTSB"> KTSB </ibm-radio>
+          </ibm-radio-group>
+        </fieldset>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+      *ngIf="isAgent"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 6 }">
+        <div class="form-item" #agentElement tabindex="1">
+          <ibm-combo-box
+            label="Company Name"
+            placeholder="Select"
+            itemValueKey="content"
+            [dropUp]="false"
+            name="agents"
+            [invalid]="agentCompanyInvalid"
+            invalidText="Required"
+            required
+            [(ngModel)]="agentCompany"
+            [items]="agentCompanyList"
+            (selected)="inputValueChange($event)"
+          >
+            <ibm-dropdown-list></ibm-dropdown-list>
+          </ibm-combo-box>
+        </div>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 3, md: 3, sm: 3 }">
+        <div #dateElement tabindex="1">
+          <ibm-date-picker
+            name="date"
+            label="Date"
+            [placeholder]="'Select Date'"
+            size="md"
+            [dateFormat]="'d/m/Y'"
+            [invalid]="dateInvalid"
+            [invalidText]="dateInvalidText"
+            [(ngModel)]="date"
+            (change)="dateChange($event)"
+          >
+          </ibm-date-picker>
+        </div>
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 3, md: 3, sm: 3 }">
+        <div class="form-item">
+          <ibm-combo-box
+            label="Time"
+            placeholder="Select"
+            itemValueKey="content"
+            [dropUp]="false"
+            name="time"
+            [invalid]="timeInvalid"
+            [invalidText]="timeInvalidText"
+            required
+            [(ngModel)]="time"
+            (selected)="inputValueChange($event)"
+            [items]="timeList"
+            #timeElement
+            tabindex="2"
+          >
+            <ibm-dropdown-list></ibm-dropdown-list>
+          </ibm-combo-box>
+        </div>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 4, md: 6, sm: 6 }">
+        <ibm-label [invalid]="vesselNameInvalid" invalidText="Required">
+          Vessel Name
+          <input
+            ibmText
+            name="vesselName"
+            [(ngModel)]="vesselName"
+            [invalid]="vesselNameInvalid"
+            required
+            (change)="inputValueChange($event)"
+            #reqPhoneElement
+            tabindex="4"
+          />
+        </ibm-label>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 4, md: 6, sm: 6 }">
+        <ibm-label
+          helperText="Please insert dash(-) if not applicable"
+          [invalid]="poNumberInvalid"
+          invalidText="Required"
+        >
+          PO Number
+          <input
+            ibmText
+            name="PONo"
+            [(ngModel)]="poNumber"
+            [invalid]="poNumberInvalid"
+            required
+            (change)="inputValueChange($event)"
+            #poNORef
+            tabindex="5"
+          />
+        </ibm-label>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3"
+      [leftGutter]="false"
+      [rightGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 12 }">
+        <ibm-table-container style="margin-top: 4rem">
+          <ibm-table-header>
+            <h4>Crew Departure Manifest</h4>
+            <p>Please add crew details in the table below.</p>
+          </ibm-table-header>
+          <ibm-table-toolbar>
+            <ibm-table-toolbar-content *ngIf="!checkSelected()">
+              <button
+                type="button"
+                ibmButton="secondary"
+                (click)="downloadExcelTemplate()"
+                size="sm"
+              >
+                <span style="margin-right: 42px">Download Template</span>
+                <div class="icon-btn" ibmIcon="download" size="20"></div>
+              </button>
+              <input
+                #hiddenfileinput
+                type="file"
+                hidden
+                (change)="fileChangeListener($event)"
+              />
+              <button
+                type="button"
+                ibmButton="secondary"
+                size="sm"
+                (click)="uploadOpen = true"
+              >
+                <span style="margin-right: 42px">Upload CSV.</span>
+                <div class="icon-btn" ibmIcon="upload" size="20"></div>
+              </button>
+              <button
+                ibmButton="primary"
+                size="sm"
+                type="button"
+                (click)="addRow()"
+              >
+                <span style="margin-right: 42px">Add Item</span>
+                <div class="icon-addAlt" ibmIcon="add--alt" size="20"></div>
+              </button>
+            </ibm-table-toolbar-content>
+            <div class="table-action" *ngIf="checkSelected()">
+              <div class="actions">
+                <div class="del">
+                  <button
+                    ibmButton="primary"
+                    size="sm"
+                    type="button"
+                    (click)="deleteRow()"
+                  >
+                    Delete
+                    <div
+                      class="icon-trashCan"
+                      ibmIcon="trash-can"
+                      size="20"
+                    ></div>
+                  </button>
+                </div>
+                <div class="cancel">
+                  <button
+                    ibmButton="primary"
+                    size="sm"
+                    type="button"
+                    (click)="onCancel()"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          </ibm-table-toolbar>
+          <div class="">
+            <table class="bx--data-table" #itemDetailTable tabindex="6">
+              <thead>
+                <tr>
+                  <th class="bx--table-header-label">No.</th>
+                  <th class="bx--table-header-label">Name</th>
+                  <th class="bx--table-header-label">IC/Passport</th>
+                  <th class="bx--table-header-label">Passport Expiry Date</th>
+                  <th class="bx--table-header-label">Nationality</th>
+                  <th class="bx--table-header-label">Company</th>
+                  <th class="bx--table-header-label">Destination</th>
+                  <th class="bx--table-header-label">Mobile No.</th>
+                  <th class="bx--table-header-label">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngIf="itemList.length == 0"
+                  [ngClass]="{ 'invalid-tableRow': externalItemTableInvalid }"
+                >
+                  <td align="center" colspan="10">
+                    No data is entered yet. Please add new row
+                  </td>
+                </tr>
+
+                <tr
+                  *ngFor="let item of itemList; let itemIndex = index"
+                  class="white-bg"
+                >
+                  <td>{{ itemIndex + 1 }}.</td>
+
+                  <td>
+                    <ibm-label
+                      [invalid]="item.crewNameInvalid"
+                      invalidText="Required"
+                      ><input
+                        ibmText
+                        [name]="'name_' + itemIndex"
+                        [(ngModel)]="item.crewName"
+                        tabindex="6"
+                        (change)="inputValueChange($event)"
+                        [invalid]="item.crewNameInvalid"
+                        #crewNameRef
+                        tabindex="6"
+                    /></ibm-label>
+                  </td>
+                  <td>
+                    <ibm-label
+                      [invalid]="item.crewIcPassportInvalid"
+                      [invalidText]="item.crewIcPassportInvalidText"
+                      ><input
+                        ibmText
+                        [name]="'ic_' + itemIndex"
+                        [(ngModel)]="item.crewIcPassport"
+                        tabindex="6"
+                        (change)="inputValueChange($event)"
+                        [invalid]="item.crewIcPassportInvalid"
+                        #nameRef
+                        tabindex="7"
+                    /></ibm-label>
+                    <!-- <ibm-label
+                      ><input
+                        ibmText
+                        [name]="'qty_' + itemIndex"
+                        [(ngModel)]="item.quantity"
+                        tabindex="6"
+                        (change)="inputValueChange($event)"
+                    /></ibm-label> -->
+                  </td>
+
+                  <td>
+                    <ibm-date-picker
+                      [name]="'expiryDate_' + itemIndex"
+                      label=""
+                      [placeholder]="'Expiry Date'"
+                      size="md"
+                      [dateFormat]="'d/m/Y'"
+                      [invalid]="item.crewPassportExpiryInvalid"
+                      invalidText="Please select today's date or after today's date"
+                      [(ngModel)]="item.crewPassportExpiry"
+                      (change)="passportDateChange(itemIndex)"
+                      tabindex="8"
+                    >
+                    </ibm-date-picker>
+                  </td>
+
+                  <td>
+                    <ibm-combo-box
+                      placeholder="Select"
+                      itemValueKey="content"
+                      [dropUp]="false"
+                      [name]="'Nationality_' + itemIndex"
+                      [invalid]="item.crewNationalityInvalid"
+                      invalidText="Required"
+                      #nationalityElement
+                      required
+                      [(ngModel)]="item.crewNationality"
+                      [items]="nationalityList"
+                      (selected)="inputValueChange($event)"
+                      #UOMRef
+                      tabindex="9"
+                    >
+                      <ibm-dropdown-list></ibm-dropdown-list>
+                    </ibm-combo-box>
+                  </td>
+
+                  <td>
+                    <ibm-label
+                      [invalid]="item.crewCompanyInvalid"
+                      invalidText="Required"
+                      ><input
+                        ibmText
+                        [name]="'company' + itemIndex"
+                        [(ngModel)]="item.crewCompany"
+                        tabindex="9"
+                        (change)="inputValueChange($event)"
+                        [invalid]="item.crewCompanyInvalid"
+                    /></ibm-label>
+                    <!-- <ibm-combo-box
+                      placeholder="Select"
+                      itemValueKey="content"
+                      [dropUp]="false"
+                      [name]="'company_' + itemIndex"
+                      [invalid]="item.crewCompanyInvalid"
+                      invalidText="Required"
+                      #companyElement
+                      required
+                      [(ngModel)]="item.crewCompany"
+                      [items]="companyList"
+                      (selected)="inputValueChange($event)"
+                      #companyRef
+                      tabindex="10"
+                    >
+                      <ibm-dropdown-list></ibm-dropdown-list>
+                    </ibm-combo-box> -->
+                  </td>
+
+                  <td>
+                    <ibm-label
+                      [invalid]="item.destinationInvalid"
+                      invalidText="Required"
+                      ><input
+                        ibmText
+                        [name]="'destination_' + itemIndex"
+                        [(ngModel)]="item.destination"
+                        tabindex="11"
+                        (change)="inputValueChange($event)"
+                        [invalid]="item.destinationInvalid"
+                    /></ibm-label>
+                  </td>
+
+                  <td>
+                    <ibm-label
+                      [invalid]="item.crewMobileNumberInvalid"
+                      [invalidText]="item.crewMobileNumberInvalidText"
+                      ><input
+                        ibmText
+                        [name]="'mobileNo_' + itemIndex"
+                        [(ngModel)]="item.crewMobileNumber"
+                        tabindex="12"
+                        (change)="inputValueChange($event)"
+                        [invalid]="item.crewMobileNumberInvalid"
+                    /></ibm-label>
+                  </td>
+
+                  <td>
+                    <ibm-checkbox
+                      [hideLabel]="true"
+                      name="checkbox_{{ itemIndex }}"
+                      [(ngModel)]="item.selected"
+                      tabindex="13"
+                    ></ibm-checkbox>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ibm-table-container>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3"
+      [leftGutter]="false"
+      [rightGutter]="false"
+    >
+      <div
+        ibmCol
+        [columnNumbers]="{ lg: 12 }"
+        class="d-flex-row pt-64"
+        style="justify-content: flex-start"
+      >
+        <button
+          ibmButton="secondary"
+          class="mr-24"
+          size="xl"
+          [routerLink]="'/operation-system/ct-sign-on-list'"
+          (click)="redirectToPrevious()"
+          type="button"
+        >
+          Cancel
+        </button>
+        <!-- <button
+          ibmButton="secondary"
+          class="mr-24"
+          size="xl"
+          type="button"
+          (click)="onClear()"
+        >
+          Clear
+        </button> -->
+
+        <button ibmButton="primary" type="button" (click)="submitClick()">
+          Submit
+        </button>
+      </div>
+    </div>
+
+    <ibm-modal [open]="open" size="sm" (overlaySelected)="open = false">
+      <ibm-modal-header ibmModalHeaderHeading (closeSelect)="open = false">
+        <h4 style="font-weight: bold">Confirmation</h4>
+      </ibm-modal-header>
+      <div ibmModalContent class="bx--modal-content">
+        <div>
+          <h4>Are you sure you want to submit?</h4>
+          <h4>Kindly make sure all details are correct.</h4>
+        </div>
+        <!-- <div *ngIf="requestPriority === 'normal'">
+          <h4>Are you sure you want to submit?</h4>
+          <h4>Kindly make sure all details are correct.</h4>
+        </div>
+        <div *ngIf="requestPriority === 'urgent'">
+          <h4>This is a urgent request.</h4>
+          <h4>Additional Charges are applicable.</h4>
+          <h4>Kindly make sure all details are correct.</h4>
+        </div>
+        <div *ngIf="requestPriority === 'emergency'">
+          <h4>This is a emergency request.</h4>
+          <h4>Additional Charges are applicable.</h4>
+          <h4>Kindly contact KSB (09-860 2222) to process immediately.</h4>
+        </div> -->
+        <br />
+      </div>
+
+      <ibm-modal-footer>
+        <ng-container>
+          <button ibmButton="secondary" (click)="open = false">Cancel</button>
+          <button
+            ibmButton="primary"
+            type="submit"
+            [attr.modal-primary-focus]="true"
+          >
+            Confirm
+          </button>
+        </ng-container>
+      </ibm-modal-footer>
+    </ibm-modal>
+
+    <ibm-modal
+      [open]="uploadOpen"
+      size="sm"
+      (overlaySelected)="uploadOpen = false"
+    >
+      <ibm-modal-header
+        ibmModalHeaderHeading
+        (closeSelect)="uploadOpen = false"
+      >
+        <h4 style="font-weight: bold">Confirmation</h4>
+      </ibm-modal-header>
+      <div ibmModalContent class="bx--modal-content">
+        <div>
+          <h4>All crew details in the table will be discarded.</h4>
+          <h4>Are you sure you want to continue?</h4>
+        </div>
+        <!-- <div *ngIf="requestPriority === 'normal'">
+          <h4>Are you sure you want to submit?</h4>
+          <h4>Kindly make sure all details are correct.</h4>
+        </div>
+        <div *ngIf="requestPriority === 'urgent'">
+          <h4>This is a urgent request.</h4>
+          <h4>Additional Charges are applicable.</h4>
+          <h4>Kindly make sure all details are correct.</h4>
+        </div>
+        <div *ngIf="requestPriority === 'emergency'">
+          <h4>This is a emergency request.</h4>
+          <h4>Additional Charges are applicable.</h4>
+          <h4>Kindly contact KSB (09-860 2222) to process immediately.</h4>
+        </div> -->
+        <br />
+      </div>
+
+      <ibm-modal-footer>
+        <ng-container>
+          <button ibmButton="secondary" (click)="uploadOpen = false">
+            Cancel
+          </button>
+          <button
+            ibmButton="primary"
+            type="button"
+            (click)="uploadFile(hiddenfileinput)"
+            [attr.modal-primary-focus]="true"
+          >
+            Continue
+          </button>
+        </ng-container>
+      </ibm-modal-footer>
+    </ibm-modal>
+  </form>
+</div>

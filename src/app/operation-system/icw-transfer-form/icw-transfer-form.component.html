@@ -1,0 +1,400 @@
+<ibm-loading
+  *ngIf="isLoading"
+  [isActive]="isLoading"
+  size="normal"
+  [overlay]="overlay"
+></ibm-loading>
+<div ibmGrid class="bx--grid--full-width">
+  <form #recievingGoodsForm="ngForm" (ngSubmit)="onSubmit(recievingGoodsForm)">
+    <div ibmRow class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 16 }">
+        <ibm-breadcrumb [noTrailingSlash]="true">
+          <ibm-breadcrumb-item [current]="true" href="#1">
+            Operation System
+          </ibm-breadcrumb-item>
+          <ibm-breadcrumb-item>
+            <a
+              style="text-decoration: none"
+              [routerLink]="['/operation-system/icw-transfer-form']"
+              >ICW Transfer Request</a
+            >
+          </ibm-breadcrumb-item>
+          <ibm-breadcrumb-item [current]="true" href="#1">
+            Request Form
+          </ibm-breadcrumb-item>
+        </ibm-breadcrumb>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32">
+      <div ibmCol [columnNumbers]="{ max: 16, xlg: 16, lg: 16 }" class="ph03">
+        ICW Transfer Request Form
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Requester Name</div>
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="bl01">
+        {{ customer.name }}
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="bl01"></div>
+      <div ibmCol [columnNumbers]="{ lg: 2, md: 2, sm: 2 }">
+        <ibm-label>
+          Docket No
+          <input
+            ibmText
+            placeholder="Docket No"
+            name="docketNo"
+            [(ngModel)]="requestNo"
+            required
+            [invalid]="invalidReqName"
+            (change)="inputValueChange($event)"
+            #requestNoElement
+            tabindex="1"
+            disabled
+          />
+        </ibm-label>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Customer</div>
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="bl01">
+        {{ companyName }}
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="bl01"></div>
+      <div ibmCol [columnNumbers]="{ lg: 2, md: 2, sm: 2 }">
+        <ibm-label>
+          Status:
+          <input
+            ibmText
+            placeholder="Status"
+            name="requestNo"
+            [(ngModel)]="status"
+            (change)="inputValueChange($event)"
+            #reqNameElement
+            tabindex="1"
+            disabled
+          />
+        </ibm-label>
+      </div>
+    </div>
+
+    <!-- Agent List-->
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 3 }">
+        <div class="form-item" #agentElement tabindex="2">
+          <ibm-dropdown
+            label="PACs Representative"
+            placeholder="Select"
+            itemValueKey="content"
+            [dropUp]="false"
+            name="agents"
+            [invalid]="agentInvalid"
+            [invalidText]="agentInvalidText"
+            required
+            [(ngModel)]="agentName"
+            (selected)="inputValueChange($event)"
+          >
+            <ibm-dropdown-list [items]="agentSelect"></ibm-dropdown-list>
+          </ibm-dropdown>
+        </div>
+      </div>
+    </div>
+
+    <!--Date Time-->
+    <!--Date -->
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 3, md: 3, sm: 3 }">
+        <div #dateElement tabindex="4">
+          <ibm-date-picker
+            name="date"
+            label="Request Date"
+            [placeholder]="'Select Date'"
+            size="md"
+            [dateFormat]="'d/m/Y'"
+            [invalid]="dateInvalid"
+            [invalidText]="dateInvalidText"
+            [(ngModel)]="date"
+            (valueChange)="dateChange($event)"
+          >
+          </ibm-date-picker>
+        </div>
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 2 }">
+        <div class="form-item" #timeElement tabindex="5">
+          <ibm-dropdown
+            label="Request Time"
+            placeholder="Select"
+            itemValueKey="content"
+            [dropUp]="false"
+            name="time"
+            [invalid]="timeInvalid"
+            [invalidText]="timeInvalidText"
+            required
+            [(ngModel)]="time"
+            (selected)="inputValueChange($event)"
+          >
+            <ibm-dropdown-list [items]="timeList"></ibm-dropdown-list>
+          </ibm-dropdown>
+        </div>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 4, md: 6, sm: 6 }">
+        <ibm-label
+          helperText="Please insert dash(-) if not applicable"
+          [invalid]="poNumberInvalid"
+          invalidText="Required"
+        >
+          PO Number
+          <input
+            ibmText
+            name="PONo"
+            [(ngModel)]="poNumber"
+            [invalid]="poNumberInvalid"
+            required
+            (change)="inputValueChange($event)"
+            #poNORef
+            tabindex="5"
+          />
+        </ibm-label>
+      </div>
+    </div>
+
+    <!--endorse by-->
+    <!--
+     <div
+     ibmRow
+     class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+     [leftGutter]="false"
+   >
+     <div ibmCol [columnNumbers]="{ lg: 3, md: 3, sm: 3 }">
+       <ibm-label [invalid]="invalidReqPhone" invalidText="Requester's Phone is Required">
+         Endorsed By {{}}
+         <input
+           ibmText
+           name="reqphone"
+           [(ngModel)]="reqPhone"
+           [invalid]="invalidReqPhone"
+           required
+           (change)="inputValueChange($event)"
+           #reqPhoneElement
+           tabindex="3"
+           [disabled]="!isPacSupp"
+         />
+       </ibm-label>
+     </div>
+     </div>
+    -->
+
+    <!-- Table -->
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3"
+      [leftGutter]="false"
+      [rightGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 12 }">
+        <ibm-table-container style="margin-top: 4rem">
+          <ibm-table-header>
+            <h4>Items</h4>
+            <!-- <p>Please add items in the table below.</p> -->
+          </ibm-table-header>
+          <ibm-table-toolbar>
+            <div class="table-action" *ngIf="checkSelected()">
+              <div class="actions">
+                <div class="cancel" *ngIf="checkSelected()">
+                  <button
+                    ibmButton="primary"
+                    size="sm"
+                    type="button"
+                    (click)="onCancel()"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          </ibm-table-toolbar>
+          <div class="">
+            <table class="bx--data-table" #itemDetailTable tabindex="6">
+              <thead>
+                <tr>
+                  <th class="bx--table-header-label" rowspan="2">Select</th>
+                  <th class="bx--table-header-label">No.</th>
+                  <th class="bx--table-header-label">Item</th>
+                  <th class="bx--table-header-label">Out Date</th>
+                  <th class="bx--table-header-label">Out Qty</th>
+                  <th class="bx--table-header-label">Qty</th>
+                  <th class="bx--table-header-label">UOM</th>
+                  <!-- <th class="bx--table-header-label">In Date</th> -->
+                  <!-- <th class="bx--table-header-label">Origin Docket No</th> -->
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngIf="itemList.length == 0"
+                  [ngClass]="{ 'invalid-tableRow': externalItemTableInvalid }"
+                >
+                  <td align="center" colspan="11">No data is entered yet.</td>
+                </tr>
+
+                <tr
+                  *ngFor="let item of itemList; let itemIndex = index"
+                  class="white-bg"
+                >
+                  <td>
+                    <ibm-checkbox
+                      [hideLabel]="true"
+                      name="checkbox_{{ itemIndex }}"
+                      (change)="onSelected($event, itemIndex)"
+                      [checked]="item.selected"
+                    ></ibm-checkbox>
+                  </td>
+                  <td>{{ itemIndex + 1 }}.</td>
+                  <td>
+                    {{ item.chemicalType?.name }}
+                  </td>
+                  <td>
+                    <span *ngIf="!isEdit">{{
+                      date | date : "dd/MM/YYYY HH:mm"
+                    }}</span>
+                    <span *ngIf="isEdit">{{ date }}</span>
+                  </td>
+
+                  <td>
+                    <ibm-label
+                      ><input
+                        ibmText
+                        size="sm"
+                        [name]="'qty_' + itemIndex"
+                        [(ngModel)]="item.outQty"
+                        tabindex="6"
+                        (change)="inputValueChange($event)"
+                      />
+                      <div class="text-danger" [hidden]="!item.invalidOutQty">
+                        {{ item.invalidOutQtyText }}
+                      </div>
+                    </ibm-label>
+                  </td>
+
+                  <td>
+                    {{ item.qty }}
+                  </td>
+                  <!-- expire date -->
+                  <td>
+                    {{ item.chemicalType.uom.name }}
+                  </td>
+
+                  <!-- <td>
+                    {{ item.transationDate | date: "dd/MM/YYYY HH:mm" }}
+                  </td>
+                  <td>
+                    {{ item.docketNo }}
+                  </td> -->
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ibm-table-container>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3"
+      [leftGutter]="false"
+      [rightGutter]="false"
+    >
+      <div
+        ibmCol
+        [columnNumbers]="{ lg: 12 }"
+        class="d-flex-row pt-64"
+        style="justify-content: flex-start"
+      >
+        <button
+          ibmButton="secondary"
+          class="mr-24"
+          size="xl"
+          routerLink="/operation-system/icw-transfer-list"
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          ibmButton="secondary"
+          class="mr-24"
+          size="xl"
+          type="button"
+          (click)="onClear()"
+        >
+          Clear
+        </button>
+
+        <button ibmButton="primary" type="button" (click)="submitClick()">
+          Submit
+        </button>
+      </div>
+    </div>
+
+    <ibm-modal [open]="open" size="sm" (overlaySelected)="open = false">
+      <ibm-modal-header ibmModalHeaderHeading (closeSelect)="open = false">
+        <h4 style="font-weight: bold">Confirmation</h4>
+      </ibm-modal-header>
+      <div ibmModalContent class="bx--modal-content">
+        <div *ngIf="requestType === 'normal'">
+          <h4>Are you sure you want to submit?</h4>
+          <h4>Kindly make sure all details are correct.</h4>
+        </div>
+        <div *ngIf="requestType === 'urgent'">
+          <h4>This is a urgent request.</h4>
+          <h4>Additional Charges are applicable.</h4>
+          <h4>Kindly make sure all details are correct.</h4>
+        </div>
+        <div *ngIf="requestType === 'emergency'">
+          <h4>This is a emergency request.</h4>
+          <h4>Additional Charges are applicable.</h4>
+          <h4>Kindly contact KSB (09-860 2222) to process immediately.</h4>
+        </div>
+        <br />
+      </div>
+
+      <ibm-modal-footer>
+        <ng-container>
+          <button ibmButton="secondary" (click)="open = false">Cancel</button>
+          <button
+            ibmButton="primary"
+            type="submit"
+            [attr.modal-primary-focus]="true"
+          >
+            Confirm
+          </button>
+        </ng-container>
+      </ibm-modal-footer>
+    </ibm-modal>
+  </form>
+  <br /><br /><br /><br />
+</div>

@@ -1,0 +1,129 @@
+@import "~carbon-components/scss/globals/scss/vendor/@carbon/type/scss/font-family";
+@import "~carbon-components/scss/globals/scss/typography";
+.bx--col-max-2 {
+    width: 100%;
+    padding-right: 0rem;
+}
+
+.white-bg {
+    background-color: #fff;
+}
+
+.pl-0 {
+    padding-left: 0px;
+}
+
+.pl-8 {
+    padding-left: 8px;
+}
+
+.pt-34 {
+    padding-top: 34px;
+}
+
+.pr-0 {
+    padding-right: 0px;
+}
+
+.p-16 {
+    padding: 16px;
+}
+
+.pt-16 {
+    padding-top: 16px;
+}
+
+.pr-20 {
+    padding-right: 20%;
+}
+
+.pr-35-percent {
+    padding-right: 35%;
+}
+
+
+/*
+.pr-40-percent {
+  padding-right: 40%;
+}*/
+
+.pl-29 {
+    padding-left: 29px;
+}
+
+.pl-35 {
+    padding-left: 35px;
+}
+
+.display-flex-row {
+    display: flex;
+}
+
+.display-flex-col {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    padding-top: 50px;
+}
+
+.bx--data-table-header {
+    padding: 1rem 0px 3rem 1rem;
+}
+
+.white-bg {
+    background-color: #fff;
+}
+
+.icon-addAlt {
+    //position: relative;
+    left: 40px;
+    top: 2px;
+}
+
+.icon-search {
+    margin-right: 12px;
+    margin-top: 16px;
+}
+
+.time-left {
+    height: 100%;
+    line-height: 25px;
+}
+
+.italic-font {
+    font-style: italic;
+}
+
+.swmSummaryQty {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.red-text {
+    color: red;
+}
+
+.summary-inventory-table tr>td {
+    padding: 10px;
+}
+
+.summary-inventory-table thead>tr>td {
+    padding-right: 30px;
+}
+
+::ng-deep {
+    .bx--content-switcher-btn:focus {
+        box-shadow: unset;
+    }
+    .bx--content-switcher-btn {
+        border: 0px !important;
+        text-align: center;
+        padding: 11px 16px 11px 16px;
+        background-color: #f3f3f3;
+        display: inline;
+        width: 168px;
+    }
+    .bx--content-switcher {
+        justify-content: unset;
+    }
+}

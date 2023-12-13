@@ -1,0 +1,349 @@
+<div ibmRow class="pt-32" style="padding-left: 0rem !important">
+  <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+    <ibm-tile [theme]="'dark'">
+      <span ibmTableHeaderTitle class="ph03">Fuel / Water Request</span>
+      <p ibmTableHeaderDescription>
+        Please fill in the form below for any service request from KSB
+      </p>
+    </ibm-tile>
+  </div>
+</div>
+
+<div ibmRow class="pt-32">
+  <!-- <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }" style="padding-left: 0rem !important">
+    <div class="form-item">
+      <fieldset>
+        <ibm-label>Supply To</ibm-label>
+        <ibm-radio-group
+          [(ngModel)]="supplyType"
+          (change)="onSelectSupply($event)"
+        >
+          <ibm-radio
+            value="Vessel"
+            [checked]="true"
+            style="margin-right: 64px !important"
+          >
+            Vessel
+          </ibm-radio>
+          <ibm-radio value="Other"> Other </ibm-radio>
+        </ibm-radio-group>
+      </fieldset>
+    </div>
+  </div> -->
+  <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01 pl-0">Supply To</div>
+  <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">Vessel</div>
+</div>
+
+<div ibmRow class="" style="padding-left: 1rem !important">
+  <div
+    ibmCol
+    [columnNumbers]="{ lg: 6, md: 6, sm: 6 }"
+    style="padding-left: 0rem !important"
+  >
+    <!-- <div class="form-item pt-32" #locationElement tabindex="1">
+      <ibm-combo-box
+        label="Location"
+        placeholder="Choose an option"
+        itemValueKey="content"
+        [dropUp]="false"
+        name="location"
+        [(ngModel)]="location"
+        invalidText="Location Required"
+        [invalid]="invalidLocation"
+        required
+        (selected)="locationValueChange()"
+        [items]="locationList"
+      >
+        <ibm-dropdown-list></ibm-dropdown-list>
+      </ibm-combo-box>
+    </div> -->
+
+    <div class="form-item pt-32">
+      <ibm-label
+        [invalid]="invalidPONum"
+        [invalidText]="invalidPONumText"
+        helperText="Please insert dash (-) if it is not applicable"
+      >
+        PO Number
+        <input
+          #PoNumberElement
+          tabindex="3"
+          ibmText
+          type="text"
+          name="PONum"
+          [(ngModel)]="poNum"
+          [invalid]="invalidPONum"
+          value="{{ poNum }}"
+          (ngModelChange)="inputValueChange()"
+          maxlength="100"
+        />
+      </ibm-label>
+    </div>
+
+    <div class="form-item pt-32" #singleDateElement tabindex="4">
+      <ibm-date-picker
+        label="Booking Date"
+        [placeholder]="placeholder"
+        [size]="size"
+        [dateFormat]="dateFormat"
+        required
+        name="bookingDate"
+        [(ngModel)]="bookingDate"
+        (change)="dateValueChange()"
+        [invalid]="invalidBookingDate || invalidbackDated || invalidDate"
+      >
+      </ibm-date-picker>
+      <div *ngIf="invalidbackDated" class="invalid-class-label">
+        Please select today's date or after today's date
+      </div>
+      <div *ngIf="invalidBookingDate" class="invalid-class-label">
+        Date Required
+      </div>
+      <div *ngIf="invalidDate && !invalidbackDated" class="invalid-class-label">
+        Please select date greater than or same as Est. Arrival Date
+      </div>
+    </div>
+
+    <div class="form-item pt-32">
+      <label class="bx--label">Remarks (Optional)</label>
+      <label
+        class="bx--label"
+        [ngStyle]="{ color: invalidNumeric ? '#da1e28' : '' }"
+        style="float: right"
+        >{{ numericCounter }}/100</label
+      >
+      <textarea
+        ibmTextArea
+        aria-label="textarea"
+        maxlength="100"
+        [rows]="6"
+        name="Remarks"
+        [(ngModel)]="remarks"
+        (ngModelChange)="numericCount(remarks)"
+      >
+      </textarea>
+      <div *ngIf="invalidNumeric" class="invalid-class-label">
+        Reach maximum characters
+      </div>
+    </div>
+  </div>
+
+  <div
+    ibmCol
+    [columnNumbers]="{ lg: 12, md: 12, sm: 12 }"
+    style="padding-left: 0rem"
+  >
+    <div class="form-item pt-32">
+      <ibm-table-container>
+        <ibm-table-toolbar>
+          <ibm-table-toolbar-content *ngIf="!checkLengthFuelWater()">
+            <!-- <button
+              style="
+                padding: calc(0.375rem - 3px) 60px calc(0.375rem - 3px) 12px;
+              "
+              ibmButton="primary"
+              size="sm"
+              type="button"
+              (click)="addFuelWaterRow()"
+              *ngIf="showAddButton"
+            >
+              Add Item
+              <div class="icon-addAlt" ibmIcon="add--alt" size="20"></div>
+            </button> -->
+          </ibm-table-toolbar-content>
+          <div class="table-action" *ngIf="checkLengthFuelWater()">
+            <div class="selectedItem">
+              {{ counterFuelWater }}
+              <span *ngIf="counterFuelWater == 1">item</span
+              ><span *ngIf="counterFuelWater > 1">items</span> selected
+            </div>
+            <div class="actions">
+              <div class="del">
+                <Button
+                  ibmButton="primary"
+                  size="sm"
+                  type="button"
+                  (click)="deleteFuelWater()"
+                >
+                  Delete
+                  <div
+                    class="icon-trashCan"
+                    ibmIcon="trash-can"
+                    size="20"
+                  ></div>
+                </Button>
+              </div>
+              <div class="cancel">
+                <button
+                  ibmButton="primary"
+                  size="sm"
+                  type="button"
+                  (click)="cancelMethodFuelWater()"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </ibm-table-toolbar>
+        <table class="bx--data-table">
+          <thead>
+            <tr>
+              <th style="width: 10%">Select</th>
+              <th style="width: 10%">Tank</th>
+              <th style="width: 20%">Full Tank</th>
+              <th style="width: 20%">Booking Time</th>
+              <th>Quantity ( Litre )</th>
+            </tr>
+          </thead>
+
+          <tbody
+            class="white-bg"
+            [ngClass]="{ 'invalid-class': fuelWaterTankInvalid }"
+          >
+            <ng-container
+              *ngFor="let tankTable of listOfTank; let postIndex = index"
+            >
+              <tr class="white-bg">
+                <!-- <tr
+              class="white-bg"
+            > -->
+                <td>
+                  <ibm-checkbox
+                    name="checkbox_{{ tankTable.id }}"
+                    [(ngModel)]="tankTable.indicator"
+                    (ngModelChange)="onSelected($event)"
+                  >
+                  </ibm-checkbox>
+                  <!-- <ibm-checkbox
+                    name="checkbox_{{ tankTable.id }}"
+                    [(ngModel)]="tankTable.Selected"
+                    (ngModelChange)="onSelected($event)"
+                  >
+                  </ibm-checkbox> -->
+                </td>
+                <td style="width: 15%">
+                  {{ tankTable.Tank }}
+                  <!-- <ibm-dropdown
+                    placeholder="{{
+                      tankTable.Tank ? tankTable.Tank : 'Select Tank'
+                    }}"
+                    [dropUp]="false"
+                    itemValueKey="content"
+                    name="tank_{{ tankTable.id }}"
+                    [(ngModel)]="tankTable.Tank"
+                    [invalidText]="invalidTankText[postIndex]"
+                    [invalid]="invalidTank[postIndex]"
+                    (selected)="tankSelected(postIndex)"
+                  >
+                    <ibm-dropdown-list [items]="tankArr"></ibm-dropdown-list>
+                  </ibm-dropdown> -->
+                </td>
+                <td class="">
+                  <ibm-radio-group
+                    name="{{ tankTable.id }}"
+                    [(ngModel)]="tankTable.FullTank"
+                    (change)="onChange($event)"
+                  >
+                    <ibm-radio
+                      *ngFor="let radio of typeOfFullTank"
+                      [value]="radio.type"
+                      [checked]="radio.checked"
+                    >
+                      {{ radio.type }}
+                    </ibm-radio>
+                  </ibm-radio-group>
+                </td>
+                <td>
+                  <ibm-dropdown
+                    placeholder="{{
+                      tankTable.StartTime ? tankTable.StartTime : 'Select Time'
+                    }}"
+                    [dropUp]="false"
+                    itemValueKey="content"
+                    name="time_{{ tankTable.id }}"
+                    [(ngModel)]="tankTable.StartTime"
+                    invalidText="Start Time Required"
+                    [invalid]="invalidStartTime[postIndex]"
+                    (selected)="invalidStartTime[postIndex] = false"
+                  >
+                    <ibm-dropdown-list [items]="timeArr"></ibm-dropdown-list>
+                  </ibm-dropdown>
+                </td>
+                <td class="">
+                  <ibm-label
+                    [invalid]="invalidWeight[postIndex]"
+                    invalidText="Weight Required"
+                    class="pb-10"
+                  >
+                    <input
+                      ibmText
+                      type="number"
+                      min="0"
+                      name="weight{{ tankTable.id }}"
+                      value="{{ tankTable.Weight }}"
+                      [invalid]="invalidWeight[postIndex]"
+                      [(ngModel)]="tankTable.Weight"
+                      (ngModelChange)="validateWeight(postIndex)"
+                      [disabled]="tankTable.FullTank == 'Yes'"
+                      required
+                    />
+                  </ibm-label>
+                </td>
+              </tr>
+            </ng-container>
+
+            <tr
+              *ngIf="listOfTank.length == 0"
+              [ngClass]="{ 'invalid-tableRow': fuelWaterTankInvalid }"
+            >
+              <td align="center" colspan="9">
+                No data is entered yet. Please add new row
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          style="width: 200px"
+          *ngIf="fuelWaterTankInvalid"
+          class="invalid-class-label"
+        >
+          Please select one or more item
+        </div>
+      </ibm-table-container>
+    </div>
+  </div>
+</div>
+
+<div ibmRow class="pt-32">
+  <div ibmCol [columnNumbers]="{ lg: 10, md: 10, sm: 6 }">
+    <div class="form-item">
+      <div class="btn-action">
+        <button
+          type="button"
+          ibmButton="secondary"
+          style="margin-right: 24px"
+          (click)="changeStep(0)"
+        >
+          Back
+        </button>
+        <button
+          (click)="onSave()"
+          type="button"
+          ibmButton="primary"
+          style="margin-right: 24px"
+        >
+          Save
+        </button>
+        <button
+          type="submit"
+          ibmButton="primary"
+          (click)="changeStep(2)"
+          [disabled]="!this.onSubmit"
+        >
+          Preview
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+// @import "~bootstrap/dist/css/bootstrap.css";
+
+::ng-deep {
+
+    .tableToolbar .bx--toolbar-content{
+        background-color: white;
+    }
+
+    .bx--search--sm .bx--search-input, .bx--search--sm.bx--search--expandable.bx--search--expanded .bx--search-input, .bx--search--sm .bx--search-close, .bx--search--sm ~ .bx--search-button, .bx--search--sm.bx--search--expandable, .bx--search--sm.bx--search--expandable .bx--search-magnifier {
+        height: 48px;
+    }
+
+    .bx--search-magnifier{
+        margin: 1rem;
+    }
+
+    .bx--btn--sm {
+        padding: 3px 16px 3px 16px;
+    }
+}

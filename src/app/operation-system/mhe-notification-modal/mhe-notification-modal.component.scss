@@ -1,0 +1,19 @@
+.bold-text {
+    font-weight: bold;
+}
+
+.modal-link {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.red-bold {
+    font-weight: bold;
+    color: #BA1B22;
+}
+
+::ng-deep {
+    .bx--modal-close {
+        display: none;
+    }
+}

@@ -1,0 +1,256 @@
+<div ibmGrid class="bx--grid--full-width pb-133">
+  <div
+    id="topPartPrint"
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 10, md: 10, sm: 10 }">
+      <ibm-breadcrumb [noTrailingSlash]="true">
+        <ibm-breadcrumb-item [current]="true">
+          Warehouse Management System
+        </ibm-breadcrumb-item>
+        <ibm-breadcrumb-item>
+          <a routerLink="/wms/psb-inventory-list">Petroleum Supply Base</a>
+        </ibm-breadcrumb-item>
+        <ibm-breadcrumb-item>
+          <a routerLink="/wms/psb-transfer-owner-list"> Transfer Ownership</a>
+        </ibm-breadcrumb-item>
+        <ibm-breadcrumb-item [current]="true">
+          Seller Form
+        </ibm-breadcrumb-item>
+      </ibm-breadcrumb>
+    </div>
+  </div>
+
+  <div class="printable">
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24 printable-special"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 12, sm: 12 }">
+        <div style="width: 100%">
+          <table>
+            <tbody>
+              <tr>
+                <td style="vertical-align: middle">
+                  <img
+                    src="./assets/images/KSB_Logo.png"
+                    alt="KSB logo"
+                    style="width: 80px"
+                  />
+                </td>
+                <td style="padding-top: 25px; padding-bottom: 20px">
+                  <p class="title-text">
+                    PANGKALAN BEKALAN KEMAMAN SDN. BHD. (69363-D)
+                  </p>
+                  <p class="ph01" style="padding-top: 5px">
+                    A Subsidiary of Eastern Pacific Industrial Corporation Bhd.
+                  </p>
+                  <p class="letter-header-Text">
+                    P.O Box 64, 24007 Kemaman, Terengganu Darul Iman, Malaysia
+                  </p>
+                  <p class="letter-header-Text">
+                    Tel : 09 - 860 2343, 860 2344 Fax : 09 - 869 1191
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+        <div class="title">
+          <span class="ph03">Transfer Ownership Seller Form</span>
+        </div>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Company Name</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bs01">
+        {{ companyName }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Request By</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bs01">
+        {{ request_by }}
+      </div>
+    </div>
+
+    <div *ngFor="let info of dataForm">
+      <div
+        ibmRow
+        class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24"
+      >
+        <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Buyer</div>
+        <div ibmCol [columnNumbers]="{ lg: 6 }" class="bs01">
+          {{ info.buyer.name }}
+        </div>
+      </div>
+
+      <div
+        ibmRow
+        class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24"
+      >
+        <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">PO Number</div>
+        <div ibmCol [columnNumbers]="{ lg: 6 }" class="bs01">
+          {{ info.po_no }}
+        </div>
+      </div>
+
+      <div
+        ibmRow
+        class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24"
+      >
+        <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+          Invoice Number
+        </div>
+        <div ibmCol [columnNumbers]="{ lg: 6 }" class="bs01">
+          {{ info.invoice_no }}
+        </div>
+      </div>
+
+      <div
+        ibmRow
+        class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24"
+      >
+        <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Sale Date</div>
+        <div ibmCol [columnNumbers]="{ lg: 6 }" class="bs01">
+          {{ info.selling_date | date : "dd/MM/y" }}
+        </div>
+      </div>
+
+      <div
+        ibmRow
+        class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24"
+      >
+        <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Category</div>
+        <div ibmCol [columnNumbers]="{ lg: 6 }" class="bs01">
+          {{ info.category | titlecase }}
+        </div>
+      </div>
+
+      <div
+        ibmRow
+        class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24"
+      >
+        <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+          Uploaded Documents
+        </div>
+        <div ibmCol [columnNumbers]="{ lg: 6 }" class="bs01">
+          <div *ngFor="let file of uploadDoc; let index = index" class="mt-4">
+            <div class="bx--file-container">
+              <div class="bx--file__selected-file">
+                <button
+                  type="button"
+                  ibmButton="ghost"
+                  class="downloadBtn"
+                  (click)="downloadFiles(file.file_ID, file.file_name)"
+                >
+                  {{ file.file_name }}
+                  <div
+                    class="mr-12"
+                    ibmIcon="download"
+                    size="20"
+                    style="color: #000"
+                  ></div>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="uploadDoc.length == 0">-</div>
+        </div>
+      </div>
+
+      <div
+        ibmRow
+        class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24"
+      >
+        <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Remarks</div>
+        <div ibmCol [columnNumbers]="{ lg: 6 }" class="bs01">
+          {{ info.remarks }}
+          <div *ngIf="!info.remarks">-</div>
+        </div>
+      </div>
+
+      <div
+        ibmRow
+        class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24"
+      >
+        <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Status</div>
+        <!-- <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bs01" style="display: flex; flex-direction: column;"
+                [ngStyle]="{'color':data.status === 'Pending Confirmation' || 'IN_PROGRESS' ? 'red' : '#161616' }">
+                {{status}}
+
+            </div> -->
+        <div ibmCol [columnNumbers]="{ lg: 6 }" class="bs01">
+          {{ info.status.replaceAll("_", " ") | titlecase }}
+        </div>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64">
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 5 }">
+        <ibm-table-container>
+          <ibm-table-header class="white-bg">
+            <h4 ibmTableHeaderTitle>Goods Sold</h4>
+          </ibm-table-header>
+          <div class="horizontal-overflow-table">
+            <table class="bx--data-table">
+              <thead>
+                <tr>
+                  <th>No.</th>
+                  <th>Goods Description</th>
+                  <th>Form Type</th>
+                  <th>Form No.</th>
+                  <th style="text-align: right">Quantity</th>
+                  <th>Location</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let goods of Goods; let idx = index">
+                  <td>{{ idx + 1 }}.</td>
+                  <td>{{ goods.Description }}</td>
+                  <td>{{ goods.FormType }}</td>
+                  <td>{{ goods.RegNo }}</td>
+                  <td style="text-align: right">{{ goods.Quantity }}</td>
+                  <td>{{ goods.Location }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="pt-64 disable-on-print">
+            <hr />
+          </div>
+        </ibm-table-container>
+      </div>
+    </div>
+  </div>
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 5 }">
+      <div class="actions">
+        <button
+          ibmButton="secondary"
+          size="md"
+          routerLink="/wms/psb-transfer-owner-list"
+        >
+          Back
+        </button>
+        <button
+          class="ml-1"
+          ibmButton="secondary"
+          size="md"
+          (click)="onPrint()"
+        >
+          Print
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

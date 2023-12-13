@@ -1,0 +1,213 @@
+<div ibmGrid class="bx--grid--full-width" style="padding-bottom: 133px;">
+    <div id="topPartPrint" ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+        <div ibmCol [columnNumbers]="{ 'lg': 10, 'md': 10, 'sm': 10 }">
+            <ibm-breadcrumb [noTrailingSlash]="true">
+
+                <ibm-breadcrumb-item [current]="true">
+                    Operation System
+                </ibm-breadcrumb-item>
+
+
+                <ibm-breadcrumb-item [current]="true">
+                    Schedule Waste Management
+                </ibm-breadcrumb-item>
+
+                <ibm-breadcrumb-item>
+                    <a routerLink="/operation-system/sw-inbound-outbound-list">Inbound / Outbound</a>
+                </ibm-breadcrumb-item>
+
+                <ibm-breadcrumb-item [current]="true">
+                    TWG Form
+                </ibm-breadcrumb-item>
+
+            </ibm-breadcrumb>
+        </div>
+    </div>
+
+    <div class="printable">
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+            <div ibmCol [columnNumbers]="{'lg': 6, 'md': 6, 'sm': 6}">
+                <div>
+                    <span class="ph03">TWG Form</span>
+                </div>
+            </div>
+        </div>
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Company Name
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{companyName}}
+            </div>
+        </div>
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Request By
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{requestBy}}
+            </div>
+        </div>
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Form No.
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{formNo}}
+            </div>
+        </div>
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Factory Address
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{factoryAddress}}
+            </div>
+        </div>
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Telephone No
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{telNo}}
+            </div>
+        </div>
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Fax No
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{faxNo}}
+            </div>
+        </div>
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Appointed Company Address
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{appointedCompanyAddress}}
+            </div>
+        </div>
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                License No.
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{licenseNo}}
+            </div>
+        </div>
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Upload Related Documents
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+
+                <div *ngFor="let file of uploadDoc; let index = index" class="mt-4">
+                    <div class="bx--file-container">
+
+                        <div class="bx--file__selected-file">
+                            <button type="button" ibmButton="ghost" class="downloadBtn" (click)="downloadFiles(file.file_ID, file.file_name)">
+                                {{file.file_name}}
+                                <div class="mr-12" ibmIcon="download" size="20" style="color: #000;"></div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="uploadDoc.length == 0">
+                    -
+                </div>
+            </div>
+        </div>
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Updated Document
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                <div *ngFor="let file of uploadUpdatedDoc; let index = index" class="mt-4">
+                    <div class="bx--file-container">
+
+                        <div class="bx--file__selected-file">
+                            <button type="button" ibmButton="ghost" class="downloadBtn" (click)="downloadUpdatedFiles(file.file_ID, file.file_name)">
+                                {{file.file_name}}
+                                <div class="mr-12" ibmIcon="download" size="20" style="color: #000;"></div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="uploadUpdatedDoc.length == 0">
+                    -
+                </div>
+            </div>
+        </div>
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Status
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{status}}
+            </div>
+        </div>
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64">
+            <div ibmCol [columnNumbers]="{'lg': 12, 'md': 10, 'sm': 6}">
+                <ibm-table-container>
+
+                    <ibm-table-header class="pb-48">
+                        <h4 ibmTableHeaderTitle>Type of Waste</h4>
+                    </ibm-table-header>
+
+                    <div class="horizontal-overflow-table">
+                        <table class="bx--data-table">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Waste Code</th>
+                                    <th>Descriptions</th>
+                                    <th>Qty. (MT/Month)</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr *ngIf="typeOfWasteList.length == 0" [ngClass]="{'invalid-tableRow': goodsInTableInvalid}">
+                                    <td align="center" colspan="8">No data available</td>
+                                </tr>
+                                <tr *ngFor="let outboundWaste of typeOfWasteList; let postIndex=index;" class="white-bg" [ngClass]="{'invalid-tableRow': goodsInTableInvalid}">
+                                    <td>{{ postIndex + 1 }}</td>
+                                    <td>
+                                        {{outboundWaste.wasteCode}}
+                                    </td>
+                                    <td class="w-130">
+                                        {{outboundWaste.description}}
+                                    </td>
+                                    <td class="w-130">
+                                        {{outboundWaste.qty}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </ibm-table-container>
+            </div>
+        </div>
+    </div>
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64">
+        <div ibmCol [columnNumbers]="{ 'lg':12 }">
+            <div class="d-flex justify-content-end">
+                <button type="button" ibmButton="secondary" class="mr-32" (click)="redirectToPrevious()">Back</button>
+            </div>
+        </div>
+    </div>
+
+</div>

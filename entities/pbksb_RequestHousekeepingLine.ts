@@ -1,0 +1,81 @@
+import { RequestLine } from "./pbksb_RequestLine";
+export class RequestHousekeepingLine extends RequestLine {
+  static NAME = "pbksb_RequestHousekeepingLine";
+}
+export type RequestHousekeepingLineViewName = "_base" | "_local" | "_minimal";
+export type RequestHousekeepingLineView<
+  V extends RequestHousekeepingLineViewName
+> = V extends "_base"
+  ? Pick<
+      RequestHousekeepingLine,
+      | "id"
+      | "container"
+      | "requestType"
+      | "storageBillingStatus"
+      | "lastBilled"
+      | "containerNumber"
+      | "containerType"
+      | "repairRequest"
+      | "cablingOnVessel"
+      | "fourCoreDNV"
+      | "repair"
+      | "lotNumber"
+      | "storageStartDate"
+      | "storageEndDate"
+      | "plugOnDate"
+      | "plugOffDate"
+      | "plugOn"
+      | "plugOff"
+      | "remarks"
+      | "location"
+      | "temperatureReading"
+      | "temperatureStart"
+      | "temperature"
+      | "requestTicketNumber"
+      | "housekeepingRequired"
+      | "cleaningRequired"
+      | "stuffingRequired"
+      | "outsideInsideBonded"
+      | "containerReturn"
+      | "time"
+      | "status"
+      | "completedDateTime"
+    >
+  : V extends "_local"
+  ? Pick<
+      RequestHousekeepingLine,
+      | "id"
+      | "requestType"
+      | "storageBillingStatus"
+      | "lastBilled"
+      | "containerNumber"
+      | "containerType"
+      | "repairRequest"
+      | "cablingOnVessel"
+      | "fourCoreDNV"
+      | "repair"
+      | "lotNumber"
+      | "storageStartDate"
+      | "storageEndDate"
+      | "plugOnDate"
+      | "plugOffDate"
+      | "plugOn"
+      | "plugOff"
+      | "remarks"
+      | "location"
+      | "temperatureReading"
+      | "temperatureStart"
+      | "temperature"
+      | "requestTicketNumber"
+      | "housekeepingRequired"
+      | "cleaningRequired"
+      | "stuffingRequired"
+      | "outsideInsideBonded"
+      | "containerReturn"
+      | "time"
+      | "status"
+      | "completedDateTime"
+    >
+  : V extends "_minimal"
+  ? Pick<RequestHousekeepingLine, "id" | "container">
+  : never;

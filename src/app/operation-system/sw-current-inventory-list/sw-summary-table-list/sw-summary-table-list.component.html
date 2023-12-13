@@ -1,0 +1,137 @@
+<div class="printable">
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+      <div>
+        <span ibmTableHeaderTitle class="ph03">Summary Table List</span>
+        <p ibmTableHeaderDescription>
+          Summary of Waste Code in ILMS application
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64">
+        <div ibmCol [columnNumbers]="{'lg': 12, 'md': 10, 'sm': 6}">
+            <ibm-table-container>
+
+
+                <table class="bx--data-table">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Waste Code</th>
+                            <th>Qty.</th>
+                            <th>Weight (MT)</th>
+                            <th>Location ID</th>
+                            <th>Qty. Near Expiry Date</th>
+                            <th>Expiry Date</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr *ngIf="summaryTableList.length == 0" [ngClass]="{'invalid-tableRow': goodsInTableInvalid}">
+                            <td align="center" colspan="8">No data available</td>
+                        </tr>
+                        <tr *ngFor="let summaryTable of summaryTableList; let postIndex=index;" class="white-bg" [ngClass]="{'invalid-tableRow': goodsInTableInvalid}">
+                            <td>{{ postIndex + 1 }}</td>
+                            <td>
+                                {{summaryTable.wasteCode}}
+                            </td>
+                            <td class="w-130">
+                                {{summaryTable.qty}}
+                            </td>
+                            <td class="w-130">
+                                {{summaryTable.weight}}
+                            </td>
+                            <td class="w-130">
+                                {{summaryTable.locationID}}
+                            </td>
+                            <td class="w-130">
+                                {{summaryTable.qtyNearExpiryDate}}
+                            </td>
+                            <td class="w-130">
+                                {{summaryTable.expiryDate}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </ibm-table-container>
+        </div>
+    </div> -->
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }" class="pl-0 pr-0">
+      <ibm-table-container class="table-style">
+        <ibm-table-toolbar>
+          <ibm-table-toolbar-content class="white-bg">
+            <!-- <ibm-table-toolbar-search
+                        ngDefaultControl
+                        [expandable]="true"
+                        [(ngModel)]="searchModel">
+                    </ibm-table-toolbar-search> -->
+
+            <ibm-table-toolbar-search
+              [(ngModel)]="searchModel"
+              (valueChange)="searchFilter($event)"
+              (clear)="searchFilter($event)"
+            >
+            </ibm-table-toolbar-search>
+          </ibm-table-toolbar-content>
+          <button
+            ibmButton="secondary"
+            *ngIf="sortingOn"
+            size="sm"
+            type="button"
+            (click)="userInfo()"
+            (click)="sortingOn = false"
+          >
+            <span style="margin-right: 42px"> Reset Sorting</span>
+            <div class="icon-addAlt" ibmIcon="filter--reset" size="20"></div>
+          </button>
+          <button
+            ibmButton="secondary"
+            size="sm"
+            type="button"
+            class="addNew"
+            (click)="userInfo()"
+          >
+            <span style="margin-right: 42px">Refresh</span>
+            <div class="icon-addAlt" ibmIcon="renew" size="20"></div>
+          </button>
+        </ibm-table-toolbar>
+        <div class="horizontal-overflow-table">
+          <ng-template #customTableItemTemplate let-data="data">
+            <span style="color: red">{{ data }}</span>
+          </ng-template>
+
+          <ibm-table
+            [model]="model"
+            [striped]="false"
+            [showSelectionColumn]="false"
+            (sort)="doSort($event)"
+          ></ibm-table>
+        </div>
+        <ibm-pagination
+          [model]="model"
+          [itemsPerPageOptions]="itemsPerPageOptions"
+          (selectPage)="selectPage($event)"
+          >></ibm-pagination
+        >
+      </ibm-table-container>
+    </div>
+  </div>
+</div>
+<div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64">
+  <div ibmCol [columnNumbers]="{ lg: 12 }">
+    <div class="d-flex justify-content-end">
+      <button
+        type="button"
+        ibmButton="secondary"
+        class="mr-32"
+        (click)="redirectToPrevious()"
+      >
+        Back
+      </button>
+    </div>
+  </div>
+</div>

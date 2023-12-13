@@ -1,0 +1,408 @@
+<div ibmGrid class="bx--grid--full-width">
+  <form #cwcyRelaseView="ngForm">
+    <div
+      id="topPartPrint"
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 pt-32"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 16 }">
+        <ibm-breadcrumb [noTrailingSlash]="true">
+          <ibm-breadcrumb-item [current]="true" href="#1">
+            Operation System
+          </ibm-breadcrumb-item>
+          <ibm-breadcrumb-item>
+            <a routerLink="/operation-system/cfs-request-list"
+              >Common Warehouse & Common Yard</a
+            >
+          </ibm-breadcrumb-item>
+          <ibm-breadcrumb-item [current]="true" href="#1">
+            Goods Release Form
+          </ibm-breadcrumb-item>
+        </ibm-breadcrumb>
+      </div>
+    </div>
+
+    <div class="printable">
+      <div class="logon-container">
+        <div
+          ibmRow
+          class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 justify-content-center print-logo"
+        >
+          <div ibmCol [columnNumbers]="{ lg: 16, md: 16, sm: 16 }">
+            <img src="./assets/images/ksb-logo-97.svg" alt="KSB logo" />
+          </div>
+        </div>
+        <div
+          ibmRow
+          class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 justify-content-center mt-3 print-logo"
+          style="margin-bottom: 2rem"
+        >
+          <div ibmCol [columnNumbers]="{ lg: 16, md: 16, sm: 16 }">
+            <span class="ph02"
+              >PANGKALAN BEKALAN KEMAMAN SDN. BHD. (69363-D)</span
+            >
+          </div>
+        </div>
+      </div>
+      <div
+        ibmRow
+        class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 pt-24"
+      >
+        <div ibmCol [columnNumbers]="{ max: 16, xlg: 16, lg: 16 }" class="ph03">
+          Request Form
+        </div>
+      </div>
+
+      <div
+        ibmRow
+        class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 pt-24"
+        [leftGutter]="false"
+      >
+        <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Company Name</div>
+        <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+          {{ companyName }}
+        </div>
+      </div>
+
+      <!-- <div
+        ibmRow
+        class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 pt-24"
+        [leftGutter]="false"
+      >
+        <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Request By</div>
+        <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+          {{ requestBy }}
+        </div>
+      </div> -->
+
+      <div
+        ibmRow
+        class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 pt-24"
+        [leftGutter]="false"
+      >
+        <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Request No.</div>
+        <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+          {{ requestNo }}
+        </div>
+      </div>
+
+      <div
+        ibmRow
+        class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 pt-24"
+        [leftGutter]="false"
+      >
+        <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Agent</div>
+        <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+          {{ agent }}
+        </div>
+      </div>
+
+      <div
+        ibmRow
+        class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 pt-24"
+        [leftGutter]="false"
+      >
+        <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+          Requester's Name
+        </div>
+        <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+          {{ reqName }}
+        </div>
+      </div>
+
+      <div
+        ibmRow
+        class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 pt-24"
+        [leftGutter]="false"
+      >
+        <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+          Requester's IC
+        </div>
+        <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+          {{ reqIC }}
+        </div>
+      </div>
+
+      <div
+        ibmRow
+        class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 pt-24"
+        [leftGutter]="false"
+      >
+        <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+          Requester's Phone
+        </div>
+        <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+          {{ reqTel }}
+        </div>
+      </div>
+
+      <div
+        ibmRow
+        class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 pt-24"
+        [leftGutter]="false"
+      >
+        <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Date & Time</div>
+        <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+          {{ dateTime | date: "dd/MM/YYYY HH:mm" }}
+        </div>
+      </div>
+
+      <div
+        ibmRow
+        class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 pt-24"
+        [leftGutter]="false"
+      >
+        <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+          Storage Location
+        </div>
+        <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+          {{ location }}
+        </div>
+      </div>
+
+      <div
+        ibmRow
+        class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 pt-24"
+        [leftGutter]="false"
+      >
+        <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">PO No.</div>
+        <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+          {{ poNumber }}
+        </div>
+      </div>
+
+      <div
+        ibmRow
+        class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 pt-24 page-break"
+        [leftGutter]="false"
+      >
+        <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Status</div>
+        <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+          <span *ngIf="status !== 'Pending Endorsement'">{{
+            status || "-"
+          }}</span>
+          <span style="color: red" *ngIf="status === 'Pending Endorsement'">{{
+            status || "-"
+          }}</span>
+        </div>
+      </div>
+
+      <div
+        ibmRow
+        class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-24 d-flex"
+      >
+        <div
+          ibmCol
+          class="bx--offset-lg-2"
+          style="padding-top: 1rem; padding-left: 0"
+        >
+          <button
+            ibmButton="secondary"
+            size="md"
+            [disabled]="isCancelDisabled"
+            *ngIf="isCancelDisplay"
+            (click)="open = true"
+          >
+            Cancel Request
+          </button>
+        </div>
+      </div>
+
+      <br /><br />
+
+      <div
+        ibmRow
+        class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3"
+        [leftGutter]="false"
+        [rightGutter]="false"
+        style="margin-top: 1rem"
+        *ngIf="itemList.length !== 0"
+      >
+        <div ibmCol [columnNumbers]="{ lg: 12 }">
+          <h4 ibmTableHeaderTitle>Goods Release Request Item Details</h4>
+          <div class="form-item width-unset pt-24">
+            <ibm-table-container>
+              <div class="horizontal-overflow-table">
+                <table class="bx--data-table">
+                  <thead>
+                    <tr>
+                      <th class="header1">No.</th>
+                      <th class="header2">Description</th>
+                      <th class="header3">Quantity</th>
+                      <th class="header4">UOM</th>
+                      <th class="header5">Remarks</th>
+                      <th class="header6">{{ lbl_weight }}</th>
+                      <th class="header6">{{ lbl_actual_weight }}</th>
+                      <th class="header6">Line Allotment No.</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr
+                      *ngIf="itemList.length === 0"
+                      [ngClass]="{ 'invalid-tableRow': goodsInTableInvalid }"
+                    >
+                      <td align="center" colspan="6">
+                        No data is entered yet.
+                      </td>
+                    </tr>
+                    <tr
+                      *ngFor="let rowDetails of itemList; let postIndex = index"
+                      class="white-bg"
+                      [ngClass]="{ 'invalid-tableRow': goodsInTableInvalid }"
+                    >
+                      <!-- <tr class="white-bg"> -->
+                      <td>{{ postIndex + 1 }}.</td>
+
+                      <td>
+                        {{ rowDetails.description }}
+                      </td>
+
+                      <td>
+                        {{ rowDetails.quantity }}
+                      </td>
+
+                      <td>
+                        {{ rowDetails.UOM }}
+                      </td>
+
+                      <td>
+                        {{ rowDetails.remarks }}
+                      </td>
+
+                      <td>
+                        {{ rowDetails.weight }}
+                      </td>
+
+                      <td>
+                        {{ rowDetails.actualWeight }}
+                      </td>
+
+                      <td>
+                        {{ rowDetails.lineAllotmentNo }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </ibm-table-container>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br /><br />
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+      <div
+        ibmCol
+        [columnNumbers]="{ lg: 12, md: 10, sm: 5 }"
+        class="d-flex-row"
+        style="justify-content: flex-start"
+      >
+        <button
+          class="mr-24"
+          ibmButton="secondary"
+          type="button"
+          size="md"
+          (click)="redirectToPrevious()"
+        >
+          Back
+        </button>
+        <button
+          class="mr-24"
+          ibmButton="secondary"
+          size="md"
+          (click)="onPrint()"
+        >
+          Print
+        </button>
+
+        <button
+          class="mr-24"
+          ibmButton="secondary"
+          size="md"
+          *ngIf="isEditDisplay"
+          [routerLink]="[
+            '/operation-system/cwcy-goods-release-form',
+            requestNo
+          ]"
+        >
+          Edit
+        </button>
+
+        <button
+          class="mr-24"
+          ibmButton="primary"
+          size="md"
+          *ngIf="isEndorseDisplay"
+          (click)="openEndorsed = true"
+        >
+          Endorse
+        </button>
+      </div>
+    </div>
+
+    <ibm-modal [open]="open" size="sm" (overlaySelected)="open = false">
+      <ibm-modal-header ibmModalHeaderHeading (closeSelect)="open = false">
+        <h4 style="font-weight: bold">Confirmation</h4>
+      </ibm-modal-header>
+      <div ibmModalContent class="bx--modal-content">
+        <h4>Are you sure you want to cancel this item?</h4>
+      </div>
+      <br /><br />
+
+      <ibm-modal-footer>
+        <ng-container>
+          <button ibmButton="secondary" (click)="open = false">Cancel</button>
+          <button
+            ibmButton="primary"
+            (click)="onCancel()"
+            [attr.modal-primary-focus]="true"
+          >
+            Confirm
+          </button>
+        </ng-container>
+      </ibm-modal-footer>
+    </ibm-modal>
+
+    <ibm-modal
+      [open]="openEndorsed"
+      size="sm"
+      (overlaySelected)="openEndorsed = false"
+    >
+      <ibm-modal-header
+        ibmModalHeaderHeading
+        (closeSelect)="openEndorsed = false"
+      >
+        <h4 style="font-weight: bold">Confirmation</h4>
+      </ibm-modal-header>
+      <div ibmModalContent class="bx--modal-content">
+        <h4>Are you sure you want to endorse?</h4>
+        <h4>Kindly make sure all details are correct.</h4>
+        <br /><br />
+      </div>
+
+      <ibm-modal-footer>
+        <ng-container>
+          <button ibmButton="secondary" (click)="openEndorsed = false">
+            Cancel
+          </button>
+          <button
+            ibmButton="primary"
+            (click)="onEndorse()"
+            [attr.modal-primary-focus]="true"
+          >
+            Confirm
+          </button>
+        </ng-container>
+      </ibm-modal-footer>
+    </ibm-modal>
+  </form>
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+</div>

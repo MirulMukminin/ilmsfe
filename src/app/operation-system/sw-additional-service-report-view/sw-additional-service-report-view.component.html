@@ -1,0 +1,412 @@
+<ibm-loading *ngIf="isLoading" [isActive]="isLoading" size="normal" [overlay]="overlay">
+</ibm-loading>
+<div ibmGrid class="bx--grid--full-width" style="padding-bottom: 133px">
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+        <div ibmCol [columnNumbers]="{ lg: 10, md: 10, sm: 10 }">
+            <ibm-breadcrumb [noTrailingSlash]="true">
+                <ibm-breadcrumb-item [current]="true">
+                    Operation System
+                </ibm-breadcrumb-item>
+
+                <ibm-breadcrumb-item [current]="true">
+                    Schedule Waste Management
+                </ibm-breadcrumb-item>
+
+                <ibm-breadcrumb-item>
+                    <a routerLink="/operation-system/sw-additional-service-report-list">Additional Services Reporting List</a
+          >
+        </ibm-breadcrumb-item>
+
+        <ibm-breadcrumb-item [current]="true">
+          Additional Services SO Report Details
+        </ibm-breadcrumb-item>
+      </ibm-breadcrumb>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32 printable">
+    <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+      <div>
+        <span class="ph03">Additional Services Report Details</span>
+      </div>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32 printable">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Form No.</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ formNo }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24 printable">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Status</div>
+    <div
+      ibmCol
+      [columnNumbers]="{ lg: 6 }"
+      class="bl01"
+      [ngClass]="{ red: status === 'Pending Endorsement' }"
+    >
+      {{ status }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24 printable">
+    <div ibmCol [columnNumbers]="{ lg: 12 }" class="ph01"><hr /></div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32 printable">
+    <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+      <div>
+        <h4 class="bold">Section 1 - Requisition</h4>
+      </div>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32 printable">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Inbound Form No.</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ inboundFormNo }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24 printable">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Service Order No.</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ serviceOrderNo }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24 printable">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Company</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ company }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24 printable">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Request By</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ requestBy }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24 printable">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Date of Service</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ dateOfService }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24 printable">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Time</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ time }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24 printable">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Location</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ location }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24 printable">
+    <div ibmCol [columnNumbers]="{ lg: 12 }" class="ph01"><hr /></div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32 printable">
+    <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+      <div>
+        <h4 class="bold">Section 2 - Additional Services</h4>
+      </div>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32 printable">
+    <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+      <div>
+        <span class="ph03">Collection</span>
+      </div>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24 printable">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+      Pallet (Min. 12 pallets)
+    </div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ pallet }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32 printable">
+    <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+      <div>
+        <span class="ph03">Return Skid</span>
+      </div>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24 printable">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Trip</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ trip }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64 printable">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+      <ibm-table-container>
+        <ibm-table-header class="pb-48">
+          <h4 ibmTableHeaderTitle>Repackaging From</h4>
+        </ibm-table-header>
+
+        <div class="horizontal-overflow-table">
+          <table class="bx--data-table">
+            <thead>
+              <tr>
+                <th class="w-80">No.</th>
+                <th class="w-130">Qty.</th>
+                <th>UOM</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr
+                *ngFor="let row of repackagingFromData; let postIndex = index"
+                class="white-bg"
+                [ngClass]="{ 'invalid-tableRow': goodsInTableInvalid }"
+              >
+                <td>{{ postIndex + 1 }}.</td>
+                <td>
+                  {{ row.qty }}
+                </td>
+                <td>
+                  {{ row.uom }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ibm-table-container>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64 printable">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+      <ibm-table-container>
+        <ibm-table-header class="pb-48">
+          <h4 ibmTableHeaderTitle>New Packaging Material</h4>
+        </ibm-table-header>
+
+        <div class="horizontal-overflow-table">
+          <table class="bx--data-table">
+            <thead>
+              <tr>
+                <th class="w-80">No.</th>
+                <th class="w-130">Qty.</th>
+                <th>Material</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr
+                *ngFor="let row of newPackagingData; let postIndex = index"
+                class="white-bg"
+                [ngClass]="{ 'invalid-tableRow': goodsInTableInvalid }"
+              >
+                <td>{{ postIndex + 1 }}.</td>
+                <td>
+                  {{ row.qty }}
+                </td>
+                <td>
+                  {{ row.material }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ibm-table-container>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64 printable">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+      <ibm-table-container>
+        <ibm-table-header class="pb-48">
+          <h4 ibmTableHeaderTitle>Packing, Palletizing & Strapping(Pallet)</h4>
+        </ibm-table-header>
+
+        <div class="horizontal-overflow-table">
+          <table class="bx--data-table">
+            <thead>
+              <tr>
+                <th class="w-80">No.</th>
+                <th class="w-130">Type</th>
+                <th>Total Unit(s)</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>1.</td>
+                <td>
+                  Pallet
+                </td>
+                <td>
+                  {{ palletUnit }}
+                </td>
+              </tr>
+              <tr>
+                <td>2.</td>
+                <td>
+                  Drum
+                </td>
+                <td>
+                  {{ drumUnit }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ibm-table-container>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32 printable">
+    <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+      <div>
+        <span class="ph03">Weighing</span>
+      </div>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24 printable">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Total Weight (MT)</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ totalWeight }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24 printable">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Total Unit Weight</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ totalUnitWeight }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32 printable">
+    <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+      <div>
+        <span class="ph03">Drum Crushing</span>
+      </div>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24 printable">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Operation(s)</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ operations }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64 printable">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+      <ibm-table-container>
+        <ibm-table-header class="pb-48">
+          <h4 ibmTableHeaderTitle>Odd Size Cargo</h4>
+        </ibm-table-header>
+
+        <div class="horizontal-overflow-table">
+          <table class="bx--data-table">
+            <thead>
+              <tr>
+                <th class="w-80">No.</th>
+                <th class="w-130">Type</th>
+                <th>MHE Request No.</th>
+                <th>Job Ticket Number</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr
+                *ngFor="let row of oddSizeCargoData; let postIndex = index"
+                class="white-bg"
+              >
+                <td>{{ postIndex + 1 }}.</td>
+                <td>`
+                  {{ row.type }}
+                </td>
+                <td>
+                  <a
+                    class="customLink2"
+                    [routerLink]="[
+                      '/operation-system/mhe-request-preview-endorse',
+                      row.reqNo
+                    ]"
+                    >{{ row.reqNo }}</a
+                  >
+                </td>
+                <td>
+                  <span *ngFor="let jobTicket of row.jobTicketNumber; let i = index">
+                    <a
+                      class="customLink2"
+                      [routerLink]="[
+                        '/operation-system/mhe-job-ticket-preview',
+                        jobTicket.number
+                      ]"
+                      >{{ jobTicket.number }}</a
+                    >
+                    {{ i === row.jobTicketNumber.length - 1 ? "" : ", " }}
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ibm-table-container>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64">
+    <div ibmCol [columnNumbers]="{ lg: 12 }">
+      <div class="d-flex justify-content-end">
+        <button
+          type="button"
+          ibmButton="secondary"
+          class="mr-32"
+          [routerLink]="['/operation-system/sw-additional-service-report-list']"
+        >
+          Back
+        </button>
+        <button type="button" ibmButton="secondary" class="mr-32" (click)="onPrint()">Print</button>
+        <button type="button" ibmButton="primary" (click)="openModal = true" [disabled]="status == 'ENDORSED'">Endorse</button>
+      </div>
+    </div>
+  </div>
+  
+
+    <!-- Modal-->
+    <div ibmRow class="hide-print">
+      <div ibmCol [columnNumbers]="{ 'lg':10 }">
+          <ibm-modal [open]="openModal" (overlaySelected)="openModal = false">
+              <ibm-modal-header (closeSelect)="openModal = false">
+                  <h3 ibmModalHeaderHeading>Confirmation</h3>
+              </ibm-modal-header>
+              <section ibmModalContent style="
+              height: unset;">
+                  <h3 ibmModalContentText class="bx--modal-content__regular-content modal-text">
+                      Are you sure want to endorse this item?<br>
+                  </h3>
+              </section>
+              <ibm-modal-footer>
+                  <button class="bx--btn bx--btn--secondary" (click)="openModal = false">Cancel</button>
+
+                  <button type="submit" class="bx--btn bx--btn--primary" (click)="onEndorse()" [disabled]="isLoading">Endorse</button>
+              </ibm-modal-footer>
+          </ibm-modal>
+      </div>
+  </div>
+</div>

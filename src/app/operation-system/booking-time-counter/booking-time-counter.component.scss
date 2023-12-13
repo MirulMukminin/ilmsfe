@@ -1,0 +1,116 @@
+@import "~carbon-components/scss/globals/scss/vendor/@carbon/type/scss/font-family";
+@import "~carbon-components/scss/globals/scss/typography";
+.pl-0 {
+  padding-left: 0px;
+}
+
+.pl-8 {
+  padding-left: 8px;
+}
+
+.pt-34 {
+  padding-top: 34px;
+}
+
+.pr-0 {
+  padding-right: 0px;
+}
+
+.p-16 {
+  padding: 16px;
+}
+
+.pt-16 {
+  padding-top: 16px;
+}
+
+.pr-20 {
+  padding-right: 20%;
+}
+
+.pr-35-percent {
+  padding-right: 35%;
+}
+
+.pr-15-percent {
+  padding-right: 15%;
+}
+
+/*
+.pr-40-percent {
+    padding-right: 40%;
+}*/
+
+.pl-29 {
+  padding-left: 29px;
+}
+
+.pl-35 {
+  padding-left: 35px;
+}
+
+.display-flex-row {
+  display: flex;
+}
+
+.display-flex-col {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  padding-top: 50px;
+}
+
+.time {
+  border-right: 1px solid darkgrey;
+  display: flex;
+  flex-direction: column;
+}
+
+.bx--data-table-header {
+  padding: 1rem 0px 3rem 1rem;
+}
+
+.white-bg {
+  background-color: #fff;
+}
+
+.icon-addAlt {
+  //position: relative;
+  left: 40px;
+  top: 2px;
+}
+
+.icon-search {
+  margin-right: 12px;
+  margin-top: 16px;
+}
+
+.time-left {
+  height: 100%;
+  line-height: 25px;
+}
+
+::ng-deep {
+  // .bx--toolbar-content {
+  //     background-color: white;
+  // }
+  .bx--search--sm .bx--search-input,
+  .bx--search--sm.bx--search--expandable.bx--search--expanded .bx--search-input,
+  .bx--search--sm .bx--search-close,
+  .bx--search--sm ~ .bx--search-button,
+  .bx--search--sm.bx--search--expandable,
+  .bx--search--sm.bx--search--expandable .bx--search-magnifier {
+    height: 48px;
+  }
+  .bx--search-magnifier {
+    margin-right: 1rem;
+    margin-left: 1rem;
+  }
+  #table-header-0-0-0 {
+    width: 75px;
+  }
+  .mhe-custom-booking-counter {
+    margin-left: 0px;
+    padding-right: 1rem;
+  }
+}

@@ -1,0 +1,206 @@
+<div ibmRow class="pt-32">
+  <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+    <div [ngClass]="{ 'invalid-class': consoleTableInvalid }">
+      <div ibmCol class="pt-32" [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+        <div class="form-item">
+          <ibm-table-container>
+            <ibm-table-header>
+              <h4 ibmTableHeaderTitle>Machinery - Console (Discharge)</h4>
+              <p ibmTableHeaderDescription>{{ description }}</p>
+            </ibm-table-header>
+            <table
+              class="bx--data-table"
+              [ngClass]="{ 'invalid-class': machineryTableInvalid }"
+            >
+              <thead>
+                <tr>
+                  <th>
+                    <span class="bx--table-header-label"></span>
+                  </th>
+                  <th>
+                    <span class="bx--table-header-label">Item</span>
+                  </th>
+                  <th>
+                    <span class="bx--table-header-label">Quantity</span>
+                  </th>
+                  <th>
+                    <span class="bx--table-header-label">Time</span>
+                  </th>
+                  <th>
+                    <span class="bx--table-header-label">Location</span>
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr
+                  *ngFor="
+                    let data of machineryConsoleListDischarge;
+                    let postIndex = index
+                  "
+                >
+                  <td>
+                    <ibm-checkbox
+                      name="selected{{ data.id }}"
+                      [(ngModel)]="data.Selected"
+                      (ngModelChange)="onSelected('discharge')"
+                      [disabled]="selectedArrayDischarge.indexOf(data.id) != -1"
+                    >
+                    </ibm-checkbox>
+                  </td>
+                  <td>
+                    {{ data.Item }}
+                  </td>
+                  <td>
+                    {{ data.Quantity }}
+                  </td>
+                  <td>
+                    <ibm-dropdown
+                      placeholder="Select"
+                      [dropUp]="false"
+                      itemValueKey="content"
+                      (selected)="inputValueChange()"
+                      [(ngModel)]="data.Time"
+                      name="time{{ data.id }}"
+                      invalidText="Time Required"
+                      [invalid]="invalidTimeMachinery[postIndex]"
+                      [required]="requiredTime"
+                      [disabled]="disable[postIndex]"
+                    >
+                      <ibm-dropdown-list [items]="timeArr"></ibm-dropdown-list>
+                    </ibm-dropdown>
+                  </td>
+                  <td>
+                    <ibm-combo-box
+                      placeholder="Select"
+                      [dropUp]="false"
+                      [items]="location"
+                      itemValueKey="content"
+                      name="location{{ data.id }}"
+                      (selected)="inputValueChange()"
+                      [(ngModel)]="data.Location"
+                      invalidText="Location Required"
+                      [invalid]="invalidLocationMachinery[postIndex]"
+                      [required]="requiredLocation"
+                      [disabled]="disable[postIndex]"
+                    >
+                      <ibm-dropdown-list></ibm-dropdown-list>
+                    </ibm-combo-box>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div *ngIf="machineryTableInvalid" class="invalid-class-label">
+              Please select one or more item
+            </div>
+            <!-- </div> -->
+          </ibm-table-container>
+        </div>
+      </div>
+
+      <div ibmCol class="pt-32" [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+        <div class="form-item">
+          <ibm-table-container>
+            <ibm-table-header>
+              <h4 ibmTableHeaderTitle>Machinery - Console (Loading)</h4>
+              <p ibmTableHeaderDescription>{{ description }}</p>
+            </ibm-table-header>
+            <table
+              class="bx--data-table"
+              [ngClass]="{ 'invalid-class': machineryTableInvalid }"
+            >
+              <thead>
+                <tr>
+                  <th>
+                    <span class="bx--table-header-label"></span>
+                  </th>
+                  <th>
+                    <span class="bx--table-header-label">Item</span>
+                  </th>
+                  <th>
+                    <span class="bx--table-header-label">Quantity</span>
+                  </th>
+                  <th>
+                    <span class="bx--table-header-label">Time</span>
+                  </th>
+                  <th>
+                    <span class="bx--table-header-label">Location</span>
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr
+                  *ngFor="
+                    let data of machineryConsoleListLoading;
+                    let postIndex = index
+                  "
+                >
+                  <td>
+                    <ibm-checkbox
+                      name="selected{{ data.id }}"
+                      [(ngModel)]="data.Selected"
+                      (ngModelChange)="onSelected('loading')"
+                      [disabled]="selectedArrayLoading.indexOf(data.id) != -1"
+                    >
+                    </ibm-checkbox>
+                  </td>
+                  <td>
+                    {{ data.Item }}
+                  </td>
+                  <td>
+                    {{ data.Quantity }}
+                  </td>
+                  <td>
+                    <ibm-dropdown
+                      placeholder="Select"
+                      [dropUp]="false"
+                      itemValueKey="content"
+                      (selected)="inputValueChange()"
+                      [(ngModel)]="data.Time"
+                      name="loading_time{{ data.id }}"
+                      invalidText="Time Required"
+                      [invalid]="invalidLoadingTimeMachinery[postIndex]"
+                      [required]="requiredTime"
+                      [disabled]="disable[postIndex]"
+                    >
+                      <ibm-dropdown-list [items]="timeArr"></ibm-dropdown-list>
+                    </ibm-dropdown>
+                  </td>
+                  <td>
+                    <ibm-combo-box
+                      placeholder="Select"
+                      [dropUp]="false"
+                      [items]="location"
+                      itemValueKey="content"
+                      name="loading_location{{ data.id }}"
+                      (selected)="inputValueChange()"
+                      [(ngModel)]="data.Location"
+                      invalidText="Location Required"
+                      [invalid]="invalidLoadingLocationMachinery[postIndex]"
+                      [required]="requiredLocation"
+                      [disabled]="disable[postIndex]"
+                    >
+                      <ibm-dropdown-list></ibm-dropdown-list>
+                    </ibm-combo-box>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div *ngIf="machineryTableInvalid" class="invalid-class-label">
+              Please select one or more item
+            </div>
+            <!-- </div> -->
+          </ibm-table-container>
+        </div>
+      </div>
+    </div>
+    <div
+      style="width: 200px"
+      *ngIf="consoleTableInvalid"
+      class="invalid-class-label"
+    >
+      Please select one or more item
+    </div>
+  </div>
+</div>

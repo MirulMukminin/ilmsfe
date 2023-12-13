@@ -1,0 +1,192 @@
+<ibm-loading *ngIf="isLoading" [isActive]="isLoading" size="normal" [overlay]="overlay">
+</ibm-loading>
+<div ibmGrid class="bx--grid--full-width" style="padding-bottom: 133px;">
+    <div id="topPartPrint" ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+        <div ibmCol [columnNumbers]="{ 'lg': 10, 'md': 10, 'sm': 10 }">
+            <ibm-breadcrumb [noTrailingSlash]="true">
+
+                <ibm-breadcrumb-item [current]="true">
+                    Operation System
+                </ibm-breadcrumb-item>
+
+
+                <ibm-breadcrumb-item [current]="true">
+                    Schedule Waste Management
+                </ibm-breadcrumb-item>
+
+                <ibm-breadcrumb-item>
+                    <a routerLink="/operation-system/sw-outbound-so-report-list">Outbound SO Reporting List</a>
+                </ibm-breadcrumb-item>
+
+                <ibm-breadcrumb-item [current]="true">
+                    Outbound SO Report Details
+                </ibm-breadcrumb-item>
+
+            </ibm-breadcrumb>
+        </div>
+    </div>
+
+    <div class="printable">
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+            <div ibmCol [columnNumbers]="{'lg': 6, 'md': 6, 'sm': 6}">
+                <div>
+                    <span class="ph03">Outbound Service Order Report Details</span>
+                </div>
+            </div>
+        </div>
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Company Name
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{companyName}}
+            </div>
+        </div>
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Request By
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{requestBy}}
+            </div>
+        </div>
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Form No.
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{formNo}}
+            </div>
+        </div>
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Date Received
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{dateReceived}}
+            </div>
+        </div>
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Expiry Date
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{expiryDate}}
+            </div>
+        </div>
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Service Order No.
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{serviceOrderNo}}
+            </div>
+        </div>
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Status
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01" [ngClass]="{ 'red-color-text': status == 'Pending Endorsement' }">
+                {{status}}
+            </div>
+        </div>
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64">
+            <div ibmCol [columnNumbers]="{'lg': 12, 'md': 10, 'sm': 6}">
+                <ibm-table-container>
+
+                    <ibm-table-header class="pb-48">
+                        <h4 ibmTableHeaderTitle>Outbound Waste Details</h4>
+                    </ibm-table-header>
+
+                    <div class="horizontal-overflow-table">
+                        <table class="bx--data-table">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Pallet ID</th>
+                                    <th>Waste Code</th>
+                                    <th>UOM</th>
+                                    <th>Qty.</th>
+                                    <th>Pallet Weight (MT)</th>
+                                    <th>Location ID</th>
+                                    <th>Expiry Date</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr *ngIf="outboundWasteList.length == 0" [ngClass]="{'invalid-tableRow': goodsInTableInvalid}">
+                                    <td align="center" colspan="8">No data available</td>
+                                </tr>
+                                <tr *ngFor="let outboundWaste of outboundWasteList; let postIndex=index;" class="white-bg" [ngClass]="{'invalid-tableRow': goodsInTableInvalid}">
+                                    <td>{{ postIndex + 1 }}</td>
+                                    <td>
+                                        {{outboundWaste.palletID}}
+                                    </td>
+                                    <td>
+                                        {{outboundWaste.wasteCode}}
+                                    </td>
+                                    <td class="w-130">
+                                        {{outboundWaste.uom}}
+                                    </td>
+                                    <td class="w-130">
+                                        {{outboundWaste.qty}}
+                                    </td>
+                                    <td class="w-130">
+                                        {{outboundWaste.palletWeight}}
+                                    </td>
+                                    <td>
+                                        {{outboundWaste.locationID}}
+                                    </td>
+                                    <td>
+                                        {{outboundWaste.expiryDate}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </ibm-table-container>
+            </div>
+        </div>
+    </div>
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64">
+        <div ibmCol [columnNumbers]="{ 'lg':12 }">
+            <div class="d-flex justify-content-end">
+                <button type="button" ibmButton="secondary" class="mr-32" (click)="redirectToPrevious()">Back</button>
+                <button type="button" ibmButton="primary" (click)="openModal = true" [disabled]="status == 'ENDORSED'">Endorse</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal-->
+    <div ibmRow class="hide-print">
+        <div ibmCol [columnNumbers]="{ 'lg':10 }">
+            <ibm-modal [open]="openModal" (overlaySelected)="openModal = false">
+                <ibm-modal-header (closeSelect)="openModal = false">
+                    <h3 ibmModalHeaderHeading>Confirmation</h3>
+                </ibm-modal-header>
+                <section ibmModalContent style="
+                height: unset;">
+                    <h3 ibmModalContentText class="bx--modal-content__regular-content modal-text">
+                        Are you sure want to endorse this item?<br>
+                    </h3>
+                </section>
+                <ibm-modal-footer>
+                    <button class="bx--btn bx--btn--secondary" (click)="openModal = false">Cancel</button>
+
+                    <button type="submit" class="bx--btn bx--btn--primary" (click)="onEndorse()" [disabled]="isLoading">Endorse</button>
+                </ibm-modal-footer>
+            </ibm-modal>
+        </div>
+    </div>
+
+</div>

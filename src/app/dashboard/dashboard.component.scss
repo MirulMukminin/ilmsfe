@@ -1,0 +1,311 @@
+@import "~carbon-components/scss/globals/scss/vendor/@carbon/type/scss/font-family";
+@import "~carbon-components/scss/globals/scss/typography";
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "/src/app/statusCss.scss";
+
+.pl-8 {
+  padding-left: $spacing-03;
+}
+
+.pb-24 {
+  padding-bottom: $spacing-06;
+}
+
+.pt-4 {
+  padding-top: 4px !important;
+}
+
+.pt-24 {
+  padding-top: $spacing-06;
+}
+
+.pt-32 {
+  padding-top: $spacing-07;
+}
+
+.p-16 {
+  padding: $spacing-05;
+}
+
+.pt-16 {
+  padding-top: $spacing-05;
+}
+
+.pb-16 {
+  padding-bottom: $spacing-05;
+}
+
+.task-list ol li {
+  width: 85%;
+  padding-bottom: $spacing-05;
+}
+
+.task-list ol li a {
+  text-decoration: none;
+}
+
+.w-40 {
+  width: 40%;
+}
+.booking-counter-table tr td:nth-child(2) {
+  padding-left: 20px;
+}
+.booking-counter-table tr:nth-child(1) td {
+  padding-top: 1.5rem;
+}
+.booking-counter-table tr:nth-child(2) td {
+  padding-top: 1rem;
+}
+
+// .taskNeedAttentions,
+// .bookTimeCounter {
+//     padding: 16px 90px 16px 16px;
+//     height: 100%;
+//     max-height: 100%;
+// }
+
+// .tasks ol {
+//     padding-left: 16px;
+// }
+
+// .pt-16 {
+//     padding-top: 16px;
+// }
+
+.pl-30 {
+  padding-left: 30px;
+}
+
+// .hr-line hr {
+//     width: 100%;
+//     text-align: left;
+//     margin-left: 0;
+// }
+
+.h-100 {
+  height: 100%;
+}
+
+.white-bg {
+  background-color: #fff;
+}
+
+.icon-filter {
+  position: relative;
+  left: 40px;
+  top: 2px;
+}
+
+.icon-search {
+  margin-right: 12px;
+  margin-top: 16px;
+}
+
+@media screen and (max-width: 1056.5px) {
+  .pt-16-responsive {
+    padding-top: $spacing-05;
+  }
+}
+
+@media screen and (max-width: 672.5px) {
+  .pt-16-responsive-btc {
+    padding-top: $spacing-05;
+  }
+}
+
+// .title h6{
+//     padding-left: 9px;
+// }
+
+// .body-typography {
+//     @include carbon--font-weight('regular');
+//     @include carbon--type-style('body-short-01');
+// }
+
+// .title-typography {
+//     font-family: carbon--font-family('sans');
+//     @include carbon--font-weight('regular');
+//     @include carbon--type-style('productive-heading-03');
+// }
+
+// .bx--data-table-container{
+//     padding-left: 208px;
+// }
+::ng-deep {
+  .bx--tile {
+    height: 100%;
+  }
+
+  .bx--data-table td,
+  .bx--data-table tbody th.bx--data-table td,
+  .bx--data-table tbody th {
+    border-top: 1px solid #f4f4f4;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .bx--data-table .bx--form-item {
+    flex-direction: row;
+  }
+
+  .bx--data-table .bx--list-box input[role="combobox"],
+  .bx--data-table .bx--list-box input[type="text"],
+  .bx--data-table .bx--dropdown,
+  .bx--data-table .bx--list-box,
+  .bx--data-table .bx--number input[type="number"],
+  .bx--data-table .bx--number__control-btn::before,
+  .bx--data-table .bx--number__control-btn::after,
+  .bx--data-table .bx--text-input,
+  .bx--data-table .bx--select-input {
+    background: #f4f4f4;
+  }
+
+  .bx--search--sm .bx--search-input,
+  .bx--search--sm.bx--search--expandable.bx--search--expanded .bx--search-input,
+  .bx--search--sm .bx--search-close,
+  .bx--search--sm ~ .bx--search-button,
+  .bx--search--sm.bx--search--expandable,
+  .bx--search--sm.bx--search--expandable .bx--search-magnifier {
+    height: 48px;
+  }
+  .bx--btn--sm {
+    padding: 3px 16px 3px 16px;
+  }
+  @media only screen and (min-width: 768px) {
+    .bx--search-magnifier {
+      margin-right: 1rem;
+      margin-left: 1rem;
+    }
+    .addNew {
+      width: 180px;
+    }
+  }
+  @media only screen and (max-width: 767px) {
+    .bx--search-magnifier {
+      margin-right: 0rem;
+      margin-left: 0rem;
+      width: 50px;
+    }
+    .bx--search--sm .bx--search-input,
+    .bx--search--sm.bx--search--expandable.bx--search--expanded
+      .bx--search-input {
+      padding: 0 1rem;
+    }
+    .addNew {
+      width: 145px;
+    }
+  }
+}
+
+:host ::ng-deep {
+  .bx--form-requirement {
+    max-width: 209px;
+  }
+
+  .bx--date-picker.bx--date-picker--single .bx--date-picker__input {
+    width: auto;
+  }
+
+  @media (min-width: 66rem) {
+    .bx--offset-lg-3 {
+      margin-left: 14rem;
+    }
+  }
+
+  .task-list ol li {
+    width: 100% !important;
+    padding-bottom: 0 !important;
+  }
+
+  .task-list ol li {
+    width: 100% !important;
+    padding-bottom: 0 !important;
+  }
+
+  .quickLinks .bx--tile--clickable:not(:hover) {
+    background: #eaeaea;
+  }
+
+  .assistanceCon {
+    // width: 100%;
+    color: black;
+  }
+
+  .tileCon {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .phoneCon {
+    color: black;
+    font-size: 1rem;
+    align-items: center;
+  }
+
+  .emailCon {
+    color: black;
+    font-size: 1rem;
+    align-items: center;
+  }
+  .bx--date-picker--range .bx--date-picker-container,
+  .bx--date-picker--range .bx--date-picker__input {
+    width: unset;
+  }
+
+  .date-layout .bx--date-picker {
+    padding-right: 32px;
+  }
+}
+
+.filterBtnCont {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+}
+
+.mheBookCon {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.remainingTime {
+  display: flex;
+  flex-direction: column;
+}
+
+.bookTitleCon {
+  display: flex;
+  flex-direction: column;
+}
+
+.currentTime {
+  display: flex;
+  flex-direction: column;
+}
+
+.closedTime {
+  display: flex;
+  flex-direction: column;
+}
+
+.quickLinks .ph01 {
+  font-size: 14px;
+}
+
+.filterRowCont {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  align-content: flex-end;
+}
+
+.dateFilterCon {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+}

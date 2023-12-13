@@ -1,0 +1,27 @@
+::ng-deep {
+    @media print {
+        body * {
+            visibility: hidden;
+        }
+        .printable,
+        .printable * {
+            visibility: visible;
+            padding: 0px;
+            margin: 3px;
+        }
+        .page-break {
+            page-break-after: always;
+            // padding: 0px;
+            // margin: 0px;
+        }
+        button {
+            display: none !important;
+        }
+        table {
+            page-break-inside: avoid;
+        }
+        #topPartPrint {
+            display: none;
+        }
+    }
+}

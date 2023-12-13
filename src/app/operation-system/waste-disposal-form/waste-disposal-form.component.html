@@ -1,0 +1,529 @@
+<div ibmGrid class="bx--grid--full-width">
+  <form #wasteDisposalForm="ngForm" (ngSubmit)="onSubmit(wasteDisposalForm)">
+    <div ibmRow class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 10 }">
+        <ibm-breadcrumb [noTrailingSlash]="true">
+          <ibm-breadcrumb-item [current]="true" href="#1">
+            Operation System
+          </ibm-breadcrumb-item>
+          <ibm-breadcrumb-item>
+            <a
+              style="text-decoration: none"
+              [routerLink]="['/operation-system/waste-disposal-list']"
+              >Waste Disposal</a
+            >
+          </ibm-breadcrumb-item>
+          <ibm-breadcrumb-item [current]="true" href="#1">
+            Request Form
+          </ibm-breadcrumb-item>
+        </ibm-breadcrumb>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32">
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }" class="ph03">
+        Waste Disposal Form
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Company Name</div>
+      <div ibmCol [columnNumbers]="{ lg: 4 }" class="bl01">
+        {{ companyName }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Request By</div>
+      <div ibmCol [columnNumbers]="{ lg: 4 }" class="bl01">
+        {{ requestBy }}
+      </div>
+    </div>
+    <br /><br />
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32">
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+        <legend class="bx--label-sm mb-8 bx--label">Request Type</legend>
+        <ibm-radio-group
+          name="requestType"
+          (change)="onRequestTypeChanged($event)"
+          [(ngModel)]="reqType"
+        >
+          <ibm-radio value="Normal"> Normal </ibm-radio>
+          <ibm-radio value="Storage"> Optional Storage </ibm-radio>
+        </ibm-radio-group>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32">
+      <div
+        ibmCol
+        [columnNumbers]="{ lg: 6, md: 6, sm: 6 }"
+        class="form-item date-layout"
+        #storageDateElement
+        tabindex="1"
+      >
+        <div class="d-flex">
+          <ibm-date-picker
+            name="storageStartDate"
+            label="Storage Start Date"
+            rangeLabel="Storage End Date"
+            [placeholder]="'Select Date'"
+            size="md"
+            [range]="true"
+            [dateFormat]="'d/m/Y'"
+            [invalid]="startDateInvalid"
+            [invalidText]="startDateInvalidText"
+            [disabled]="!isOptional"
+            [(ngModel)]="storageDate"
+            (change)="dateValueChange($event)"
+          >
+          </ibm-date-picker>
+        </div>
+      </div>
+
+      <!-- <div ibmCol [columnNumbers]="{ lg: 4 }">
+        <ibm-date-picker
+          name="storageEndDate"
+          label="Storage End Date"
+          [placeholder]="'Select Date'"
+          size="md"
+          [dateFormat]="'d/m/Y'"
+          [invalid]="endDateInvalid"
+          [invalidText]="endDateInvalidText"
+          [disabled]="!isOptional"
+          [(ngModel)]="storageEndDate"
+        >
+        </ibm-date-picker>
+      </div> -->
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32">
+      <div ibmCol [columnNumbers]="{ lg: 4 }">
+        <div class="form-item">
+          <!-- <ibm-dropdown
+            label="Pickup From"
+            placeholder="Select"
+            itemValueKey="content"
+            [dropUp]="false"
+            name="location"
+            [invalid]="locationInvalid"
+            invalidText="Option Required"
+            required
+            [(ngModel)]="location"
+          >
+            <ibm-dropdown-list [items]="locationSelect"></ibm-dropdown-list>
+          </ibm-dropdown> -->
+          <ibm-combo-box
+            label="Location From"
+            placeholder="Select"
+            itemValueKey="content"
+            [appendInline]="true"
+            [dropUp]="false"
+            name="location"
+            [invalid]="locationInvalid"
+            invalidText="Option Required"
+            required
+            [(ngModel)]="location"
+            [items]="locationSelect"
+            #locationElement
+            tabindex="2"
+            (selected)="inputValueChange($event)"
+          >
+            <ibm-dropdown-list></ibm-dropdown-list>
+          </ibm-combo-box>
+        </div>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32">
+      <div ibmCol [columnNumbers]="{ lg: 4 }">
+        <div class="form-item">
+          <!-- <ibm-dropdown
+            label="Return To"
+            placeholder="Select"
+            itemValueKey="content"
+            [dropUp]="false"
+            name="returnTo"
+            [invalid]="returnToInvalid"
+            invalidText="Option Required"
+            required
+            [(ngModel)]="returnTo"
+          >
+            <ibm-dropdown-list [items]="locationSelect"></ibm-dropdown-list>
+          </ibm-dropdown> -->
+          <ibm-combo-box
+            label="Location To"
+            placeholder="Select"
+            itemValueKey="content"
+            [appendInline]="true"
+            [dropUp]="false"
+            name="returnTo"
+            [invalid]="returnToInvalid"
+            invalidText="Option Required"
+            required
+            [(ngModel)]="returnTo"
+            [items]="locationSelect"
+            #returnToElement
+            tabindex="3"
+            (selected)="inputValueChange($event)"
+          >
+            <ibm-dropdown-list></ibm-dropdown-list>
+          </ibm-combo-box>
+        </div>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32">
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+        <div #dateElement tabindex="4">
+          <ibm-date-picker
+            name="date"
+            label="Date"
+            [placeholder]="'Select Date'"
+            size="md"
+            [dateFormat]="'d/m/Y'"
+            [invalid]="dateInvalid"
+            [invalidText]="dateInvalidText"
+            [(ngModel)]="date"
+            (valueChange)="dateChange($event)"
+          >
+          </ibm-date-picker>
+        </div>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32">
+      <div ibmCol [columnNumbers]="{ lg: 4 }">
+        <div class="form-item" #timeElement tabindex="5">
+          <ibm-dropdown
+            label="Time"
+            placeholder="Select"
+            itemValueKey="content"
+            [dropUp]="false"
+            name="time"
+            [invalid]="timeInvalid"
+            [invalidText]="timeInvalidText"
+            required
+            [(ngModel)]="time"
+            (selected)="inputValueChange($event)"
+          >
+            <ibm-dropdown-list [items]="timeList"></ibm-dropdown-list>
+          </ibm-dropdown>
+        </div>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32">
+      <div ibmCol [columnNumbers]="{ lg: 4 }">
+        <div class="form-item">
+          <ibm-label
+            helperText="Please insert dash(-) if not applicable"
+            [invalid]="primeMoverNumberInvalid"
+            invalidText="Required"
+          >
+            Prime Mover Number
+            <input
+              ibmText
+              name="primeMoverNumber"
+              [(ngModel)]="primeMoverNumber"
+              [invalid]="primeMoverNumberInvalid"
+              required
+              (change)="inputValueChange($event)"
+              #pmNORef
+              tabindex="6"
+            />
+          </ibm-label>
+        </div>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32">
+      <div ibmCol [columnNumbers]="{ lg: 4 }">
+        <div class="form-item">
+          <ibm-label
+            helperText="Please insert dash(-) if not applicable"
+            [invalid]="poNumberInvalid"
+            invalidText="Required"
+          >
+            PO Number
+            <input
+              ibmText
+              name="PONo"
+              [(ngModel)]="poNumber"
+              [invalid]="poNumberInvalid"
+              required
+              (change)="inputValueChange($event)"
+              #poNORef
+              tabindex="5"
+            />
+          </ibm-label>
+        </div>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3">
+      <div ibmCol [columnNumbers]="{ lg: 12 }">
+        <ibm-table-container style="margin-top: 4rem">
+          <ibm-table-header>
+            <h4>Skid List</h4>
+            <p>Please add required Skid in the table below.</p>
+          </ibm-table-header>
+
+          <ibm-table-toolbar *ngIf="checkSelected()">
+            <div class="table-action">
+              <div class="actions">
+                <div class="del">
+                  <Button
+                    ibmButton="primary"
+                    size="sm"
+                    type="button"
+                    (click)="onClearSkid()"
+                  >
+                    Clear
+                    <div
+                      class="icon-trashCan ml-16 mt-4"
+                      ibmIcon="trash-can"
+                      size="20"
+                    ></div>
+                  </Button>
+                </div>
+                <div class="cancel">
+                  <button
+                    ibmButton="primary"
+                    size="sm"
+                    type="button"
+                    (click)="onCancel()"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          </ibm-table-toolbar>
+          <div class="">
+            <table class="bx--data-table" #skidDetailTable tabindex="6">
+              <thead>
+                <tr>
+                  <th class="bx--table-header-label" rowspan="2">No.</th>
+                  <th class="bx--table-header-label" rowspan="2">Skid ID</th>
+                  <th
+                    class="bx--table-header-label"
+                    colspan="2"
+                    style="text-align: center"
+                  >
+                    <div class="col-container">
+                      Size
+
+                      <ng-template #template let-tooltip="tooltip">
+                        <p>Normal Size: 7'X8'X7' and below</p>
+                        <br />
+                        <p>Odd Size: more than 7'X8'X7'</p>
+                      </ng-template>
+
+                      <span
+                        [ibmTooltip]="template"
+                        [offset]="{ x: 0, y: 40 }"
+                        trigger="hover"
+                        placement="bottom"
+                      >
+                        <svg
+                          ibmIcon="information--square"
+                          size="20"
+                          title=""
+                          isFocusable="false"
+                          aria-label="tooltip"
+                        ></svg>
+                      </span>
+                      <ibm-placeholder></ibm-placeholder>
+
+                      <!-- <ibm-tooltip-icon
+                      placement="bottom"
+                      [content]="tooltips"
+                      alignment="start"
+                    >
+                      <span
+                        ibmIcon="information--square"
+                        size="20"
+                        title=""
+                      ></span>
+                    </ibm-tooltip-icon> -->
+                    </div>
+                  </th>
+                  <th
+                    class="bx--table-header-label"
+                    style="text-align: center"
+                    colspan="2"
+                  >
+                    Cleaning Type
+                  </th>
+
+                  <th class="bx--table-header-label" rowspan="2">Remarks</th>
+                  <th
+                    class="bx--table-header-label"
+                    style="text-align: center"
+                    colspan="2"
+                  >
+                    Skid Return
+                  </th>
+                  <th class="bx--table-header-label" rowspan="2">Action</th>
+                </tr>
+                <tr>
+                  <th class="bx--table-header-label">Normal</th>
+                  <th class="bx--table-header-label">Odd</th>
+                  <th class="bx--table-header-label">Basic</th>
+                  <th class="bx--table-header-label">Advance</th>
+                  <th class="bx--table-header-label">Return Date & Time</th>
+                  <th class="bx--table-header-label">
+                    Customer Representative
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngIf="skidList.length == 0"
+                  [ngClass]="{ 'invalid-tableRow': externalItemTableInvalid }"
+                >
+                  <td align="center" colspan="10">
+                    No data is entered yet. Please add new row
+                  </td>
+                </tr>
+                <tr
+                  *ngFor="let item of skidList; let skidIndex = index"
+                  class="white-bg"
+                >
+                  <td>{{ skidIndex + 1 }}.</td>
+                  <td>
+                    <ibm-label
+                      [invalid]="item.invalidSkidId"
+                      [invalidText]="skidIdInvalidText"
+                      ><input
+                        ibmText
+                        size="sm"
+                        [name]="'skidId' + skidIndex"
+                        [(ngModel)]="item.skidId"
+                        [invalid]="item.invalidSkidId"
+                        #skidIdElement
+                        tabindex="6"
+                        (change)="inputValueChange($event)"
+                    /></ibm-label>
+                  </td>
+                  <td>
+                    <ibm-radio-group
+                      name="size_{{ skidIndex }}"
+                      [(ngModel)]="item.oddSize"
+                    >
+                      <ibm-radio [value]="false" [checked]="true"></ibm-radio>
+                    </ibm-radio-group>
+                  </td>
+                  <td>
+                    <ibm-radio-group
+                      name="size_{{ skidIndex }}"
+                      [(ngModel)]="item.oddSize"
+                    >
+                      <ibm-radio [value]="true"></ibm-radio>
+                    </ibm-radio-group>
+                  </td>
+                  <td>
+                    <ibm-radio-group
+                      name="cleaningType_{{ skidIndex }}"
+                      [(ngModel)]="item.advancedCleaning"
+                    >
+                      <ibm-radio [value]="false" [checked]="true"></ibm-radio>
+                    </ibm-radio-group>
+                  </td>
+                  <td>
+                    <ibm-radio-group
+                      name="cleaningType_{{ skidIndex }}"
+                      [(ngModel)]="item.advancedCleaning"
+                    >
+                      <ibm-radio [value]="true"></ibm-radio>
+                    </ibm-radio-group>
+                  </td>
+                  <td>
+                    <ibm-label
+                      invalidText="Required"
+                      [invalid]="item.invalidRemarks"
+                      ><input
+                        ibmText
+                        size="sm"
+                        [name]="'remarks' + skidIndex"
+                        [(ngModel)]="item.remarks"
+                    /></ibm-label>
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td>
+                    <ibm-checkbox
+                      [hideLabel]="true"
+                      name="checkbox_{{ skidIndex }}"
+                      (change)="onSelected($event, skidIndex)"
+                      [checked]="item.selected"
+                    ></ibm-checkbox>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ibm-table-container>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3">
+      <div
+        ibmCol
+        [columnNumbers]="{ lg: 12 }"
+        class="d-flex-row pt-64"
+        style="justify-content: flex-start"
+      >
+        <button
+          ibmButton="secondary"
+          class="mr-24"
+          size="xl"
+          routerLink="/operation-system/waste-disposal-list"
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          ibmButton="secondary"
+          class="mr-24"
+          size="xl"
+          type="button"
+          (click)="onClear()"
+        >
+          Clear
+        </button>
+
+        <button ibmButton="primary" type="button" (click)="open = true">
+          Submit
+        </button>
+      </div>
+    </div>
+    <ibm-modal [open]="open" size="sm" (overlaySelected)="open = false">
+      <ibm-modal-header ibmModalHeaderHeading (closeSelect)="open = false">
+        <h4 style="font-weight: bold">Confirmation</h4>
+      </ibm-modal-header>
+      <div ibmModalContent class="bx--modal-content">
+        <h4>Are you sure you want to submit?</h4>
+        <h4>Kindly make sure all details are correct.</h4>
+        <br />
+      </div>
+
+      <ibm-modal-footer>
+        <ng-container>
+          <button ibmButton="secondary" (click)="open = false">Cancel</button>
+          <button
+            ibmButton="primary"
+            type="submit"
+            [attr.modal-primary-focus]="true"
+          >
+            Confirm
+          </button>
+        </ng-container>
+      </ibm-modal-footer>
+    </ibm-modal>
+  </form>
+
+  <br /><br /><br /><br />
+</div>

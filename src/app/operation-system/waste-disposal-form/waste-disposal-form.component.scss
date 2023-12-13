@@ -1,0 +1,95 @@
+// th,
+// td {
+//   border: 1px solid grey;
+//   border-collapse: collapse;
+//   text-align: center;
+// }
+
+.table-action {
+  background: #0f62fe;
+  width: 100%;
+}
+
+.actions {
+  display: flex;
+  float: right;
+}
+
+.del,
+.cancel {
+  padding-top: 7px;
+}
+
+.del button {
+  border-right: 2px solid white;
+}
+
+.cancel button,
+.del button {
+  padding: 0px 20px;
+}
+
+.del img {
+  left: -39%;
+  position: relative;
+  top: 15%;
+}
+
+.white-bg td {
+  background: #ffff;
+}
+
+.bx--data-table .bx--text-input {
+  background: #f4f4f4;
+}
+
+.bx--data-table-container ibm-radio-group.bx--form-item {
+  align-items: center;
+}
+
+.col-container {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.bx--date-picker {
+  padding-right: 32px;
+}
+
+::ng-deep {
+  .bx--number__input-wrapper {
+    width: 7rem;
+  }
+  .bx--number input[type="number"] {
+    padding-right: 0;
+    width: 90px;
+    min-width: unset;
+  }
+  .bx--number__controls {
+    flex-direction: column-reverse;
+    right: 21px;
+    width: 50px;
+  }
+  .bx--number__control-btn::before,
+  .bx--number__control-btn::after {
+    display: none;
+  }
+  .bx--number__control-btn {
+    border-bottom: none;
+  }
+  .bx--form-item.bx--checkbox-wrapper {
+    align-items: center;
+  }
+  .bx--date-picker--range .bx--date-picker-container,
+  .bx--date-picker--range .bx--date-picker__input {
+    width: unset;
+  }
+  .invalid-icon-50 .bx--text-area__invalid-icon {
+    top: 50%;
+  }
+  .date-layout .bx--date-picker {
+    padding-right: 32px;
+  }
+}

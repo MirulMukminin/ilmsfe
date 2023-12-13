@@ -1,0 +1,47 @@
+// :host ::ng-deep {
+//   td[title="COMPLETED"] {
+//     background-color: #0f0 !important;
+//   }
+//   td[title="SUBMITTED"] {
+//     background-color: #fdff9a !important;
+//   }
+//   td[title="IN PROGRESS"] {
+//     background-color: #9ae5ff !important;
+//   }
+//   td[title="PENDING ENDORSEMENT"] {
+//     background-color: #ff9382 !important;
+//   }
+//   td[title="ENDORSED"],
+//   td[title="APPROVED"] {
+//     background-color: #0f0 !important;
+//   }
+//   td[title="CANCELED"],
+//   td[title="CANCELED"] *,
+//   td[title="CANCELLED"],
+//   td[title="CANCELLED"] *,
+//   td[title="REJECTED"] {
+//     background-color: #ba0b0b !important;
+//     color: white !important;
+//   }
+//   td[title="INITIATED"] {
+//     background-color: #ffdba6 !important;
+//   }
+//   td[title="BOOKED"] {
+//     background-color: #9affb0 !important;
+//   }
+//   td[title="IN PROGRESS"],
+//   td[title="IN_PROGRESS"] {
+//     background-color: #9ae5ff !important;
+//   }
+//   td[title="SENT"] {
+//     background-color: #3fe19b !important;
+//   }
+//   td[title="PENDING APPROVAL"] {
+//     background-color: #fdcbc4 !important;
+//   }
+// }
+:host ::ng-deep {
+  td[title="Pending Endorsement"] {
+    color: red !important;
+  }
+}

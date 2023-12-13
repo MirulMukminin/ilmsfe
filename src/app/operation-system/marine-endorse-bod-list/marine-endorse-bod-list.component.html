@@ -1,0 +1,193 @@
+<div ibmGrid class="bx--grid--full-width">
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-40">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+      <ibm-breadcrumb [noTrailingSlash]="true">
+        <ibm-breadcrumb-item [current]="true">
+          Operations System
+        </ibm-breadcrumb-item>
+
+        <ibm-breadcrumb-item [current]="true">
+          <a routerLink="/operation-system/marine-endorse-bod-list"
+            >Endorsed BOD</a
+          >
+        </ibm-breadcrumb-item>
+      </ibm-breadcrumb>
+    </div>
+  </div>
+
+  <div style="padding-left: 1rem">
+    <app-booking-time-counter></app-booking-time-counter>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-40">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+      <span class="ph03">Marine Endorsed BOD</span>
+      <p>All of the Marine endorsed request in ILMS application</p>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-40">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+      <span class="sans-semibold-14">Endorsed BOD Date Selection</span>
+    </div>
+  </div>
+
+  <div
+    ibmRow
+    class="date-layout bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-40"
+    [leftGutter]="false"
+    [rightGutter]="false"
+    style="display: flex"
+  >
+    <div style="padding-left: 1rem">
+      <ibm-date-picker
+        label="From"
+        rangeLabel="To"
+        [range]="true"
+        [placeholder]="placeholder"
+        [dateFormat]="dateFormat"
+        (valueChange)="valueChange($event); rangeDates = $event"
+        [value]="[fromDate, toDate]"
+      >
+      </ibm-date-picker>
+    </div>
+
+    <div style="flex: 1; padding-top: 24px">
+      <button
+        type="button"
+        ibmButton="secondary"
+        size="field"
+        class="applyBtn"
+        (click)="displayRange(rangeDates)"
+      >
+        Apply
+      </button>
+      <button
+        type="button"
+        ibmButton="primary"
+        size="field"
+        (click)="resetDate(rangeDates)"
+        (click)="userInfo()"
+        [disabled]="disabledReset"
+        class="resetBtn"
+      >
+        Reset
+      </button>
+
+      <button
+        type="button"
+        ibmButton="primary"
+        size="field"
+        (click)="exportexcel()"
+        class="exportBtn"
+      >
+        Export
+      </button>
+    </div>
+  </div>
+
+  <div
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-16 pb-60"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }" class="pl-0 pr-0">
+      <ibm-table-container class="table-style">
+        <ibm-table-toolbar>
+          <ibm-table-toolbar-content class="white-bg">
+            <button
+              ibmButton="secondary"
+              *ngIf="sortingOn"
+              size="sm"
+              type="button"
+              (click)="userInfo()"
+              (click)="sortingOn = false"
+            >
+              <span style="margin-right: 42px"> Reset Sorting</span>
+              <div class="icon-addAlt" ibmIcon="filter--reset" size="20"></div>
+            </button>
+            <button
+              ibmButton="secondary"
+              size="sm"
+              type="button"
+              class="addNew"
+              (click)="userInfo()"
+            >
+              Refresh
+              <div class="icon-addAlt" ibmIcon="renew" size="20"></div>
+            </button>
+          </ibm-table-toolbar-content>
+        </ibm-table-toolbar>
+        <div class="horizontal-overflow-table">
+          <ng-template #customTableItemTemplate let-data="data">
+            <a
+              [routerLink]="[
+                '/operation-system/marine-berth-occupancy-docket-details',
+                data.link
+              ]"
+              >{{ data.bod_number }}</a
+            >
+          </ng-template>
+
+          <ibm-table
+            id=""
+            [model]="model"
+            [striped]="false"
+            [showSelectionColumn]="false"
+            (sort)="doSort($event)"
+          ></ibm-table>
+        </div>
+
+        <ibm-pagination
+          [model]="model"
+          [itemsPerPageOptions]="itemsPerPageOptions"
+          (selectPage)="selectPage($event)"
+        ></ibm-pagination>
+      </ibm-table-container>
+    </div>
+
+    <div style="margin: auto; width: 50%; display: none">
+      <table id="excel-table" style="display: none">
+        <tr>
+          <th>No.</th>
+          <th>Vessel</th>
+          <th>Bod No.</th>
+          <th>Act Arrival Date & Time</th>
+          <th>Act Departure Date & Time</th>
+          <th>Log No.</th>
+          <th>Status</th>
+          <th>Endorsed By</th>
+          <th>Date Endrosed & Time</th>
+        </tr>
+        <tr *ngFor="let value of endorsedBodList; let i = index">
+          <td>
+            {{ i + 1 }}
+          </td>
+          <td>
+            {{ value.vessel }}
+          </td>
+          <td>
+            {{ value.bod_number }}
+          </td>
+          <td>
+            {{ value.EstArrivalDate }}
+          </td>
+          <td>
+            {{ value.EstDepartureDate }}
+          </td>
+          <td>
+            {{ value.LogNo }}
+          </td>
+          <td>
+            {{ value.status }}
+          </td>
+          <td>
+            {{ value.endorsed_by }}
+          </td>
+          <td>
+            {{ value.endorsed_date }}
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,1166 @@
+<ibm-loading
+  *ngIf="isLoading"
+  [isActive]="isLoading"
+  size="normal"
+  [overlay]="overlay"
+>
+</ibm-loading>
+<div ibmGrid class="bx--grid--full-width">
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-33">
+    <div ibmCol [columnNumbers]="{ lg: 10, md: 10, sm: 6 }">
+      <ibm-breadcrumb [noTrailingSlash]="true">
+        <ibm-breadcrumb-item [current]="true"
+          >Operations System
+        </ibm-breadcrumb-item>
+        <ibm-breadcrumb-item [current]="true">
+          <div *ngIf="status.toLowerCase() !== 'endorsed'">
+            <a
+              routerLink="/operation-system/marine-berth-occupancy-docket-list"
+            >
+              Berth Occupancy Docket
+            </a>
+          </div>
+          <div *ngIf="status.toLowerCase() === 'endorsed'">
+            <a routerLink="/operation-system/marine-endorse-bod-list"
+              >Endorsed BOD</a
+            >
+          </div>
+        </ibm-breadcrumb-item>
+        <ibm-breadcrumb-item [current]="true">
+          {{ paramsBodNo }}
+        </ibm-breadcrumb-item>
+      </ibm-breadcrumb>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 10, md: 10, sm: 6 }">
+      <span class="ph03">Vessel - Berth Occupancy Docket Details</span>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Company Name</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ convertToTitleCase(company) }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">BOD Number</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ bod_number }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">BOD Date</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ request_date | date : "dd/MM/yyyy" || "-" }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Vessel Name</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ convertToTitleCase(vessel) }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Last Location</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ last_location }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Next Location</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ next_location }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">GRT</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ grt }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">LOA</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ loa }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Request Number</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ request_number }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">PAC / Agent</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ agent }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Status</div>
+    <div
+      ibmCol
+      [columnNumbers]="{ lg: 6 }"
+      class="bl01"
+      [ngStyle]="{
+        color: status.toLowerCase().includes('pending') ? 'red' : '#161616'
+      }"
+    >
+      {{ convertToTitleCase(status) }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Remarks</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ remarks }}
+    </div>
+  </div>
+
+  <div
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24"
+    *ngIf="status.toLowerCase() == 'endorsed'"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Endorsed By</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ endorsed_by | titlecase }}
+    </div>
+  </div>
+
+  <div
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24"
+    *ngIf="status == 'ENDORSED'"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Endorsed Date</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01" *ngIf="endorsed_date">
+      {{ endorsed_date | date : "dd/MM/yyyy" }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+      Cancellation Date / Time
+    </div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ cancelDateTime }}
+    </div>
+  </div>
+
+  <!----------------------------------  Work Program Req Table ------------------------------------>
+  <div>
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64">
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+        <div class="form-item">
+          <ibm-table-container>
+            <ibm-table-header>
+              <h4 ibmTableHeaderTitle>Work Program Request Summary</h4>
+            </ibm-table-header>
+
+            <div class="horizontal-overflow-table">
+              <table class="bx--data-table">
+                <thead>
+                  <tr>
+                    <th>No.</th>
+                    <th>Work Program</th>
+                    <th>Request No.</th>
+                    <th>Booking Date</th>
+                    <!-- <th>Time</th> -->
+                    <th>Status</th>
+                    <th>Updated By</th>
+                    <th>Updated Date & Time</th>
+                    <!-- <th>Cancelled By</th>
+                    <th>Cancelled Date & Time</th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let list of workProgramList; let index = index">
+                    <td>{{ index + 1 }}.</td>
+                    <td>{{ list.workProgram }}</td>
+                    <td>{{ list.requestNo }}</td>
+                    <td>{{ list.date | date : "dd/MM/yyyy" }}</td>
+                    <!-- <td>{{ list.time }}</td> -->
+                    <td
+                      [ngStyle]="{
+                        color: list.status.toLowerCase().includes('pending')
+                          ? 'red'
+                          : '#161616'
+                      }"
+                    >
+                      {{ convertToTitleCase(list.status) }}
+                    </td>
+                    <td>{{ list.updateCancel }}</td>
+                    <td>{{ list.dateTime }}</td>
+                    <!-- <td>{{ list.updateCancel }}</td>
+                    <td>{{ list.dateTime }}</td> -->
+                  </tr>
+                  <tr *ngIf="workProgramList.length < 1">
+                    <td align="center" colspan="7" class="no-data">
+                      No data available
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </ibm-table-container>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    style="padding-left: 12px"
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+  >
+    <hr />
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Log No.</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ log_number }}
+    </div>
+  </div>
+
+  <!-- <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }" class="pl-0 pr-0">
+      <ibm-table-container>
+        <ibm-table-header class="white-bg pb-40">
+          <h4 ibmTableHeaderTitle>Vessel Arrival & Departure Information</h4>
+        </ibm-table-header>
+        <div class="horizontal-overflow-table">
+          <table class="bx--data-table">
+            <thead>
+              <tr>
+                <th
+                  scope="col"
+                  ibmTableHeadCell
+                  *ngFor="let column of vesselArrivalModal.header"
+                  [column]="column"
+                ></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr
+                *ngIf="(vesselInfo | json) != '{}'"
+                ibmTableRow
+                class="tr-border"
+              >
+                <td>
+                  <strong>Alongside</strong>
+                </td>
+                <td>
+                  {{ vesselData.alongside.date | date: "dd/MM/yyyy" }}
+                </td>
+                <td>{{ vesselData.alongside.time }}</td>
+                <td>{{ vesselData.alongside.day }}</td>
+              </tr>
+              <tr
+                *ngIf="(vesselInfo | json) != '{}'"
+                ibmTableRow
+                class="tr-border"
+              >
+                <td>
+                  <strong>Departure</strong>
+                </td>
+                <td>
+                  {{ vesselData.departure.date | date: "dd/MM/yyyy" }}
+                </td>
+                <td>{{ vesselData.departure.time }}</td>
+                <td>{{ vesselData.departure.day }}</td>
+              </tr>
+              <tr *ngIf="(vesselInfo | json) == '{}'">
+                <td align="center" colspan="9" class="no-data">
+                  No data available
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ibm-table-container>
+    </div>
+  </div> -->
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }" class="pl-0 pr-0">
+      <ibm-table-container>
+        <ibm-table-header class="white-bg pb-40">
+          <h4 ibmTableHeaderTitle>Berthing Information</h4>
+        </ibm-table-header>
+        <div class="horizontal-overflow-table">
+          <table
+            class="bx--data-table berthingInfo"
+            style="table-layout: fixed"
+          >
+            <thead>
+              <tr>
+                <th></th>
+                <th>Berth From</th>
+                <th>Berth To</th>
+                <th>Charge Rate</th>
+                <th colspan="2">Alongside</th>
+                <th colspan="2">Departure</th>
+              </tr>
+              <tr>
+                <th
+                  scope="col"
+                  ibmTableHeadCell
+                  *ngFor="let column of berthingModal.header"
+                  [column]="column"
+                ></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr
+                ibmTableRow
+                *ngFor="let data of berthingData; let index = index"
+                class="tr-border"
+              >
+                <td>
+                  <strong>{{ data.title }}</strong>
+                </td>
+                <td>{{ data.berthFrom }}</td>
+                <td>{{ data.berthTo }}</td>
+                <td>{{ data.chargeRate }}</td>
+                <td>{{ data.dateAlongside }}</td>
+                <td>{{ data.timeAlongside }}</td>
+                <td>{{ data.dateDeparture }}</td>
+                <td>{{ data.timeDeparture }}</td>
+              </tr>
+              <tr *ngIf="berthingData.length <= 0">
+                <td align="center" colspan="8" class="no-data">
+                  No data available
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ibm-table-container>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }" class="pl-0 pr-0">
+      <ibm-table-container>
+        <ibm-table-header class="white-bg pb-40">
+          <h4 ibmTableHeaderTitle>Work Program List</h4>
+        </ibm-table-header>
+        <ibm-table-toolbar>
+          <div class="table-action" *ngIf="onCheckedProgram()">
+            <div class="actions">
+              <div class="del">
+                <Button
+                  ibmButton="primary"
+                  size="sm"
+                  type="button"
+                  (click)="onPrint()"
+                >
+                  Print
+                  <div class="icon-printer" ibmIcon="printer" size="20"></div>
+                </Button>
+              </div>
+              <div class="cancel">
+                <button
+                  ibmButton="primary"
+                  size="sm"
+                  type="button"
+                  (click)="cancelSelectProgram()"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </ibm-table-toolbar>
+        <div class="horizontal-overflow-table">
+          <table class="bx--data-table">
+            <thead>
+              <tr>
+                <!-- <th
+                  scope="col"
+                  ibmTableHeadCell
+                  *ngFor="let column of workProgramModal.header"
+                  [column]="column"
+                ></th> -->
+                <th>No.</th>
+                <th>Work Program</th>
+                <th>Status</th>
+                <th>Remarks</th>
+                <th>Admin Remarks</th>
+                <!-- <th *ngIf="checkStatusVisible()">Status</th> -->
+                <!-- <th>Action</th> -->
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr
+                ibmTableRow
+                *ngFor="let data of workProgram; let index = index"
+                class="tr-border"
+              >
+                <td
+                  [ngStyle]="{
+                    background: data.admin_remarks !== '' ? 'yellow' : 'none'
+                  }"
+                >
+                  {{ index + 1 }}.
+                </td>
+                <td
+                  [ngStyle]="{
+                    background: data.admin_remarks !== '' ? 'yellow' : 'none'
+                  }"
+                >
+                  <span *ngIf="data.workProgram == 'TOUCH GO'">Touch & Go</span>
+                  <span *ngIf="data.workProgram == 'UNMOORING'"
+                    >Un-Mooring</span
+                  >
+                  <span
+                    *ngIf="
+                      data.workProgram != 'UNMOORING' &&
+                      data.workProgram != 'TOUCH GO'
+                    "
+                    >{{ data.workProgram | titlecase }}</span
+                  >
+                </td>
+                <!-- <td>{{ data.request }}</td> -->
+                <td
+                  [ngStyle]="{
+                    background: data.admin_remarks !== '' ? 'yellow' : 'none'
+                  }"
+                >
+                  <!-- <div class="mr-12" ibmIcon="checkmark--filled" size="20"></div> -->
+                  <ibm-checkbox
+                    [checked]="true"
+                    [disabled]="true"
+                  ></ibm-checkbox>
+                </td>
+                <td
+                  [ngStyle]="{
+                    background: data.admin_remarks !== '' ? 'yellow' : 'none'
+                  }"
+                >
+                  {{ data.remarks }}
+                </td>
+                <td
+                  [ngStyle]="{
+                    background: data.admin_remarks !== '' ? 'yellow' : 'none'
+                  }"
+                >
+                  {{ data.admin_remarks }}
+                </td>
+                <!-- <td *ngIf="checkStatusVisible()">
+                  {{ data.status | titlecase }}
+                </td> -->
+                <!-- <td>
+                  <ibm-checkbox
+                    *ngIf="
+                      data.workProgram == 'MOORING' ||
+                      data.workProgram == 'UNMOORING'
+                    "
+                    [checked]="workProgram[index].isChecked"
+                    (checkedChange)="cbChange(workProgram[index], $event)"
+                  ></ibm-checkbox>
+                </td> -->
+              </tr>
+              <tr *ngIf="workProgram.length <= 0">
+                <td align="center" colspan="5" class="no-data">
+                  No data available
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ibm-table-container>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }" class="pl-0 pr-0">
+      <ibm-table-container>
+        <ibm-table-header class="white-bg pb-40">
+          <h4 ibmTableHeaderTitle>Additonal Services</h4>
+        </ibm-table-header>
+        <div class="horizontal-overflow-table">
+          <table class="bx--data-table">
+            <thead>
+              <tr>
+                <th
+                  scope="col"
+                  ibmTableHeadCell
+                  *ngFor="let column of additionalServicesModal.header"
+                  [column]="column"
+                ></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr
+                ibmTableRow
+                *ngFor="let data of additionalServices; let index = index"
+                class="tr-border"
+              >
+                <td>{{ data.services }}</td>
+                <td>{{ convertToTitleCase(data.description) }}</td>
+                <td>{{ data.start_time }}</td>
+                <td>{{ data.end_time }}</td>
+              </tr>
+              <tr *ngIf="additionalServices.length <= 0">
+                <td align="center" colspan="4" class="no-data">
+                  No data available
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ibm-table-container>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }" class="pl-0 pr-0">
+      <ibm-table-container>
+        <ibm-table-header class="white-bg pb-40">
+          <h4 ibmTableHeaderTitle>Scope of Work</h4>
+        </ibm-table-header>
+        <div class="horizontal-overflow-table">
+          <table class="bx--data-table">
+            <thead>
+              <tr>
+                <!-- <th
+                  scope="col"
+                  ibmTableHeadCell
+                  *ngFor="let column of scopeWorkModal.header"
+                  [column]="column"
+                ></th> -->
+
+                <th>No.</th>
+                <th>Scope of Work</th>
+                <th>Qty. In (MT)</th>
+                <th>Qty. Out (MT)</th>
+                <th>Total (MT)</th>
+                <th style="text-align: right">Unit Price (RM)</th>
+                <th style="text-align: right">Total Price (RM)</th>
+                <th>Remarks</th>
+                <th>Admin Remarks</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr
+                ibmTableRow
+                *ngFor="let data of scopeOfWork; let index = index"
+                class="tr-border"
+              >
+                <td>{{ index + 1 }}.</td>
+                <td>{{ data.scopeOfWork | titlecase }}</td>
+                <td>{{ data.qtyIn }}</td>
+                <td>{{ data.qtyOut }}</td>
+                <td>{{ data.total }}</td>
+                <td style="text-align: right">
+                  {{ addZeroes(data.unitPrice) }}
+                </td>
+                <td style="text-align: right">
+                  {{ addZeroes(data.totalPrice) }}
+                </td>
+                <!-- <td>{{ data.startDate }}</td>
+                <td>{{ data.endDate }}</td> -->
+                <td>{{ data.remarks }}</td>
+                <td>{{ data.remarks }}</td>
+              </tr>
+              <tr *ngIf="scopeOfWork.length <= 0">
+                <td align="center" colspan="10" class="no-data">
+                  No data available
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ibm-table-container>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }" class="pl-0 pr-0">
+      <ibm-table-container>
+        <ibm-table-header class="white-bg pb-40">
+          <h4 ibmTableHeaderTitle>Fuel / Water Request Details</h4>
+        </ibm-table-header>
+        <div class="horizontal-overflow-table">
+          <table class="bx--data-table">
+            <thead>
+              <tr>
+                <th
+                  scope="col"
+                  ibmTableHeadCell
+                  *ngFor="let column of fuelWaterModal.header"
+                  [column]="column"
+                ></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr
+                ibmTableRow
+                *ngFor="let data of fuelWaterDetails; let index = index"
+                class="tr-border"
+              >
+                <td>{{ data.request | titlecase }}</td>
+                <td>{{ data.operators }}</td>
+                <td>{{ data.request_quantity }}</td>
+                <td>{{ data.quantity_in }}</td>
+                <td>{{ data.quantity_out }}</td>
+                <td>{{ data.full_tank }}</td>
+                <td>{{ data.start_time }}</td>
+                <td>{{ data.end_time }}</td>
+                <td>{{ data.total_hours }}</td>
+                <td>{{ data.remarks }}</td>
+                <td>{{ data.remarks }}</td>
+              </tr>
+              <tr *ngIf="fuelWaterDetails.length <= 0">
+                <td align="center" colspan="11" class="no-data">
+                  No data available
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ibm-table-container>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }" class="pl-0 pr-0">
+      <ibm-table-container>
+        <ibm-table-header class="white-bg pb-40">
+          <h4 ibmTableHeaderTitle>Heavy Packages List</h4>
+        </ibm-table-header>
+        <div class="horizontal-overflow-table">
+          <table class="bx--data-table">
+            <thead>
+              <tr>
+                <th
+                  scope="col"
+                  ibmTableHeadCell
+                  *ngFor="let column of heavyPackageModal.header"
+                  [column]="column"
+                ></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr
+                ibmTableRow
+                *ngFor="let data of heavyPackages; let index = index"
+                class="tr-border"
+              >
+                <td>{{ index + 1 }}.</td>
+                <td>{{ data.heavyPackage }}</td>
+                <td>{{ data.qty }}</td>
+              </tr>
+              <tr *ngIf="heavyPackages.length <= 0">
+                <td align="center" colspan="3" class="no-data">
+                  No data available
+                </td>
+              </tr>
+            </tbody>
+            <thead *ngIf="heavyPackages.length != 0">
+              <tr>
+                <th>Total</th>
+                <th></th>
+                <th>
+                  {{ numberWithCommas(totalHeavyPackages) }}
+                </th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </ibm-table-container>
+    </div>
+  </div>
+
+  <!-- <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }" class="pl-0 pr-0">
+      <ibm-table-container>
+        <ibm-table-header class="white-bg pb-40">
+          <h4 ibmTableHeaderTitle>Permit List</h4>
+        </ibm-table-header>
+        <div class="horizontal-overflow-table">
+          <table class="bx--data-table">
+            <thead>
+              <tr>
+                <th
+                  scope="col"
+                  ibmTableHeadCell
+                  *ngFor="let column of permitModal.header"
+                  [column]="column"
+                ></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr
+                ibmTableRow
+                *ngFor="let data of permitList; let index = index"
+                class="tr-border"
+              >
+                <td>{{ index + 1 }}.</td>
+                <td>{{ data.item }}</td>
+                <td>{{ data.status }}</td>
+              </tr>
+              <tr *ngIf="permitList.length <= 0">
+                <td align="center" colspan="3" class="no-data">
+                  No data available
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ibm-table-container>
+    </div>
+  </div> -->
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }" class="pl-0 pr-0">
+      <ibm-table-container>
+        <ibm-table-header class="white-bg pb-40">
+          <h4 ibmTableHeaderTitle>Document List</h4>
+          <p ibmTableHeaderDescription>
+            Please add related documents in the table below. For example: K4,
+            K5, Delivery Order, Other Documents
+          </p>
+          <p ibmTableHeaderDescription>
+            To remove, select the check box and press remove button in the
+            console
+          </p>
+        </ibm-table-header>
+        <ibm-table-toolbar>
+          <ibm-table-toolbar-content *ngIf="!onCheckedDocument()">
+            <button
+              style="
+                padding: calc(0.375rem - 3px) 60px calc(0.375rem - 3px) 12px;
+              "
+              ibmButton="primary"
+              size="sm"
+              type="button"
+              (click)="openModalAddItem()"
+            >
+              Add New
+              <div class="icon-addAlt" ibmIcon="add--alt" size="20"></div>
+            </button>
+          </ibm-table-toolbar-content>
+          <div class="table-action" *ngIf="onCheckedDocument()">
+            <div class="selectedItem">
+              {{ counterDocList }} <span *ngIf="counterDocList == 1">item</span
+              ><span *ngIf="counterDocList > 1">items</span> selected
+            </div>
+            <div class="actions">
+              <div class="del">
+                <Button
+                  ibmButton="primary"
+                  size="sm"
+                  type="button"
+                  (click)="openRemove = true"
+                >
+                  Delete
+                  <div
+                    class="icon-trashCan"
+                    ibmIcon="trash-can"
+                    size="20"
+                  ></div>
+                </Button>
+              </div>
+              <div class="cancel">
+                <button
+                  ibmButton="primary"
+                  size="sm"
+                  type="button"
+                  (click)="cancelSelectDocument()"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </ibm-table-toolbar>
+        <div class="horizontal-overflow-table">
+          <table class="bx--data-table">
+            <thead>
+              <tr>
+                <th>No.</th>
+                <th>Doc. Type</th>
+                <th>Waste Code</th>
+                <th>Doc. ID</th>
+                <th>Uploaded By</th>
+                <th>Date / Time</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr
+                ibmTableRow
+                *ngFor="let data of documents; let index = index"
+                class="tr-border"
+              >
+                <td>{{ index + 1 }}.</td>
+                <td *ngIf="data.fromApi">
+                  <button
+                    type="button"
+                    ibmButton="ghost"
+                    class="downloadBtn"
+                    (click)="downloadFiles(data.idApi, data.docId)"
+                  >
+                    {{ data.docType }}
+                  </button>
+                </td>
+                <td>
+                  {{ data.wasteCode }}
+                </td>
+                <td>
+                  {{ data.docId }}
+                </td>
+                <td>{{ data.uploadedBy }}</td>
+                <td>{{ data.datetime }}</td>
+                <!-- <td>{{ data.transactionRefNo }}</td> -->
+                <td>
+                  <ibm-checkbox
+                    [(ngModel)]="documents[index].isChecked"
+                    name="checkbox_{{ data.id }}"
+                    [hideLabel]="true"
+                    (ngModelChange)="docListCheckbox($event)"
+                  ></ibm-checkbox>
+                </td>
+              </tr>
+              <tr *ngIf="documents.length <= 0">
+                <td align="center" colspan="8" class="no-data">
+                  No data available
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ibm-table-container>
+    </div>
+  </div>
+
+  <form>
+    <ibm-modal
+      class="stepOneModal"
+      [open]="stepOneOpenModal"
+      [trigger]="triggerOneOpenModal"
+      (overlaySelected)="stepOneOpenModal = false"
+    >
+      <ibm-modal-header (closeSelect)="stepOneOpenModal = false">
+        <p class="bx--modal-header__label bx--type-delta"></p>
+        <p
+          class="bx--modal-header__heading bx--type-beta ph03"
+          style="font-weight: 600"
+        >
+          Add New Document
+        </p>
+      </ibm-modal-header>
+      <div class="bx--modal-content">
+        <div class="bx--text-input__field-wrapper">
+          <div class="form-item">
+            <ibm-dropdown
+              label="Document Type"
+              placeholder="Please Select"
+              [dropUp]="false"
+              [appendInline]="true"
+              itemValueKey="content"
+              name="docType"
+              (selected)="selectedDocType($event)"
+              invalidText="Document Type Required"
+              [invalid]="invalidDocType"
+            >
+              <ibm-dropdown-list [items]="docType"></ibm-dropdown-list>
+            </ibm-dropdown>
+          </div>
+
+          <div class="form-item">
+            <ibm-label
+              [invalid]="invalidWasteCode"
+              invalidText="Waste Code Required"
+            >
+              Waste Code (for Schedule Waste works only)
+              <input
+                ibmText
+                type="text"
+                #wasteCode
+                (blur)="onblurWaste($event)"
+                [invalid]="invalidWasteCode"
+                required
+              />
+            </ibm-label>
+          </div>
+
+          <!-- <div class="form-item">
+            <ibm-label
+              [invalid]="invalidDocId"
+              invalidText="Document ID Required"
+              helperText="Please insert dash (-) if not applicable"
+            >
+              Document ID
+              <input
+                ibmText
+                type="text"
+                placeholder="XXXXXXXXXXXX"
+                (blur)="onblurDoc($event)"
+                #docsId
+                [invalid]="invalidDocId"
+                required
+              />
+            </ibm-label>
+          </div> -->
+
+          <div class="form-item">
+            <ibm-label helperText="Please insert dash (-) if not applicable">
+              Document ID
+              <input
+                ibmText
+                type="text"
+                placeholder="XXXXXXXXXXXX"
+                (blur)="onblurDoc($event)"
+                #docsId
+              />
+            </ibm-label>
+          </div>
+
+          <div class="form-item">
+            <ibm-file-uploader
+              [ngClass]="{ 'invalid-file': invalidFileSubmit }"
+              title="Upload Related Documents"
+              description="Max. file size is 5mb. Supported file types are .jpg, .png, and .pdf"
+              [accept]="accept"
+              [multiple]="multiple"
+              [(files)]="files"
+              drop="true"
+              dropText="Drag and drop ﬁles here or click to upload"
+              (filesChange)="onDropped($event)"
+            >
+            </ibm-file-uploader>
+            <div
+              *ngIf="invalidFileSubmit"
+              class="invalid-class-label"
+              style="color: #da1e28"
+            >
+              File required
+            </div>
+          </div>
+        </div>
+      </div>
+      <ibm-modal-footer>
+        <ng-container>
+          <button
+            class="bx--btn bx--btn--secondary"
+            (click)="stepOneOpenModal = false"
+            size="lg"
+          >
+            Cancel
+          </button>
+          <button
+            ibmButton="primary"
+            (click)="onSaveDocumentList()"
+            [attr.modal-primary-focus]="true"
+            size="lg"
+          >
+            Save
+          </button>
+        </ng-container>
+      </ibm-modal-footer>
+    </ibm-modal>
+  </form>
+
+  <div
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32 pb-60"
+  >
+    <div
+      ibmCol
+      [columnNumbers]="{ lg: 12 }"
+      class="d-flex-row"
+      style="justify-content: flex-start"
+    >
+      <button
+        ibmButton="secondary"
+        class="pr-124"
+        size="lg"
+        (click)="backClicked()"
+      >
+        Back
+      </button>
+      <ng-container>
+        <button
+          *ngIf="status.toLowerCase().includes('pending')"
+          class="ml-24"
+          ibmButton="primary"
+          size="lg"
+          style="padding-right: 70px"
+          [disabled]="!checkPending()"
+          (click)="openEndorseModal()"
+        >
+          Endorse BOD
+        </button>
+      </ng-container>
+      <button
+        *ngIf="status.toLowerCase().includes('endorsement')"
+        (click)="openModalAmmend = true"
+        ibmButton="primary"
+        class="pr-124 ml-24"
+      >
+        Amend
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal-->
+  <div ibmRow>
+    <div ibmCol [columnNumbers]="{ lg: 10 }">
+      <ibm-modal [open]="openModal" (overlaySelected)="openModal = false">
+        <ibm-modal-header (closeSelect)="openModal = false">
+          <h3 ibmModalHeaderHeading>Confirmation</h3>
+        </ibm-modal-header>
+        <section ibmModalContent style="height: unset">
+          <h3
+            ibmModalContentText
+            class="bx--modal-content__regular-content modal-text"
+          >
+            Are you sure want to endorse?<br />
+          </h3>
+        </section>
+        <ibm-modal-footer>
+          <button
+            class="bx--btn bx--btn--secondary"
+            (click)="openModal = false"
+          >
+            Back
+          </button>
+
+          <button
+            type="submit"
+            class="bx--btn bx--btn--primary"
+            (click)="endorseBod()"
+          >
+            Endorse
+          </button>
+        </ibm-modal-footer>
+      </ibm-modal>
+    </div>
+  </div>
+
+  <div ibmRow>
+    <div ibmCol [columnNumbers]="{ lg: 10 }">
+      <ibm-modal [open]="openRemove" (overlaySelected)="openRemove = false">
+        <ibm-modal-header (closeSelect)="openRemove = false">
+          <h4 style="font-weight: bold">Confirmation</h4>
+        </ibm-modal-header>
+        <section ibmModalContent>
+          <h4>Are you sure you want to remove this item?</h4>
+        </section>
+        <ibm-modal-footer>
+          <button
+            class="bx--btn bx--btn--secondary"
+            (click)="openRemove = false"
+          >
+            Cancel
+          </button>
+          <button
+            class="bx--btn bx--btn--primary"
+            modal-primary-focus
+            (click)="deleteDocument()"
+          >
+            Remove
+          </button>
+        </ibm-modal-footer>
+      </ibm-modal>
+    </div>
+  </div>
+
+  <div ibmRow>
+    <div ibmCol [columnNumbers]="{ lg: 10 }">
+      <ibm-modal [open]="modalTimeout" (overlaySelected)="modalTimeout = false">
+        <ibm-modal-header (closeSelect)="modalTimeout = false">
+          <h4 style="font-weight: bold">Session timeout</h4>
+        </ibm-modal-header>
+        <!-- <section ibmModalContent style="height: unset;"> -->
+        <section ibmModalContent>
+          <!-- <h3 ibmModalContentText class="bx--modal-content__regular-content modal-text">
+                    Oops! You need to relogin again and make a new request to continue<br>
+                  </h3> -->
+          <h4 ibmModalContentText>
+            Failed to upload file. Please relogin again to upload file
+          </h4>
+        </section>
+        <ibm-modal-footer>
+          <!-- <button class="bx--btn bx--btn--secondary" (click)="modalTimeout = false">Back</button> -->
+          <button
+            type="submit"
+            class="bx--btn bx--btn--primary"
+            (click)="logout()"
+          >
+            Log Out
+          </button>
+        </ibm-modal-footer>
+      </ibm-modal>
+    </div>
+  </div>
+
+  <div ibmRow class="mt-24">
+    <div ibmCol [columnNumbers]="{ lg: 10 }">
+      <ibm-modal
+        [open]="openModalAmmend"
+        (overlaySelected)="openModalAmmend = false"
+      >
+        <ibm-modal-header (closeSelect)="openModalAmmend = false">
+          <h3 ibmModalHeaderHeading>Amendment</h3>
+        </ibm-modal-header>
+        <section ibmModalContent style="height: unset">
+          <ibm-label ibmModalContentText>
+            Description
+            <textarea
+              ibmTextArea
+              aria-label="textarea"
+              [rows]="6"
+              name="ammend"
+              placeholder="Descriptions here"
+              (blur)="onblurAmend($event)"
+              [value]="amendNotes"
+            ></textarea>
+          </ibm-label>
+        </section>
+        <ibm-modal-footer>
+          <button
+            class="bx--btn bx--btn--secondary"
+            (click)="openModalAmmend = false"
+          >
+            Back
+          </button>
+
+          <button
+            type="submit"
+            class="bx--btn bx--btn--primary"
+            (click)="submitAmmend()"
+          >
+            Submit
+          </button>
+        </ibm-modal-footer>
+      </ibm-modal>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,344 @@
+<ibm-loading
+  *ngIf="isLoading"
+  [isActive]="isLoading"
+  size="normal"
+  [overlay]="overlay"
+>
+</ibm-loading>
+<div ibmGrid class="bx--grid--full-width" style="padding-bottom: 133px">
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 10, md: 10, sm: 10 }">
+      <ibm-breadcrumb [noTrailingSlash]="true">
+        <ibm-breadcrumb-item [current]="true">
+          Warehouse Management System
+        </ibm-breadcrumb-item>
+        <ibm-breadcrumb-item>
+          <a routerLink="/wms/psb-inventory-list">Petroleum Supply Base</a>
+        </ibm-breadcrumb-item>
+        <ibm-breadcrumb-item>
+          <a routerLink="/wms/psb-transfer-owner-list">Transfer Ownership</a>
+        </ibm-breadcrumb-item>
+        <ibm-breadcrumb-item [current]="true"> Buyer Form </ibm-breadcrumb-item>
+      </ibm-breadcrumb>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+      <div class="title">
+        <span class="ph03">Transfer Ownership Buyer Form</span>
+      </div>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Request Number</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bs01">
+      {{ requestNo }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Status</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bs01" style="color: #da1e27">
+      {{ status.replace("_", " ") | titlecase }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Company Name</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bs01">
+      {{ companyName }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Request By</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bs01">
+      {{ requestBy }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Buyer</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bs01">
+      {{ buyer }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">PO Number</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bs01">
+      {{ PONumber }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Invoice Number</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bs01">
+      {{ invoice }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Sale Date</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bs01">
+      {{ saleDate | date : "dd-MM-y" }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Category</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bs01">
+      {{ category }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+      Uploaded Documents
+    </div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bs01">
+      <div *ngFor="let file of attachments; let index = index" class="mt-4">
+        <div class="bx--file-container">
+          <div class="bx--file__selected-file">
+            <button
+              type="button"
+              ibmButton="ghost"
+              class="downloadBtn"
+              (click)="downloadFiles(file.file_ID, file.file_name)"
+            >
+              {{ file.file_name }}
+              <div
+                class="mr-12"
+                ibmIcon="download"
+                size="20"
+                style="color: #000"
+              ></div>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="attachments.length == 0">-</div>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+      <ibm-file-uploader
+        [ngClass]="{ 'invalid-file': invalidFile }"
+        title="Upload Related Documents"
+        description="Max. file size is 500kb. Supported file types are .jpg, .png, and .pdf"
+        [accept]="accept"
+        [multiple]="multiple"
+        [(files)]="files"
+        [size]="sizeUploder"
+        drop="true"
+        dropText="Drag and drop ﬁles here or click to upload"
+        (filesChange)="onDropped($event)"
+        [disabled]="disabled"
+        required
+      >
+      </ibm-file-uploader>
+      <div *ngIf="invalidFile" class="invalid-class-label">File Required</div>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Remarks</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bs01">
+      {{ remarks }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 5 }">
+      <ibm-table-container>
+        <ibm-table-header>
+          <h4 ibmTableHeaderTitle>Purchased Goods</h4>
+          <p ibmTableHeaderDescription>
+            To add multiple locations for the purchased goods, select Action
+            checkbox and Add Locations in the console.
+          </p>
+        </ibm-table-header>
+
+        <ibm-table-toolbar>
+          <div class="table-action" *ngIf="checkPurchaseGoodsLength()">
+            <div class="actions">
+              <div class="add">
+                <button
+                  ibmButton="primary"
+                  type="button"
+                  size="sm"
+                  (click)="addLocation()"
+                >
+                  Add Location
+                  <div class="icon-btn" ibmIcon="add--alt" size="20"></div>
+                </button>
+              </div>
+              <div class="del">
+                <button
+                  ibmButton="primary"
+                  type="button"
+                  size="sm"
+                  (click)="deletePurchaseGoods()"
+                >
+                  Delete
+                  <div
+                    class="icon-trashCan"
+                    ibmIcon="trash-can"
+                    size="20"
+                  ></div>
+                </button>
+              </div>
+              <div class="cancel">
+                <button ibmButton="primary" size="sm" (click)="cancelMethod()">
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </ibm-table-toolbar>
+
+        <table class="bx--data-table">
+          <thead>
+            <tr>
+              <!-- <th scope="col" ibmTableHeadCell *ngFor="let column of purchasedGoodsModel.header" [column]="column">
+
+                            </th> -->
+              <th>No.</th>
+              <th>Goods Description</th>
+              <th>Form Type</th>
+              <th>Form No.</th>
+              <th>Quantity</th>
+              <!-- <th>Remaining Quantity</th> -->
+              <th>Location</th>
+              <th *ngIf="status == 'INCOMPLETE'">Action</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr ibmTableRow *ngFor="let goods of Goods; let index = index">
+              <td>{{ index + 1 }}</td>
+              <td>{{ goods.Description }}</td>
+              <td>{{ goods.FormType }}</td>
+              <td>{{ goods.RegNo }}</td>
+              <td style="text-align: right">
+                <span *ngIf="status == 'INCOMPLETE'">
+                  <ibm-number
+                    [step]="step"
+                    [min]="min"
+                    max="{{ goods.maxQty }}"
+                    name="qty_{{ goods.id }}"
+                    value="0"
+                    invalidText="Please input quantity"
+                    [disabled]="disableQty"
+                    [invalid]="invalidQty[index]"
+                    [required]="requiredQty[index]"
+                    [(ngModel)]="goods.Quantity"
+                    (change)="numberChange($event, goods.pair, index, goods.ID)"
+                    required
+                  >
+                    {{ goods.Quantity }}
+                  </ibm-number>
+                </span>
+
+                <span *ngIf="status == 'COMPLETED'">
+                  {{ goods.Quantity }}
+                </span>
+              </td>
+              <!-- <td>
+                                {{ goods.RemainingQty }}
+
+                               </td> -->
+              <td>
+                <span *ngIf="status == 'INCOMPLETE'">
+                  <ibm-combo-box
+                    class="combobox"
+                    name="location_{{ goods.id }}"
+                    [items]="items"
+                    (selected)="selectLocation($event)"
+                    [appendInline]="true"
+                    [dropUp]="false"
+                    placeholder="Select"
+                    [(ngModel)]="goods.Location"
+                    invalidText="Please select location"
+                    [invalid]="invalidLocation[index]"
+                    [required]="requiredLocation[index]"
+                    [disabled]="disableLocation"
+                    itemValueKey="content"
+                    required
+                  >
+                    <ibm-dropdown-list></ibm-dropdown-list>
+                  </ibm-combo-box>
+                </span>
+
+                <span *ngIf="status == 'COMPLETED'">
+                  {{ goods.Location }}
+                </span>
+              </td>
+              <td *ngIf="status == 'INCOMPLETE'">
+                <ibm-checkbox
+                  name="checkbox_{{ goods.id }}"
+                  [(ngModel)]="goods.Selected"
+                  (ngModelChange)="checkboxChange($event, goods.id)"
+                ></ibm-checkbox>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ibm-table-container>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 5 }" class="flex-end">
+      <div class="actions">
+        <button
+          type="button"
+          ibmButton="secondary"
+          routerLink="/wms/psb-transfer-owner-list"
+          style="margin-right: 24px; width: 178px; height: 40px"
+        >
+          Back
+        </button>
+        <button
+          type="submit"
+          ibmButton="primary"
+          style="width: 178px; height: 40px"
+          [disabled]="disableComplete"
+          (click)="checkValidation()"
+        >
+          Complete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div ibmRow>
+  <div ibmCol [columnNumbers]="{ lg: 10 }">
+    <ibm-modal [open]="open" (overlaySelected)="open = false">
+      <ibm-modal-header (closeSelect)="open = false"> </ibm-modal-header>
+      <section ibmModalContent>
+        <h4>Confirmation</h4>
+        <h4>Are you sure want to submit?</h4>
+        <h4>Kindly make sure all details are correct.</h4>
+      </section>
+      <ibm-modal-footer>
+        <button class="bx--btn bx--btn--secondary" (click)="open = false">
+          Cancel
+        </button>
+        <button
+          class="bx--btn bx--btn--primary"
+          modal-primary-focus
+          (click)="onSubmit()"
+        >
+          Submit
+        </button>
+      </ibm-modal-footer>
+    </ibm-modal>
+  </div>
+</div>

@@ -1,0 +1,54 @@
+<div ibmRow class="pt-32" style="padding-left: 0rem !important;">
+    <div ibmCol [columnNumbers]="{'lg': 12, 'md': 10, 'sm': 6}">
+        <ibm-tile [theme]="'dark'">
+            <span ibmTableHeaderTitle class="ph03">Work with Permit</span>
+            <p ibmTableHeaderDescription>Please select the required services in the list below. Please fill in form manually at the Marine PBKSB Office.</p>
+        </ibm-tile>
+    </div>
+</div>
+
+<div ibmRow class="pt-32" [ngClass]="{'invalid-class': workPermitInvalid}">
+    <div ibmCol [columnNumbers]="{ 'lg': 6, 'md': 6, 'sm': 6 }">
+
+        <div class="form-item">
+            <ibm-checkbox [(ngModel)]="confinedSpaceChkBox" (ngModelChange)="onSelected()" [checked]="confinedSpaceChkBox">
+                <!-- Tank Cleaning --> Confined Space
+            </ibm-checkbox>
+        </div>
+
+        <div class="form-item pt-32">
+            <ibm-checkbox [(ngModel)]="hotWorkChkBox" (ngModelChange)="onSelected()" [checked]="hotWorkChkBox">
+                <!-- Welding / Cutting --> Hot Work
+            </ibm-checkbox>
+        </div>
+
+        <div class="form-item pt-32">
+            <ibm-checkbox [(ngModel)]="divingChkBox" (ngModelChange)="onSelected()" [checked]="divingChkBox">
+                Diving
+            </ibm-checkbox>
+        </div>
+
+        <div class="form-item pt-32">
+            <ibm-checkbox [(ngModel)]="coldWorkChkBox" (ngModelChange)="onSelected()" [checked]="coldWorkChkBox">
+                Cold Work
+            </ibm-checkbox>
+        </div>
+    </div>
+</div>
+<div ibmRow>
+    <div *ngIf="workPermitInvalid" class="invalid-class-label">Please select one or more item</div>
+</div>
+
+<div ibmRow class="pt-32">
+
+    <div ibmCol [columnNumbers]="{'lg': 10, 'md': 10, 'sm': 6}">
+        <div class="form-item">
+            <div class="btn-action">
+                <button type="button" ibmButton="secondary" style="margin-right: 24px;" (click)="changeStep(0)">Back</button>
+                <button (click)="onSave()" type="button" ibmButton="primary" style="margin-right: 24px;">Save</button>
+                <button type="submit" ibmButton="primary" (click)="changeStep(2)" [disabled]="!onSubmit">Preview</button>
+            </div>
+        </div>
+    </div>
+
+</div>

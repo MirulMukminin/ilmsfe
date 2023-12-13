@@ -1,0 +1,84 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+.red-text {
+    color: red;
+}
+
+.mt-32 {
+    margin-top: 2rem;
+}
+
+.mt-64 {
+    margin-top: 4rem;
+}
+
+.mr-24 {
+    margin-right: 24px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.bottom-padding-without-print {
+    padding-bottom: 133px
+}
+
+.first-cap{
+    text-transform: lowercase;
+  }
+  
+.first-cap::first-letter {
+    text-transform: uppercase;
+  }
+
+ ::ng-deep {
+    .bx--modal-container--lg {
+        height: 90%;
+        background-color: white;
+    }
+    .bx--modal-content--overflow-indicator {
+        background-image: none;
+    }
+    .bx--modal-content {
+        margin-bottom: 20px;
+    }
+    @media print {
+        body * {
+            visibility: hidden;
+        }
+        .printable,
+        .printable * {
+            visibility: visible;
+            padding: 0px;
+            margin: 0px;
+            // border: 1px solid black
+        }
+        .page-break {
+            page-break-after: always;
+            // padding: 0px;
+            // margin: 0px;
+        }
+        button,
+        .hide-print {
+            display: none !important;
+        }
+        table .border {
+            page-break-inside: avoid;
+            border: 1px solid #cbcbcb;
+        }
+
+       .border th,td {
+            border: 1px solid #cbcbcb !important;
+        }
+        .mt-32 {
+            margin-top: 0.5rem !important;
+        }
+        .bottom-padding-without-print {
+            padding-bottom: 0 !important;
+        }
+        .div-page-break {
+            page-break-before: auto;
+            page-break-inside: avoid;
+        }
+    }
+}

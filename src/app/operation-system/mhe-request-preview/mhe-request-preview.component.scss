@@ -1,0 +1,124 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+
+.pl-8 {
+    padding-left: 8px;
+}
+
+.pt-16 {
+  padding-top: 16px;
+}
+
+.pt-32 {
+    padding-top: 32px;
+}
+
+.pt-24 {
+  padding-top: 24px;
+}
+
+.pt-64 {
+  padding-top: 64px;
+}
+
+.ml-24 {
+  margin-left: 24px;
+}
+
+.w-40 {
+  width: 40%;
+}
+
+.w-50 {
+  width: 50%;
+}
+
+.booking-counter {
+  border-right: 1px solid darkgrey;
+}
+
+::ng-deep {
+  .bx--inline-notification--low-contrast.bx--inline-notification--success::before, 
+  .bx--inline-notification--low-contrast.bx--inline-notification--error::before {
+    border: none;
+  }
+}
+// .pl-0 {
+//   padding-left: 0px;
+// }
+
+// .pr-0 {
+//     padding-right: 0px;
+// }
+
+// .p-16 {
+//     padding: 16px;
+// }
+
+// .pr-20 {
+//     padding-right: 20%;
+// }
+
+// .pl-29 {
+//     padding-left: 29px;
+// }
+
+// .pl-35 {
+//     padding-left: 35px;
+// }
+
+// .display-flex-row {
+//   display: flex;
+// }
+
+// .display-flex-col {
+//   display: flex;
+//   justify-content: flex-start;
+//   align-items: flex-end;
+//   padding-top: 50px;
+// }
+
+// .time {
+//   border-right: 1px solid darkgrey;
+// }
+
+// ::ng-deep {
+//     .bx--number__input-wrapper {
+//       width: 7rem;
+//     }
+  
+//     .bx--number input[type=number]{
+//       padding-right: 0;
+//       width: 90px;
+//       min-width: unset;
+//     }
+  
+//     .bx--number__controls{
+//       flex-direction: column-reverse;
+//       right: 21px;
+//       width: 50px;
+//     }
+  
+//     .bx--number__control-btn::before, .bx--number__control-btn::after {
+//       display: none;
+//     }
+  
+//     .bx--number__control-btn {
+//       border-bottom: none;
+//     }
+  
+//     .bx--data-table td{
+//       background: #ffff;
+//     }
+  
+//     .bx--data-table tbody tr:hover td {
+//       background: #ffff;
+//     }
+  
+//     .bx--form-item.bx--checkbox-wrapper {
+//       align-items: center;
+//     }
+  
+//     .bx--data-table-container {
+//       width: 66.9rem;
+//     }
+//   }

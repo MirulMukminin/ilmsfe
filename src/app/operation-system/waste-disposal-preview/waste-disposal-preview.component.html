@@ -1,0 +1,392 @@
+<div class="printable">
+  <div
+    ibmGrid
+    class="bx--grid--full-width page-break"
+    style="padding-bottom: 133px"
+  >
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 justify-content-center print-logo"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 16, md: 16, sm: 16 }">
+        <img src="./assets/images/ksb-logo-97.svg" alt="KSB logo" />
+      </div>
+    </div>
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 justify-content-center mt-3 print-logo"
+      style="margin-bottom: 2rem"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 16, md: 16, sm: 16 }">
+        <span class="ph02">PANGKALAN BEKALAN KEMAMAN SDN. BHD. (69363-D)</span>
+      </div>
+    </div>
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32 print-hide"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 10, md: 10, sm: 10 }">
+        <ibm-breadcrumb [noTrailingSlash]="true">
+          <ibm-breadcrumb-item [current]="true" href="#1">
+            Operation System
+          </ibm-breadcrumb-item>
+          <ibm-breadcrumb-item>
+            <a
+              style="text-decoration: none"
+              [routerLink]="['/operation-system/waste-disposal-list']"
+              >Waste Disposal</a
+            >
+          </ibm-breadcrumb-item>
+          <ibm-breadcrumb-item [current]="true" href="#2">
+            Request Form
+          </ibm-breadcrumb-item>
+        </ibm-breadcrumb>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32 d-flex"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }" class="pl-0 pr-0">
+        <div class="title">
+          <span class="ph03">Waste Disposal Form Preview</span>
+        </div>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-32 d-flex"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2, md: 2, sm: 2 }" class="ph01 d-flex">
+        <span>Request No.</span>
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="bl01 d-flex">
+        <span>{{ detailWasteDisposal?.jobNo || "-" }}</span>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-32 d-flex"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Company Name</div>
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="bl01">
+        {{ detailWasteDisposal?.customer.name || "-" }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-32 d-flex"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Request By</div>
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="bl01">
+        {{ detailWasteDisposal?.requestedBy.fullname || "-" }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-32 d-flex"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Request Type</div>
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="bl01">
+        {{ type || "-" }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-32 d-flex"
+      *ngIf="isOptional"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+        Storage Start / End
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 4 }" class="bl01">
+        {{ detailWasteDisposal?.storageStart | date : "dd/MM/YYYY" }} -
+        {{ detailWasteDisposal?.storageEnd | date : "dd/MM/YYYY" }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-32 d-flex"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Location From</div>
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="bl01">
+        {{ location || "-" }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-32 d-flex"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Location To</div>
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="bl01">
+        {{ returnTo || "-" }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-32 d-flex"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Date</div>
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="bl01">
+        {{ detailWasteDisposal?.startDate | date : "dd/MM/YYYY" || "-" }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-32 d-flex"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Time</div>
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="bl01">
+        {{ detailWasteDisposal?.startDate | date : "HH:mm " || "-" }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-32 d-flex"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+        Prime Mover Number
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="bl01">
+        {{ detailWasteDisposal?.primeMoverNumber || "-" }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-32 d-flex"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">PO No.</div>
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="bl01">
+        {{ detailWasteDisposal?.poNumber || "-" }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-32 d-flex"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Status</div>
+      <div ibmCol [columnNumbers]="{ lg: 4 }" class="bl01">
+        <span *ngIf="status !== 'Pending Endorsement'">{{
+          status || "-"
+        }}</span>
+        <span style="color: red" *ngIf="status === 'Pending Endorsement'">{{
+          status || "-"
+        }}</span>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-32 d-flex"
+      *ngIf="isCancelled"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+        Cancellation Date / Time
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 4 }" class="bl01">
+        {{ detailWasteDisposal?.cancelDate | date : "dd/MM/YYYY HH:mm:ss" }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-32 d-flex"
+      *ngIf="isEndorsed"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+        Endorsed Date / Time
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 4 }" class="bl01">
+        {{ detailWasteDisposal?.endorsedDate | date : "dd/MM/YYYY HH:mm:ss" }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-24 d-flex"
+    >
+      <div ibmCol class="bx--offset-lg-2">
+        <button
+          ibmButton="secondary"
+          size="md"
+          (click)="open = true"
+          [disabled]="isCancelDisabled"
+          *ngIf="isCancelDisplay"
+        >
+          Cancel Request
+        </button>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64 d-flex mt-32"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }" class="pl-0 pr-0">
+        <ibm-table-container>
+          <div class="horizontal-overflow-table">
+            <table class="bx--data-table">
+              <thead>
+                <tr>
+                  <th class="bx--table-header-label">No.</th>
+                  <th class="bx--table-header-label">Skid ID</th>
+                  <th class="bx--table-header-label">Size</th>
+                  <th class="bx--table-header-label">Cleaning Type</th>
+
+                  <th class="bx--table-header-label">Remarks</th>
+                  <th class="bx--table-header-label">
+                    Skid Return Date & Time
+                  </th>
+                  <th class="bx--table-header-label">
+                    Customer Representative
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <!-- <tr *ngFor="let item of data; let dataIndex = index">
+                <td>{{ dataIndex + 1 }}.</td>
+                <td>{{ item.skidId }}</td>
+                <td>{{ item.size }}</td>
+                <td>{{ item.typeOfCleaning }}</td>
+                <td>{{ item.remarks }}</td>
+                <td>{{ item.skidDate }}</td>
+                <td>{{ item.customerRepresentatives }}</td>
+              </tr> -->
+                <tr *ngFor="let item of skidList; let dataIndex = index">
+                  <td>{{ dataIndex + 1 }}.</td>
+                  <td>{{ item.skidId }}</td>
+                  <td>{{ item.oddSize ? "Odd" : "Normal" }}</td>
+                  <td>{{ item.advancedCleaning ? "Advance" : "Basic" }}</td>
+                  <td>{{ item.remarks }}</td>
+                  <td>{{ item.returnDate | date : "dd/MM/YYYY HH:mm" }}</td>
+                  <td>{{ item.customerRep }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ibm-table-container>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+      <div
+        ibmCol
+        [columnNumbers]="{ lg: 12, md: 10, sm: 5 }"
+        class="d-flex-row"
+        style="justify-content: flex-start"
+      >
+        <button
+          class="mr-24"
+          ibmButton="secondary"
+          size="md"
+          type="button"
+          (click)="redirectToPrevious()"
+        >
+          Back
+        </button>
+        <button
+          class="mr-24"
+          ibmButton="secondary"
+          size="md"
+          [disabled]="isPrintDisabled"
+          (click)="onPrint()"
+        >
+          Print
+        </button>
+        <button
+          class="mr-24"
+          ibmButton="secondary"
+          size="md"
+          [routerLink]="[
+            '/operation-system/waste-disposal-form',
+            this.requestNo
+          ]"
+          [disabled]="isEditDisabled"
+          *ngIf="isEditDisplay"
+        >
+          Edit
+        </button>
+        <button
+          class="mr-24"
+          ibmButton="primary"
+          size="md"
+          [disabled]="isEndorsedDisabled"
+          *ngIf="isEndorsedDisplay"
+          (click)="openEndorsed = true"
+        >
+          Endorse
+        </button>
+      </div>
+    </div>
+
+    <ibm-modal [open]="open" size="sm" (overlaySelected)="open = false">
+      <ibm-modal-header ibmModalHeaderHeading (closeSelect)="open = false">
+        <h4 style="font-weight: bold">Confirmation</h4>
+      </ibm-modal-header>
+      <div ibmModalContent class="bx--modal-content">
+        <h4>Are you sure you want to cancel this item?</h4>
+      </div>
+      <br /><br />
+
+      <ibm-modal-footer>
+        <ng-container>
+          <button ibmButton="secondary" (click)="open = false">Cancel</button>
+          <button
+            ibmButton="primary"
+            (click)="onCancel()"
+            [attr.modal-primary-focus]="true"
+          >
+            Confirm
+          </button>
+        </ng-container>
+      </ibm-modal-footer>
+    </ibm-modal>
+
+    <ibm-modal
+      [open]="openEndorsed"
+      size="sm"
+      (overlaySelected)="openEndorsed = false"
+    >
+      <ibm-modal-header
+        ibmModalHeaderHeading
+        (closeSelect)="openEndorsed = false"
+      >
+        <h4 style="font-weight: bold">Confirmation</h4>
+      </ibm-modal-header>
+      <div ibmModalContent class="bx--modal-content">
+        <h4>Are you sure you want to submit?</h4>
+        <h4>Kindly make sure all details are correct.</h4>
+        <br /><br />
+      </div>
+
+      <ibm-modal-footer>
+        <ng-container>
+          <button ibmButton="secondary" (click)="openEndorsed = false">
+            Cancel
+          </button>
+          <button
+            ibmButton="primary"
+            (click)="onEndorsed()"
+            [attr.modal-primary-focus]="true"
+          >
+            Confirm
+          </button>
+        </ng-container>
+      </ibm-modal-footer>
+    </ibm-modal>
+  </div>
+</div>

@@ -1,0 +1,91 @@
+<div ibmGrid class="bx--grid--full-width">
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 16 }">
+      <ibm-breadcrumb [noTrailingSlash]="true">
+        <ibm-breadcrumb-item [current]="true" href="#1">
+          Operation System
+        </ibm-breadcrumb-item>
+        <ibm-breadcrumb-item>
+          Common Warehouse & Common Yard
+        </ibm-breadcrumb-item>
+      </ibm-breadcrumb>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-32">
+    <div ibmCol [columnNumbers]="{ max: 16, xlg: 16, lg: 16 }" class="ph03">
+      CY Transactions
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3">
+    <div
+      ibmCol
+      [columnNumbers]="{ max: 16, xlg: 16, lg: 16 }"
+      style="color: #515151"
+    >
+      Current and previous CY Inventory Transactions Requested in ILMS
+      application
+    </div>
+  </div>
+
+  <div
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-40"
+    [leftGutter]="false"
+    [rightGutter]="false"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 12 }">
+      <ibm-table-container class="mb-32">
+        <ibm-table-toolbar class="tableToolbar">
+          <ibm-table-toolbar-content>
+            <ibm-table-toolbar-search
+              [(ngModel)]="searchModel"
+              (valueChange)="searchFilter($event)"
+              (clear)="searchFilter($event)"
+            >
+            </ibm-table-toolbar-search>
+
+            <button
+              ibmButton="secondary"
+              *ngIf="sortingOn"
+              size="sm"
+              type="button"
+              class="addNew"
+              (click)="userInfo()"
+              (click)="clearSearch()"
+            >
+              Reset Sorting
+              <div class="icon-addAlt" ibmIcon="filter--reset" size="20"></div>
+            </button>
+
+            <button
+              ibmButton="secondary"
+              size="sm"
+              type="button"
+              class="addNew"
+              (click)="userInfo()"
+            >
+              Refresh
+              <div class="icon-addAlt" ibmIcon="renew" size="20"></div>
+            </button>
+          </ibm-table-toolbar-content>
+        </ibm-table-toolbar>
+        <div class="horizontal-overflow-table">
+          <ibm-table
+            [model]="model"
+            [striped]="false"
+            [showSelectionColumn]="false"
+            (sort)="doSort($event)"
+          ></ibm-table>
+        </div>
+        <ibm-pagination
+          [model]="model"
+          [itemsPerPageOptions]="itemsPerPageOptions"
+          (selectPage)="selectPage($event)"
+        ></ibm-pagination>
+      </ibm-table-container>
+      <br /><br />
+    </div>
+  </div>
+</div>

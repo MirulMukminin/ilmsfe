@@ -1,0 +1,336 @@
+<!-- <div *ngIf="underDeck.length < 1">
+  <div ibmRow class="pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 12 }">No data available</div>
+  </div>
+</div> -->
+
+<!-- <div *ngIf="underDeck.length > 0"> -->
+<div>
+  <!----------------------------------   Table ----------------------------------->
+  <div>
+    <div ibmRow class="pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+        <div class="form-item">
+          <ibm-table-container *ngIf="openEdit == false">
+            <div class="horizontal-overflow-table">
+              <ibm-table-header>
+                <h4 ibmTableHeaderTitle>Scope of Work</h4>
+
+                <span ibmTableHeaderDescription
+                  >To cancel any job, select the Action checkbox and press
+                  Cancel Job button on the console.
+                </span>
+              </ibm-table-header>
+              <ibm-table-toolbar>
+                <ibm-table-toolbar-content>
+                  <div class="table-action" *ngIf="checkLengthList()">
+                    <div class="selectedItem">
+                      {{ counter }} <span *ngIf="counter == 1">item</span
+                      ><span *ngIf="counter > 1">items</span> selected
+                    </div>
+                    <div class="actions">
+                      <div class="del">
+                        <button
+                          ibmButton="primary"
+                          size="sm"
+                          type="button"
+                          (click)="open = true"
+                        >
+                          Cancel Job
+                          <div
+                            class="icon-trashCan"
+                            ibmIcon="trash-can"
+                            size="20"
+                          ></div>
+                        </button>
+                      </div>
+                      <div class="cancel">
+                        <button
+                          ibmButton="primary"
+                          size="sm"
+                          type="button"
+                          (click)="cancelList()"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </ibm-table-toolbar-content>
+              </ibm-table-toolbar>
+              <table class="bx--data-table">
+                <thead>
+                  <tr>
+                    <th>No.</th>
+                    <th>Item</th>
+                    <!-- <th>MR No.</th> -->
+                    <!-- <th>Date</th>
+                    <th>Time</th> -->
+                    <th>Quantity In (MT)</th>
+                    <th>Quantity Out (MT)</th>
+                    <!-- <th>Barrel</th> -->
+                    <th>Status</th>
+                    <th *ngIf="!isAgent">Action</th>
+                  </tr>
+                </thead>
+                <tbody class="white-bg">
+                  <tr *ngFor="let list of underDeck; let index = index">
+                    <td>{{ index + 1 }}.</td>
+                    <td>{{ list.itemDisplay }}</td>
+                    <!-- <td>{{ list.mrNo }}</td> -->
+                    <!-- <td>{{ list.date }}</td>
+                    <td>{{ list.time }}</td> -->
+                    <!-- <td>{{ list.tonnes }}</td> -->
+                    <td>{{ list.requestQuantityIn }}</td>
+                    <td>{{ list.requestQuantityOut }}</td>
+                    <!-- <td>{{ list.barrel }}</td> -->
+                    <td>
+                      <span
+                        [ngStyle]="{
+                          color: list.status.toLowerCase().includes('pending')
+                            ? 'red'
+                            : '#161616'
+                        }"
+                        >{{ list.status }}</span
+                      >
+                    </td>
+                    <td *ngIf="!isAgent">
+                      <ibm-checkbox
+                        name="checkbox_{{ list.id }}"
+                        [(ngModel)]="list.select"
+                        [hideLabel]="true"
+                        (ngModelChange)="listCheckbox($event)"
+                        [disabled]="list.disabled"
+                      >
+                      </ibm-checkbox>
+                    </td>
+                  </tr>
+                  <tr *ngIf="underDeck.length < 1">
+                    <td align="center" colspan="5" class="no-data">
+                      No data available
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </ibm-table-container>
+
+          <ibm-table-container *ngIf="openEdit">
+            <ibm-table-header>
+              <h4 ibmTableHeaderTitle>Underdeck Request</h4>
+
+              <span ibmTableHeaderDescription
+                >Please fill in the forms below for any service request from
+                KSB</span
+              >
+            </ibm-table-header>
+
+            <div>
+              <table class="bx--data-table">
+                <thead>
+                  <tr>
+                    <th class="header1"></th>
+                    <th class="header2">Item</th>
+                    <!-- <th class="header3">Date</th> -->
+                    <!-- <th class="header4">Time</th> -->
+                    <th class="header5">Tonnes</th>
+                    <th class="header6"></th>
+                  </tr>
+                </thead>
+
+                <tbody
+                  class="white-bg"
+                  [ngClass]="{ 'invalid-class': underDeckInvalid }"
+                >
+                  <tr
+                    *ngFor="
+                      let underDeck of listOfUnderDeck;
+                      let postIndex = index
+                    "
+                    class="white-bg"
+                  >
+                    <td>
+                      <ibm-checkbox
+                        name="checkbox_{{ underDeck.id }}"
+                        [(ngModel)]="underDeck.Selected"
+                        (ngModelChange)="onSelected()"
+                        [disabled]="underDeck.indicator"
+                      >
+                      </ibm-checkbox>
+                    </td>
+                    <td>
+                      {{ underDeck.Item }}
+                    </td>
+                    <!-- <td>
+                      <ibm-date-picker
+                        [placeholder]="placeholder"
+                        [size]="size"
+                        [dateFormat]="dateFormat"
+                        [invalid]="invalidSingleDate[postIndex]"
+                        [invalid]="invalidbackDated[postIndex]"
+                        (change)="validateDate(postIndex)"
+                        required
+                        name="underdeckDate"
+                        [(ngModel)]="underDeck.Date"
+                      >
+                      </ibm-date-picker>
+                      <span
+                        *ngIf="invalidbackDated[postIndex]"
+                        class="invalid-class-label"
+                      >
+                        Please select today's date or after today's date
+                      </span>
+                      <span
+                        *ngIf="invalidSingleDate[postIndex]"
+                        class="invalid-class-label"
+                      >
+                        Date Required
+                      </span>
+                    </td> -->
+                    <!-- <td class="w-130">
+                      <ibm-dropdown
+                        placeholder="Select"
+                        [dropUp]="false"
+                        itemValueKey="content"
+                        (selected)="validateTime(postIndex)"
+                        [invalid]="invalidTime[postIndex]"
+                        invalidText="Time Required"
+                        [(ngModel)]="underDeck.Time"
+                        [disabled]="underDeck.status == 'CANCELLED'"
+                      >
+                        <ibm-dropdown-list
+                          [items]="timeArr"
+                        ></ibm-dropdown-list>
+                      </ibm-dropdown>
+                    </td> -->
+                    <td class="w-130">
+                      <ibm-label
+                        [invalid]="invalidTonnes[postIndex]"
+                        invalidText="Tonnes Required"
+                        class="pb-10"
+                      >
+                        <input
+                          ibmText
+                          type="number"
+                          min="0"
+                          name="tonnes{{ underDeck.id }}"
+                          value="{{ underDeck.Tonnes }}"
+                          [invalid]="invalidTonnes[postIndex]"
+                          [(ngModel)]="underDeck.Tonnes"
+                          (ngModelChange)="validateTonnes(postIndex)"
+                          [disabled]="underDeck.status == 'CANCELLED'"
+                          required
+                        />
+                      </ibm-label>
+                    </td>
+                    <td class="w-130">
+                      <!-- <ibm-label
+                        *ngIf="
+                          underDeck.Item == 'OBM' ||
+                          underDeck.Item == 'SBM' ||
+                          underDeck.Item == 'Base Oil' ||
+                          underDeck.Item == 'Ship to Ship Water' ||
+                          underDeck.Item == 'Ship to Ship Fuel'
+                        "
+                        [invalid]="invalidBarrel[postIndex]"
+                        invalidText="Barrel Required"
+                        class="pb-10"
+                      >
+                        <input
+                          ibmText
+                          type="number"
+                          min="0"
+                          name="barrel_{{ underDeck.id }}"
+                          value="{{ underDeck.Barrel }}"
+                          [invalid]="invalidBarrel[postIndex]"
+                          required
+                          [(ngModel)]="underDeck.Barrel"
+                          (ngModelChange)="validateBarrel(postIndex)"
+                          [disabled]="underDeck.status == 'CANCELLED'"
+                        />
+                      </ibm-label>
+
+                                <ibm-label *ngIf="underDeck.Item == 'OBM' || underDeck.Item == 'SBM' ||underDeck.Item == 'Base Oil'" class="pb-10">
+                                    <input required ibmText type="text" name="barrel{{underDeck.id}}" value="{{underDeck.Barrel}" [invalid]="invalidBarrel[postIndex]" [(ngModel)]="underDeck.Barrel">
+                                </ibm-label>  -->
+                    </td>
+                  </tr>
+                </tbody>
+                <div
+                  style="width: 200px"
+                  *ngIf="underDeckInvalid"
+                  class="invalid-class-label"
+                >
+                  Please select one or more item
+                </div>
+              </table>
+            </div>
+          </ibm-table-container>
+        </div>
+        <div class="d-flex justify-content-start pt-64 pb-32">
+          <div *ngIf="!openEdit">
+            <button
+              type="button"
+              ibmButton="secondary"
+              style="margin-right: 24px; width: 178px; height: 40px"
+              routerLink="/operation-system/marine-berth-request-list"
+            >
+              Back
+            </button>
+            <button
+              *ngIf="displayEdit && !isAgent"
+              type="button"
+              ibmButton="secondary"
+              style="width: 178px; height: 40px"
+              (click)="openEdit = true"
+              [disabled]="underDeck.length < 1"
+              [disabled]="disabledEdit"
+            >
+              Edit
+            </button>
+          </div>
+
+          <div *ngIf="openEdit">
+            <button
+              type="button"
+              ibmButton="secondary"
+              style="margin-right: 24px; width: 178px; height: 40px"
+              (click)="openEdit = false"
+              (click)="clearSelect()"
+            >
+              Back
+            </button>
+            <button
+              type="button"
+              ibmButton="secondary"
+              style="width: 178px; height: 40px"
+              (click)="onUpdate()"
+            >
+              Update
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div ibmRow>
+    <div ibmCol [columnNumbers]="{ lg: 10 }">
+      <ibm-modal [open]="open" (overlaySelected)="open = false">
+        <ibm-modal-header (closeSelect)="open = false"> </ibm-modal-header>
+        <section ibmModalContent>
+          <h3 style="font-weight: bold">Cancel Confirmation</h3>
+          <h4>Are you sure you want to cancel this job request?</h4>
+          <h4>Any cancellation of job cannot be undone after this.</h4>
+        </section>
+        <ibm-modal-footer>
+          <button class="bx--btn bx--btn--secondary" (click)="open = false">
+            Back
+          </button>
+          <button class="bx--btn bx--btn--primary" (click)="deleteList()">
+            Cancel Request
+          </button>
+        </ibm-modal-footer>
+      </ibm-modal>
+    </div>
+  </div>
+</div>

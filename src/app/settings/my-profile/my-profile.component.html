@@ -1,0 +1,176 @@
+<div ibmGrid class="bx--grid--full-width" style="padding-bottom: 133px">
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-33">
+    <div ibmCol [columnNumbers]="{ lg: 16 }">
+      <ibm-breadcrumb [noTrailingSlash]="true">
+        <ibm-breadcrumb-item [current]="true" href="#1">
+          Settings
+        </ibm-breadcrumb-item>
+        <ibm-breadcrumb-item [current]="true" href="#2">
+          My Profile
+        </ibm-breadcrumb-item>
+      </ibm-breadcrumb>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+    <div
+      ibmCol
+      [columnNumbers]="{ lg: 16 }"
+      class="pl-0 pr-0"
+      style="width: 100%"
+    >
+      <div class="title">
+        <span class="ph03">My Profile</span>
+      </div>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 16 }">
+      <ibm-content-switcher (selected)="selected($event)">
+        <button ibmContentOption name="ID and Password">ID and Password</button>
+        <button ibmContentOption name="General Information">
+          General Information
+        </button>
+      </ibm-content-switcher>
+    </div>
+  </div>
+
+  <div
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+    [rightGutter]="false"
+    [leftGutter]="false"
+    *ngIf="switch == 'ID and Password'"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Login ID</div>
+    <div ibmCol [columnNumbers]="{ lg: 4 }" class="bl01">{{ userLogin }}</div>
+  </div>
+  <div
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+    [rightGutter]="false"
+    [leftGutter]="false"
+    *ngIf="switch == 'ID and Password'"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Password</div>
+    <div
+      ibmCol
+      [columnNumbers]="{ lg: 4 }"
+      class="bl01"
+      *ngIf="changePassword == false"
+    >
+      <div class="d-flex">••••••</div>
+      <div class="d-flex mt-2">Last updated June 9, 2021</div>
+    </div>
+    <div ibmCol [columnNumbers]="{ lg: 4 }" *ngIf="changePassword == true">
+      <app-change-password
+        (submitPassword)="submitPasswordHandler($event)"
+        (changePassword)="changePasswordHandler($event)"
+        [changePassword]="changePassword"
+      ></app-change-password>
+    </div>
+  </div>
+
+  <div
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3"
+    [rightGutter]="false"
+    [leftGutter]="false"
+    *ngIf="switch == 'ID and Password'"
+  >
+    <div
+      [ibmButton]="'secondary'"
+      (click)="changePassword = true"
+      *ngIf="changePassword == false"
+      style="height: 40px"
+      class="mt-56"
+    >
+      Change Password
+    </div>
+  </div>
+
+  <div
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+    [rightGutter]="false"
+    [leftGutter]="false"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Login ID</div>
+    <div ibmCol [columnNumbers]="{ lg: 4 }" class="bl01">{{ userLogin }}</div>
+  </div>
+  <div
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+    [rightGutter]="false"
+    [leftGutter]="false"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">First Name</div>
+    <div ibmCol [columnNumbers]="{ lg: 4 }" class="bl01">{{ firstName }}</div>
+  </div>
+  <div
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+    [rightGutter]="false"
+    [leftGutter]="false"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Last Name</div>
+    <div ibmCol [columnNumbers]="{ lg: 4 }" class="bl01">{{ lastName }}</div>
+  </div>
+  <div
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24"
+    [rightGutter]="false"
+    [leftGutter]="false"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Company Name</div>
+    <div ibmCol [columnNumbers]="{ lg: 4 }">{{ companyName }}</div>
+  </div>
+  <div
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24"
+    [rightGutter]="false"
+    [leftGutter]="false"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+      Short Company Name
+    </div>
+    <div ibmCol [columnNumbers]="{ lg: 4 }">{{ shortName }}</div>
+  </div>
+  <div
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24"
+    [rightGutter]="false"
+    [leftGutter]="false"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">IFS ID</div>
+    <div ibmCol [columnNumbers]="{ lg: 4 }">{{ ifsID }}</div>
+  </div>
+  <div
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24"
+    [rightGutter]="false"
+    [leftGutter]="false"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Address</div>
+    <div ibmCol [columnNumbers]="{ lg: 4 }">{{ address }}</div>
+  </div>
+  <div
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24"
+    [rightGutter]="false"
+    [leftGutter]="false"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Postcode</div>
+    <div ibmCol [columnNumbers]="{ lg: 4 }">{{ postcode }}</div>
+  </div>
+  <div
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24"
+    [rightGutter]="false"
+    [leftGutter]="false"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Location</div>
+    <div ibmCol [columnNumbers]="{ lg: 4 }">{{ location }}</div>
+  </div>
+</div>

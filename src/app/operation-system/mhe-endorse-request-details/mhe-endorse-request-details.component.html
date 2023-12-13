@@ -1,0 +1,410 @@
+<div ibmGrid class="bx--grid--full-width">
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 10, md: 10, sm: 10 }">
+      <ibm-breadcrumb [noTrailingSlash]="true">
+        <ibm-breadcrumb-item [current]="true">
+          Operation System
+        </ibm-breadcrumb-item>
+        <ibm-breadcrumb-item [current]="true"> MHE </ibm-breadcrumb-item>
+        <ibm-breadcrumb-item>
+          <a routerLink="/operation-system/mhe-endorse-request-list"
+            >Endorsed Request</a
+          >
+        </ibm-breadcrumb-item>
+        <ibm-breadcrumb-item [current]="true">
+          {{ paramsRequestNo }}
+        </ibm-breadcrumb-item>
+      </ibm-breadcrumb>
+    </div>
+  </div>
+</div>
+
+<div class="printable">
+  <div ibmGrid class="bx--grid--full-width pb-64">
+    <div
+      *ngIf="logo == true"
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 justify-content-center"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 16, md: 16, sm: 16 }">
+        <img src="./assets/images/ksb-logo-97.svg" alt="KSB logo" />
+      </div>
+    </div>
+    <div
+      *ngIf="logo == true"
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 justify-content-center mt-3"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 16, md: 16, sm: 16 }">
+        <span class="ph02">PANGKALAN BEKALAN KEMAMAN SDN. BHD. (69363-D)</span>
+      </div>
+    </div>
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32 pl-1"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 16, md: 16, sm: 16 }">
+        <span class="ph03">MHE Endorsed Request Details</span>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 2, md: 2, sm: 1 }" class="ph01">
+        Request Number
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 5, md: 5, sm: 1 }" class="bl01">
+        {{ requestnumber || "N/A" }}
+      </div>
+    </div>
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2, md: 2, sm: 1 }" class="ph01">
+        Company Name
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 5, md: 5, sm: 1 }" class="bl01">
+        {{ companyName || "N/A" }}
+      </div>
+    </div>
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2, md: 2, sm: 1 }" class="ph01">
+        Request By
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 5, md: 5, sm: 1 }" class="bl01">
+        {{ requestBy || "N/A" }}
+      </div>
+    </div>
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2, md: 2, sm: 1 }" class="ph01">
+        Request Type
+      </div>
+      <div
+        ibmCol
+        [columnNumbers]="{ lg: 5, md: 5, sm: 1 }"
+        class="bl01 first-cap"
+      >
+        {{ requestType || "N/A" }}
+      </div>
+    </div>
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2, md: 2, sm: 1 }" class="ph01">
+        Booking Type
+      </div>
+      <div
+        ibmCol
+        [columnNumbers]="{ lg: 5, md: 5, sm: 1 }"
+        class="bl01 first-cap"
+      >
+        {{ bookingType || "N/A" }}
+      </div>
+    </div>
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2, md: 2, sm: 1 }" class="ph01">
+        Booking Date
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 5, md: 5, sm: 1 }" class="bl01">
+        {{ bookingDate | date : "dd/MM/yyyy" || "N/A" }}
+      </div>
+    </div>
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2, md: 2, sm: 1 }" class="ph01">
+        Request on Behalf
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 5, md: 5, sm: 1 }" class="bl01">
+        {{ requestOnBehalf || "N/A" }}
+      </div>
+    </div>
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2, md: 2, sm: 1 }" class="ph01">
+        Job Description
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 5, md: 5, sm: 1 }" class="bl01">
+        {{ job_description || "N/A" }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2, md: 2, sm: 1 }" class="ph01">
+        PO Number
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 5, md: 5, sm: 1 }" class="bl01">
+        {{ po_number || "N/A" }}
+      </div>
+    </div>
+    <div
+      *ngIf="bookingType == 'DAILY'"
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 2, md: 2, sm: 1 }" class="ph01">
+        Vessel Name
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 5, md: 5, sm: 1 }" class="bl01">
+        <div
+          *ngFor="let vessel of vesselList; let last = last; let index = index"
+        >
+          {{ vessel }}<span *ngIf="!last" class="pr-4">, </span>
+        </div>
+        <div *ngIf="vesselList.length == 0">-</div>
+      </div>
+    </div>
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2, md: 2, sm: 1 }" class="ph01">
+        Remarks
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 5, md: 5, sm: 1 }" class="bl01">
+        {{ remarks || "N/A" }}
+      </div>
+    </div>
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2, md: 2, sm: 1 }" class="ph01">
+        Date Submitted
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 5, md: 5, sm: 1 }" class="bl01">
+        {{ dateSubmit | date : "dd/MM/yyyy HH:mm" || "N/A" }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2, md: 2, sm: 1 }" class="ph01">
+        Status
+      </div>
+      <div
+        ibmCol
+        [columnNumbers]="{ lg: 5, md: 5, sm: 1 }"
+        class="bl01 first-cap"
+      >
+        {{ status || "N/A" }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2, md: 2, sm: 1 }" class="ph01">
+        Cancellation Date / Time
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 5, md: 5, sm: 1 }" class="bl01">-</div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64 pl-1"
+      style="padding-left: 0rem !important"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 12 }" class="ph03 full-width">
+        <ibm-table-container>
+          <div class="horizontal-overflow-table">
+            <div class="table-header">
+              <ibm-table-header class="white-bg">
+                <h4 ibmTableHeaderTitle>Endorsed Job Ticket</h4>
+              </ibm-table-header>
+            </div>
+            <table class="bx--data-table endorse-table">
+              <thead>
+                <tr style="text-align: center">
+                  <th class="topHeader" colspan="3"></th>
+                  <th class="topHeader" colspan="3">Session 1</th>
+                  <th class="topHeader" colspan="3">Session 2</th>
+                  <th class="topHeader" colspan="3">Session 3</th>
+                  <th class="topHeader" colspan="3">Session 4</th>
+                  <th class="topHeader"></th>
+                  <th class="topHeader"></th>
+                  <th class="topHeader"></th>
+                </tr>
+                <tr>
+                  <th
+                    scope="col"
+                    ibmTableHeadCell
+                    *ngFor="let column of bottomHeader.header"
+                    [column]="column"
+                    class="bottomHeader"
+                  ></th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr
+                  *ngFor="let item of itemList; let index = index"
+                  ibmTableRow
+                  class="tr-border"
+                >
+                  <td>{{ item.id.split("/")[1] }}</td>
+                  <td>
+                    <!-- <tr *ngFor="let item of jobMHE.item_list">
+                      {{
+                        item.description
+                      }}
+                    </tr> -->
+                    {{ item.description | titlecase }}
+                  </td>
+                  <td>
+                    <tr>
+                      {{
+                        item.quantity
+                      }}
+                    </tr>
+                  </td>
+                  <td>
+                    <tr>
+                      {{
+                        item.sess1_start.substring(0, 5)
+                      }}
+                    </tr>
+                  </td>
+                  <td>
+                    <tr>
+                      {{
+                        item.sess1_end.substring(0, 5)
+                      }}
+                    </tr>
+                  </td>
+                  <td>
+                    <tr>
+                      <span *ngIf="item.sess1Hours != '-'">
+                        {{ item.sess1Hours }}.0</span
+                      >
+                      <span *ngIf="item.sess1Hours == '-'">-</span>
+                    </tr>
+                  </td>
+                  <td>
+                    <tr>
+                      {{
+                        item.sess2_start.substring(0, 5)
+                      }}
+                    </tr>
+                  </td>
+                  <td>
+                    <tr>
+                      {{
+                        item.sess2_end.substring(0, 5)
+                      }}
+                    </tr>
+                  </td>
+                  <td>
+                    <tr>
+                      <span *ngIf="item.sess2Hours != '-'">
+                        {{ item.sess2Hours }}.0</span
+                      >
+                      <span *ngIf="item.sess2Hours == '-'">-</span>
+                    </tr>
+                  </td>
+                  <td>
+                    <tr>
+                      {{
+                        item.sess3_start.substring(0, 5)
+                      }}
+                    </tr>
+                  </td>
+                  <td>
+                    <tr>
+                      {{
+                        item.sess3_end.substring(0, 5)
+                      }}
+                    </tr>
+                  </td>
+                  <td>
+                    <tr>
+                      <span *ngIf="item.sess3Hours != '-'">
+                        {{ item.sess3Hours }}.0</span
+                      >
+                      <span *ngIf="item.sess3Hours == '-'">-</span>
+                    </tr>
+                  </td>
+                  <td>
+                    <tr>
+                      {{
+                        item.sess4_start.substring(0, 5)
+                      }}
+                    </tr>
+                  </td>
+                  <td>
+                    <tr>
+                      {{
+                        item.sess4_end.substring(0, 5)
+                      }}
+                    </tr>
+                  </td>
+                  <td>
+                    <tr>
+                      <span *ngIf="item.sess4Hours != '-'">
+                        {{ item.sess4Hours }}.0</span
+                      >
+                      <span *ngIf="item.sess4Hours == '-'">-</span>
+                    </tr>
+                  </td>
+                  <td style="text-align: center">
+                    <div style="display: flex">
+                      {{ item.totalhours }}
+                      <span *ngIf="item.totalhours % 1 == 0">.0</span>
+                    </div>
+                    <!-- <tr>
+
+                    </tr> -->
+                    <!-- {{
+                      jobMHE.item_list[0].totalhours || "0"
+                    }}.0 -->
+                  </td>
+                  <td>
+                    <tr>
+                      {{
+                        item.remarks
+                      }}
+                    </tr>
+                    <!-- {{ jobMHE.item_list[0].remarks || "-" }} -->
+                  </td>
+                  <td>
+                    <!-- <tr ng-repeat-end ng-repeat="endorsedby in item.endorsedby"> -->
+                    <tr
+                      *ngFor="let endorsedby of item.endorsedby"
+                      ibmTableRow
+                      class="tr-border"
+                    >
+                      <td>{{ endorsedby }}</td>
+                    </tr>
+                    <!-- {{
+                        items
+                      }} -->
+                    <!-- {{
+                        item.endorseddate | date: "dd/MM/yyyy"
+                      }} -->
+                    <!-- </tr> -->
+                    <!-- <p>Name 1</p>
+                    <p>05/06/2021</p> -->
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ibm-table-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div ibmGrid class="bx--grid--full-width">
+  <div
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pb-64 pl-1"
+  >
+    <div
+      ibmCol
+      [columnNumbers]="{ lg: 16 }"
+      class="d-flex-row"
+      style="justify-content: flex-start"
+    >
+      <button
+        ibmButton="secondary"
+        class="pr-124"
+        size="lg"
+        [routerLink]="['/operation-system/mhe-endorse-request-list']"
+      >
+        Back
+      </button>
+      <button
+        class="ml-24 pr-124"
+        ibmButton="secondary"
+        size="lg"
+        (click)="print()"
+      >
+        Print
+      </button>
+    </div>
+  </div>
+</div>

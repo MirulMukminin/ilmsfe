@@ -1,0 +1,47 @@
+@import "~carbon-components/scss/globals/scss/vendor/@carbon/type/scss/font-family";
+@import "~carbon-components/scss/globals/scss/typography";
+
+.table-action {
+    background: #0f62fe;
+    width: 100%;
+}
+
+.actions {
+    display: flex;
+    float: right;
+}
+  
+.del,
+.cancel {
+    padding-top: 7px;
+}
+  
+.del button {
+    border-right: 2px solid white;
+}
+  
+.cancel button, .del button {
+    padding: 0px 20px;
+}
+  
+.del img {
+    left: -39%;
+    position: relative;
+    top: 15%;
+}
+
+.icon-printer {
+    //position: relative;
+    margin-left: 9px;
+    margin-top: 1px;
+  }
+
+.icon-addAlt {
+    position: relative;
+    left: 40px;
+    top: 2px;
+}
+
+.ta-left {
+    text-align: left;
+}

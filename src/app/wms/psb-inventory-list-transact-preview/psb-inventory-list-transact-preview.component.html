@@ -1,0 +1,532 @@
+<ibm-loading
+  *ngIf="isLoading"
+  [isActive]="isLoading"
+  size="normal"
+  [overlay]="overlay"
+>
+</ibm-loading>
+<div ibmGrid class="bx--grid--full-width pb-133">
+  <div
+    id="topPartPrint"
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 10, md: 10, sm: 10 }">
+      <ibm-breadcrumb [noTrailingSlash]="true">
+        <ibm-breadcrumb-item [current]="true">
+          Warehouse Management System
+        </ibm-breadcrumb-item>
+        <ibm-breadcrumb-item>
+          <a routerLink="/wms/psb-inventory-list">Petroleum Supply Base</a>
+        </ibm-breadcrumb-item>
+        <!-- <ibm-breadcrumb-item>
+          <a routerLink="/wms/psb-goods-in-out-list">Goods In / Goods Out</a>
+        </ibm-breadcrumb-item> -->
+
+        <ibm-breadcrumb-item [current]="true">
+          PSB Inventory
+        </ibm-breadcrumb-item>
+      </ibm-breadcrumb>
+    </div>
+  </div>
+
+  <div
+    id="print1"
+    [ngClass]="{ printBodyHidden: open, printBodyDisplay: !open }"
+  >
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24 printable-special"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 12, sm: 12 }">
+        <div style="width: 100%">
+          <table>
+            <tbody>
+              <tr>
+                <td style="vertical-align: middle">
+                  <img
+                    src="./assets/images/KSB_Logo.png"
+                    alt="KSB logo"
+                    style="width: 80px"
+                  />
+                </td>
+                <td style="padding-top: 25px; padding-bottom: 20px">
+                  <p class="title-text">
+                    PANGKALAN BEKALAN KEMAMAN SDN. BHD. (69363-D)
+                  </p>
+                  <p class="ph01" style="padding-top: 5px">
+                    A Subsidiary of Eastern Pacific Industrial Corporation Bhd.
+                  </p>
+                  <p class="letter-header-Text">
+                    P.O Box 64, 24007 Kemaman, Terengganu Darul Iman, Malaysia
+                  </p>
+                  <p class="letter-header-Text">
+                    Tel : 09 - 860 2343, 860 2344 Fax : 09 - 869 1191
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }" class="pl-0 pr-0">
+        <div class="title">
+          <span class="ph03">PSB Inventory</span>
+        </div>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Company Name</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ detailsCompanyName }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Request By</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ detailsRequestBy }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Form Type</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ detailsformType }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Form No.</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ detailsRegistrationNo }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Move Date</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ detailsMoveDate }}
+      </div>
+    </div>
+
+    <!-- <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Agent</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ detailsAgent }}
+      </div>
+    </div> -->
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Location</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ detailsLocation }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+        Invoice No. (Optional)
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ detailsInvoiceNo }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Category</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ detailsCategory }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+        Total Value (RM)
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ detailsTotalValue }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Request No.</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ detailsRequestNo }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Status</div>
+      <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+        {{ detailsStatus }}
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3"
+      [rightGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 5 }">
+        <ibm-table-container style="margin-top: 4rem">
+          <ibm-table-header class="pb-40">
+            <h4 ibmTableHeaderTitle>List of Goods</h4>
+          </ibm-table-header>
+
+          <ibm-table-toolbar class="printBodyHidden">
+            <ibm-table-toolbar-content>
+              <button
+                ibmButton="primary"
+                size="sm"
+                type="button"
+                class="addRequest-btn"
+                (click)="adjust = true"
+                [disabled]="inventoryDisabled"
+                [disabled]="adjust"
+              >
+                <span>Inventory Adjustment</span>
+                <div class="icon-addAlt" ibmIcon="edit" size="20"></div>
+              </button>
+            </ibm-table-toolbar-content>
+          </ibm-table-toolbar>
+
+          <table *ngIf="!adjust" class="bx--data-table">
+            <thead>
+              <tr>
+                <th class="bx--table-header-label">No.</th>
+                <th class="bx--table-header-label">Tarif Code</th>
+                <th class="bx--table-header-label">Goods Description</th>
+                <th class="bx--table-header-label">Qty.</th>
+                <th class="" style="text-align: right">Value (RM)</th>
+                <th class="bx--table-header-label">UOM</th>
+                <th class="bx--table-header-label" style="text-align: right">
+                  Total Value (RM)
+                </th>
+                <th *ngIf="pendingApproval" class="bx--table-header-label">
+                  New Quantity
+                </th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngIf="listOfGoods.length < 1">
+                <td align="center" colspan="7" class="no-data">
+                  No data available
+                </td>
+              </tr>
+              <tr *ngFor="let data of listOfGoods; let rowIdx = index">
+                <td>{{ rowIdx + 1 }}.</td>
+                <td>{{ data.customs_code }}</td>
+                <td>{{ data.description }}</td>
+                <td>{{ data.quantity }}</td>
+                <td style="text-align: right">
+                  <div>
+                    {{ data.value }}
+                  </div>
+                </td>
+                <td>{{ data.uom }}</td>
+                <td style="text-align: right">
+                  <div>
+                    {{ data.totalValue }}
+                  </div>
+                </td>
+                <td *ngIf="pendingApproval">
+                  {{ data.new_quantity }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table *ngIf="adjust" class="bx--data-table white-bg">
+            <thead>
+              <tr>
+                <th class="bx--table-header-label">No.</th>
+                <th class="bx--table-header-label">Tarif Code</th>
+                <th class="bx--table-header-label">Goods Description</th>
+                <th class="bx--table-header-label">Qty.</th>
+                <th class="bx--table-header-label text-center">Value (RM)</th>
+                <th class="bx--table-header-label">UOM</th>
+                <th class="bx--table-header-label text-center">
+                  Total Value (RM)
+                </th>
+                <th class="bx--table-header-label text-center">New Qty.</th>
+              </tr>
+            </thead>
+
+            <tbody [ngClass]="{ 'no-data-border': noDataTable }">
+              <tr *ngIf="listOfGoods.length < 1">
+                <td align="center" colspan="8" class="no-data">
+                  No data available
+                </td>
+              </tr>
+              <tr *ngFor="let data of listOfGoods; let rowIdx = index">
+                <td>{{ rowIdx + 1 }}.</td>
+                <td>{{ data.customs_code }}</td>
+                <td>{{ data.description }}</td>
+                <td>{{ data.quantity }}</td>
+                <td>
+                  <div class="text-center">
+                    {{ data.value }}
+                  </div>
+                </td>
+                <td>{{ data.uom }}</td>
+                <td>
+                  <div class="text-center">
+                    {{ data.totalValue }}
+                  </div>
+                </td>
+                <td>
+                  <div class="text-center">
+                    <input
+                      style="width: 150px"
+                      type="text"
+                      ibmText
+                      name="newQuantity"
+                      [(ngModel)]="data.new_quantity"
+                      (ngModelChange)="inputValueChange()"
+                      [invalid]="invalidQtyValue[rowIdx]"
+                    />
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </ibm-table-container>
+      </div>
+    </div>
+  </div>
+
+  <div
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64 printBodyHidden"
+    [rightGutter]="false"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 14, md: 8, sm: 5 }">
+      <button
+        *ngIf="!adjust"
+        ibmButton="secondary"
+        size="xl"
+        type="button"
+        style="width: 180px"
+        routerLink="/wms/psb-inventory-list"
+      >
+        Back
+      </button>
+      <button
+        *ngIf="adjust"
+        ibmButton="secondary"
+        size="xl"
+        type="button"
+        style="width: 180px"
+        (click)="adjust = false"
+      >
+        Back
+      </button>
+      <button
+        class="ml-1"
+        ibmButton="secondary"
+        size="xl"
+        type="button"
+        style="width: 180px"
+        (click)="onPrint('print1')"
+      >
+        Print
+      </button>
+
+      <button
+        [disabled]="viewHistoryDisabled"
+        class="ml-1"
+        ibmButton="primary"
+        size="xl"
+        type="button"
+        (click)="open = true"
+      >
+        View Change History
+      </button>
+
+      <button
+        style="float: right"
+        ibmButton="primary"
+        size="xl"
+        type="button"
+        [disabled]="!adjust"
+        (click)="openSubmitModal()"
+      >
+        Submit to Customs
+      </button>
+    </div>
+  </div>
+
+  <!-- <div id="print2"> -->
+
+  <div ibmRow>
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+      <ibm-modal
+        id="print2"
+        [open]="open"
+        (overlaySelected)="open = false"
+        class="modal-width"
+      >
+        <div
+          ibmRow
+          class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24 printable-special"
+        >
+          <div ibmCol [columnNumbers]="{ lg: 12, md: 12, sm: 12 }">
+            <div style="width: 100%">
+              <table>
+                <tbody>
+                  <tr>
+                    <td style="vertical-align: middle">
+                      <img
+                        src="./assets/images/KSB_Logo.png"
+                        alt="KSB logo"
+                        style="width: 80px"
+                      />
+                    </td>
+                    <td style="padding-top: 25px; padding-bottom: 20px">
+                      <p class="title-text">
+                        PANGKALAN BEKALAN KEMAMAN SDN. BHD. (69363-D)
+                      </p>
+                      <p class="ph01" style="padding-top: 5px">
+                        A Subsidiary of Eastern Pacific Industrial Corporation
+                        Bhd.
+                      </p>
+                      <p class="letter-header-Text">
+                        P.O Box 64, 24007 Kemaman, Terengganu Darul Iman,
+                        Malaysia
+                      </p>
+                      <p class="letter-header-Text">
+                        Tel : 09 - 860 2343, 860 2344 Fax : 09 - 869 1191
+                      </p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <ibm-modal-header
+          (closeSelect)="open = false"
+          style="width: 944; height: 669"
+        >
+          <p class="bx--modal-header__heading bx--type-beta">
+            Inventory Change History
+          </p>
+          <div ibmRow class="pt-32">
+            <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Form Type</div>
+            <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+              {{ detailsformType }}
+            </div>
+          </div>
+
+          <div ibmRow class="pt-24">
+            <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Form No.</div>
+            <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+              {{ detailsRegistrationNo }}
+            </div>
+          </div>
+        </ibm-modal-header>
+
+        <div class="bx--modal-content pt-32">
+          <div ibmRow>
+            <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+              <ibm-table-container class="table-style">
+                <div class="horizontal-overflow-table">
+                  <table class="bx--data-table">
+                    <thead>
+                      <tr>
+                        <th class="">No.</th>
+                        <th class="">Tarif Code</th>
+                        <th class="">Goods Description</th>
+                        <th class="">Qty.</th>
+                        <th class="">New Qty.</th>
+                        <th class="">Adjustment Date & Time</th>
+                        <th class="">Changed By</th>
+                        <th class="">Approval Date & Time</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr *ngIf="inventoryChangeList.length == 0">
+                        <td align="center" colspan="13">No data available</td>
+                      </tr>
+
+                      <tr
+                        class="white-bg"
+                        *ngFor="
+                          let data of inventoryChangeList;
+                          let rowIdx = index
+                        "
+                      >
+                        <td>{{ rowIdx + 1 }}.</td>
+                        <td>{{ data.tarifCode }}</td>
+                        <td>{{ data.goodsDesc }}</td>
+                        <td>{{ data.qty }}</td>
+                        <td>{{ data.newQty }}</td>
+                        <td>{{ data.adjustDate }}, {{ data.adjustTime }}</td>
+                        <td>{{ data.changedBy }}</td>
+                        <td>{{ data.approveDate }}, {{ data.approveTime }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </ibm-table-container>
+            </div>
+          </div>
+        </div>
+
+        <ibm-modal-footer class="printBodyHidden">
+          <ng-container>
+            <button class="bx--btn bx--btn--secondary" (click)="open = false">
+              Close
+            </button>
+            <button ibmButton="primary" (click)="onPrint('print2')">
+              Print
+            </button>
+          </ng-container>
+        </ibm-modal-footer>
+      </ibm-modal>
+    </div>
+  </div>
+  <!-- </div> -->
+  <!-- Modal-->
+  <div ibmRow>
+    <div ibmCol [columnNumbers]="{ lg: 10 }">
+      <ibm-modal [open]="openModal" (overlaySelected)="openModal = false">
+        <ibm-modal-header (closeSelect)="openModal = false">
+          <h3 ibmModalHeaderHeading>Confirmation</h3>
+        </ibm-modal-header>
+        <section ibmModalContent style="height: unset">
+          <h3
+            ibmModalContentText
+            class="bx--modal-content__regular-content modal-text"
+          >
+            Are you sure want to submit?<br />
+            Kindly make sure all details are correct.
+          </h3>
+        </section>
+        <ibm-modal-footer>
+          <button
+            class="bx--btn bx--btn--secondary"
+            (click)="openModal = false"
+          >
+            Back
+          </button>
+
+          <button
+            type="submit"
+            class="bx--btn bx--btn--primary"
+            [disabled]="isLoading"
+            (click)="onSubmit()"
+          >
+            Submit to Customs
+          </button>
+        </ibm-modal-footer>
+      </ibm-modal>
+    </div>
+  </div>
+</div>

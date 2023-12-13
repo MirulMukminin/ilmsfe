@@ -1,0 +1,373 @@
+<ibm-loading
+		*ngIf="isLoading"
+		[isActive]="isLoading"
+		size="normal"
+		[overlay]="overlay">
+</ibm-loading>
+<div ibmGrid class="bx--grid--full-width">
+    <form #newConsoleForm="ngForm" (ngSubmit)="onSubmit(newConsoleForm)" autocomplete="off">
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3">
+            <div ibmCol [columnNumbers]="{'lg': 6, 'md': 6, 'sm': 6}">
+
+                <input type="hidden" [(ngModel)]="mheForm.requestType" name="requestType" />
+
+                <div class="form-item" #requestOnBehalf tabindex="1">
+                  
+
+                <ibm-combo-box
+                    label="Request on Behalf" 
+                    name="requestOnBehalf" 
+                    [items]="requestOnBehalfList"
+                    (selected)="inputValueChange(mheForm.requestOnBehalf)"
+                    [appendInline]="true"
+                    [dropUp]="false"
+                    placeholder="Choose an option" 
+                    [(ngModel)]="mheForm.requestOnBehalf"
+                    invalidText="Request On Behalf Required" 
+                    [invalid]="invalidRequestOnBehalf"
+                    itemValueKey="content"
+                    required>
+                    <ibm-dropdown-list></ibm-dropdown-list>
+                </ibm-combo-box>
+                </div>
+
+                <div class="form-item" >
+                    <!-- <ibm-label [invalid]="invalidJobDescription" invalidText="Job Description Required">
+                        Job Description
+                        <textarea 
+                        #jobDescription tabindex="2"
+                        ibmTextArea 
+                        aria-label="textarea" 
+                        maxlength="100" [rows]="6" 
+                        name="jobDescription" 
+                        [(ngModel)]="mheForm.jobDescription" 
+                        [invalid]="invalidJobDescription" 
+                        (ngModelChange)="inputValueChange(mheForm.jobDescription)" required>
+                        </textarea>
+                    </ibm-label> -->
+                    <label class="bx--label">Job Description</label><label class="bx--label" [ngStyle]="{'color' : invalidNumericJobDesc ? '#da1e28' : ''}" style="float: right;">{{numericJobDesc}}/100</label>
+                    <textarea 
+                        #jobDescription tabindex="2"
+                        ibmTextArea 
+                        aria-label="textarea" 
+                        maxlength="100" [rows]="6" 
+                        name="jobDescription" 
+                        [(ngModel)]="mheForm.jobDescription" 
+                        [invalid]="invalidJobDescription" 
+                        (ngModelChange)="inputValueChange(mheForm.jobDescription)" required
+                        (ngModelChange)="numericCount('jobDesc', mheForm.jobDescription)" 
+                        [ngStyle]="{'border': invalidJobDescription ? '2px solid #da1e28' : '' }">
+                    </textarea>
+                    <div *ngIf="invalidNumericJobDesc" class="invalid-class-label">
+                        Reach maximum characters
+                    </div>
+                    <div *ngIf="invalidJobDescription" class="invalid-class-label">
+                        Job Description Required
+                    </div>    
+                </div>
+
+                <div class="form-item" #bookingDate tabindex="3">
+                    <ibm-date-picker label="Booking Date"
+                    [placeholder]="placeholder"
+                    [size]="size"
+                    [dateFormat]="dateFormat"
+                    [(ngModel)]="mheForm.bookingDate"
+                    name="bookingDate"
+                    [invalid]="invalidBookingDate"
+                    [invalidText]="dateInvalid"
+                    (ngModelChange)="dateValueChange($event)"
+                    [attr.required]=" mheForm.bookingDate == 'invalid' || null"
+                    [required]="requiredBookingDate"
+                        required>
+                    </ibm-date-picker>
+                </div>
+
+                <div class="singleDate-notif">
+                    <div class="pt-16" *ngIf="dateFlag == true">
+                        <ibm-toast *ngIf="nextDay == true" style="width: 100%;" [notificationObj]="{
+                            type: 'info',
+                            template: customToastContent,
+                            lowContrast: true,
+                            title: 'Next-Day Booking is added to the waiting list',
+                            myData: {
+                                subtitle: 'Any bookings made for this date will be included in the waiting list.'
+                            },
+                            showClose: showClose
+                        }">
+                        </ibm-toast>
+                        <ibm-toast *ngIf="sameDay == true" style="width: 100%;" [notificationObj]="{
+                            type: 'info',
+                            template: customToastContent,
+                            lowContrast: true,
+                            title: 'Same day Booking is added to the waiting list',
+                            myData: {
+                                subtitle: 'Any bookings made for this date will be included in the waiting list.'
+                            },
+                            showClose: showClose
+                        }">
+                        </ibm-toast>
+                        <ng-template #customToastContent let-data>
+                            <div class="flex-container">
+                                <div class="flex-child">
+                                    <p class="ph01" style="margin-bottom: 0px; " ibmToastTitle>{{data.title}}</p>
+                                    <p ibmToastSubtitle>{{data.myData.subtitle}}</p>
+                                </div>
+                                <div class="flex-child secondary-toast-button">
+                                    <button 
+                                        class="singleDate-notif-btn"
+                                        ibmButton="ghost" 
+                                        size="sm"
+                                        #trigger
+                                        type="button"
+                                        (click)="open = true" 
+                                    >
+                                        More Info
+                                    </button>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </div>
+                </div>
+
+                <div class="form-item" #estDuration tabindex="4">
+                    <ibm-label>
+                        Estimated Duration (Hour)
+                        <ibm-number 
+                        [step]="step" 
+                        [min]="min" 
+                        [max]="max" 
+                        [(ngModel)]="mheForm.estDuration" 
+                        name="estDuration" 
+                        [invalid]="invalidEstDuration" 
+                        invalidText="Estimated Duration(Hour) Invalid"
+                        [attr.required]="null"
+                        (ngModelChange)="inputValueChange(mheForm.estDuration)" 
+                        [required]="requiredEstDuration"
+                        required>
+                        </ibm-number>
+                        Max. 2
+                    </ibm-label>
+                </div>
+
+                <div class="form-item" #estTrip tabindex="5">
+                    <ibm-label>
+                        Estimated Trip
+                        <ibm-number 
+                        [step]="step"
+                        [min]="min" 
+                        [max]="max" 
+                        [(ngModel)]="mheForm.estTrip" 
+                        name="estTrip" 
+                        [invalid]="invalidEstTrip" 
+                        invalidText="Estimated Trip Invalid" 
+                        (ngModelChange)="inputValueChange(mheForm.estTrip)"
+                        [attr.required]="null"
+                        [required]="requiredEstTrip"
+                        required>
+                        </ibm-number>
+                        Max. 2
+                    </ibm-label>
+                </div>
+
+                <div class="form-item" #estQtyGoods tabindex="6">
+                    <ibm-label>
+                        Estimated Quantity of Goods
+                       
+                        <ibm-number 
+                        [step]="step" 
+                        [min]="min" 
+                        [max]="maxGood" 
+                        [(ngModel)]="mheForm.estGoods" 
+                        name="estGoods" 
+                        [invalid]="invalidEstGoods" 
+                        invalidText="Estimated Quantity is Invalid" 
+                        (ngModelChange)="inputValueChange(mheForm.estGoods)" 
+                        [attr.required]="null"
+                        [required]="requiredEstGoods"
+                        required>
+                        </ibm-number>
+                        Max. 6
+                    </ibm-label>
+                </div>
+
+                <div class="form-item">
+                    <!-- <ibm-label>
+                        Remarks (Optional)
+                        <textarea ibmTextArea aria-label="textarea" maxlength="100" [rows]="6" name="remarks" [(ngModel)]="mheForm.remarks"></textarea>
+                    </ibm-label> -->
+                    <label class="bx--label">Remarks (Optional)</label><label class="bx--label" [ngStyle]="{'color' : invalidNumericRemarks ? '#da1e28' : ''}" style="float: right;">{{numericRemarks}}/100</label>
+                    <textarea 
+                        ibmTextArea 
+                        aria-label="textarea" 
+                        maxlength="100" 
+                        [rows]="6" 
+                        name="remarks" 
+                        [(ngModel)]="mheForm.remarks" 
+                        (ngModelChange)="numericCount('remarks', mheForm.remarks)" 
+                        >
+                    </textarea>
+                    <div *ngIf="invalidNumericRemarks" class="invalid-class-label">
+                        Reach maximum characters
+                    </div>    
+                </div>
+
+                <div class="form-item">
+                    <ibm-label>
+                        Ref.No (Manual Form No) (Optional)
+                        <input ibmText type="text" name="refNo" [(ngModel)]="mheForm.refNo">
+                    </ibm-label>
+                </div>
+            </div>
+        </div>
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+            <div ibmCol [columnNumbers]="{'lg': 12, 'md': 10, 'sm': 6}">
+                <div class="form-item">
+
+                    <ibm-table-container>
+
+                        <ibm-table-header>
+
+                            <h4 ibmTableHeaderTitle>Machinery - Console</h4>
+                            <p ibmTableHeaderDescription>{{description}}</p>
+
+                        </ibm-table-header>
+                        <table class="bx--data-table" [ngClass]="{'invalid-class': machineryTableInvalid}" #machineryConsole tabindex="7">
+
+                            <thead>
+
+                                <tr>
+                                    <th>
+                                        <span class="bx--table-header-label"></span>
+                                    </th>
+                                    <th>
+                                        <span class="bx--table-header-label">Item</span>
+                                    </th>
+                                    <th>
+                                        <span class="bx--table-header-label">Quantity</span>
+                                    </th>
+                                    <th>
+                                        <span class="bx--table-header-label">Time</span>
+                                    </th>
+                                    <th>
+                                        <span class="bx--table-header-label">Location</span>
+                                        </th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                <tr *ngFor="let data of machineryConsoleList; let tableMachineryIndex=index;">
+                                    <td>
+                                        <ibm-checkbox name="selected{{data.id}}" [(ngModel)]="data.Selected" (ngModelChange)="onChange(tableMachineryIndex)">
+                                        </ibm-checkbox>
+                                    </td>
+                                    <td>
+                                        {{data.Description}}
+                                    </td>
+                                    <td>
+                                        {{data.Quantity}}
+                                    </td>
+                                    <td>
+                                        <ibm-dropdown class="dropdown" placeholder="Select" [dropUp]="false" itemValueKey="content" (selected)="selectedTimeMachinery($event, tableMachineryIndex)" [(ngModel)]="data.Time" name="time{{data.id}}" invalidText="Time Required" [invalid]="invalidTimeMachinery[tableMachineryIndex]"
+                                            [required]="requiredTime" [disabled]="disable[tableMachineryIndex]">
+                                            <ibm-dropdown-list [items]="time"></ibm-dropdown-list>
+                                        </ibm-dropdown>
+                                    </td>
+                                    <td>
+                                        <!-- <ibm-dropdown 
+                                        placeholder="Select" 
+                                        [dropUp]="false" 
+                                        itemValueKey="content" 
+                                        name="location{{data.id}}" 
+                                        (selected)="selectedLocationMachinery($event, tableMachineryIndex)" 
+                                        [(ngModel)]="data.Location" 
+                                        invalidText="Location Required" 
+                                        [invalid]="invalidLocationMachinery[tableMachineryIndex]"
+                                        [required]="requiredLocation" 
+                                        [disabled]="disable[tableMachineryIndex]">
+                                            <ibm-dropdown-list [items]="location"></ibm-dropdown-list>
+                                        </ibm-dropdown> -->
+
+                                        <ibm-combo-box 
+                                        class="dropdown"
+                                        id="dropdown"
+                                        name="location_{{data.id}}"
+                                        [items]="location"
+                                        (selected)="selectedLocationMachinery($event, tableMachineryIndex)" 
+                                        [appendInline]="true"
+                                        [dropUp]="false"
+                                        placeholder="Select"
+                                        [(ngModel)]="data.Location"
+                                        invalidText="Location Required" 
+                                        [invalid]="invalidLocationMachinery[tableMachineryIndex]"
+                                        [required]="requiredLocation" 
+                                        [disabled]="disable[tableMachineryIndex]"
+                                        itemValueKey="content"
+                                        required>
+                                            <ibm-dropdown-list></ibm-dropdown-list>
+                                        </ibm-combo-box>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <div *ngIf="machineryTableInvalid" class="invalid-class-label">Please select one or more item</div>
+                        <!-- </div> -->
+                    </ibm-table-container>
+
+                </div>
+            </div>
+        </div>
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32 pb-64">
+            <div ibmCol [columnNumbers]="{'lg': 6, 'md': 6, 'sm': 6}">
+                <div class="form-item">
+                    <div class="btn-action">
+                        <button type="button" (click)="onReset(newConsoleForm)" ibmButton="secondary" style="margin-right: 24px; width: 178px; height: 40px;">Reset</button>
+                        <!-- <button type="reset" ibmButton="secondary" style="margin-right: 24px; width: 178px; height: 40px;">Reset</button> -->
+                        <button type="submit" ibmButton="primary" style="width: 178px; height: 40px;">Preview</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <ibm-modal [open]="open" (overlaySelected)="open = false">
+                <ibm-modal-header (closeSelect)="open = false">
+                    <p class="bx--modal-header__label bx--type-delta">Notice</p>
+                    <p class="bx--modal-header__heading bx--type-beta">Your Request will be Placed in The Waiting List</p>
+                </ibm-modal-header>
+                <div class="bx--modal-content">
+                    <p>
+                        Any Next Day bookings made after <b>15:00</b> or made on the same day will be included in the <b>Waiting List.</b>
+                        <br><br>
+                        Your request will be considered according to the available slots based on the arrangement that has been made for the selected date.
+                        <br><br>
+                        You may create another Next Day booking before 15:00 if you wish to have your request scheduled as normal.
+                        <br><br>
+                        In case there are no slots available, our personnel will be in touch with you.
+                        <br><br>
+                        To cancel your booking, kindly contact KSB.
+                        <br><br>
+                        Thank you.</p>
+                </div>
+                <ibm-modal-footer>
+                    <ng-container>
+                        <button
+                            ibmButton="primary"
+                            (click)="open = false"
+                            [attr.modal-primary-focus]="true">
+                            Continue
+                        </button>
+                    </ng-container>
+                </ibm-modal-footer>
+            </ibm-modal>
+        </div>
+
+        
+
+    </form>
+</div>

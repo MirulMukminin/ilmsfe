@@ -1,0 +1,170 @@
+<div ibmGrid class="bx--grid--full-width">
+  <div
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+    [leftGutter]="false"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 10, md: 10, sm: 10 }">
+      <ibm-breadcrumb [noTrailingSlash]="true">
+        <ibm-breadcrumb-item [current]="true">
+          Operation System
+        </ibm-breadcrumb-item>
+        <ibm-breadcrumb-item>
+          <a routerLink="/operation-system/cfs-request-list"
+            >Centralised Food Services</a
+          >
+        </ibm-breadcrumb-item>
+        <ibm-breadcrumb-item [current]="true">
+          New Container Registration Form
+        </ibm-breadcrumb-item>
+      </ibm-breadcrumb>
+    </div>
+  </div>
+
+  <div
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+    [leftGutter]="false"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 10, md: 10, sm: 6 }">
+      <span class="ph03">New Container Registration Form</span>
+    </div>
+  </div>
+
+  <div
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+    [leftGutter]="false"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+      <div class="d-flex">
+        <div class="w-40"><span class="ph01 text-bold">Company Name</span></div>
+        <div>
+          <span class="bs01">{{ companyName }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+    [leftGutter]="false"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+      <div class="d-flex">
+        <div class="w-40"><span class="ph01 text-bold">Request By</span></div>
+        <div>
+          <span class="bs01">{{ requestBy }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+    [leftGutter]="false"
+    *ngIf="isEdit"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+      <div class="d-flex">
+        <div class="w-40"><span class="ph01 text-bold">Form No</span></div>
+        <div>
+          <span class="bs01">{{ formNo }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+    [leftGutter]="false"
+    *ngIf="isEdit"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+      <div class="d-flex">
+        <div class="w-40"><span class="ph01 text-bold">Status</span></div>
+        <div>
+          <span class="bs01">{{ status }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64"
+    [leftGutter]="false"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+      <fieldset class="bx--fieldset">
+        <!-- <ibm-label>Request Type</ibm-label> -->
+  <!-- <ibm-radio-group [(ngModel)]="requestType" (change)="onChange($event)">
+                    <ibm-radio value="Normal" [checked]="checked">
+                        Normal
+                    </ibm-radio>
+                    <ibm-radio value="Console" [checked]="checkedConsole" (click)="onClickCancelConsole()">
+                        Console
+                    </ibm-radio>
+                </ibm-radio-group>
+        <ibm-combo-box
+          label="Request Type"
+          placeholder="Choose an option"
+          itemValueKey="content"
+          [dropUp]="false"
+          name="requestType"
+          [(ngModel)]="requestType"
+          [items]="requestTypeList"
+          [disabled]="isEdit"
+        >
+          <ibm-dropdown-list></ibm-dropdown-list>
+        </ibm-combo-box>
+      </fieldset>
+    </div>
+  </div> -->
+</div>
+
+<!-- <app-plug-on-off
+  [companyName]="companyName"
+  [requestBy]="requestBy"
+  [isEdit]="isEdit"
+  [formData]="formData"
+  *ngIf="requestType === 'Plug On/ Plug Off Food Container Services'"
+></app-plug-on-off> -->
+
+<app-storage
+  [companyName]="companyName"
+  [requestBy]="requestBy"
+  [isEdit]="isEdit"
+  [formData]="formData"
+  *ngIf="requestType === 'Storage of Food Container'"
+></app-storage>
+
+<!-- <app-loading-cabling
+  [companyName]="companyName"
+  [requestBy]="requestBy"
+  [isEdit]="isEdit"
+  [formData]="formData"
+  *ngIf="requestType === 'Request Loading & Cabling Container on Vessel'"
+></app-loading-cabling> -->
+
+<!-- <app-housekeeping-cleaning-stuffing
+  [companyName]="companyName"
+  [requestBy]="requestBy"
+  [isEdit]="isEdit"
+  [formData]="formData"
+  *ngIf="
+    requestType ===
+    'Request Housekeeping, Cleaning And Stuffing In Food Container'
+  "
+></app-housekeeping-cleaning-stuffing> -->
+
+<!-- <app-repair
+  [companyName]="companyName"
+  [requestBy]="requestBy"
+  [isEdit]="isEdit"
+  [formData]="formData"
+  *ngIf="requestType === 'Request Repair Container'"
+></app-repair> -->

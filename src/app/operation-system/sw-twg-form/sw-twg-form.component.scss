@@ -1,0 +1,63 @@
+.w-100 {
+  width: 100px;
+}
+
+.w-80 {
+  width: 80px;
+}
+
+.w-130 {
+  width: 130px;
+}
+
+.table-action {
+  background: #0f62fe;
+  width: 100%;
+}
+
+.actions {
+  display: flex;
+  float: right;
+}
+
+.del,
+.cancel {
+  padding-top: 7px;
+}
+
+.del button {
+  border-right: 2px solid white;
+}
+
+.cancel button,
+.del button {
+  padding: 0px 20px;
+}
+
+.del img {
+  left: -39%;
+  position: relative;
+  top: 15%;
+}
+
+.white-bg tr td {
+  background: #ffff;
+}
+
+.bx--data-table .bx--text-input {
+  background: #f4f4f4;
+}
+
+::ng-deep {
+  .bx--inline-notification__text-wrapper {
+    display: block !important;
+  }
+
+  .bx--inline-notification__icon {
+    display: block;
+  }
+}
+
+.bx--inline-notification {
+  height: 5rem;
+}

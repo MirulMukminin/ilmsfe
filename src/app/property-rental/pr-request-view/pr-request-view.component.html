@@ -1,0 +1,169 @@
+<div class="body">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item home">Property Rental</li>
+    <li class="breadcrumb-item">
+      <a (click)="onClickBreadcrumb()">Request List</a>
+    </li>
+    <li class="breadcrumb-item current">Form Preview</li>
+  </ol>
+
+  <div class="category-title">Property Rental</div>
+
+  <div class="page-title">Property Rental Request Form Preview</div>
+
+  <table class="request-preview-table">
+    <tr class="table-item">
+      <th class="table-header">Form No</th>
+      <td class="table-data">{{ formData?.formNo }}</td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Status</th>
+      <td class="table-data">{{ formData?.formStatus }}</td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Company Name</th>
+      <td class="table-data">{{ companyData?.companyName }}</td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Registered Address</th>
+      <td class="table-data">{{ companyData?.companyAddress }}</td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Registered Telephone/Fax</th>
+      <td class="table-data">{{ companyData?.companyPhone }}</td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Business Contact Person</th>
+      <td class="table-data">{{ companyData?.companyContactPerson }}</td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Business Contact Person's Designation</th>
+      <td class="table-data">
+        {{ companyData?.companyContactPersonDesignation }}
+      </td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Business Contact Person's Email</th>
+      <td class="table-data">{{ companyData?.companyContactPersonEmail }}</td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Space Type</th>
+      <td class="table-data">
+        {{ propertyData?.propertyType }}
+      </td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Space Area (sq.m.)</th>
+      <td class="table-data">
+        {{ propertyData?.propertySpace }}
+      </td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Period of Contract</th>
+      <td class="table-data">
+        {{ formData?.requestPeriod }}
+      </td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Commencement Date</th>
+      <td class="table-data">
+        {{ contractData?.contractDate }}
+      </td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Scope of Activities of Company</th>
+      <td class="table-data">
+        {{ activitiesData?.activitiesScope }}
+      </td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Current Contract Organization</th>
+      <td class="table-data">
+        {{ activitiesData?.activitiesCurrentOrganization }}
+      </td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Current Contract Period</th>
+      <td class="table-data">
+        {{ contractData?.contractPeriod }}
+      </td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Details of Activities Under Current Contract</th>
+      <td class="table-data">
+        {{ activitiesData?.activitiesDetails }}
+      </td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Percentage of Share Amongst Shareholders</th>
+      <td class="table-data">
+        {{ activitiesData?.activitiesShareholdersPercentage }}%
+      </td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Percentage of Share Amongst Non-Malaysian</th>
+      <td class="table-data">
+        {{ activitiesData?.activitiesShareholderNonMalaysian }}%
+      </td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Percentage of Share Amongst Malaysian</th>
+      <td class="table-data">
+        {{ activitiesData?.activitiesShareholderMalaysian }}%
+      </td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Percentage of Share Amongst Bumiputera</th>
+      <td class="table-data">
+        {{ activitiesData?.activitiesShareholderBumiputera }}%
+      </td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Percentage of Share Amongst Non-Bumiputera</th>
+      <td class="table-data">
+        {{ activitiesData?.activitiesShareholderNonBumiputera }}%
+      </td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Banker Name</th>
+      <td class="table-data">
+        {{ contractData?.contractBank }}
+      </td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Banker Address</th>
+      <td class="table-data">
+        {{ contractData?.contractBankAddress }}
+      </td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Company Director Name</th>
+      <td class="table-data">{{ companyData?.companyDirectorName }}</td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Company Director Address</th>
+      <td class="table-data">
+        {{ companyData?.companyDirectorAddress }}
+      </td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Name of Principal</th>
+      <td class="table-data">{{ companyData?.companyPrincipal }}</td>
+    </tr>
+    <tr class="table-item">
+      <th class="table-header">Projected Turnover</th>
+      <td class="table-data">{{ companyData?.companyTurnover }}</td>
+    </tr>
+  </table>
+
+  <div class="buttons request-view">
+    <button class="btn-back">Back</button>
+    <button class="btn-cancel">Cancel</button>
+    <label class="table-file-upload">
+      <input type="file" />
+      Upload Premise Status Checklist
+    </label>
+    <button class="btn-endorse">Endorse</button>
+  </div>
+  <div class="footer"></div>
+</div>

@@ -1,0 +1,187 @@
+<div ibmGrid class="bx--grid--full-width">
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-33">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+      <ibm-breadcrumb [noTrailingSlash]="true">
+        <ibm-breadcrumb-item [current]="true">
+          Operations System
+        </ibm-breadcrumb-item>
+        <ibm-breadcrumb-item>
+          <a routerLink="/operation-system/mhe-request-list">MHE</a>
+        </ibm-breadcrumb-item>
+        <ibm-breadcrumb-item [current]="true">
+          Endorsed Request
+        </ibm-breadcrumb-item>
+      </ibm-breadcrumb>
+    </div>
+  </div>
+
+  <div>
+    <app-booking-time-counter></app-booking-time-counter>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-40">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+      <span class="ph03">MHE Endorsed Request List</span>
+      <p ibmTableHeaderDescription>
+        All of the MHE endorsed request in ILMS application
+      </p>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-40">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+      <span class="sans-semibold-14">Endorsed Request Date Selection</span>
+    </div>
+  </div>
+
+  <div
+    ibmRow
+    class="date-layout bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-40"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+      <div style="display: flex" class="pl-16 pr-16">
+        <ibm-date-picker
+          class="pr-2"
+          style="flex: 1; padding-top: 24px"
+          label="From"
+          rangeLabel="To"
+          [range]="true"
+          [placeholder]="placeholder"
+          [dateFormat]="dateFormat"
+          (valueChange)="valueChange($event); rangeDates = $event"
+          [value]="[fromDate, toDate]"
+        >
+        </ibm-date-picker>
+
+        <div style="padding-top: 48px; display: inline-block">
+          <button
+            type="button"
+            ibmButton="secondary"
+            size="field"
+            (click)="displayRange(rangeDates)"
+          >
+            Apply
+          </button>
+          <button
+            class="ml-16"
+            type="button"
+            ibmButton="primary"
+            size="field"
+            (click)="resetDate(rangeDates)"
+            (click)="userInfo()"
+            [disabled]="disabledReset"
+          >
+            Reset
+          </button>
+        </div>
+        <div style="flex: 2; padding-top: 48px">
+          <button
+            type="button"
+            ibmButton="primary"
+            size="field"
+            (click)="exportexcel()"
+            class="exportBtn"
+          >
+            Export
+          </button>
+        </div>
+      </div>
+
+      <div
+        ibmCol
+        [columnNumbers]="{ lg: 12, md: 10, sm: 6 }"
+        class="pt-16 pb-60"
+      >
+        <ibm-table-container class="table-style">
+          <ibm-table-toolbar>
+            <ibm-table-toolbar-content class="white-bg">
+              <button
+                ibmButton="secondary"
+                *ngIf="sortingOn"
+                size="sm"
+                type="button"
+                (click)="userInfo()"
+                (click)="sortingOn = false"
+              >
+                <span style="margin-right: 42px"> Reset Sorting</span>
+                <div
+                  class="icon-addAlt"
+                  ibmIcon="filter--reset"
+                  size="20"
+                ></div>
+              </button>
+              <button
+                ibmButton="secondary"
+                size="sm"
+                type="button"
+                class="addNew"
+                (click)="userInfo()"
+              >
+                Refresh
+                <div class="icon-addAlt" ibmIcon="renew" size="20"></div>
+              </button>
+            </ibm-table-toolbar-content>
+          </ibm-table-toolbar>
+          <div class="horizontal-overflow-table">
+            <ng-template #customTableItemTemplate let-data="data">
+              <a
+                [routerLink]="[
+                  '/operation-system/mhe-endorse-request-details',
+                  data.link
+                ]"
+                >{{ data.requestnumber }}</a
+              >
+            </ng-template>
+
+            <ibm-table
+              id=""
+              [model]="model"
+              [striped]="false"
+              [showSelectionColumn]="false"
+              (sort)="doSort($event)"
+            ></ibm-table>
+          </div>
+
+          <ibm-pagination
+            [model]="model"
+            [itemsPerPageOptions]="itemsPerPageOptions"
+            (selectPage)="selectPage($event)"
+          ></ibm-pagination>
+        </ibm-table-container>
+      </div>
+
+      <div style="margin: auto; width: 50%; display: none">
+        <table id="excel-table" style="display: none">
+          <tr>
+            <th>No.</th>
+            <th>Request No.</th>
+            <th>Request Type</th>
+            <th>Date Submit</th>
+            <th>Booking Date</th>
+            <th>Status</th>
+          </tr>
+          <tr *ngFor="let value of endorsedRequestList; let i = index">
+            <td>
+              {{ i + 1 }}
+            </td>
+            <td>
+              {{ value.requestnumber }}
+            </td>
+            <td>
+              {{ value.booking_type }}
+            </td>
+            <td>
+              {{ value.datesubmit }}
+            </td>
+            <td>
+              {{ value.booking_date }}
+            </td>
+            <td>
+              {{ value.status }}
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,122 @@
+@import "~carbon-components/scss/globals/scss/vendor/@carbon/type/scss/font-family";
+@import "~carbon-components/scss/globals/scss/typography";
+.white-bg {
+    background-color: #fff;
+}
+
+.icon-addAlt {
+    //position: relative;
+    left: 40px;
+    top: 2px;
+}
+
+.bx--btn--primary {
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent;
+    background-color: #1d6f42;
+    color: #ffffff;
+}
+
+// .printable {
+//     display: none;
+// }
+// .print-table td,
+// .print-table th {
+//     border: 1px solid;
+//     padding: 5px;
+// }
+// .print-table {
+//     width: 100%;
+//     border-collapse: collapse;
+// }
+// .print-table thead td {
+//     font-weight: bold;
+// }
+.printable-special {
+    display: none;
+}
+
+::ng-deep {
+    .bx--search--sm .bx--search-input {
+        height: 48px;
+    }
+    .bx--btn--sm {
+        padding: 3px 16px 3px 16px;
+    }
+    @media print {
+        body * {
+            visibility: hidden;
+        }
+        .printable-special {
+            display: revert !important;
+        }
+        .printable,
+        .printable * {
+            // display: revert !important;
+            visibility: visible;
+            padding: 0px;
+            margin: 0px;
+        }
+         ::-webkit-scrollbar {
+            display: none;
+        }
+        .topPartPrint {
+            display: none;
+        }
+        .raw-table-styling .bx--data-table td,
+        .raw-table-styling .bx--data-table tbody th {
+            border-top: 1px solid #f4f4f4;
+            border-bottom: 1px solid #e0e0e0;
+            border: 1px solid;
+        }
+        .bx--data-table-header__description {
+            padding-bottom: 20px;
+        }
+        .raw-table-styling .bx--data-table--sort th {
+            border: 1px solid;
+            padding-right: 1rem;
+            padding-left: 1rem;
+        }
+        .raw-table-styling .bx--data-table td,
+        .raw-table-styling .bx--data-table tbody th,
+        .raw-table-styling .bx--table-sort,
+        .raw-table-styling .bx--data-table th {
+            background: white;
+        }
+        .raw-table-styling .bx--data-table-header__description {
+            padding-bottom: 20px;
+        }
+        .raw-table-styling .bx--pagination,
+        .raw-table-styling .bx--pagination .bx--select-input,
+        .raw-table-styling .bx--table-sort.bx--table-sort--active {
+            background-color: white;
+        }
+        svg {
+            display: none !important;
+        }
+    }
+    @media only screen and (min-width: 768px) {
+        .bx--search-magnifier {
+            margin-right: 1rem;
+            margin-left: 1rem;
+        }
+        .addNew {
+            width: 180px;
+        }
+    }
+    @media only screen and (max-width: 767px) {
+        .bx--search-magnifier {
+            margin-right: 0rem;
+            margin-left: 0rem;
+            width: 50px;
+        }
+        .bx--search--sm .bx--search-input,
+        .bx--search--sm.bx--search--expandable.bx--search--expanded .bx--search-input {
+            padding: 0 1rem;
+        }
+        .addNew {
+            width: 145px;
+        }
+    }
+}

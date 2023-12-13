@@ -1,0 +1,279 @@
+<div ibmGrid class="bx--grid--full-width" style="padding-bottom: 133px;">
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-33">
+        <div ibmCol [columnNumbers]="{ 'lg': 6 }">
+            <ibm-breadcrumb [noTrailingSlash]="true">
+                <ibm-breadcrumb-item [current]="true" href="#1">
+                    Settings
+                </ibm-breadcrumb-item>
+                <ibm-breadcrumb-item [current]="true" href="#2">
+                    User Registration
+                </ibm-breadcrumb-item>
+            </ibm-breadcrumb>
+        </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+        <div ibmCol [columnNumbers]="{'lg': 6}" class="pl-0 pr-0">
+            <div class="title">
+                <span class="ph03">User Registration</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+
+        <div ibmCol [columnNumbers]="{'lg': 4, 'md': 4, 'sm': 4}" class="pl-0 pr-0 switcher-style">
+            <ibm-content-switcher (selected)="selected($event)">
+                <button ibmContentOption name="authorizedPerson">Authorized Person</button>
+                <button ibmContentOption name="agents">Agents</button>
+            </ibm-content-switcher>
+        </div>
+
+    </div> -->
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-48">
+
+        <div ibmCol [columnNumbers]="{'lg': 12, 'md': 10, 'sm': 6}" class="pl-0 pr-0">
+
+            <!-- <div *ngIf="switch == 'authorizedPerson'">
+
+                <ibm-table-container class="table-style">
+
+                    <ibm-table-header class="white-bg">
+                        <h4 ibmTableHeaderTitle><span class="ph03">Authorized Persons</span></h4>
+                        <p ibmTableHeaderDescription>List of authorized person for your company</p>
+                    </ibm-table-header>
+                    <ibm-table-toolbar>
+                        <ibm-table-toolbar-content class="white-bg"> -->
+                            <!-- <ibm-table-toolbar-search
+                                ngDefaultControl
+                                [expandable]="true"
+                                [(ngModel)]="searchModel">
+                            </ibm-table-toolbar-search> -->
+                            <!-- <button [ibmButton]="primary" size="sm" type="button" (click)="addUser()">
+                                Add User
+                                <div class="icon-addAlt" ibmIcon="add--alt" size="20"></div>
+                            </button>
+                        </ibm-table-toolbar-content>
+                    </ibm-table-toolbar>
+
+                    <div class="horizontal-overflow-table">
+                        <table ibmTable [sortable]="false">
+                            <thead ibmTableHead>
+                                <tr>
+                                    <th scope="col" ibmTableHeadCell *ngFor="let column of APmodel.header" [column]="column">
+
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ibmTableRow *ngFor="let items of item">
+                                    <td>{{ items.logInID }}</td>
+                                    <td>{{ items.name }}</td>
+                                    <td>{{ items.email }}</td>
+                                    <td>{{ items.pNumber }}</td>
+                                    <td>{{ items.role }}</td>
+                                    <td>
+                                        <div>
+                                            <ibm-overflow-menu [flip]="flip" [offset]="offset">
+                                                <ibm-overflow-menu-option>
+                                                    Edit
+                                                </ibm-overflow-menu-option>
+                                                <ibm-overflow-menu-option>
+                                                    Delete
+                                                </ibm-overflow-menu-option>
+                                            </ibm-overflow-menu>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <ibm-pagination [model]="model"></ibm-pagination>
+                </ibm-table-container>
+
+            </div> -->
+<!--  -->
+            <!-- <div *ngIf="switch == 'agents'"> -->
+
+                <ibm-table-container class="table-style">
+
+                    <ibm-table-header class="white-bg">
+                        <h4 ibmTableHeaderTitle><span class="ph03">Agents</span></h4>
+                        <p ibmTableHeaderDescription>List of agents for your company</p>
+                    </ibm-table-header>
+                    <ibm-table-toolbar>
+                        <ibm-table-toolbar-content >
+                            <!-- <ibm-table-toolbar-search
+                                ngDefaultControl
+                                [expandable]="true"
+                                [(ngModel)]="searchModel">
+                            </ibm-table-toolbar-search> -->
+                            <div *ngIf="!rowCheckStatus">
+                                <button ibmButton="primary" type="button"  (click)="assignAgent()">
+                                    Assign Agent
+                                    <div class="icon-addAlt" ibmIcon="add--alt" size="20"></div>
+                                </button>
+                            </div>
+                           
+
+                            <div class="table-action" *ngIf="rowCheckStatus">
+                                <div class="actions">
+                                    <div class="del">
+                                        <Button ibmButton="primary" size="sm" type="button" (click)="unassignAgent()">
+                                            Unassign
+                                            <div class="icon-trashCan iconPost ml-16 mt-4" ibmIcon="trash-can" size="20"></div>
+                                        </Button>
+                                    </div>
+                                    <div class="cancel">
+                                        <button ibmButton="primary" size="sm" type="button" (click)="cancelCheckStatus()">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </ibm-table-toolbar-content>
+
+
+                    
+
+
+
+                    </ibm-table-toolbar>
+                    <div class="horizontal-overflow-table">
+                        <!-- <table ibmTable [sortable]="false">
+                            <thead ibmTableHead>
+                                <tr>
+                                    <th scope="col" ibmTableHeadCell *ngFor="let column of agentModel.header" [column]="column">
+
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr ibmTableRow *ngFor="let items of dataset_agent">
+                                    <td>{{ items.login}}</td>
+                                    <td>{{ items.name }}</td>
+                                    <td>{{ items.email }}</td>
+                                    <td>{{ items.contact_Number }}</td>
+                                    <td>{{ items.assign_Date }}</td>
+                                    <td>{{ items.active }}</td>
+                                    <td>{{ items.inactive_date }}</td>
+                                    <td>
+                                        <div>
+                                            <ibm-overflow-menu [flip]="flip" [offset]="offset">
+                                                <ibm-overflow-menu-option>
+                                                    Edit
+                                                </ibm-overflow-menu-option>
+                                                <ibm-overflow-menu-option>
+                                                    Delete
+                                                </ibm-overflow-menu-option>
+                                            </ibm-overflow-menu>
+                                        </div>
+                                    </td>
+                                </tr> -->
+
+                                <!-- <tr ibmTableRow>
+                                <td>fatin_ep</td>
+                                <td>Nur Fatin Najmi Bt Mat Lazin</td>
+                                <td>nurfatin@epicgroup.com.my</td>
+                                <td>0194189042</td>
+                                <td>Endorser</td>
+                                <td>
+                                    <div>
+                                        <ibm-overflow-menu
+                                            [flip]="flip"
+					                        [offset]="offset"
+                                        >
+                                            <ibm-overflow-menu-option>
+                                                Edit
+                                            </ibm-overflow-menu-option>
+                                            <ibm-overflow-menu-option>
+                                                Delete
+                                            </ibm-overflow-menu-option>
+                                        </ibm-overflow-menu>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr ibmTableRow>
+                                <td>izzah_ep</td>
+                                <td>Nurul Izzah Bt Zainul Abidin</td>
+                                <td>nurul.izzah@epicgroup.com.my</td>
+                                <td>01748529635</td>
+                                <td>Endorser</td>
+                                <td>
+                                    <div>
+                                        <ibm-overflow-menu
+                                            [flip]="flip"
+                                            [offset]="offset"
+                                        >
+                                            <ibm-overflow-menu-option>
+                                                Edit
+                                            </ibm-overflow-menu-option>
+                                            <ibm-overflow-menu-option>
+                                                Delete
+                                            </ibm-overflow-menu-option>
+                                        </ibm-overflow-menu>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr ibmTableRow>
+                                <td>aziz_ep</td>
+                                <td>Abdul Aziz B Che Mat</td>
+                                <td>aziz@easternpacific.com.my</td>
+                                <td>0154896357</td>
+                                <td>Endorser &amp; Requster</td>
+                                <td>
+                                    <div>
+                                        <ibm-overflow-menu
+                                            [flip]="flip"
+                                            [offset]="offset"
+                                        >
+                                            <ibm-overflow-menu-option>
+                                                Edit
+                                            </ibm-overflow-menu-option>
+                                            <ibm-overflow-menu-option>
+                                                Delete
+                                            </ibm-overflow-menu-option>
+                                        </ibm-overflow-menu>
+                                    </div>
+                                </td>
+                            </tr> -->
+
+                            <!-- </tbody>
+                        </table> -->
+
+                        <ng-template #customTableItemTemplate let-data="data">
+                            <!-- <div>
+                                <ibm-overflow-menu [flip]="flip" [offset]="offset">
+                                    <ibm-overflow-menu-option>
+                                        Edit
+                                    </ibm-overflow-menu-option>
+                                    <ibm-overflow-menu-option>
+                                        Delete
+                                    </ibm-overflow-menu-option>
+                                </ibm-overflow-menu>
+                            </div> -->
+                            <ibm-checkbox name="checkbox_{{data.id}}" [checked]="data.value"  [(ngModel)]="data.select" (checkedChange)="onCheckedChange($event, data.id)">
+                            </ibm-checkbox>
+                          </ng-template>
+                    
+                        <ibm-table
+                        [model]="agentModel"
+                        [striped]="false"
+                        [showSelectionColumn]="false"
+                      ></ibm-table>
+                    </div>
+                    <ibm-pagination [model]="agentModel" (selectPage)="selectAgentPage($event)"></ibm-pagination>
+                </ibm-table-container>
+
+            <!-- </div> -->
+        </div>
+
+    </div>
+
+</div>

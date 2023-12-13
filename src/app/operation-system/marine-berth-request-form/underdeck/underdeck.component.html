@@ -1,0 +1,195 @@
+<div class="pt-32">
+  <ibm-table-container>
+    <ibm-table-header>
+      <h4 ibmTableHeaderTitle>Scope of Work Request</h4>
+
+      <span ibmTableHeaderDescription
+        >Please fill in the forms below for any service request from KSB</span
+      >
+    </ibm-table-header>
+
+    <div>
+      <table class="bx--data-table">
+        <thead>
+          <tr>
+            <th class="header1">Select</th>
+            <th class="header2">Item</th>
+            <!-- <th class="header3">Date</th> -->
+            <!-- <th class="header4">Time</th> -->
+            <th class="header5">Quantity In (MT)</th>
+            <th class="header5">Quantity Out (MT)</th>
+            <th class="header6"></th>
+          </tr>
+        </thead>
+
+        <tbody
+          class="white-bg"
+          [ngClass]="{ 'invalid-class': underDeckInvalid }"
+        >
+          <tr
+            *ngFor="let underDeck of listOfUnderDeck; let postIndex = index"
+            class="white-bg"
+          >
+            <td>
+              <ibm-checkbox
+                name="checkbox_{{ underDeck.id }}"
+                [(ngModel)]="underDeck.Selected"
+                (ngModelChange)="onSelected()"
+              >
+              </ibm-checkbox>
+            </td>
+            <td>
+              {{ underDeck.Item }}
+            </td>
+            <!-- <td>
+              <ibm-date-picker
+                [placeholder]="placeholder"
+                [size]="size"
+                [dateFormat]="dateFormat"
+                [invalid]="invalidSingleDate[postIndex]"
+                [invalid]="invalidbackDated[postIndex]"
+                (change)="validateDate(postIndex)"
+                required
+                name="underdeckDate"
+                [(ngModel)]="underDeck.Date"
+              >
+              </ibm-date-picker>
+              <span
+                *ngIf="invalidbackDated[postIndex]"
+                class="invalid-class-label"
+              >
+                Please select today's date or after today's date
+              </span>
+              <span
+                *ngIf="invalidSingleDate[postIndex]"
+                class="invalid-class-label"
+              >
+                Date Required
+              </span>
+            </td> -->
+            <!-- <td class="w-130">
+              <ibm-dropdown
+                placeholder="Select"
+                [dropUp]="false"
+                itemValueKey="content"
+                (selected)="validateTime(postIndex)"
+                [invalid]="invalidTime[postIndex]"
+                invalidText="Time Required"
+                [(ngModel)]="underDeck.Time"
+              >
+                <ibm-dropdown-list [items]="timeArr"></ibm-dropdown-list>
+              </ibm-dropdown>
+            </td> -->
+            <td class="w-130">
+              <ibm-label
+                [invalid]="invalidTonnes[postIndex]"
+                invalidText="Quantity In/Out Required"
+                class="pb-10"
+              >
+                <input
+                  ibmText
+                  type="number"
+                  min="0"
+                  name="quantity_in_{{ underDeck.id }}"
+                  value="{{ underDeck.requestQuantityIn }}"
+                  [invalid]="invalidTonnes[postIndex]"
+                  [(ngModel)]="underDeck.requestQuantityIn"
+                  (ngModelChange)="validateTonnes(postIndex)"
+                  required
+                />
+              </ibm-label>
+            </td>
+            <td class="w-130">
+              <ibm-label
+                [invalid]="invalidTonnes[postIndex]"
+                invalidText="Quantity In/Out Required"
+                class="pb-10"
+              >
+                <input
+                  ibmText
+                  type="number"
+                  min="0"
+                  name="quantity_out_{{ underDeck.id }}"
+                  value="{{ underDeck.requestQuantityOut }}"
+                  [invalid]="invalidTonnes[postIndex]"
+                  [(ngModel)]="underDeck.requestQuantityOut"
+                  (ngModelChange)="validateTonnes(postIndex)"
+                  required
+                />
+              </ibm-label>
+            </td>
+            <td class="w-130">
+              <!-- <ibm-label
+                *ngIf="
+                  underDeck.Item == 'OBM' ||
+                  underDeck.Item == 'SBM' ||
+                  underDeck.Item == 'Base Oil' ||
+                  underDeck.Item == 'Ship to Ship Water' ||
+                  underDeck.Item == 'Ship to Ship Fuel'
+                "
+                [invalid]="invalidBarrel[postIndex]"
+                invalidText="Barrel Required"
+                class="pb-10"
+              >
+                <input
+                  ibmText
+                  type="number"
+                  min="0"
+                  name="barrel_{{ underDeck.id }}"
+                  value="{{ underDeck.Barrel }}"
+                  [invalid]="invalidBarrel[postIndex]"
+                  required
+                  [(ngModel)]="underDeck.Barrel"
+                  (ngModelChange)="validateBarrel(postIndex)"
+                />
+              </ibm-label> -->
+              <!--
+                            <ibm-label *ngIf="underDeck.Item == 'OBM' || underDeck.Item == 'SBM' ||underDeck.Item == 'Base Oil'" class="pb-10">
+                                <input required ibmText type="text" name="barrel{{underDeck.id}}" value="{{underDeck.Barrel}" [invalid]="invalidBarrel[postIndex]" [(ngModel)]="underDeck.Barrel">
+                            </ibm-label> -->
+            </td>
+          </tr>
+        </tbody>
+        <div
+          style="width: 200px"
+          *ngIf="underDeckInvalid"
+          class="invalid-class-label"
+        >
+          Please select one or more item
+        </div>
+      </table>
+    </div>
+  </ibm-table-container>
+  <div ibmRow class="pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 10, md: 10, sm: 6 }">
+      <div class="form-item">
+        <div class="btn-action">
+          <button
+            type="button"
+            ibmButton="secondary"
+            style="margin-right: 24px"
+            (click)="changeStep(0)"
+          >
+            Back
+          </button>
+          <button
+            (click)="onSave()"
+            type="button"
+            ibmButton="primary"
+            style="margin-right: 24px"
+          >
+            Save
+          </button>
+          <button
+            type="submit"
+            ibmButton="primary"
+            (click)="changeStep(2)"
+            [disabled]="!onSubmit"
+          >
+            Preview
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,93 @@
+<div class="body">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item home">Property Rental</li>
+    <li class="breadcrumb-item current">
+      <a routerLink="/property-rental/rental-request-form"></a>Property List
+    </li>
+  </ol>
+
+  <div class="category-title">Property Rental</div>
+
+  <div class="page-title">
+    Property Rental Property List
+    <p class="page-description">Property list in ILMS application</p>
+  </div>
+  <div class="table-title"><span>Warehouse List</span></div>
+  <table>
+    <tr class="table-header">
+      <th class="table-header-data">Property Name</th>
+      <th class="table-header-data">Area Space</th>
+      <th class="table-header-data">Contract Start Date</th>
+      <th class="table-header-data">Contract End Date</th>
+      <th class="table-header-data">Status</th>
+      <th class="table-header-data">Action</th>
+    </tr>
+
+    <tr
+      class="table-data"
+      class="table-data"
+      *ngFor="let item of warehouseData"
+    >
+      <td class="table-data-item">{{ item?.propertyName }}</td>
+      <td class="table-data-item">{{ item?.propertySpace }}</td>
+      <td class="table-data-item">
+        {{ getContractDate(item.contractId, "start") }}
+      </td>
+      <td class="table-data-item">
+        {{ getContractDate(item.contractId, "end") }}
+      </td>
+      <td class="table-data-item">{{ item?.propertyStatus }}</td>
+      <td class="table-data-item">
+        <button
+          class="btn-terminate"
+          [disabled]="item.propertyStatus !== 'Contracted'"
+          (click)="
+            item.propertyStatus === 'Contracted'
+              ? onItemClick(item.propertyId)
+              : null
+          "
+        >
+          Terminate
+        </button>
+      </td>
+    </tr>
+  </table>
+
+  <div class="table-title"><span>Office Space List</span></div>
+  <table>
+    <tr class="table-header">
+      <th class="table-header-data">Property Name</th>
+      <th class="table-header-data">Area Space</th>
+      <th class="table-header-data">Contract Start Date</th>
+      <th class="table-header-data">Contract End Date</th>
+      <th class="table-header-data">Status</th>
+      <th class="table-header-data">Action</th>
+    </tr>
+
+    <tr class="table-data" class="table-data" *ngFor="let item of officeData">
+      <td class="table-data-item">{{ item?.propertyName }}</td>
+      <td class="table-data-item">{{ item?.propertySpace }}</td>
+      <td class="table-data-item">
+        {{ getContractDate(item.contractId, "start") }}
+      </td>
+      <td class="table-data-item">
+        {{ getContractDate(item.contractId, "end") }}
+      </td>
+      <td class="table-data-item">{{ item?.propertyStatus }}</td>
+      <td class="table-data-item">
+        <button
+          class="btn-terminate"
+          [disabled]="item?.propertyStatus !== 'Contracted'"
+          (click)="
+            item.propertyStatus === 'Contracted'
+              ? onItemClick(item.propertyId)
+              : null
+          "
+        >
+          Terminate
+        </button>
+      </td>
+    </tr>
+  </table>
+  <div class="footer"></div>
+</div>

@@ -1,0 +1,96 @@
+legend {
+    font-size: 12px;
+}
+
+.combobox {
+    min-width: 564px;
+    // max-width: 564px;
+}
+
+::ng-deep {
+    td {
+        background-color: #ffffff !important;
+    }
+    .bx--form__helper-text {
+        color: #c6c6c6;
+    }
+    .bx--btn--sm {
+        padding: 3px 16px 3px 16px;
+    }
+    .bx--number__input-wrapper {
+        width: max-content;
+    }
+    .bx--number input[type=number] {
+        padding-right: 0;
+        width: 90px;
+        min-width: unset;
+    }
+    .bx--number__controls {
+        flex-direction: column-reverse;
+        // right: 10px;
+        width: 35px;
+    }
+    .bx--number__control-btn::before,
+    .bx--number__control-btn::after {
+        display: none;
+    }
+    .bx--number__control-btn {
+        border-bottom: none;
+    }
+    .bx--number__invalid {
+        right: 2rem;
+    }
+    .bx--checkbox-wrapper {
+        align-items: center;
+    }
+    // .bx--list-box__menu{
+    //     margin-bottom: -261px;
+    // }
+    .bx--modal-content {
+        height: 320px;
+    }
+}
+
+.table-action {
+    background: #0f62fe;
+    width: 100%;
+}
+
+.actions {
+    display: flex;
+    float: right;
+}
+
+.del,
+.cancel {
+    padding-top: 7px;
+}
+
+.del button {
+    border-right: 2px solid white;
+}
+
+.cancel button,
+.del button {
+    padding: 0px 20px;
+}
+
+.del img {
+    left: -39%;
+    position: relative;
+    top: 15%;
+}
+
+.iconPost {
+    display: flex;
+}
+
+.invalid-class-label {
+    color: #da1e28;
+    max-height: 12.5rem;
+    font-weight: 400;
+    margin: 0.25rem 0 0;
+    line-height: 1.34;
+    letter-spacing: 0.32px;
+    font-size: 0.75rem;
+}

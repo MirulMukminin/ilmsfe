@@ -1,0 +1,75 @@
+<div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-48">
+  <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }" class="pl-0 pr-0">
+    <ibm-table-container class="table-style">
+      <ibm-table-header class="white-bg">
+        <h4 ibmTableHeaderTitle>
+          <span class="ph03">Buyer Confirmation List</span>
+        </h4>
+        <p ibmTableHeaderDescription>
+          Current and previous Buyer Confirmation Form
+        </p>
+      </ibm-table-header>
+      <ibm-table-toolbar>
+        <ibm-table-toolbar-content class="white-bg">
+          <ibm-table-toolbar-search
+            (valueChange)="searchFilter($event)"
+            (clear)="searchFilter($event)"
+            class="search-style"
+            [(ngModel)]="searchModel"
+          >
+          </ibm-table-toolbar-search>
+
+          <button
+            ibmButton="secondary"
+            *ngIf="sortingOn"
+            size="sm"
+            type="button"
+            (click)="userInfo()"
+            (click)="clearSearch()"
+            class="addRequest-btn"
+          >
+            Reset Sorting
+            <div class="addAlt-icon" ibmIcon="filter--reset" size="20"></div>
+          </button>
+          <button
+            ibmButton="secondary"
+            size="sm"
+            type="button"
+            class="addNew"
+            (click)="userInfo()"
+          >
+            Refresh
+            <div class="icon-addAlt" ibmIcon="renew" size="20"></div>
+          </button>
+        </ibm-table-toolbar-content>
+      </ibm-table-toolbar>
+
+      <div class="horizontal-overflow-table">
+        <div class="horizontal-overflow-table">
+          <ng-template #customTableItemTemplate let-data="data">
+            <a
+              style="text-decoration: none"
+              [routerLink]="[
+                '/wms/psb-transfer-owner-buyer-preview',
+                data.link
+              ]"
+              >{{ data.requestNo }}</a
+            >
+          </ng-template>
+
+          <ibm-table
+            [model]="model"
+            [striped]="false"
+            [showSelectionColumn]="false"
+            (sort)="doSort($event)"
+          ></ibm-table>
+        </div>
+      </div>
+      <ibm-pagination
+        [model]="model"
+        [itemsPerPageOptions]="itemsPerPageOptions"
+        (selectPage)="selectPage($event)"
+      ></ibm-pagination>
+    </ibm-table-container>
+  </div>
+</div>

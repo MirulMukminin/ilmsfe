@@ -1,0 +1,617 @@
+<div ibmGrid class="bx--grid--full-width" style="padding-bottom: 133px">
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 10, md: 10, sm: 10 }">
+      <ibm-breadcrumb [noTrailingSlash]="true">
+        <ibm-breadcrumb-item [current]="true">
+          Warehouse Management System
+        </ibm-breadcrumb-item>
+
+        <ibm-breadcrumb-item>
+          <a routerLink="/wms/psb-inventory-list">Petroleum Supply Base</a>
+        </ibm-breadcrumb-item>
+
+        <ibm-breadcrumb-item>
+          <a routerLink="/wms/psb-build-parts-list">Build from Parts</a>
+        </ibm-breadcrumb-item>
+
+        <ibm-breadcrumb-item [current]="true">
+          Request Form
+        </ibm-breadcrumb-item>
+      </ibm-breadcrumb>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+      <div>
+        <span class="ph03">Build from Parts Form</span>
+      </div>
+    </div>
+  </div>
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+      <div class="d-flex-row">
+        <div><span class="ph01 text-bold">Company Name</span></div>
+        <div class="pl-32">
+          <span class="bs01">{{ companyName }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+    <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+      <div class="d-flex-row">
+        <div><span class="ph01 text-bold">Request By</span></div>
+        <div class="pl-48">
+          <span class="bs01 pl-12">{{ requestBy }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-------------------------------- Build Parts Form ---------------------------------->
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+      <form #buildPartsForm="ngForm" (ngSubmit)="onSubmit(buildPartsForm)">
+        <div class="form-item" #dateFocus tabindex="1">
+          <ibm-date-picker
+            label="Parts Issue Date"
+            [placeholder]="placeholder"
+            [size]="size"
+            [dateFormat]="dateFormat"
+            [(ngModel)]="bpForm.issueDate"
+            name="issueDate"
+            [invalid]="invalidIssueDate"
+            (change)="dateValueChange($event)"
+            [invalidText]="dateInvalid"
+            required
+          >
+          </ibm-date-picker>
+        </div>
+
+        <div class="form-item">
+          <ibm-label>Category</ibm-label>
+
+          <ibm-radio-group
+            name="category"
+            [(ngModel)]="bpForm.category"
+            (change)="onChange($event)"
+          >
+            <ibm-radio
+              *ngFor="let radio of typeOfCategory"
+              [value]="radio.type"
+              [checked]="radio.checked"
+            >
+              {{ radio.type }}
+            </ibm-radio>
+          </ibm-radio-group>
+        </div>
+
+        <!--  <div class="form-item">
+                    <ibm-label>Type of Goods</ibm-label>
+                    <ibm-radio-group name="typeOfGoods"
+                    [(ngModel)]="bpForm.typeOfGoods"
+                    (change)="onChangeTypeOfGoods($event)"
+                    orientation="vertical">
+
+                        <ibm-radio *ngFor="let radioGoods of TypeOfGoods"
+                        [value]="radioGoods.type"
+                        [checked]="radioGoods.checked">
+                            {{radioGoods.type}}
+                        </ibm-radio>
+
+                    </ibm-radio-group>
+                    <ibm-label helperText="Please specify the Types of Goods" >
+                        <input ibmText type="text"
+                        [disabled]="disabledTypeOfGoods"
+                        name="othersTypeOfGoods"
+                        id="othersTypeOfGoods"
+                        [(ngModel)]="bpForm.otherTypeOfGood"
+                        [invalid]="invalidOtherTypeofGoods"
+                        invalidText="Please specify the Types of Goods"
+                        [required]="requiredOtherTypeofGoods">
+                    </ibm-label>
+                </div> -->
+
+        <div class="form-item" style="width: 292px">
+          <!-- [ngClass]="{'invalid-file': invalidUpload}" -->
+          <ibm-file-uploader
+            [title]="title"
+            [description]="description"
+            [accept]="accept"
+            [multiple]="multiple"
+            [dropText]="dropText"
+            [drop]="drop"
+            [(files)]="files"
+            (filesChange)="onUpload($event)"
+          >
+          </ibm-file-uploader>
+          <!-- <div *ngIf="invalidUpload" class="invalid-class-label">File required</div> -->
+        </div>
+
+        <div class="form-item" #remarksElement tabindex="4">
+          <!-- <ibm-label>
+                        Remarks (Optional) <span style="margin-left: 350px">0/100</span>
+                        <textarea ibmTextArea [rows]="6" maxlength="100" aria-label="textarea" name="remarks" [(ngModel)]="bpForm.remarks">
+                            </textarea>
+                    </ibm-label> -->
+
+          <label class="bx--label">Remarks (Optional)</label
+          ><label
+            class="bx--label"
+            [ngStyle]="{ color: invalidNumericRemarks ? '#da1e28' : '' }"
+            style="float: right"
+            >{{ numericRemarks }}/100</label
+          >
+          <textarea
+            ibmTextArea
+            aria-label="textarea"
+            maxlength="100"
+            [rows]="6"
+            name="remarks"
+            [(ngModel)]="bpForm.remarks"
+            (ngModelChange)="numericCount('remarks', bpForm.remarks)"
+          >
+          </textarea>
+          <div *ngIf="invalidNumericRemarks" class="invalid-class-label">
+            Reach maximum characters
+          </div>
+        </div>
+
+        <div class="form-item width-unset pt-32">
+          <ibm-table-container>
+            <ibm-table-header>
+              <h4 ibmTableHeaderTitle>Parts Issue</h4>
+
+              <span ibmTableHeaderDescription
+                >Please Add required items in the table below. To remove, select
+                the checkbox and press remove button in the console
+              </span>
+            </ibm-table-header>
+            <ibm-table-toolbar>
+              <ibm-table-toolbar-content>
+                <div class="table-action" *ngIf="checkLengthPartsIssue()">
+                  <div class="selectedItem">
+                    {{ counter }} <span *ngIf="counter == 1">item</span
+                    ><span *ngIf="counter > 1">items</span> selected
+                  </div>
+                  <div class="actions">
+                    <div class="del">
+                      <button
+                        ibmButton="primary"
+                        size="sm"
+                        type="button"
+                        (click)="deletePartsIssue()"
+                      >
+                        Delete
+                        <div
+                          class="icon-trashCan"
+                          ibmIcon="trash-can"
+                          size="20"
+                        ></div>
+                      </button>
+                    </div>
+                    <div class="cancel">
+                      <button
+                        ibmButton="primary"
+                        size="sm"
+                        type="button"
+                        (click)="cancelDelPartsIssue()"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="!checkLengthPartsIssue()">
+                  <button
+                    ibmButton="secondary"
+                    type="button"
+                    style="width: 178px"
+                    (click)="resetPartsIssue()"
+                  >
+                    Reset
+                  </button>
+                  <button
+                    ibmButton="primary"
+                    type="button"
+                    (click)="open = true"
+                    style="width: 178px"
+                    [disabled]="addPartsIssueDisabled"
+                  >
+                    Add Goods
+                    <div class="icon-addAlt" ibmIcon="add--alt" size="20"></div>
+                  </button>
+                </div>
+              </ibm-table-toolbar-content>
+            </ibm-table-toolbar>
+
+            <div class="horizontal-overflow-table">
+              <table class="bx--data-table">
+                <thead>
+                  <tr>
+                    <th>No.</th>
+                    <th>Goods Description</th>
+                    <th>Form Type</th>
+                    <th>Form No.</th>
+                    <th style="text-align: right">Qty.</th>
+                    <th>Location</th>
+                    <th class="text-center">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="
+                      let psData of partsIssueList;
+                      let partsIssueIndex = index
+                    "
+                    class="white-bg"
+                  >
+                    <td>{{ partsIssueIndex + 1 }}</td>
+                    <td>{{ psData.piItem }}</td>
+                    <td>{{ psData.piFormType }}</td>
+                    <td>{{ psData.formNum }}</td>
+                    <td style="text-align: right">
+                      <ibm-number
+                        [step]="step"
+                        [min]="min"
+                        [max]="psData.piMaxQty"
+                        name="quantity_{{ psData.id }}"
+                        [(ngModel)]="psData.piQuantity"
+                        [invalid]="invalidPartsQuantity[partsIssueIndex]"
+                        invalidText="Invalid Quantity"
+                        [attr.required]="required || null"
+                        (ngModelChange)="inputValueChange()"
+                        [required]="requiredPartsQuantity[partsIssueIndex]"
+                      >
+                      </ibm-number>
+                    </td>
+                    <td>{{ psData.piLocation }}</td>
+                    <td>
+                      <ibm-checkbox
+                        name="checkbox_{{ psData.id }}"
+                        [(ngModel)]="psData.piSelect"
+                        [hideLabel]="true"
+                        (ngModelChange)="partsIssueCheckbox($event)"
+                      >
+                      </ibm-checkbox>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div
+                *ngIf="partsIssueList.length < 1"
+                class="no-data"
+                [ngClass]="{ 'invalid-class': partsIssueListInvalid }"
+                #partsIssueFocus
+                tabindex="2"
+              >
+                No data is entered yet. Please Add a New entry.
+              </div>
+
+              <div *ngIf="partsIssueListInvalid" class="invalid-class-label">
+                Please select item
+              </div>
+            </div>
+          </ibm-table-container>
+        </div>
+
+        <div class="form-item width-unset pt-32">
+          <ibm-table-container>
+            <ibm-table-header>
+              <h4 ibmTableHeaderTitle>New Parts</h4>
+
+              <span ibmTableHeaderDescription
+                >Please Add required items in the table below, select the
+                checkbox and press remove button in the console
+              </span>
+
+              <br />
+
+              <span ibmTableHeaderDescription>
+                <b> Note:</b> Only one (1) item is allowed to be registered in
+                this list. Please create a new request form to register other
+                items.
+              </span>
+            </ibm-table-header>
+            <ibm-table-toolbar>
+              <ibm-table-toolbar-content>
+                <div class="table-action" *ngIf="checkLengthNewParts()">
+                  <div class="selectedItem">
+                    {{ counterNewParts }}
+                    <span *ngIf="counterNewParts == 1">item</span
+                    ><span *ngIf="counterNewParts > 1">items</span> selected
+                  </div>
+                  <div class="actions">
+                    <div class="del">
+                      <button
+                        ibmButton="primary"
+                        size="sm"
+                        type="button"
+                        (click)="deleteNewParts()"
+                      >
+                        Remove
+                        <div
+                          class="icon-trashCan"
+                          ibmIcon="trash-can"
+                          size="20"
+                        ></div>
+                      </button>
+                    </div>
+                    <div class="cancel">
+                      <button
+                        ibmButton="primary"
+                        size="sm"
+                        type="button"
+                        (click)="cancelDelNewParts()"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="!checkLengthNewParts()">
+                  <button
+                    ibmButton="primary"
+                    type="button"
+                    style="width: 178px"
+                    [disabled]="addNewPartsDisabled"
+                    (click)="addNewParts()"
+                  >
+                    Add Goods
+                    <div class="icon-addAlt" ibmIcon="add--alt" size="20"></div>
+                  </button>
+                </div>
+              </ibm-table-toolbar-content>
+            </ibm-table-toolbar>
+            <div>
+              <table class="bx--data-table">
+                <thead>
+                  <tr>
+                    <th>No.</th>
+                    <th>Goods Description</th>
+                    <th style="text-align: right">Qty.</th>
+                    <th>Location</th>
+                    <th class="text-center">Action</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr
+                    class="white-bg"
+                    *ngFor="
+                      let data of newPartsList;
+                      let newPartsListIndex = index
+                    "
+                  >
+                    <td>{{ newPartsListIndex + 1 }}</td>
+                    <td>
+                      <ibm-label class="flex-direction-unset">
+                        <input
+                          ibmText
+                          type="text"
+                          name="npItem"
+                          [(ngModel)]="data.npItem"
+                          [invalid]="invalidNewPartsItem[newPartsListIndex]"
+                          [invalidText]="invalidNewPartsItemText"
+                          [required]="requiredNewPartsItem[newPartsListIndex]"
+                        />
+                      </ibm-label>
+                    </td>
+
+                    <td style="text-align: right">
+                      <ibm-number
+                        [step]="step"
+                        [min]="min"
+                        [max]="max"
+                        name="npQuantity_{{ data.id }}"
+                        [(ngModel)]="data.npQuantity"
+                        [invalid]="invalidNewPartsQuantity[newPartsListIndex]"
+                        invalidText="Quantity required"
+                        [required]="requiredNewPartsQuantity[newPartsListIndex]"
+                      >
+                      </ibm-number>
+                    </td>
+
+                    <td>
+                      <!-- <ibm-dropdown
+                                            placeholder="Select"
+                                            id="dropdown"
+                                            [dropUp]="false"
+                                            itemValueKey="content"
+                                            name="npLocation{{data.id}}"
+                                            [(ngModel)]="data.npLocation"
+                                            [invalid]="invalidNewPartsLocation[newPartsListIndex]"
+                                            invalidText="Location required"
+                                            [dropUp]="false"
+                                            [appendInline]= "true"
+                                            [required]="requiredNewPartsLocation[newPartsListIndex]">
+                                                <ibm-dropdown-list [items]="location"></ibm-dropdown-list>
+                                            </ibm-dropdown> -->
+
+                      <ibm-combo-box
+                        id="dropdown"
+                        name="npLocation{{ data.id }}"
+                        [items]="location"
+                        (selected)="selectLocation($event)"
+                        [appendInline]="true"
+                        [dropUp]="false"
+                        placeholder="Select"
+                        [(ngModel)]="data.npLocation"
+                        [invalid]="invalidNewPartsLocation[newPartsListIndex]"
+                        invalidText="Location required"
+                        [required]="requiredNewPartsLocation[newPartsListIndex]"
+                        itemValueKey="content"
+                        required
+                      >
+                        <ibm-dropdown-list></ibm-dropdown-list>
+                      </ibm-combo-box>
+                    </td>
+                    <td>
+                      <ibm-checkbox
+                        name="checkbox_{{ data.id }}"
+                        [(ngModel)]="data.npSelect"
+                        [hideLabel]="true"
+                        (ngModelChange)="newPartsCheckbox($event)"
+                      >
+                      </ibm-checkbox>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div
+                *ngIf="newPartsList.length < 1"
+                class="no-data"
+                [ngClass]="{ 'invalid-class': newPartsListInvalid }"
+                #newPartsFocus
+                tabindex="3"
+              >
+                No data is entered yet. Please Add a New entry.
+              </div>
+
+              <div *ngIf="newPartsListInvalid" class="invalid-class-label">
+                Please select item
+              </div>
+            </div>
+          </ibm-table-container>
+        </div>
+
+        <hr />
+
+        <div
+          ibmRow
+          class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+        >
+          <div ibmCol [columnNumbers]="{ lg: 12 }">
+            <div class="actions">
+              <button
+                type="button"
+                ibmButton="secondary"
+                style="margin-right: 24px; width: 178px; height: 40px"
+                routerLink="/wms/psb-build-parts-list"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                ibmButton="primary"
+                style="width: 178px; height: 40px"
+              >
+                Preview
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div ibmRow>
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+      <ibm-modal
+        [open]="open"
+        [trigger]="trigger"
+        (overlaySelected)="open = false"
+        class="modal-container"
+      >
+        <ibm-modal-header
+          (closeSelect)="open = false"
+          style="width: 944; height: 669"
+        >
+          <span class="bx--modal-header__label bx--type-delta">Add Item</span>
+          <p class="bx--modal-header__heading bx--type-beta">Goods Details</p>
+        </ibm-modal-header>
+        <div class="bx--modal-content">
+          <div
+            class="bx--text-input__field-wrapper"
+            style="align-items: flex-end"
+          >
+            <ibm-combo-box
+              class="combobox"
+              name="goodsFormNumber"
+              [disabled]="disableDropdown"
+              label="Form No."
+              [items]="goodsFormNumber"
+              (selected)="selectK8($event)"
+              [appendInline]="true"
+              [dropUp]="false"
+            >
+              <ibm-dropdown-list></ibm-dropdown-list>
+            </ibm-combo-box>
+          </div>
+
+          <div ibmRow class="pt-32">
+            <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+              <ibm-table-container class="table-style">
+                <div class="horizontal-overflow-table">
+                  <table ibmTable [sortable]="false">
+                    <thead ibmTableHead>
+                      <tr>
+                        <th
+                          scope="col"
+                          ibmTableHeadCell
+                          *ngFor="
+                            let column of goodDetailsModel.header;
+                            let i = index
+                          "
+                          [column]="column"
+                          [ngStyle]="{
+                            'text-align': (i == 7 || i== 6 || i == 5) ? 'right' : 'left'
+                          }"
+                        ></th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr
+                        *ngFor="
+                          let gdData of goodsDetailsList;
+                          let goodsDetailsIndex = index
+                        "
+                        class="white-bg"
+                      >
+                        <td>
+                          <ibm-checkbox
+                            name="checkbox_{{ gdData.id }}"
+                            [(ngModel)]="gdData.gdSelect"
+                          >
+                          </ibm-checkbox>
+                        </td>
+                        <td>{{ goodsDetailsIndex + 1 }}</td>
+                        <td>{{ gdData.gdFormType }}</td>
+                        <td>{{ gdData.formNum }}</td>
+                        <td>{{ gdData.goodsDesc }}</td>
+                        <td style="text-align: right">{{ gdData.oriQuantity }}</td>
+                        <td style="text-align: right">{{ gdData.currentQuantity }}</td>
+                        <td style="text-align: right">
+                          {{ addZeroes(gdData.value) }}
+                        </td>
+                        <!-- <td>{{gdData.gdLocation}}</td> -->
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div *ngIf="goodsDetailsList.length < 1" class="no-data">
+                    No data available. Please load data.
+                  </div>
+                </div>
+              </ibm-table-container>
+            </div>
+          </div>
+        </div>
+        <ibm-modal-footer>
+          <ng-container>
+            <button class="bx--btn bx--btn--secondary" (click)="open = false">
+              Close
+            </button>
+            <button ibmButton="primary" (click)="addGoodsToParts()">
+              Add Goods to Parts
+            </button>
+          </ng-container>
+        </ibm-modal-footer>
+      </ibm-modal>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,80 @@
+.table-action {
+  background: #0f62fe;
+  width: 100%;
+}
+
+.actions {
+  display: flex;
+  float: right;
+}
+
+.del,
+.cancel {
+  padding-top: 7px;
+}
+
+.del button {
+  border-right: 2px solid white;
+}
+
+.cancel button,
+.del button {
+  padding: 0px 20px;
+}
+
+.del img {
+  left: -39%;
+  position: relative;
+  top: 15%;
+}
+
+.white-bg tr td {
+  background: #ffff;
+}
+
+.print-logo {
+  display: none;
+}
+
+::ng-deep {
+  @media print {
+    .print-logo {
+      display: flex !important;
+    }
+    body * {
+      visibility: hidden;
+    }
+    .printable,
+    .printable * {
+      visibility: visible;
+      // padding: 0px;
+      // margin: 3px;
+    }
+    .pt-24 {
+      padding-top: 10px;
+    }
+    .print-no-padding {
+      padding: 0px;
+    }
+    .page-break {
+      page-break-after: always;
+      // padding: 0px;
+      // margin: 0px;
+    }
+    button {
+      display: none !important;
+    }
+    table {
+      page-break-inside: avoid;
+    }
+    #topPartPrint {
+      display: none;
+    }
+    .justify-content-center {
+      justify-content: center;
+    }
+    .print-hide {
+      display: none;
+    }
+  }
+}

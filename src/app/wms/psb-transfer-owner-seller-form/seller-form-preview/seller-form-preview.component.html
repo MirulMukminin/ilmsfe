@@ -1,0 +1,232 @@
+<ibm-loading *ngIf="isLoading" [isActive]="isLoading" size="normal" [overlay]="overlay">
+</ibm-loading>
+
+<div ibmGrid class="bx--grid--full-width" style="padding-bottom: 133px;">
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+        <div ibmCol [columnNumbers]="{'lg': 10, 'md': 10, 'sm': 10}">
+            <ibm-breadcrumb [noTrailingSlash]="true">
+                <ibm-breadcrumb-item [current]="true">
+                    Warehouse Management System
+                </ibm-breadcrumb-item>
+                <ibm-breadcrumb-item>
+                    <a routerLink="/wms/psb-inventory-list">Petroleum Supply Base</a>
+                </ibm-breadcrumb-item>
+                <ibm-breadcrumb-item>
+                    <a routerLink="/wms/psb-transfer-owner-list"> Transfer Ownership</a>
+                </ibm-breadcrumb-item>
+                <ibm-breadcrumb-item [current]="true">
+                    Seller Form
+                </ibm-breadcrumb-item>
+            </ibm-breadcrumb>
+        </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+        <div ibmCol [columnNumbers]="{'lg': 6, 'md': 6, 'sm': 6}" class="">
+            <div class="title">
+                <span class="ph03">Transfer Ownership Seller Form</span>
+            </div>
+        </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+        <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+            Company Name
+        </div>
+        <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bs01">
+            {{sellerForm.companyName}}
+        </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+        <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+            Request By
+        </div>
+        <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bs01">
+            {{sellerForm.requestBy}}
+        </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+        <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+            Buyer
+        </div>
+        <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bs01">
+            {{sellerForm.buyer}}
+        </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+        <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+            PO Number
+        </div>
+        <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bs01">
+            {{sellerForm.poNumber}}
+        </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+        <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+            Invoice Number
+        </div>
+        <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bs01">
+            {{sellerForm.invoiceNumber}}
+        </div>
+    </div>
+
+    <!-- <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+        <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+            Selling Price (RM)
+        </div>
+        <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bs01">
+            {{sellerForm.sellingPrice}}
+        </div>
+    </div> -->
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+        <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+            Sale Date
+        </div>
+        <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bs01">
+            {{sellerForm.saleDate | date:'dd/MM/yyyy'}}
+        </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+        <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+            Category
+        </div>
+        <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bs01">
+            {{sellerForm.category | titlecase}}
+        </div>
+    </div>
+
+    <!-- <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+        <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+            Type of Goods
+        </div>
+        <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bs01" *ngIf="sellerForm.typeOfGoods == 'DANGEROUS_CHEMICAL'">
+            Dangerous Chemical
+        </div>
+        <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bs01" *ngIf="sellerForm.typeOfGoods == 'OTHERS'">
+            {{sellerForm.othersText}}
+        </div>
+    </div> -->
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+        <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+            Related Documents
+        </div>
+        <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bs01">
+            <div class="bx--file-container">
+
+                <div class="bx--file__selected-file" *ngFor="let docs of sellerForm.relatedDocuments; let index=index">
+                    <div class="bx--file-filename">
+                        {{docs.file.name}}
+                    </div>
+                    <div class="mr-12" ibmIcon="checkmark--filled" size="20"></div>
+                </div>
+
+            </div>
+            <div *ngIf="!sellerForm.relatedDocuments">
+                -
+            </div>
+        </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24" *ngIf="sellerForm.remarks !== undefined">
+        <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+            Remarks
+        </div>
+        <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bs01">
+            {{sellerForm.remarks}}
+        </div>
+    </div>
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24" *ngIf="sellerForm.remarks === undefined">
+        <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+            Remarks
+        </div>
+        <div ibmCol [columnNumbers]="{ 'lg':1 }" class="bs01">
+            -
+        </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3" style="margin-top: 80px;">
+        <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph03 pb-16">
+            Goods To Sell
+        </div>
+    </div>
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-3">
+        <div ibmCol [columnNumbers]="{'lg': 12, 'md': 10, 'sm': 5}">
+            <ibm-table-container>
+                <div class="horizontal-overflow-table">
+                    <table class="bx--data-table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <span class="bx--table-header-label">No.</span>
+                                </th>
+                                <th>
+                                    <span class="bx--table-header-label">Item</span>
+                                </th>
+                                <th>
+                                    <span class="bx--table-header-label">Form Type</span>
+                                </th>
+                                <th>
+                                    <span class="bx--table-header-label">Registration No.</span>
+                                </th>
+                                <th>
+                                    <span class="bx--table-header-label">Qty.</span>
+                                </th>
+                                <th>
+                                    <span class="bx--table-header-label">Location</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let input of sellerForm.goodsToSell; let i=index">
+                                <td>{{i + 1}}</td>
+                                <td>{{input.items}}</td>
+                                <td>{{input.formtype}}</td>
+                                <td>{{input.regNo}}</td>
+                                <td>{{input.qty}}</td>
+                                <td>{{input.location}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </ibm-table-container>
+        </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+        <div ibmCol [columnNumbers]="{'lg': 12, 'md': 10, 'sm': 5}">
+            <hr>
+        </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+        <div ibmCol [columnNumbers]="{'lg': 12, 'md': 10, 'sm': 5}" class="flex-end">
+            <button class="mr-16" ibmButton="secondary" size="md" type="button" (click)="edit()">Edit</button>
+            <button class="ml-1" ibmButton="primary" size="md" type="submit" [disabled]="disableSubmit" (click)="open = true">Submit</button>
+        </div>
+    </div>
+
+    <div ibmRow>
+        <div ibmCol [columnNumbers]="{ 'lg':10 }">
+            <ibm-modal [open]="open" (overlaySelected)="open = false">
+                <ibm-modal-header (closeSelect)="open = false">
+                </ibm-modal-header>
+                <section ibmModalContent>
+                    <h4>Are you sure you want to submit this request? Make sure all details are correct before you submit.</h4>
+                </section>
+                <ibm-modal-footer>
+                    <button class="bx--btn bx--btn--secondary" (click)="open = false">Cancel</button>
+                    <button class="bx--btn bx--btn--primary" modal-primary-focus (click)="submitForm()" [disabled]="isLoading">Submit</button>
+                </ibm-modal-footer>
+            </ibm-modal>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,23 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+
+::ng-deep {
+    .bx--modal-header{
+        padding-right: 3rem !important;
+    }
+
+    .bx--modal-content{
+        padding-right: 1rem !important;
+    }
+
+    .closeBtn{
+        max-width: 272px !important;
+    }
+
+    .ghostBtn{
+        min-height: 40px !important;
+    }
+
+    tr{
+        height: 28px;
+    }
+}

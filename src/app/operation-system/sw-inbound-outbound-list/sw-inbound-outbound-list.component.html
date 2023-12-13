@@ -1,0 +1,48 @@
+<div ibmGrid class="bx--grid--full-width" style="padding-bottom: 133px">
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-33">
+    <div ibmCol [columnNumbers]="{ lg: 10, md: 10, sm: 10 }">
+      <ibm-breadcrumb [noTrailingSlash]="true">
+        <ibm-breadcrumb-item [current]="true">
+          Operation System
+        </ibm-breadcrumb-item>
+        <ibm-breadcrumb-item>
+          <a routerLink="/operation-system/sw-inbound-outbound-list"
+            >Schedule Waste Management</a
+          >
+        </ibm-breadcrumb-item>
+        <ibm-breadcrumb-item [current]="true">
+          Inbound / Outbound
+        </ibm-breadcrumb-item>
+      </ibm-breadcrumb>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }" class="pl-0 pr-0">
+      <div class="title">
+        <span class="ph03">Schedule Waste Management</span>
+      </div>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+    <div
+      ibmCol
+      [columnNumbers]="{ lg: 6, md: 6, sm: 6 }"
+      class="pl-0 pr-0 switcher-style"
+    >
+      <ibm-content-switcher (selected)="selected($event)">
+        <button ibmContentOption id="inbound" name="inbound">Inbound</button>
+        <button ibmContentOption id="outbound" name="outbound">Outbound</button>
+      </ibm-content-switcher>
+    </div>
+  </div>
+
+  <div *ngIf="switch == 'inbound'">
+    <app-inbound></app-inbound>
+  </div>
+
+  <div *ngIf="switch == 'outbound'">
+    <app-outbound></app-outbound>
+  </div>
+</div>

@@ -1,0 +1,670 @@
+<ibm-loading
+  *ngIf="isLoading"
+  [isActive]="isLoading"
+  size="normal"
+  [overlay]="'false'"
+>
+</ibm-loading>
+<div ibmGrid class="bx--grid--full-width pb-48">
+  <!-- Dashbored Title -->
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-16">
+    <div ibmCol [columnNumbers]="{ lg: 10, md: 10, sm: 6 }">
+      <ibm-breadcrumb [noTrailingSlash]="true">
+        <ibm-breadcrumb-item [current]="true">
+          <svg ibmIcon="template" size="20"></svg>
+          <span class="ph03 pl-8">Dashboard</span>
+        </ibm-breadcrumb-item>
+      </ibm-breadcrumb>
+    </div>
+  </div>
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-16">
+    <div
+      ibmCol
+      [columnNumbers]="{ lg: 12, md: 12, sm: 6 }"
+      *ngIf="roles?.includes('mheCustomer')"
+    >
+      <ibm-tile class="mheBookCon">
+        <div class="currentTime">
+          <span class="bs01">Current Time / Date:</span>
+          <span class="ph01 text-bold">{{ getDatetime }}</span>
+        </div>
+        <div class="booking-title d-flex">
+          <svg ibmIcon="hourglass" size="20"></svg>
+          <div class="bookTitleCon">
+            <span class="ph01 pl-8">Next Day Booking Counter for </span>
+            <span class="ph01 pl-8">Machinery Handling Equipment</span>
+          </div>
+        </div>
+
+        <div class="remainingTime">
+          <span class="bs01"
+            >Booking Closing Time:
+            <span class="ph01 text-bold">15:00</span></span
+          >
+          <span class="bl01">
+            Remaining Time: <span class="ph02">{{ showTime }}</span></span
+          >
+        </div>
+
+        <!-- <div class="closedTime"></div> -->
+
+        <div class="bookNowbtn">
+          <button
+            size="sm"
+            ibmButton="primary"
+            type="button"
+            routerLink="/operation-system/mhe-request-form"
+          >
+            Book Now
+          </button>
+        </div>
+      </ibm-tile>
+    </div>
+  </div>
+
+  <!-- Top Block -->
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-12">
+    <div
+      ibmCol
+      [columnNumbers]="{ lg: 4, md: 4, sm: 6 }"
+      style="padding-right: 0"
+    >
+      <ibm-tile>
+        <div class="task-title d-flex pb-16">
+          <svg ibmIcon="warning--other" size="20"></svg>
+          <span class="ph02 pl-8">Tasks That Need Attention</span>
+        </div>
+
+        <div class="task-list">
+          <ol
+            ibmList
+            *ngFor="
+              let items of notificationAndAttentionList5ByAgent;
+              let index = index
+            "
+          >
+            <li>
+              {{ index + 1 }}.&nbsp;&nbsp;<a
+                [routerLink]="[items?.Path, items?.JTReqNo]"
+                >{{ items?.JTReqNo }}</a
+              >
+              {{ items?.StatusMessage }}
+            </li>
+          </ol>
+          <!-- <ol ibmList>
+                        <li ibmListItem><a [routerLink]="[notificationAndAttentionListByAgent[0]?.Path,notificationAndAttentionListByAgent[0]?.JTReqNo]">{{notificationAndAttentionListByAgent[0]?.JTReqNo}}</a> {{notificationAndAttentionListByAgent[0]?.StatusMessage}}</li>
+                        <li ibmListItem><a [routerLink]="[notificationAndAttentionListByAgent[1]?.Path,notificationAndAttentionListByAgent[1]?.JTReqNo]">{{notificationAndAttentionListByAgent[1]?.JTReqNo}}</a> {{notificationAndAttentionListByAgent[1]?.StatusMessage}}</li>
+                        <li ibmListItem><a [routerLink]="[notificationAndAttentionListByAgent[2]?.Path,notificationAndAttentionListByAgent[2]?.JTReqNo]">{{notificationAndAttentionListByAgent[2]?.JTReqNo}}</a> {{notificationAndAttentionListByAgent[2]?.StatusMessage}}</li>
+                        <li ibmListItem><a [routerLink]="[notificationAndAttentionListByAgent[3]?.Path,notificationAndAttentionListByAgent[3]?.JTReqNo]">{{notificationAndAttentionListByAgent[3]?.JTReqNo}}</a> {{notificationAndAttentionListByAgent[3]?.StatusMessage}}</li>
+                        <li ibmListItem><a [routerLink]="[notificationAndAttentionListByAgent[4]?.Path,notificationAndAttentionListByAgent[4]?.JTReqNo]">{{notificationAndAttentionListByAgent[4]?.JTReqNo}}</a> {{notificationAndAttentionListByAgent[4]?.StatusMessage}}</li>
+                    </ol> -->
+        </div>
+
+        <div
+          class="task-btn"
+          *ngIf="notificationAndAttentionListByAgent.length > 5"
+        >
+          <button
+            #trigger
+            [ibmButton]="ibmButton"
+            [size]="size"
+            (click)="openModal()"
+          >
+            View More
+          </button>
+          <ibm-placeholder></ibm-placeholder>
+        </div>
+      </ibm-tile>
+    </div>
+
+    <div ibmCol [columnNumbers]="{ lg: 8, md: 8, sm: 6 }" class="quickLinks">
+      <ibm-tile>
+        <!-- quick links new place -->
+        <div class="task-title d-flex">
+          <svg ibmIcon="link" size="20"></svg>
+          <span class="ph02 pl-8">Service Request Quicklinks</span>
+        </div>
+        <div ibmRow class="">
+          <div
+            *ngIf="roles?.includes('marineCustomer')"
+            ibmCol
+            [columnNumbers]="{ lg: 3, md: 3, sm: 2 }"
+            class="pt-16-responsive pt-16"
+          >
+            <ibm-clickable-tile
+              [route]="['/operation-system/marine-berth-request-list']"
+            >
+              <span class="ph01">Berth Booking Applications</span>
+            </ibm-clickable-tile>
+          </div>
+          <div
+            *ngIf="roles?.includes('mheCustomer')"
+            ibmCol
+            [columnNumbers]="{ lg: 3, md: 3, sm: 2 }"
+            class="pt-16-responsive pt-16"
+          >
+            <ibm-clickable-tile
+              [route]="['/operation-system/mhe-request-list']"
+            >
+              <span class="ph01">Machinery Handling Equipment</span>
+            </ibm-clickable-tile>
+          </div>
+          <div
+            ibmCol
+            *ngIf="roles?.includes('cwcyCustomer')"
+            [columnNumbers]="{ lg: 3, md: 3, sm: 2 }"
+            class="pt-16-responsive pt-16"
+          >
+            <ibm-clickable-tile
+              [route]="['/operation-system/cwcy-goods-receiving-request-list']"
+            >
+              <span class="ph01">Common Warehouse & Common Yard</span>
+            </ibm-clickable-tile>
+          </div>
+          <div
+            *ngIf="roles?.includes('wdCustomer')"
+            ibmCol
+            [columnNumbers]="{ lg: 3, md: 3, sm: 2 }"
+            class="pt-16-responsive pt-16"
+          >
+            <ibm-clickable-tile
+              [route]="['/operation-system/waste-disposal-list']"
+            >
+              <span class="ph01">Waste Disposal</span>
+            </ibm-clickable-tile>
+          </div>
+          <div
+            ibmCol
+            *ngIf="roles?.includes('cfsCustomer')"
+            [columnNumbers]="{ lg: 3, md: 3, sm: 2 }"
+            class="pt-16-responsive pt-16"
+          >
+            <ibm-clickable-tile
+              [route]="['/operation-system/cfs-request-list/all']"
+            >
+              <span class="ph01">Centralised Food Services</span>
+            </ibm-clickable-tile>
+          </div>
+          <!-- <div
+            *ngIf="roles?.includes('icysCustomer')"
+            ibmCol
+            [columnNumbers]="{ lg: 3, md: 3, sm: 2 }"
+            class="pt-16-responsive pt-16"
+          >
+            <ibm-clickable-tile [route]="['/coming-soon']">
+              <span class="ph01">Integrated Yard</span>
+            </ibm-clickable-tile>
+          </div> -->
+          <div
+            ibmCol
+            *ngIf="roles?.includes('crewCustomer')"
+            [columnNumbers]="{ lg: 3, md: 3, sm: 2 }"
+            class="pt-16-responsive pt-16"
+          >
+            <ibm-clickable-tile [route]="['/operation-system/ct-sign-on-list']">
+              <span class="ph01">Crew Transfer Services</span>
+            </ibm-clickable-tile>
+          </div>
+          <div
+            ibmCol
+            *ngIf="roles?.includes('icwCustomer')"
+            [columnNumbers]="{ lg: 3, md: 3, sm: 2 }"
+            class="pt-16-responsive pt-16"
+          >
+            <ibm-clickable-tile
+              [route]="['/operation-system/icw-request-storage-list']"
+            >
+              <span class="ph01">Chemical Warehouse</span>
+            </ibm-clickable-tile>
+          </div>
+          <div
+            ibmCol
+            *ngIf="roles?.includes('swmCustomer')"
+            [columnNumbers]="{ lg: 3, md: 3, sm: 2 }"
+            class="pt-16-responsive pt-16"
+          >
+            <ibm-clickable-tile
+              [route]="['/operation-system/sw-inbound-outbound-list']"
+            >
+              <span class="ph01">Schedule Waste</span>
+            </ibm-clickable-tile>
+          </div>
+          <div
+            ibmCol
+            *ngIf="roles?.includes('psbCustomer')"
+            [columnNumbers]="{ lg: 3, md: 3, sm: 2 }"
+            class="pt-16-responsive pt-16"
+          >
+            <ibm-clickable-tile [route]="['/wms/psb-inventory-list']">
+              <span class="ph01">Petroleum Supply Base</span>
+            </ibm-clickable-tile>
+          </div>
+          <div
+            ibmCol
+            *ngIf="roles?.includes('propCustomer')"
+            [columnNumbers]="{ lg: 3, md: 3, sm: 2 }"
+            class="pt-16-responsive pt-16"
+          >
+            <ibm-clickable-tile [route]="['/coming-soon']">
+              <span class="ph01">Property Rental</span>
+            </ibm-clickable-tile>
+          </div>
+        </div>
+      </ibm-tile>
+    </div>
+  </div>
+
+  <!-- Service Request Quicklinks Title -->
+  <!-- <div>
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 10, md: 10, sm: 6 }">
+        <ibm-breadcrumb [noTrailingSlash]="true">
+          <ibm-breadcrumb-item [current]="true">
+            <svg ibmIcon="link" size="20"></svg>
+            <span class="ph03 pl-8">Service Request Quicklinks</span>
+          </ibm-breadcrumb-item>
+        </ibm-breadcrumb>
+      </div>
+    </div>
+  </div> -->
+  <!-- Quicklinks -->
+  <!-- <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3">
+    <div ibmCol [columnNumbers]="{'md': 2, 'lg': 2, 'max': 2}" class="pl-3 pt-16-responsive">
+      <div class="p-16 h-100 gray-10-bg">
+
+        <div class="">
+          <h6>Berth Booking Applications</h6>
+        </div>
+
+      </div>
+    </div>
+    <div ibmCol [columnNumbers]="{'md': 2, 'lg': 2, 'max': 2}" class="pl-3 pt-16-responsive">
+      <div class="p-16 h-100 gray-10-bg">
+
+        <div class="">
+          <h6>Cargo Handling</h6>
+        </div>
+
+      </div>
+    </div>
+    <div ibmCol [columnNumbers]="{'md': 2, 'lg': 2, 'max': 2}" class="pl-3 pt-16-responsive">
+      <div class="p-16 h-100 gray-10-bg">
+
+        <div class="">
+          <h6>Fuel & Water Requisition</h6>
+        </div>
+
+      </div>
+    </div>
+    <div ibmCol [columnNumbers]="{'md': 2, 'lg': 2, 'max': 2}" class="pl-3 pt-16-responsive">
+      <div class="p-16 h-100 gray-10-bg">
+
+        <div class="">
+          <h6>Waste Disposal</h6>
+        </div>
+
+      </div>
+    </div>
+    <div ibmCol [columnNumbers]="{'md': 2, 'lg': 2, 'max': 2}" class="pl-3 pt-16-responsive">
+      <div class="p-16 h-100 gray-10-bg">
+
+        <div class="">
+          <h6>Centralised Food Services</h6>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-16">
+    <div ibmCol [columnNumbers]="{'md': 2, 'lg': 2, 'max': 2}" class="pl-3 pt-16-responsive">
+      <div class="p-16 h-100 gray-10-bg">
+
+        <div class="">
+          <h6>Integrated Yard</h6>
+        </div>
+
+      </div>
+    </div>
+    <div ibmCol [columnNumbers]="{'md': 2, 'lg': 2, 'max': 2}" class="pl-3 pt-16-responsive">
+      <div class="p-16 h-100 gray-10-bg">
+
+        <div class="">
+          <h6>Inland Services</h6>
+        </div>
+
+      </div>
+    </div>
+    <div ibmCol [columnNumbers]="{'md': 2, 'lg': 2, 'max': 2}" class="pl-3 pt-16-responsive">
+      <div class="p-16 h-100 gray-10-bg">
+
+        <div class="">
+          <h6>Chemical Warehouse</h6>
+        </div>
+
+      </div>
+    </div>
+    <div ibmCol [columnNumbers]="{'md': 2, 'lg': 2, 'max': 2}" class="pl-3 pt-16-responsive">
+      <div class="p-16 h-100 gray-10-bg">
+
+        <div class="">
+          <h6>Schedule Waste</h6>
+        </div>
+
+      </div>
+    </div>
+    <div ibmCol [columnNumbers]="{'md': 2, 'lg': 2, 'max': 2}" class="pl-3 pt-16-responsive">
+      <div class="p-16 h-100 gray-10-bg">
+
+        <div class="">
+          <h6>Petroleum Supply Base</h6>
+        </div>
+
+      </div>
+    </div>
+  </div> -->
+
+  <!-- <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3">
+    <div
+      *ngIf="roles?.includes('marineCustomer')"
+      ibmCol
+      [columnNumbers]="{ lg: 2, md: 2, sm: 2 }"
+      class="pt-16-responsive pt-24"
+    >
+      <ibm-clickable-tile
+        [route]="['/operation-system/marine-berth-request-list']"
+      >
+        <span class="ph01">Berth Booking Applications</span>
+      </ibm-clickable-tile>
+    </div>
+    <div
+      *ngIf="roles?.includes('mheCustomer')"
+      ibmCol
+      [columnNumbers]="{ lg: 2, md: 2, sm: 2 }"
+      class="pt-16-responsive pt-24"
+    >
+      <ibm-clickable-tile [route]="['/operation-system/mhe-request-list']">
+        <span class="ph01">MHE - Machinery Handling Equipment</span>
+      </ibm-clickable-tile>
+    </div>
+    <div
+      ibmCol
+      *ngIf="roles?.includes('cwcyCustomer')"
+      [columnNumbers]="{ lg: 2, md: 2, sm: 2 }"
+      class="pt-16-responsive pt-24"
+    >
+      <ibm-clickable-tile
+        [route]="['/operation-system/cwcy-goods-receiving-request-list']"
+      >
+        <span class="ph01">Common Warehouse & Common Yard</span>
+      </ibm-clickable-tile>
+    </div>
+    <div
+      *ngIf="roles?.includes('wdCustomer')"
+      ibmCol
+      [columnNumbers]="{ lg: 2, md: 2, sm: 2 }"
+      class="pt-16-responsive pt-24"
+    >
+      <ibm-clickable-tile [route]="['/operation-system/waste-disposal-list']">
+        <span class="ph01">Waste Disposal</span>
+      </ibm-clickable-tile>
+    </div>
+    <div
+      ibmCol
+      *ngIf="roles?.includes('cfsCustomer')"
+      [columnNumbers]="{ lg: 2, md: 2, sm: 2 }"
+      class="pt-16-responsive pt-24"
+    >
+      <ibm-clickable-tile [route]="['/operation-system/cfs-request-list/all']">
+        <span class="ph01">Centralised Food Services</span>
+      </ibm-clickable-tile>
+    </div>
+    <div
+      *ngIf="roles?.includes('icysCustomer')"
+      ibmCol
+      [columnNumbers]="{ lg: 2, md: 2, sm: 2 }"
+      class="pt-16-responsive pt-24"
+    >
+      <ibm-clickable-tile [route]="['/dashboard']">
+        <span class="ph01">Integrated Yard</span>
+      </ibm-clickable-tile>
+    </div>
+    <div
+      ibmCol
+      *ngIf="roles?.includes('crewCustomer')"
+      [columnNumbers]="{ lg: 2, md: 2, sm: 2 }"
+      class="pt-16-responsive pt-24"
+    >
+      <ibm-clickable-tile [route]="['/dashboard']">
+        <span class="ph01">Crew Transfer Services</span>
+      </ibm-clickable-tile>
+    </div>
+    <div
+      ibmCol
+      *ngIf="roles?.includes('icwCustomer')"
+      [columnNumbers]="{ lg: 2, md: 2, sm: 2 }"
+      class="pt-16-responsive pt-24"
+    >
+      <ibm-clickable-tile
+        [route]="['/operation-system/icw-request-storage-list']"
+      >
+        <span class="ph01">Chemical Warehouse</span>
+      </ibm-clickable-tile>
+    </div>
+    <div
+      ibmCol
+      *ngIf="roles?.includes('swmCustomer')"
+      [columnNumbers]="{ lg: 2, md: 2, sm: 2 }"
+      class="pt-16-responsive pt-24"
+    >
+      <ibm-clickable-tile
+        [route]="['/operation-system/sw-inbound-outbound-list']"
+      >
+        <span class="ph01">Schedule Waste</span>
+      </ibm-clickable-tile>
+    </div>
+    <div
+      ibmCol
+      *ngIf="roles?.includes('psbCustomer')"
+      [columnNumbers]="{ lg: 2, md: 2, sm: 2 }"
+      class="pt-16-responsive pt-24"
+    >
+      <ibm-clickable-tile [route]="['/wms/psb-inventory-list']">
+        <span class="ph01">Petroleum Supply Base</span>
+      </ibm-clickable-tile>
+    </div>
+    <div
+      ibmCol
+      *ngIf="roles?.includes('propCustomer')"
+      [columnNumbers]="{ lg: 2, md: 2, sm: 2 }"
+      class="pt-16-responsive pt-24"
+    >
+      <ibm-clickable-tile [route]="['/dashboard']">
+        <span class="ph01">Property Rental</span>
+      </ibm-clickable-tile>
+    </div>
+  </div> -->
+
+  <div
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3"
+    style="padding-top: 16px"
+  ></div>
+
+  <!-- Service Request List Title -->
+  <div
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3"
+    #serviceRequestList
+  >
+    <div ibmCol [columnNumbers]="{ lg: 10, md: 10, sm: 6 }">
+      <ibm-breadcrumb [noTrailingSlash]="true">
+        <ibm-breadcrumb-item [current]="true">
+          <span class="ph03">Service Request List</span>
+        </ibm-breadcrumb-item>
+      </ibm-breadcrumb>
+      <p>Current and previous service requested in ILMS application</p>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3">
+    <div
+      ibmCol
+      [columnNumbers]="{ lg: 12, md: 12, sm: 6 }"
+      class="filterRowCont"
+    >
+      <div class="dateFilterCon">
+        <ibm-date-picker
+          name="filterDate"
+          label="Service Date From"
+          [placeholder]="'Select Date'"
+          size="md"
+          [dateFormat]="'d/m/Y'"
+          [(ngModel)]="dateFilterFrom"
+          [invalid]="invalidFromDate"
+          [invalidText]="invalidFromDateText"
+          class="mr-12"
+        >
+        </ibm-date-picker>
+        <ibm-date-picker
+          name="filterDate"
+          label="Service Date To"
+          [placeholder]="'Select Date'"
+          size="md"
+          [dateFormat]="'d/m/Y'"
+          [(ngModel)]="dateFilterTo"
+          [invalid]="invalidToDate"
+          [invalidText]="invalidToDateText"
+          class="mr-12"
+        >
+        </ibm-date-picker>
+      </div>
+      <ibm-combo-box
+        label="Service Type"
+        placeholder="Select"
+        itemValueKey="content"
+        [appendInline]="true"
+        [dropUp]="false"
+        name="returnTo"
+        invalidText="Option Required"
+        required
+        [(ngModel)]="serviceType"
+        [items]="serviceTypeSelection"
+        #returnToElement
+        tabindex="3"
+        class="mr-12"
+      >
+        <ibm-dropdown-list></ibm-dropdown-list>
+      </ibm-combo-box>
+
+      <div>
+        <div class="filterBtnCont">
+          <button
+            ibmButton="primary"
+            size="md"
+            type="button"
+            (click)="getRestServiceAPI(serviceRequestList)"
+          >
+            Filter
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Service Request List Table -->
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-12">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }" class="pr-0">
+      <ibm-table-container class="table-style">
+        <ibm-table-toolbar>
+          <ibm-table-toolbar-content class="white-bg">
+            <!-- <div class="bx--search-magnifier icon-search">
+                            <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
+                <path
+                  d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z">
+                </path>
+              </svg>
+                        </div> -->
+            <ibm-table-toolbar-search
+              (valueChange)="searchFilter($event)"
+              (clear)="searchFilter($event)"
+            >
+            </ibm-table-toolbar-search>
+            <!-- <button ibmButton="primary" size="sm" type="button" style="width: 178px;">
+              Filter
+              <div class="icon-filter" ibmIcon="filter" size="16"></div>
+            </button> -->
+          </ibm-table-toolbar-content>
+        </ibm-table-toolbar>
+
+        <div class="horizontal-overflow-table">
+          <ng-template #customTableItemTemplate let-data="data">
+            <a
+              style="text-decoration: none"
+              [routerLink]="[data.RequestNo.url, data.RequestNo.requestNo]"
+              >{{ data.RequestNo.requestNo }}</a
+            >
+          </ng-template>
+          <ibm-table
+            [model]="model"
+            [striped]="false"
+            [showSelectionColumn]="false"
+            (sort)="doSort($event)"
+          ></ibm-table>
+        </div>
+
+        <ibm-pagination
+          [model]="model"
+          [itemsPerPageOptions]="itemsPerPageOptions"
+          (selectPage)="selectPage($event)"
+        ></ibm-pagination>
+      </ibm-table-container>
+    </div>
+  </div>
+  <!-- Bottom Block -->
+  <div
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32 assistanceCon"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 12, sm: 12 }" class="d-flex">
+      <ibm-tile class="d-flex tileCon">
+        <div class="d-flex">
+          <span class="pt-4" ibmIcon="information--square" size="20"></span>
+          <span class="ph03 pl-8">Need Assistance?</span>
+        </div>
+        <div class="d-flex ph03 pl-8 phoneCon">
+          <span>Contact us at:</span>
+          <span class="">Tel: 09-860 2222</span>
+        </div>
+        <div class="emailCon ph03 pl-8 d-flex">
+          <span
+            >Email:
+            <a href="#" style="text-decoration: none"
+              >helpdesk@pbksb.com.my</a
+            ></span
+          >
+        </div>
+      </ibm-tile>
+    </div>
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 12, sm: 12 }">
+      <ibm-tile>
+        <div class="d-flex pb-16">
+          <span class="pt-4" ibmIcon="logout" size="20"></span>
+          <span class="ph03 pl-8">e-Aduan</span>
+        </div>
+        <div>
+          <span>State your complaints via our online system</span>
+        </div>
+        <div class="pt-24">
+          <button
+            ibmButton="secondary"
+            (click)="redirectToEAduan()"
+            style="width: 178px"
+          >
+            Login
+          </button>
+        </div>
+      </ibm-tile>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,81 @@
+import { RequestLine } from "./pbksb_RequestLine";
+export class RequestRepairLine extends RequestLine {
+  static NAME = "pbksb_RequestRepairLine";
+}
+export type RequestRepairLineViewName = "_base" | "_local" | "_minimal";
+export type RequestRepairLineView<
+  V extends RequestRepairLineViewName
+> = V extends "_base"
+  ? Pick<
+      RequestRepairLine,
+      | "id"
+      | "container"
+      | "requestType"
+      | "storageBillingStatus"
+      | "lastBilled"
+      | "containerNumber"
+      | "containerType"
+      | "repairRequest"
+      | "cablingOnVessel"
+      | "fourCoreDNV"
+      | "repair"
+      | "lotNumber"
+      | "storageStartDate"
+      | "storageEndDate"
+      | "plugOnDate"
+      | "plugOffDate"
+      | "plugOn"
+      | "plugOff"
+      | "remarks"
+      | "location"
+      | "temperatureReading"
+      | "temperatureStart"
+      | "temperature"
+      | "requestTicketNumber"
+      | "housekeepingRequired"
+      | "cleaningRequired"
+      | "stuffingRequired"
+      | "outsideInsideBonded"
+      | "containerReturn"
+      | "time"
+      | "status"
+      | "completedDateTime"
+    >
+  : V extends "_local"
+  ? Pick<
+      RequestRepairLine,
+      | "id"
+      | "requestType"
+      | "storageBillingStatus"
+      | "lastBilled"
+      | "containerNumber"
+      | "containerType"
+      | "repairRequest"
+      | "cablingOnVessel"
+      | "fourCoreDNV"
+      | "repair"
+      | "lotNumber"
+      | "storageStartDate"
+      | "storageEndDate"
+      | "plugOnDate"
+      | "plugOffDate"
+      | "plugOn"
+      | "plugOff"
+      | "remarks"
+      | "location"
+      | "temperatureReading"
+      | "temperatureStart"
+      | "temperature"
+      | "requestTicketNumber"
+      | "housekeepingRequired"
+      | "cleaningRequired"
+      | "stuffingRequired"
+      | "outsideInsideBonded"
+      | "containerReturn"
+      | "time"
+      | "status"
+      | "completedDateTime"
+    >
+  : V extends "_minimal"
+  ? Pick<RequestRepairLine, "id" | "container">
+  : never;

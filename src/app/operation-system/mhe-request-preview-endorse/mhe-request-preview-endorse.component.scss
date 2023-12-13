@@ -1,0 +1,150 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+
+.pl-8 {
+    padding-left: 8px;
+}
+
+.pt-16 {
+  padding-top: 16px;
+}
+
+.pt-32 {
+    padding-top: 32px;
+}
+
+.pt-24 {
+  padding-top: 24px;
+}
+
+.pt-64 {
+  padding-top: 64px;
+}
+
+.ml-24 {
+  margin-left: 24px;
+}
+
+.w-40 {
+  width: 40%;
+}
+
+.w-50 {
+  width: 50%;
+}
+
+.booking-counter {
+  border-right: 1px solid darkgrey;
+}
+
+.notification-container {
+  position: fixed;
+  top: 13%;
+  right: 0;
+}
+
+.status-list ol li {
+  font-size: 13px;
+  color: #BA1B22;
+  
+}
+.status-list ol li a {
+  text-decoration: none;
+}
+
+
+tbody tr {
+  height: 4rem;
+}
+
+.table-action {
+  background: #0f62fe;
+  width: 100%;
+}
+
+.actions {
+  display: flex;
+  float: right;
+}
+
+.del,
+.cancel {
+  padding-top: 7px;
+}
+
+.del button {
+  border-right: 2px solid white;
+}
+
+.cancel button, .del button {
+  padding: 0px 20px;
+}
+
+.del img {
+  left: -39%;
+  position: relative;
+  top: 15%;
+}
+
+.icon-trashCan {
+  position: relative;
+  left: 9px;
+  top: 1px;
+}
+
+.singleDate-notif-btn {
+  width: 7rem;
+  margin-top: 1.6rem;
+}
+
+.singleDate-notif .bx--inline-notification--info::before {
+  display: none;
+}
+
+.selectedItem {
+  top: 15px;
+  position: absolute;
+  left: 20px;
+  color: #ffff;
+}
+
+.scroll-vertical{
+  overflow-y: scroll; 
+  max-height: 400px; 
+  min-height: min-content;
+}
+
+.scroll-vertical thead{
+  top: 0;
+  position: sticky;
+  z-index: 1;
+}
+
+.bx--data-table td{
+  background: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  word-wrap: break-word;
+}
+
+.first-cap{
+  text-transform: lowercase;
+}
+
+.first-cap::first-letter {
+  text-transform: uppercase;
+}
+
+
+::ng-deep {
+  .bx--inline-notification--low-contrast.bx--inline-notification--success::before, 
+  .bx--inline-notification--low-contrast.bx--inline-notification--error::before {
+    border: none;
+  }
+
+ 
+
+  .bx--checkbox {
+    position: static;
+  }
+  
+}
+

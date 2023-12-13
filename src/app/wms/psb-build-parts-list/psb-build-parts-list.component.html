@@ -1,0 +1,109 @@
+<div ibmGrid class="bx--grid--full-width">
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 10, md: 10, sm: 10 }">
+      <ibm-breadcrumb [noTrailingSlash]="true">
+        <ibm-breadcrumb-item [current]="true">
+          Warehouse Management System
+        </ibm-breadcrumb-item>
+
+        <ibm-breadcrumb-item>
+          <a routerLink="/wms/psb-inventory-list">Petroleum Supply Base</a>
+        </ibm-breadcrumb-item>
+
+        <ibm-breadcrumb-item [current]="true">
+          Build from Parts
+        </ibm-breadcrumb-item>
+      </ibm-breadcrumb>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+      <div>
+        <span class="ph03">Build from Parts</span>
+      </div>
+    </div>
+  </div>
+
+  <div
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32 pb-64"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }" class="pl-0 pr-0">
+      <ibm-table-container class="table-style">
+        <ibm-table-header class="white-bg">
+          <span ibmTableHeaderTitle class="ph03">Build from Parts List</span>
+          <p ibmTableHeaderDescription>
+            Current and previous Build from Parts in PSB Zone
+          </p>
+        </ibm-table-header>
+
+        <ibm-table-toolbar>
+          <ibm-table-toolbar-content class="white-bg">
+            <ibm-table-toolbar-search
+              (valueChange)="searchFilter($event)"
+              (clear)="searchFilter($event)"
+            >
+            </ibm-table-toolbar-search>
+
+            <button
+              ibmButton="primary"
+              size="sm"
+              type="button"
+              routerLink="/wms/psb-build-parts-form"
+              style="width: 180px"
+            >
+              New Request
+              <div class="icon-addAlt" ibmIcon="add--alt" size="20"></div>
+            </button>
+
+            <button
+              ibmButton="secondary"
+              *ngIf="sortingOn"
+              size="sm"
+              type="button"
+              (click)="sortingOn = false"
+              (click)="userInfo()"
+            >
+              <span style="margin-right: 42px"> Reset Sorting</span>
+              <div class="icon-addAlt" ibmIcon="filter--reset" size="20"></div>
+            </button>
+            <button
+              ibmButton="secondary"
+              size="sm"
+              type="button"
+              class="addNew"
+              (click)="userInfo()"
+            >
+              Refresh
+              <div class="icon-addAlt" ibmIcon="renew" size="20"></div>
+            </button>
+          </ibm-table-toolbar-content>
+        </ibm-table-toolbar>
+
+        <div class="horizontal-overflow-table table-style">
+          <ng-template #customTableItemTemplate let-data="data">
+            <a
+              style="text-decoration: none"
+              [routerLink]="['/wms/psb-build-parts-list-preview', data.link]"
+              >{{ data.requestNo }}</a
+            >
+          </ng-template>
+          <ibm-table
+            id="excel-table"
+            [model]="model"
+            [striped]="false"
+            [showSelectionColumn]="false"
+            (sort)="doSort($event)"
+          ></ibm-table>
+        </div>
+
+        <ibm-pagination
+          [model]="model"
+          [itemsPerPageOptions]="itemsPerPageOptions"
+          (selectPage)="selectPage($event)"
+        ></ibm-pagination>
+      </ibm-table-container>
+    </div>
+  </div>
+</div>

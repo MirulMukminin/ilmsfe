@@ -1,0 +1,61 @@
+<div ibmGrid class="bx--grid--full-width pb-64">
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 12, sm: 12 }">
+      <ibm-breadcrumb [noTrailingSlash]="true">
+        <ibm-breadcrumb-item [current]="true">
+          Operation System
+        </ibm-breadcrumb-item>
+        <ibm-breadcrumb-item [current]="true">
+          Common Warehouse Common Yard
+        </ibm-breadcrumb-item>
+        <ibm-breadcrumb-item [current]="true">
+          Common Warehouse Inventory
+        </ibm-breadcrumb-item>
+      </ibm-breadcrumb>
+    </div>
+  </div>
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+    <p>You're in common warehouse inventory page.</p>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }" class="pl-0 pr-0">
+      <ibm-table-container class="table-style">
+        <ibm-table-toolbar>
+          <ibm-table-toolbar-content class="white-bg">
+            <!-- <ibm-table-toolbar-search
+                    ngDefaultControl
+                    [expandable]="true"
+                    [(ngModel)]="searchModel">
+                </ibm-table-toolbar-search> -->
+
+            <ibm-table-toolbar-search
+              [(ngModel)]="searchModel"
+              (valueChange)="searchFilter($event)"
+              (clear)="searchFilter($event)"
+            >
+            </ibm-table-toolbar-search>
+          </ibm-table-toolbar-content>
+        </ibm-table-toolbar>
+        <div class="horizontal-overflow-table">
+          <ng-template #customTableItemTemplate let-data="data">
+            <span style="color: red">{{ data }}</span>
+          </ng-template>
+
+          <ibm-table
+            [model]="model"
+            [striped]="false"
+            [showSelectionColumn]="false"
+            (sort)="doSort($event)"
+          ></ibm-table>
+        </div>
+        <ibm-pagination
+          [model]="model"
+          [itemsPerPageOptions]="itemsPerPageOptions"
+          (selectPage)="selectPage($event)"
+          >></ibm-pagination
+        >
+      </ibm-table-container>
+    </div>
+  </div>
+</div>

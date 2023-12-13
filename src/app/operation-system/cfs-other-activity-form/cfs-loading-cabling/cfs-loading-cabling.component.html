@@ -1,0 +1,270 @@
+<div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+  <div>
+    <ibm-combo-box
+      label="Location"
+      placeholder="Select"
+      itemValueKey="content"
+      [dropUp]="false"
+      name="location"
+      invalidText="Location Required"
+      required
+      [(ngModel)]="location"
+      [invalid]="locationInvalid"
+      [items]="locationList"
+      (selected)="onLocationSelected()"
+      (selected)="inputValueChange()"
+      #locationElement
+      tabindex="3"
+    >
+      <ibm-dropdown-list></ibm-dropdown-list>
+    </ibm-combo-box>
+  </div>
+</div>
+
+<div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }" class="mt-32">
+  <div>
+    <ibm-combo-box
+      label="Vessel Name"
+      placeholder="Select"
+      itemValueKey="content"
+      [dropUp]="false"
+      name="vessel"
+      invalidText="Required"
+      required
+      [(ngModel)]="vessel"
+      [invalid]="vesselInvalid"
+      [items]="vesselNameList"
+      (selected)="onVesselSelected()"
+      (selected)="inputValueChange()"
+      #locationElement
+      tabindex="3"
+    >
+      <ibm-dropdown-list></ibm-dropdown-list>
+    </ibm-combo-box>
+  </div>
+</div>
+
+<div class="form-item width-unset" class="mt-32">
+  <ibm-table-container>
+    <ibm-table-header>
+      <h4 ibmTableHeaderTitle>
+        Loading & Cabling Container on Vessel Services Details
+      </h4>
+      <p ibmTableHeaderDescription>
+        Please add required details in the table below. To remove, select the
+        check box and press remove button in the console
+      </p>
+    </ibm-table-header>
+    <ibm-table-toolbar>
+      <ibm-table-toolbar-content *ngIf="!checkSelected()">
+        <button ibmButton="primary" size="sm" type="button" (click)="addRow()">
+          <span style="margin-right: 42px">Add Item</span>
+          <div class="icon-addAlt" ibmIcon="add--alt" size="20"></div>
+        </button>
+      </ibm-table-toolbar-content>
+      <div class="table-action" *ngIf="checkSelected()">
+        <div class="actions">
+          <div class="del">
+            <button
+              ibmButton="primary"
+              size="sm"
+              type="button"
+              (click)="deleteRow()"
+            >
+              Delete
+              <div class="icon-trashCan" ibmIcon="trash-can" size="20"></div>
+            </button>
+          </div>
+          <div class="cancel">
+            <button
+              ibmButton="primary"
+              size="sm"
+              type="button"
+              (click)="cancelAction()"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </ibm-table-toolbar>
+
+    <div class="">
+      <table class="bx--data-table">
+        <thead>
+          <tr>
+            <th class="header1">No.</th>
+            <th class="header2">Container No.</th>
+            <th class="header3">Type Container</th>
+            <th class="header4">Cabling on Vessel</th>
+            <th class="header5">4-Core</th>
+            <th class="header5">Time</th>
+            <th class="header6">Remarks</th>
+            <th class="header7">Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr
+            *ngIf="loadingCablingDetails.length === 0"
+            [ngClass]="{ 'invalid-tableRow': goodsInTableInvalid }"
+          >
+            <td align="center" colspan="7">
+              No data is entered yet. Please add new row
+            </td>
+          </tr>
+          <tr
+            *ngFor="
+              let rowDetails of loadingCablingDetails;
+              let postIndex = index
+            "
+            class="white-bg"
+            [ngClass]="{ 'invalid-tableRow': goodsInTableInvalid }"
+          >
+            <!-- <tr class="white-bg"> -->
+            <td>{{ postIndex + 1 }}.</td>
+
+            <td>
+              <ibm-combo-box
+                placeholder="Select"
+                itemValueKey="content"
+                [dropUp]="false"
+                name="containerNo_{{ postIndex }}"
+                [invalidText]="rowDetails.invalidContainerText"
+                required
+                [(ngModel)]="rowDetails.containerNo"
+                [invalid]="rowDetails.invalidContainerNo"
+                (selected)="validateDuplicate()"
+                (selected)="onSelected($event, postIndex)"
+                (selected)="inputValueChange()"
+                [items]="containerNoList"
+                tabindex="5"
+                #containerNoRef
+              >
+                <ibm-dropdown-list></ibm-dropdown-list>
+              </ibm-combo-box>
+              <!-- <ibm-label
+                        invalidText="Required"
+                        [invalid]="rowDetails.invalidContainerNo"
+                        ><input
+                          ibmText
+                          size="sm"
+                          [name]="'containerNo' + postIndex"
+                          [(ngModel)]="rowDetails.containerNo"
+                          tabindex="5"
+                          (change)="inputValueChange()"
+                          #containerNoRef
+                      /></ibm-label> -->
+            </td>
+
+            <td>
+              <ibm-combo-box
+                placeholder="Select"
+                itemValueKey="content"
+                [dropUp]="false"
+                name="containerType_{{ postIndex }}"
+                invalidText="Required"
+                required
+                [(ngModel)]="rowDetails.containerType"
+                [invalid]="rowDetails.invalidContainerType"
+                (selected)="onConTypeSelected($event, postIndex)"
+                (selected)="inputValueChange()"
+                [items]="containerTypeList"
+                [disabled]="!rowDetails.isChangable"
+              >
+                <ibm-dropdown-list></ibm-dropdown-list>
+              </ibm-combo-box>
+            </td>
+
+            <!-- <td>
+                      <ibm-radio-group
+                        name="conType_{{ postIndex }}"
+                        [(ngModel)]="rowDetails.containerType"
+                        #conTypeRef
+                      >
+                        <ibm-radio [value]="'CHILLER'"></ibm-radio>
+                      </ibm-radio-group>
+                    </td>
+
+                    <td>
+                      <ibm-radio-group
+                        name="conType_{{ postIndex }}"
+                        [(ngModel)]="rowDetails.containerType"
+                      >
+                        <ibm-radio [value]="'FREEZER'"></ibm-radio>
+                      </ibm-radio-group>
+                    </td>
+
+                    <td>
+                      <ibm-radio-group
+                        name="conType_{{ postIndex }}"
+                        [(ngModel)]="rowDetails.containerType"
+                      >
+                        <ibm-radio [value]="'DRY'"></ibm-radio>
+                      </ibm-radio-group>
+                    </td> -->
+
+            <td>
+              <ibm-checkbox
+                name="cabling_{{ postIndex }}"
+                [disabled]="!rowDetails.isChiller"
+                [(ngModel)]="rowDetails.cablingOnVessel"
+                (ngModelChange)="inputValueChange()"
+                (ngModelChange)="clearFourCore(postIndex)"
+              >
+              </ibm-checkbox>
+            </td>
+
+            <td>
+              <ibm-checkbox
+                name="fourCore_{{ postIndex }}"
+                [disabled]="
+                  !rowDetails.cablingOnVessel || !rowDetails.isChiller
+                "
+                [(ngModel)]="rowDetails.fourCore"
+                (ngModelChange)="inputValueChange()"
+              >
+              </ibm-checkbox>
+            </td>
+
+            <td>
+              <ibm-combo-box
+                placeholder="Select"
+                itemValueKey="content"
+                [dropUp]="false"
+                name="time"
+                invalidText="Time Required"
+                required
+                [(ngModel)]="rowDetails.time"
+                [items]="timeList"
+                (selected)="inputValueChange()"
+              >
+                <ibm-dropdown-list></ibm-dropdown-list>
+              </ibm-combo-box>
+            </td>
+
+            <td>
+              <ibm-label
+                invalidText="Required"
+                [invalid]="rowDetails.invalidRemarks"
+                ><input
+                  ibmText
+                  [name]="'remarks' + postIndex"
+                  [(ngModel)]="rowDetails.remarks"
+                  (change)="inputValueChange()"
+              /></ibm-label>
+            </td>
+
+            <td>
+              <ibm-checkbox
+                name="checkbox_{{ postIndex }}"
+                [(ngModel)]="rowDetails.selected"
+              >
+              </ibm-checkbox>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ibm-table-container>
+</div>

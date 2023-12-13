@@ -1,0 +1,50 @@
+<div ibmGrid class="bx--grid--full-width" style="padding-bottom: 133px;">
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+        <div ibmCol [columnNumbers]="{ 'lg': 10, 'md': 10, 'sm': 10 }">
+            <ibm-breadcrumb [noTrailingSlash]="true">
+                <ibm-breadcrumb-item [current]="true">
+                    Warehouse Management System
+                </ibm-breadcrumb-item>
+                <ibm-breadcrumb-item [routerLink]="['/wms/psb-inventory-list']" class="customLink" style="text-decoration: none;">
+                    Petroleum Supply Base
+                </ibm-breadcrumb-item>
+                <ibm-breadcrumb-item [current]="true">
+                    Transfer Ownership
+                </ibm-breadcrumb-item>
+            </ibm-breadcrumb>
+        </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+        <div ibmCol [columnNumbers]="{'lg': 6, 'md': 6, 'sm': 6}">
+            <div class="title">
+                <span class="ph03">Transfer Ownership</span>
+            </div>
+        </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32 btn-switcher">
+
+        <div ibmCol [columnNumbers]="{'lg': 6, 'md': 6, 'sm': 6}">
+            <ibm-content-switcher (selected)="selected($event)">
+				<button ibmContentOption name="seller-form">Seller Form</button>
+				<button ibmContentOption name="buyerConfirmationForm">Buyer Confirmation Form</button>
+			</ibm-content-switcher>
+        </div>
+
+    </div>
+
+
+
+    <div *ngIf="switch == 'seller-form'">
+        <app-seller></app-seller>
+    </div>
+
+    <div *ngIf="switch == 'buyerConfirmationForm'">
+        <app-buyer-confirmation></app-buyer-confirmation>
+    </div>
+    
+
+
+</div>

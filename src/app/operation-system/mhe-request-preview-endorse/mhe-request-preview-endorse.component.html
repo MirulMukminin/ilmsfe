@@ -1,0 +1,824 @@
+<ibm-loading
+		*ngIf="isLoading"
+		[isActive]="isLoading"
+		size="normal"
+		[overlay]="overlay">
+</ibm-loading>
+
+<div ibmGrid class="bx--grid--full-width">
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+        <div ibmCol [columnNumbers]="{ 'lg':10, 'md':10, 'sm':10 }">
+            <ibm-breadcrumb [noTrailingSlash]="true">
+                <ibm-breadcrumb-item [current]="true">
+                    Base Operations
+                </ibm-breadcrumb-item>
+                <ibm-breadcrumb-item  [current]="true">
+                   MHE
+                </ibm-breadcrumb-item>
+                <ibm-breadcrumb-item >
+                    <a routerLink="/operation-system/mhe-request-list">Current Request</a>
+                </ibm-breadcrumb-item>
+                <ibm-breadcrumb-item [current]="true">
+                    Request Form
+                </ibm-breadcrumb-item>
+            </ibm-breadcrumb>
+        </div>
+    </div>
+
+    <app-booking-time-counter></app-booking-time-counter>
+
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+        <div ibmCol [columnNumbers]="{ 'lg':10, 'md':10, 'sm': 6 }">
+            <span class="ph03">MHE Request Form Preview</span>
+        </div>
+    </div>
+
+    <!----------------------------------  NORMAL REQUEST PREVIEW -------------------------------------------->
+
+ <div *ngIf="requestType=='NORMAL'" >
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Request Number
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+               {{requestNum}}
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Company Name
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{companyName}}
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Request By
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{requestBy}}
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Request Type
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01 first-cap" >
+                {{requestType}}
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Booking Type
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01 first-cap" >
+                {{bookingType}}
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Booking Date
+            </div>
+            <div *ngIf="recurringDateItem.length < 1" ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{bookingStartDate | date:'dd/MM/yyyy'}} -  {{bookingEndDate | date:'dd/MM/yyyy'}}
+            </div>
+            <div *ngIf="recurringDateItem.length > 0" ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                <span *ngFor="let recurringDate of recurringDateItem; let postIndex=index; let last=last;" >
+                    {{recurringDate.datestart | date:'dd/MM/yyyy'}} -  {{recurringDate.dateend | date:'dd/MM/yyyy'}}
+                    <span *ngIf="!last"> , </span>
+                </span>
+               
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Request on Behalf
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{requestOnBehalf}}
+            </div>
+        </div>
+        
+        <div *ngIf="bookingType !== 'CONTRACT'" ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Job Description
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{jobDesc}}
+            </div>
+        </div>
+     
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                PO Number
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{PONumber}}
+            </div>
+        </div>
+        <div  *ngIf="bookingType == 'DAILY'" ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+               Vessel Name
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                <div *ngFor="let vessel of vesselList; let last=last; let index=index">
+                    {{vessel}}<span *ngIf="!last" class="pr-4">, </span>
+                </div>
+                <div *ngIf="vesselList.length == 0">-</div>
+
+            </div>
+        </div>
+        
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+               Remarks
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{remarks}}
+            </div>
+        </div>
+      
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Date Submitted
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{dateSubmit | date:'dd/MM/yyyy'}}
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+               Status
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01 " [ngStyle]="{'color': status.toLowerCase().includes('pending') ? 'red' : '#161616' }">
+                {{status}}
+            </div>
+        </div>
+        <div *ngIf="!notPending()">
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+               Cancellation Date
+            </div>
+            <div *ngIf="cancelDate !== '-'" ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01" >
+                {{cancelDate | date:'dd/MM/yyyy'}}
+            </div>
+            <div *ngIf="cancelDate == '-'" ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01" >
+                -
+            </div>
+        </div>
+
+        
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+            
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                <button ibmButton="secondary" #trigger (click)="openModalDelRequest()"  [disabled]="disableCancelReq" >Cancel Request</button>
+            </div>
+        </div>
+
+        
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+               
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01" >
+                <div class="singleDate-notif">
+                    <div class="pt-16" *ngIf="dateFlag == true">
+                        <ibm-toast style="width: 100%;" [notificationObj]="{
+                            type: 'info',
+                            template: customToastContent,
+                            lowContrast: true,
+                            title: 'You will be charged if you cancel this request',
+                            myData: {
+                                subtitle: 'Charges could be applied to this job cancellation under certain conditions. For more information, please contact KSB Admin.'
+                            },
+                            showClose: showClose
+                        }">
+                        </ibm-toast>
+                        <ng-template #customToastContent let-data>
+                            <div class="d-flex">
+                                <div>
+                                    <p class="ph01" style="margin-bottom: 0px; padding-top: 16px;" ibmToastTitle>{{data.title}}</p>
+                                    <p ibmToastSubtitle>{{data.myData.subtitle}}</p>
+                                </div>
+                              
+                            </div>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+      <!----------------------------------   Machinery Table ----------------------------------->
+      <div *ngIf="machineryItem.length > 0">
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64">
+            <div ibmCol [columnNumbers]="{'lg': 12, 'md': 10, 'sm': 6}">
+                <div class="form-item">
+                    <ibm-table-container>
+                        <ibm-table-header>
+                            <h4 ibmTableHeaderTitle>Machinery</h4>
+                            <p ibmTableHeaderDescription>To cancel any job, click on the action and select cancel job on the console. Charges could be applied to this job cancellation under certain conditions.</p>
+                      
+                        </ibm-table-header>
+                        <ibm-table-toolbar>
+                            <div class="table-action" *ngIf="checkLengthMachinery()">
+                                <div class="selectedItem">
+                                    {{counterMachinery}} <span *ngIf="counterMachinery == 1">item</span><span *ngIf="counterMachinery > 1">items</span> selected 
+                                </div>
+                                <div class="actions">
+                                    <div class="del">
+                                     
+                                        <button ibmButton="primary" size="sm" type="button" (click)="openModalMachineryDel()">
+                                            Cancel Job
+                                            <div class="icon-trashCan" ibmIcon="trash-can" size="20"></div>
+                                        </button>
+                                    </div>
+                                    <div class="cancel">
+                                        <button  [id]="cancelMachinery" ibmButton="primary" size="sm" type="button" (click)="cancelDelJobMachinery()">Cancel</button>
+                                    </div>
+                                </div>
+                             
+
+                            </div>
+                        </ibm-table-toolbar>
+                        <div class="horizontal-overflow-table scroll-vertical">
+                            <table class="bx--data-table">
+                                <thead >
+                                    <tr>
+                                        <th >No.</th>
+                                        <th>Item</th>
+                                        <th>Qty</th>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                        <th>Est. Hours</th>
+                                        <th>Location</th>
+                                        <th *ngIf="special == true">Specific Crew</th>
+                                        <th>Job Ticket</th>
+                                        <th *ngIf="bookingType !== 'RECURRING'">Usage (Hrs)</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let machinery of machineryItem; let postIndex=index;">
+                                        <td>{{postIndex + 1}}</td>
+                                        <td>{{machinery.Item}}</td>
+                                        <td>{{machinery.Quantity}}</td>
+                                        <td>{{machinery.Time | date : 'dd/MM/yyyy'}}</td>
+                                        <td>{{machinery.Time | date : 'HH:mm'}}</td>
+                                        <td>{{machinery.estHours}}</td>
+                                        <td>{{machinery.Location}}</td>
+                                        <td *ngIf="special == true">{{machinery.SpecificCrew}}</td>
+                                       <td *ngIf="machinery.JobTicket !== 'N/A'"><a [routerLink]="['/operation-system/mhe-job-ticket-preview', machinery.JobTicket]">{{machinery.JobTicket}}</a></td> 
+                                        <td *ngIf="machinery.JobTicket == 'N/A'">{{machinery.JobTicket}}</td>
+                                        <td *ngIf="bookingType !== 'RECURRING'">{{machinery.UsageHrs}}</td>
+                                        <td [ngStyle]="{'color':machinery.Status.toLowerCase().includes('pending') ? 'red' : '#161616' }">{{machinery.Status}}</td>
+                                        <td><ibm-checkbox 
+                                            name="checkbox_{{ machinery.id }}" 
+                                            [(ngModel)]="machinery.Select"
+                                            [disabled]="disable[postIndex]"
+                                            (ngModelChange)="machineryCheckboxChange($event, machinery.charge)"
+                                            > </ibm-checkbox></td>
+                                    </tr>
+                                </tbody>
+                             
+                            </table>
+                        </div>
+                    </ibm-table-container>
+                </div>
+            </div>
+    
+        </div>
+     </div>
+
+       <!----------------------------------  Manpower Table ------------------------------------>  
+       <div *ngIf="manPowerItem.length > 0">
+       <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64">
+        <div ibmCol [columnNumbers]="{'lg': 12, 'md': 10, 'sm': 6}">
+            <div class="form-item">
+                <ibm-table-container>
+                    <ibm-table-header>
+                        <h4 ibmTableHeaderTitle>Manpower</h4>
+                        <p ibmTableHeaderDescription>To cancel any job, click on the action and select cancel job on the console. Charges could be applied to this job cancellation under certain conditions.</p>
+                  
+                    </ibm-table-header>
+                    <ibm-table-toolbar>
+                        <div class="table-action" *ngIf="checkLengthManPower()">
+                            <div class="selectedItem">
+                                {{counterManpower}} <span *ngIf="counterManpower == 1">item</span><span *ngIf="counterManpower > 1">items</span> selected 
+                            </div>
+                            <div class="actions"  >
+                                <div class="del">
+                                    <button ibmButton="primary" size="sm" type="button"  (click)="openModalManpowerDel()">
+                                        Cancel Job
+                                        <div class="icon-trashCan" ibmIcon="trash-can" size="20"></div>
+                                    </button>
+                                </div>
+                                <div class="cancel">
+                                    <button id="cancelManpower" ibmButton="primary" size="sm" type="button" (click)="cancelDelJobManPower()">Cancel</button>
+                                </div>
+                            </div>
+                          
+                        </div>
+                    </ibm-table-toolbar>
+                    <div class="horizontal-overflow-table scroll-vertical">
+                        <table class="bx--data-table">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Item</th>
+                                    <th>Qty</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Est. Hours</th>
+                                    <th>Location</th>
+                                    <th *ngIf="special == true">Specific Crew</th>
+                                    <th>Job Ticket</th>
+                                    <th *ngIf="bookingType !== 'RECURRING'">Usage (Hrs)</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let manpower of manPowerItem; let postIndex=index;">
+                                    <td>{{postIndex + 1}}</td>
+                                    <td>{{manpower.mpItem}}</td>
+                                    <td>{{manpower.mpQuantity}}</td>
+                                    <td>{{manpower.Time  | date : 'dd/MM/yyyy'}}</td>
+                                    <td>{{manpower.Time  | date : 'HH:mm'}}</td>
+                                    <td>{{manpower.estHours}}</td>
+                                    <td>{{manpower.mpLocation}}</td>
+                                    <td *ngIf="special == true">{{manpower.mpSpecificCrew}}</td>
+                                    <td *ngIf="manpower.JobTicket !== 'N/A'"><a [routerLink]="['/operation-system/mhe-job-ticket-preview', manpower.JobTicket]">{{manpower.JobTicket}}</a></td> 
+                                    <td *ngIf="manpower.JobTicket == 'N/A'">{{manpower.JobTicket}}</td>
+                                    <td *ngIf="bookingType !== 'RECURRING'">{{manpower.mpUsageHrs}}</td>
+                                    <td [ngStyle]="{'color':manpower?.Status?.toLowerCase().includes('pending') ? 'red' : '#161616' }">{{manpower.Status}}</td>
+                                    <td><ibm-checkbox 
+                                        name="checkbox_{{ manpower.id }}"
+                                        [(ngModel)]="manpower.mpSelect"
+                                        (ngModelChange)="manpowerCheckboxChange($event, manpower.charge)"
+                                        [disabled]="disableManpower[postIndex]"> </ibm-checkbox></td>
+                                    
+                                </tr>
+                            </tbody>
+                         
+                        </table>
+                    </div>
+                </ibm-table-container>
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+       <!----------------------------------  Equipment Table ------------------------------------>  
+       <div *ngIf="equipmentItem.length > 0">
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64">
+         <div ibmCol [columnNumbers]="{'lg': 12, 'md': 10, 'sm': 6}">
+             <div class="form-item">
+                 <ibm-table-container>
+                     <ibm-table-header>
+                         <h4 ibmTableHeaderTitle>Equipment</h4>
+                         <p ibmTableHeaderDescription>To cancel any job, click on the action and select cancel job on the console. Charges could be applied to this job cancellation under certain conditions.</p>
+                   
+                     </ibm-table-header>
+                     <ibm-table-toolbar>
+                         <div class="table-action" *ngIf="checkLengthEquipment()">
+                            <div class="selectedItem">
+                                {{counterEquipment}} <span *ngIf="counterEquipment == 1">item</span><span *ngIf="counterEquipment > 1">items</span> selected 
+                            </div>
+                             <div class="actions"  >
+                                 <div class="del">
+                                     <button ibmButton="primary" size="sm" type="button"  (click)="openModalEquipmentDel()">
+                                         Cancel Job
+                                         <div class="icon-trashCan" ibmIcon="trash-can" size="20"></div>
+                                     </button>
+                                 </div>
+                                 <div class="cancel">
+                                     <button ibmButton="primary" size="sm" type="button" (click)="cancelDelEquipment()">Cancel</button>
+                                 </div>
+                             </div>
+                           
+                         </div>
+                     </ibm-table-toolbar>
+                     <div class="horizontal-overflow-table scroll-vertical">
+                         <table class="bx--data-table">
+                             <thead>
+                                 <tr>
+                                     <th>No. </th>
+                                     <th>Item </th>
+                                     <th>Qty</th>
+                                     <th>Date</th>
+                                     <th>Time </th>
+                                     <th>Est. Hours</th>
+                                     <th>Location</th>
+                                     <th>Job Ticket</th>
+                                     <th>Status</th>
+                                     <th>Action</th>
+                                 </tr>
+                             </thead>
+                             <tbody>
+                                 <tr *ngFor="let equip of equipmentItem; let postIndex=index;">
+                                     <td>{{postIndex + 1}}</td>
+                                     <td>{{equip.item}}</td>
+                                     <td>{{equip.quantity}}</td>
+                                     <td>{{equip.Time | date : 'dd/MM/yyyy'}}</td>
+                                     <td>{{equip.Time | date : 'HH:mm'}}</td>
+                                     <td>{{equip.estHours}}</td>
+                                     <td>{{equip.location}}</td>
+                                     <td *ngIf="equip.JobTicket !== 'N/A'"><a [routerLink]="['/operation-system/mhe-job-ticket-preview', equip.JobTicket]">{{equip.JobTicket}}</a></td> 
+                                     <td *ngIf="equip.JobTicket == 'N/A'">{{equip.JobTicket}}</td>
+                                     <td  [ngStyle]="{'color':equip.Status.toLowerCase().includes('pending') ? 'red' : '#161616' }">{{equip.Status}}</td>
+                                     <td><ibm-checkbox 
+                                         name="checkbox_{{ equip.eqID }}"
+                                         [(ngModel)]="equip.select"
+                                         (ngModelChange)="equipmentCheckboxChange($event, equip.charge)"
+                                         [disabled]="disableEquipment[postIndex]"> </ibm-checkbox></td>
+                                     
+                                 </tr>
+                               
+                             </tbody>
+                          
+                         </table>
+                     </div>
+                 </ibm-table-container>
+             </div>
+         </div>
+ 
+     </div>
+     </div>
+
+       <!----------------------------------  External Table ------------------------------------>  
+       <div *ngIf="externalItem.length > 0">
+       <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+        <div ibmCol [columnNumbers]="{'lg': 12, 'md': 10, 'sm': 6}">
+            <div class="form-item">
+                <ibm-table-container>
+                    <ibm-table-header>
+                        <h4 ibmTableHeaderTitle>External</h4>
+                        <p ibmTableHeaderDescription>Please contact Admin to Cancel the External Job. Charges could be applied to this job cancellation under certain conditions.</p>
+                  
+                    </ibm-table-header>
+                  
+                    <div class="horizontal-overflow-table scroll-vertical">
+                        <table class="bx--data-table">
+                            <thead>
+                                <tr>
+                                    <th>No. </th>
+                                    <th>Quotation ID </th>
+                                    <th>Item</th>
+                                    <th>UOM </th>
+                                    <!-- <th>Qty.</th>
+                                    <th>Rent Period</th> -->
+                                    <th>Unit</th>
+                                    <th>Time</th>
+                                    <th>Location</th>
+                                    <th>Job Ticket</th>
+                                    <th *ngIf="bookingType !== 'RECURRING'">Usage (Hrs)</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let external of externalItem; let postIndex=index;">
+                                    <td>{{postIndex + 1}}</td>
+                                    <td>{{external.quotationID}}</td>
+                                    <td>{{external.item}}</td>
+                                    <td>{{external.uom}}</td>
+                                    <!-- <td>{{external.quantity}}</td>
+                                    <td>{{external.rentPeriod  | date : 'dd/MM/yyyy HH:mm'}}</td> -->
+                                    <td>{{external.unit}}</td>
+                                    <td>{{external.Time | date : 'HH:mm'}}</td>
+                                    <td>{{external.location}}</td>
+                                    <td *ngIf="external.JobTicket !== 'N/A'"><a [routerLink]="['/operation-system/mhe-job-ticket-preview', external.JobTicket]">{{external.JobTicket}}</a></td> 
+                                    <td *ngIf="external.JobTicket == 'N/A'">{{external.JobTicket}}</td>
+                                    <td *ngIf="bookingType !== 'RECURRING'">{{external.usageHours}} </td>
+                                    <td>{{external.Status}} </td>
+                                </tr>
+                              
+                            </tbody>
+                         
+                        </table>
+                    </div>
+                </ibm-table-container>
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+    </div>
+
+    <!---------------------------------- END OF NORMAL REQUEST PREVIEW --------------------------------------->
+
+    <!----------------------------------  CONSOLE REQUEST PREVIEW -------------------------------------------->
+ <div *ngIf="requestType=='CONSOLE'" >
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Request Number
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+               {{requestNumConsole}}
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Request Type
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01 first-cap">
+                {{requestType}}
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Company Name
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{companyName}}
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Request By
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{requestBy}}
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Job Description
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{jobDescConsole}}
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Request on Behalf
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{requestOnBehalfConsole}}
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Booking Date
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{bookingStartDateConsole | date:'dd/MM/yyyy'}} -  {{bookingEndDateConsole | date:'dd/MM/yyyy'}}
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+               Estimated Duration (Hour)
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{estHours}}
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+               Estimated Trip
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{estTrip}}
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+               Estimated Quantity of Goods
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{estGoods}}
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+               Remarks
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{remarksConsole}}
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Date Submitted
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{dateSubmitConsole | date:'dd/MM/yyyy'}}
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+               Status
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01 first-cap" [ngStyle]="{'color': status.toLowerCase().includes('pending') ? 'red' : '#161616' }">
+                {{statusConsole}}
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Ref. No (Manual Form No)
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{refNo}}
+            </div>
+        </div>
+        <div *ngIf="!notPending()">
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+               Cancellation Date
+            </div>
+            <div *ngIf="cancelDateConsole !== '-'" ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{cancelDateConsole | date:'dd/MM/yyyy'}}
+            </div>
+            <div *ngIf="cancelDateConsole == '-'" ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01" >
+                -
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+            
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                <button ibmButton="secondary" #trigger (click)="openModalDelRequestConsole()" [disabled]="disableCancelReq" >Cancel Request</button>
+            </div>
+        </div>
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+               
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01" >
+                <div class="singleDate-notif">
+                    <div class="pt-16" *ngIf="dateFlag == true">
+                        <ibm-toast style="width: 100%;" [notificationObj]="{
+                            type: 'info',
+                            template: customToastContent,
+                            lowContrast: true,
+                            title: 'Charges could be applied to this job cancellation',
+                            myData: {
+                                subtitle: 'Any cancellations made less than 2 hours from the booking time will be imposed with a penalty charge'
+                            },
+                            showClose: showClose
+                        }">
+                        </ibm-toast>
+                        <ng-template #customToastContent let-data>
+                            <div class="d-flex">
+                                <div>
+                                    <p class="ph01" style="margin-bottom: 0px; padding-top: 16px;" ibmToastTitle>{{data.title}}</p>
+                                    <p ibmToastSubtitle>{{data.myData.subtitle}}</p>
+                                </div>
+                              
+                            </div>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+      <!----------------------------------   Machinery Table ----------------------------------->
+      <div *ngIf="machineryConsoleItem.length > 0">
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+            <div ibmCol [columnNumbers]="{'lg': 12, 'md': 10, 'sm': 6}">
+                <div class="form-item">
+                    <ibm-table-container>
+                        <ibm-table-header>
+                            <h4 ibmTableHeaderTitle>Machinery</h4>
+                            <p ibmTableHeaderDescription>To cancel any job, click on the action and select cancel job on the console. Charges could be applied to this job cancellation under certain conditions.</p>
+                      
+                        </ibm-table-header>
+                        <ibm-table-toolbar>
+                            <div class="table-action" *ngIf="checkLengthMachineryConsole()">
+                                <div class="selectedItem">
+                                    {{counterMachineryConsole}} <span *ngIf="counterMachineryConsole == 1">item</span><span *ngIf="counterMachineryConsole > 1">items</span> selected 
+                                </div>
+                                <div class="actions" >
+                                    <div class="del">
+                                        <button ibmButton="primary" size="sm" type="button" (click)="openModalMachineryDelConsole()">
+                                            Cancel Job
+                                            <div class="icon-trashCan" ibmIcon="trash-can" size="20"></div>
+                                        </button>
+                                    </div>
+                                    <div class="cancel">
+                                        <button ibmButton="primary" size="sm" type="button" (click)="cancelDelJobMachineryConsole()">Cancel</button>
+                                    </div>
+                                </div>
+                                
+
+                            </div>
+                        </ibm-table-toolbar>
+                        <div class="horizontal-overflow-table scroll-vertical">
+                            <table class="bx--data-table">
+                                <thead>
+                                    <tr>
+                                        <th>No. </th>
+                                        <th>Item </th>
+                                        <th>Job Ticket</th>
+                                        <th>Qty</th>
+                                        <th>Time </th>
+                                        <th>Location</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let machineryConsole of machineryConsoleItem; let postIndex=index;">
+                                        <td>{{postIndex + 1}}</td>
+                                        <td>{{machineryConsole.Item}}</td>
+                                        <td *ngIf="machineryConsole.JobTicket !== 'N/A'"><a [routerLink]="['/operation-system/mhe-job-ticket-preview', machineryConsole.JobTicket]">{{machineryConsole.JobTicket}}</a></td>
+                                        <td *ngIf="machineryConsole.JobTicket == 'N/A'">{{machineryConsole.JobTicket}}</td>
+                                        <td>{{machineryConsole.Quantity}}</td>
+                                        <td>{{machineryConsole.Time | date : 'HH:mm'}}</td>
+                                        <td>{{machineryConsole.Location}}</td>
+                                        <td  [ngStyle]="{'color': machineryConsole.Status.toLowerCase().includes('pending') ? 'red' : '#161616' }" >{{machineryConsole.Status}}</td>
+                                        <td><ibm-checkbox 
+                                            name="checkbox_{{ machineryConsole.id }}"
+                                            [(ngModel)]="machineryConsole.Select"
+                                            [disabled]="disable[postIndex]"
+                                            (ngModelChange)="machineryConsoleCheckboxChange($event, machineryConsole.charge)"
+                                            > </ibm-checkbox></td>
+                                    </tr>
+                                 
+                                </tbody>
+                             
+                            </table>
+                        </div>
+                    </ibm-table-container>
+                </div>
+            </div>
+    
+        </div>
+    </div>
+        </div>
+    <!---------------------------------- END OF CONSOLE REQUEST PREVIEW -------------------------------------->
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-5" [rightGutter]="false">
+        <div ibmCol [columnNumbers]="{ 'lg':12 }">
+            <hr>
+        </div>
+    </div>
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-1">
+        <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01 pt-3">
+            Total Estimated Price
+        </div>
+        <div ibmCol [columnNumbers]="{ 'lg':2 }" class="text-decoration-underline pt-3">
+            RM {{totalPrice}}
+        </div>
+        <div ibmCol [columnNumbers]="{ 'lg':2 }">
+            <app-detail-breakdown [totalPrice]="totalPrice" [itemList]="itemList" [status]="'submit'" [requestNo]="requestNo"></app-detail-breakdown>
+        </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32 pb-64">
+        <div ibmCol [columnNumbers]="{ 'lg':12 }">
+            <div class="form-item">
+                <div class="btn-action">
+            <button type="button" ibmButton="secondary" [routerLink]="['/operation-system/mhe-request-list']">Back</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+ 
+    <!-- Modal (Cancel Request)-->
+    <div ibmRow>
+        <div ibmCol [columnNumbers]="{ 'lg':10 }">
+            <ibm-modal
+                [open]="open"
+                >
+                <ibm-modal-header  (closeSelect)="closeModal()" >
+                </ibm-modal-header>
+                <section ibmModalContent *ngIf="flagNoCharge == true">
+                    <h4 style="font-weight: bold;">Confirmation</h4>
+                    <h4>Are you sure you want to cancel this Job Request?</h4>
+                    <h4>Any cancellation of job cannot be undone after this.</h4>
+                </section>
+                <section ibmModalContent *ngIf="flagCharge == true">
+                    <h4 style="font-weight: bold;">Confirmation</h4>
+                    <h4>Charges could be applied to this job cancellation under certain conditions.</h4>
+                    <h4>For more information, please contact KSB Admin - Tel: 09-860 2222 </h4>
+                </section>
+                <ibm-modal-footer>
+                    <button class="bx--btn bx--btn--secondary" (click)="closeModal()">Back</button>
+                    <button class="bx--btn bx--btn--primary"  *ngIf="viewDelRequest" (click)="deleteJobRequest()">Cancel Job</button>
+                    <button class="bx--btn bx--btn--primary"  *ngIf="viewDelRequestConsole" (click)="deleteJobRequestConsole()">Cancel Job</button>
+                    <button class="bx--btn bx--btn--primary " *ngIf="viewDelMachinery" (click)="deleteJobMachinery()">Cancel Job</button>
+                    <button class="bx--btn bx--btn--primary " *ngIf="viewDelMachineryConsole" (click)="deleteJobMachineryConsole()">Cancel Job</button>
+                    <button class="bx--btn bx--btn--primary " *ngIf="viewDelManpower" (click)="deleteJobManPower()">Cancel Job</button>
+                    <button class="bx--btn bx--btn--primary " *ngIf="viewDelEquipment" (click)="deleteJobEquipment()">Cancel Job</button>
+                </ibm-modal-footer>
+		    </ibm-modal>
+        </div>
+    </div>
+
+  
+
+    <div class="notification-container"></div>
+</div>
+

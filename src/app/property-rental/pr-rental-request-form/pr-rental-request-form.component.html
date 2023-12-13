@@ -1,0 +1,539 @@
+<div class="body">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item home">Property Rental</li>
+    <li class="breadcrumb-item current">
+      <a routerLink="/property-rental/rental-request-form"></a>Property Rental
+      Request Form
+    </li>
+  </ol>
+
+  <div class="category-title">Property Rental</div>
+
+  <div class="page-title">Property Rental Request Form</div>
+
+  <table class="user-details">
+    <tr>
+      <th class="table-header">Company Name</th>
+      <td class="table-data">EXXONMOBIL EXPLO. & PROD. (M) INC.</td>
+    </tr>
+    <tr>
+      <th class="table-header">Request by</th>
+      <td class="table-data">user_exxon</td>
+    </tr>
+  </table>
+  <form
+    (ngSubmit)="submitForm()"
+    id="rental-request-form"
+    #propertyRequestForm="ngForm"
+  >
+    <div class="section-title">
+      <span>Section 1: Details of Lessee/Tenant</span>
+    </div>
+    <div class="form-section first-section">
+      <label class="input-label" for="companyName">Company Name</label>
+      <input
+        class="input-box"
+        type="text"
+        id="companyName"
+        name="companyName"
+        [(ngModel)]="formValues.companyName"
+        [value]="companyData?.companyName"
+        readonly
+        required
+      />
+      <label class="input-label" for="companyAddress">Registered Address</label>
+      <input
+        class="input-box"
+        type="text"
+        id="companyAddress"
+        name="companyAddress"
+        [(ngModel)]="formValues.companyAddress"
+        [value]="companyData?.companyAddress"
+        readonly
+        required
+      />
+      <label class="input-label" for="companyPhoneFax"
+        >Registered Telephone/Fax</label
+      >
+      <input
+        class="input-box"
+        type="text"
+        id="companyPhoneFax"
+        name="companyPhoneFax"
+        [(ngModel)]="formValues.companyPhoneFax"
+        [value]="companyData?.companyPhone"
+        readonly
+        required
+      />
+      <label class="input-label" for="contactPerson"
+        >Registered Contact Person</label
+      >
+      <input
+        class="input-box"
+        type="text"
+        id="contactPerson"
+        name="contactPerson"
+        [(ngModel)]="formValues.contactPerson"
+        [value]="companyData?.companyContactPerson"
+        readonly
+        required
+      />
+      <label class="input-label" for="contactPersonDesignation"
+        >Registered Contact Person's Designation</label
+      >
+      <input
+        class="input-box"
+        type="text"
+        id="contactPersonDesignation"
+        name="contactPersonDesignation"
+        [(ngModel)]="formValues.contactPersonDesignation"
+        [value]="companyData?.companyContactPersonDesignation"
+        readonly
+        required
+      />
+      <label class="input-label" for="contactPersonEmail"
+        >Registered Contact Person's Email</label
+      >
+      <input
+        class="input-box"
+        type="text"
+        id="contactPersonEmail"
+        name="contactPersonEmail"
+        [(ngModel)]="formValues.contactPersonEmail"
+        [value]="companyData?.companyContactPersonEmail"
+        readonly
+        required
+      />
+
+      <label class="input-label" for="businessAddress">Business Address</label>
+      <input
+        class="input-box"
+        type="text"
+        id="businessAddress"
+        name="businessAddress"
+        [(ngModel)]="formValues.businessAddress"
+        required
+      />
+      <label class="input-label" for="businessPhoneFax"
+        >Business Telephone/Fax</label
+      >
+      <input
+        class="input-box"
+        type="text"
+        id="businessPhoneFax"
+        name="businessPhoneFax"
+        [(ngModel)]="formValues.businessPhoneFax"
+        required
+      />
+      <label class="input-label" for="businessContactPerson"
+        >Business Contact Person</label
+      >
+      <input
+        class="input-box"
+        type="text"
+        id="businessContactPerson"
+        name="businessContactPerson"
+        [(ngModel)]="formValues.businessContactPerson"
+        required
+      />
+      <label class="input-label" for="businessContactPersonDesignation"
+        >Business Contact Person's Designation</label
+      >
+      <input
+        class="input-box"
+        type="text"
+        id="businessContactPersonDesignation"
+        name="businessContactPersonDesignation"
+        [(ngModel)]="formValues.businessContactPersonDesignation"
+        required
+      />
+      <label class="input-label" for="businessEmail">Business Email</label>
+      <input
+        class="input-box"
+        type="email"
+        id="businessEmail"
+        name="businessEmail"
+        [(ngModel)]="formValues.businessEmail"
+        required
+      />
+      <div class="input-radio">
+        <label class="radio-label">Space Type</label>
+        <label class="container" for="Warehouse"
+          >Warehouse
+          <input
+            type="radio"
+            name="radio"
+            id="Warehouse"
+            value="Warehouse"
+            [(ngModel)]="propertyType" />
+          <span class="checkmark"></span
+        ></label>
+        <label class="container" for="Office"
+          >Office
+          <input
+            type="radio"
+            name="radio"
+            id="Office"
+            value="Office"
+            [(ngModel)]="propertyType" />
+          <span class="checkmark"></span
+        ></label>
+      </div>
+      <label class="input-label" for="spaceArea">Space Area</label>
+      <input
+        class="input-box"
+        type="text"
+        id="spaceArea"
+        name="spaceArea"
+        [(ngModel)]="formValues.spaceArea"
+        required
+      />
+      <label class="input-label" for="periodContact">Period of Contact</label>
+      <input
+        class="input-box"
+        type="text"
+        id="periodContact"
+        name="periodContact"
+        [(ngModel)]="formValues.periodContact"
+        required
+      />
+      <label class="input-label" for="commencementDate"
+        >Commencement Date</label
+      >
+      <input
+        class="input-box"
+        type="date"
+        id="commencementDate"
+        name="commencementDate"
+        [(ngModel)]="formValues.commencementDate"
+        required
+      />
+    </div>
+
+    <div class="section-title">
+      <span>Section 2: Organization Particulars</span>
+    </div>
+    <div class="form-section second-section">
+      <label class="input-label" for="scopeActivityCompany"
+        >Scope of Activities of Company</label
+      >
+      <input
+        class="input-box"
+        type="text"
+        id="scopeActivityCompany"
+        name="scopeActivityCompany"
+        [(ngModel)]="formValues.scopeActivityCompany"
+        required
+      />
+      <label class="input-label" for="currentContractOrg"
+        >Current Contract Organization</label
+      >
+      <input
+        class="input-box"
+        type="text"
+        id="currentContractOrg"
+        name="currentContractOrg"
+        [(ngModel)]="formValues.currentContractOrg"
+        required
+      />
+      <label class="input-label" for="currentContractPeriod"
+        >Current Contract Period</label
+      >
+      <input
+        class="input-box"
+        type="text"
+        id="currentContractPeriod"
+        name="currentContractPeriod"
+        [(ngModel)]="formValues.currentContractPeriod"
+        required
+      />
+      <label class="input-label" for="periodContract">Period of Contract</label>
+      <input
+        class="input-box"
+        type="text"
+        id="periodContract"
+        name="periodContract"
+        [(ngModel)]="formValues.periodContract"
+        required
+      />
+      <label class="input-label" for="currentContractActivities"
+        >Details of Activities Under Current Contract</label
+      >
+      <input
+        class="input-box"
+        type="text"
+        id="currentContractActivities"
+        name="currentContractActivities"
+        [(ngModel)]="formValues.currentContractActivities"
+        required
+      />
+
+      <div class="section-title">
+        <span>Percentage Distribution of Shares</span>
+      </div>
+      <label class="input-label" for="shareHolders">Amongst Shareholders</label>
+      <input
+        class="input-box"
+        type="text"
+        id="shareHolders"
+        name="shareHolders"
+        [(ngModel)]="formValues.shareHolders"
+        required
+      />
+      <label class="input-label" for="nonMalaysian">Non-Malaysian</label>
+      <input
+        class="input-box"
+        type="text"
+        id="nonMalaysian"
+        name="nonMalaysian"
+        [(ngModel)]="formValues.nonMalaysian"
+        required
+      />
+      <label class="input-label" for="bumiputera">Bumiputera</label>
+      <input
+        class="input-box"
+        type="text"
+        id="bumiputera"
+        name="bumiputera"
+        [(ngModel)]="formValues.bumiputera"
+        required
+      />
+      <label class="input-label" for="nonBumiputera">Non-Bumiputera</label>
+      <input
+        class="input-box"
+        type="text"
+        id="nonBumiputera"
+        name="nonBumiputera"
+        [(ngModel)]="formValues.nonBumiputera"
+        required
+      />
+
+      <label class="input-label" for="bankerName">Banker Name</label>
+      <input
+        class="input-box"
+        type="text"
+        id="bankerName"
+        name="bankerName"
+        [(ngModel)]="formValues.bankerName"
+        required
+      />
+      <label class="input-label" for="bankerAddress">Banker Address</label>
+      <input
+        class="input-box"
+        type="text"
+        id="bankerAddress"
+        name="bankerAddress"
+        [(ngModel)]="formValues.bankerAddress"
+        required
+      />
+      <label class="input-label" for="companyDirectorName"
+        >Company Director's Name</label
+      >
+      <input
+        class="input-box"
+        type="text"
+        id="companyDirectorName"
+        name="companyDirectorName"
+        [(ngModel)]="formValues.companyDirectorName"
+        [value]="companyData?.companyDirector"
+        readonly
+        required
+      />
+      <label class="input-label" for="companyDIrectorAddress"
+        >Company Director's Address</label
+      >
+      <input
+        class="input-box"
+        type="text"
+        id="companyDIrectorAddress"
+        name="companyDIrectorAddress"
+        [(ngModel)]="formValues.companyDIrectorAddress"
+        [value]="companyData?.companyDirectorAddress"
+        required
+      />
+      <label class="input-label" for="namePrincipal"
+        >Name of the Principal</label
+      >
+      <input
+        class="input-box"
+        type="text"
+        id="namePrincipal"
+        name="namePrincipal"
+        [(ngModel)]="formValues.namePrincipal"
+        [value]="companyData?.companyPrincipal"
+        readonly
+        required
+      />
+      <label class="input-label" for="projectedTurnover"
+        >Projected Turnover</label
+      >
+      <input
+        class="input-box"
+        type="text"
+        id="projectedTurnover"
+        name="projectedTurnover"
+        [(ngModel)]="formValues.projectedTurnover"
+        [value]="companyData?.companyTurnover"
+        readonly
+        required
+      />
+    </div>
+
+    <div class="section-title">
+      <span
+        >Section 3: Checklist of Basic Requirements For Form Submission</span
+      >
+    </div>
+
+    <div class="form-section third-section">
+      <table class="rental-request-table">
+        <tr class="table-header">
+          <th class="table-header-data" style="width: 10%">No.</th>
+          <th class="table-header-data" style="width: 70%">Description</th>
+          <th class="table-header-data" style="width: 20%">Action</th>
+        </tr>
+
+        <tr class="table-data">
+          <td class="table-data-item">
+            <label class="table-data-index"> 1. </label>
+          </td>
+          <td class="table-data-item">
+            <label class="table-data-description">
+              Copy of Registered License with Petronas and/or Custom License for
+              the Shipping and Forwarding Agent and/or License to Store
+              Explosives
+            </label>
+          </td>
+          <td class="table-data-item">
+            <label class="table-file-upload">
+              <input type="file" />
+              Upload File
+            </label>
+          </td>
+        </tr>
+
+        <tr class="table-data">
+          <td class="table-data-item">
+            <label class="table-data-index"> 2. </label>
+          </td>
+          <td class="table-data-item">
+            <label class="table-data-description">
+              Copy of the Current Contract
+            </label>
+          </td>
+          <td class="table-data-item">
+            <label class="table-file-upload">
+              <input type="file" />
+              Upload File
+            </label>
+          </td>
+        </tr>
+
+        <tr class="table-data">
+          <td class="table-data-item">
+            <label class="table-data-index"> 3. </label>
+          </td>
+          <td class="table-data-item">
+            <label class="table-data-description">
+              Organization Chart of Company Representation at Kemaman Supply
+              Base
+            </label>
+          </td>
+          <td class="table-data-item">
+            <label class="table-file-upload">
+              <input type="file" />
+              Upload File
+            </label>
+          </td>
+        </tr>
+
+        <tr class="table-data">
+          <td class="table-data-item">
+            <label class="table-data-index"> 4. </label>
+          </td>
+          <td class="table-data-item">
+            <label class="table-data-description">
+              Organization Chart of The Company
+            </label>
+          </td>
+          <td class="table-data-item">
+            <label class="table-file-upload">
+              <input type="file" />
+              Upload File
+            </label>
+          </td>
+        </tr>
+
+        <tr class="table-data">
+          <td class="table-data-item">
+            <label class="table-data-index"> 5. </label>
+          </td>
+          <td class="table-data-item">
+            <label class="table-data-description">
+              Certified True Copy of Incorporation Document and any related
+              document issued by Suruhanjaya Syarikat Malaysia (SSM) under
+              Companies Act 1965/2016
+            </label>
+          </td>
+          <td class="table-data-item">
+            <label class="table-file-upload">
+              <input type="file" />
+              Upload File
+            </label>
+          </td>
+        </tr>
+
+        <tr class="table-data">
+          <td class="table-data-item">
+            <label class="table-data-index"> 6. </label>
+          </td>
+          <td class="table-data-item">
+            <label class="table-data-description">
+              Certified True Copy of Form 26, Form 44/46, Form 49/58, and Form
+              78
+            </label>
+          </td>
+          <td class="table-data-item">
+            <label class="table-file-upload">
+              <input type="file" />
+              Upload File
+            </label>
+          </td>
+        </tr>
+
+        <tr class="table-data">
+          <td class="table-data-item">
+            <label class="table-data-index"> 7. </label>
+          </td>
+          <td class="table-data-item">
+            <label class="table-data-description">
+              Certified True Copy of MMA and Annual Return
+            </label>
+          </td>
+          <td class="table-data-item">
+            <label class="table-file-upload">
+              <input type="file" />
+              Upload File
+            </label>
+          </td>
+        </tr>
+
+        <tr class="table-data">
+          <td class="table-data-item">
+            <label class="table-data-index"> 8. </label>
+          </td>
+          <td class="table-data-item">
+            <label class="table-data-description"> Company Profile </label>
+          </td>
+          <td class="table-data-item">
+            <label class="table-file-upload">
+              <input type="file" />
+              Upload File
+            </label>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <button class="btn-submit">Submit</button>
+  </form>
+</div>

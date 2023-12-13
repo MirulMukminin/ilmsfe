@@ -1,0 +1,693 @@
+<ibm-loading
+		*ngIf="isLoading"
+		[isActive]="isLoading"
+		size="normal"
+		[overlay]="overlay">
+</ibm-loading>
+<div ibmGrid class="bx--grid--full-width">
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+        <div ibmCol [columnNumbers]="{ 'lg':10, 'md':10, 'sm':10 }">
+            <ibm-breadcrumb [noTrailingSlash]="true">
+                <ibm-breadcrumb-item [current]="true">
+                    Base Operations
+                </ibm-breadcrumb-item>
+                <ibm-breadcrumb-item>
+                    <a routerLink="/operation-system/mhe-request-list">MHE</a>
+                </ibm-breadcrumb-item>
+                <ibm-breadcrumb-item [current]="true">
+                    Request Form
+                </ibm-breadcrumb-item>
+            </ibm-breadcrumb>
+        </div>
+    </div>
+
+    <app-booking-time-counter></app-booking-time-counter>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+        <div ibmCol [columnNumbers]="{ 'lg':10, 'md':10, 'sm': 6 }">
+            <span class="ph03">MHE Request Form Preview</span>
+        </div>
+    </div>
+
+    <div *ngIf="mheForm.requestType=='Normal'" >
+        
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Company Name
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                <!-- Advance Tech Sdn Bhd -->
+                {{ mheForm.companyName }}
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Request By
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                <!-- Siti Aminah Bte Sazali -->
+                {{ mheForm.requestBy }}
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Request Type
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                <!-- Normal -->
+                {{ mheForm.requestType |  titlecase }}
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Booking Type
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                <!-- - -->
+                {{ mheForm.bookingType }}
+            </div>
+        </div>
+        <div *ngIf="mheForm.bookingType == 'Contract'"  ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Contract No.
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{ mheForm.contractNo }}
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Booking Date
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01" *ngIf="mheForm.bookingType == 'Daily'">
+                {{ mheForm.singleDate | date:'dd-MM-y' }}
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01 d-flex" *ngIf="mheForm.bookingType == 'Recurring'">
+                <div *ngFor="let range of mheForm.rangeDate; let last=last; let index=index" class="d-flex">
+                    <div *ngFor="let i of range.date; let last=last; let index=index">
+                        {{i | date:'dd/MM/y'}}<span *ngIf="!last">-</span>
+                    </div>
+                    <span *ngIf="!last" style="margin-right: 6px;">,</span>
+                </div>
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01" *ngIf="mheForm.bookingType == 'Contract'">
+                {{ mheForm.startDate}} - {{ mheForm.endDate}}
+            </div>
+        </div>
+        
+     
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Request on Behalf
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                <!-- - -->
+                {{ mheForm.requestOnBehalf }}
+            </div>
+        </div>
+        <div *ngIf="mheForm.bookingType !== 'Contract'" ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Job Description
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                <!-- Booking crane 120T for loading AWB Sea AARYAN (MC: Imran PWI) -->
+                {{ mheForm.jobDescription }}
+            </div>
+        </div>
+      
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                PO Number
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                <!-- - -->
+                {{ mheForm.PONum }}
+            </div>
+        </div>
+
+        <div *ngIf="mheForm.bookingType == 'Daily'" ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Vessel Name
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01 d-flex">
+                <div *ngFor="let vessel of vessel; let last=last; let index=index">
+                    {{vessel}}<span *ngIf="!last" class="pr-4">, </span>
+                </div>
+                <div *ngIf="vessel.length == 0">-</div>
+            </div>
+        </div>
+     
+      
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Remarks
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{mheForm.remarks}}
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Status
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                -
+            </div>
+        </div>
+
+        <div *ngIf="mheForm.bookingType !== 'Contract'">
+            <div *ngIf="mheForm.machinery.length > 0 && mheForm.machinery[0].Description">
+                <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3" style="margin-top: 80px;">
+                    <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph03">
+                        Machinery
+                    </div>
+                </div>
+                <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-3">
+                    <div ibmCol [columnNumbers]="{ 'lg':10 }" class="ph03">
+                        <ibm-table-container>
+                            <div class="horizontal-overflow-table">
+                                <table class="bx--data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <span class="bx--table-header-label">No.</span>
+                                            </th>
+                                            <th>
+                                                <span class="bx--table-header-label">Item</span>
+                                            </th>
+                                            <th>
+                                                <span class="bx--table-header-label">Quantity</span>
+                                            </th>
+                                            <th>
+                                                <span class="bx--table-header-label">Time</span>
+                                            </th>
+                                            <th>
+                                                <span class="bx--table-header-label">Estimated Hours</span>
+                                            </th>
+                                            <th>
+                                                <span class="bx--table-header-label">Location</span>
+                                            </th>
+                                            <th *ngIf="special == true">
+                                                <span class="bx--table-header-label">Specific Crew</span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let input of mheForm.machinery; let i=index">
+                                            <td>{{i + 1}}</td>
+                                            <td>{{input.Description}}</td>
+                                            <td>{{input.Quantity}}</td>
+                                            <td>{{input.Time}}</td>
+                                            <td>{{input.EstimatedHours}}</td>
+                                            <td>{{input.Location}}</td>
+                                            <!-- <td>{{input.SpecificCrew}}</td> -->
+                                            <td *ngIf="special == true">
+                                                <div>
+                                                    
+                                                </div>
+                                                <div *ngIf="input.SpecificCrew[0] == null">
+                                                    <div> - </div>
+                                                </div>
+                                                <div *ngIf="input.SpecificCrew[0] != null">
+                                                    <div >{{input.SpecificCrew[0].content}}</div>
+                                                </div>
+                                            
+                                                
+                                            </td>
+                                        </tr>
+                                        <!-- <tr>
+                                            <td>1.</td>
+                                            <td>Crane 120T</td>
+                                            <td>1</td>
+                                            <td>15:00</td>
+                                            <td>3 Hrs</td>
+                                            <td>Warehouse 05</td>
+                                            <td>Name 1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2.</td>
+                                            <td>Forklift 5T</td>
+                                            <td>1</td>
+                                            <td>16:00</td>
+                                            <td>2 Hrs</td>
+                                            <td>Berth 03</td>
+                                            <td>Name 2</td>
+                                        </tr> -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </ibm-table-container>
+                    </div>
+                </div>
+            </div>
+        
+            <div *ngIf="mheForm.manPower.length > 0">
+                <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+                    <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph03">
+                        Manpower
+                    </div>
+                </div>
+                <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-3">
+                    <div ibmCol [columnNumbers]="{ 'lg':10 }" class="ph03">
+                        <ibm-table-container>
+                            <div class="horizontal-overflow-table">
+                                <table class="bx--data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <span class="bx--table-header-label">No.</span>
+                                            </th>
+                                            <th>
+                                                <span class="bx--table-header-label">Item</span>
+                                            </th>
+                                            <th>
+                                                <span class="bx--table-header-label">Quantity</span>
+                                            </th>
+                                            <th>
+                                                <span class="bx--table-header-label">Time</span>
+                                            </th>
+                                            <th>
+                                                <span class="bx--table-header-label">Estimated Hours</span>
+                                            </th>
+                                            <th>
+                                                <span class="bx--table-header-label">Location</span>
+                                            </th>
+                                            <th *ngIf="special == true">
+                                                <span class="bx--table-header-label">Specific Crew</span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let input of mheForm.manPower let i=index">
+                                            <td>{{i + 1}}</td>
+                                            <td>{{input.Item}}</td>
+                                            <td>{{input.Quantity}}</td>
+                                            <td>{{input.Time}}</td>
+                                            <td>{{input.EstimatedHours}}</td>
+                                            <td>{{input.Location}}</td>
+                                            <td *ngIf="special == true">
+                                                <div>
+                                                    
+                                                </div>
+                                                <div *ngIf="input.SpecificCrew[0] == null">
+                                                    <div> - </div>
+                                                </div>
+                                                <div *ngIf="input.SpecificCrew[0] != null">
+                                                    <div >{{input.SpecificCrew[0].content}}</div>
+                                                </div>
+                                            
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </ibm-table-container>
+                    </div>
+                </div>
+            </div>
+    
+            <div *ngIf="mheForm.otherMachineries.length > 0">
+                <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+                    <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph03">
+                        Equipment
+                    </div>
+                </div>
+                <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-3">
+                    <div ibmCol [columnNumbers]="{ 'lg':10 }" class="ph03">
+                        <ibm-table-container>
+                            <div class="horizontal-overflow-table">
+                                <table class="bx--data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <span class="bx--table-header-label">No.</span>
+                                            </th>
+                                            <th>
+                                                <span class="bx--table-header-label">Item</span>
+                                            </th>
+                                            <th>
+                                                <span class="bx--table-header-label">Quantity</span>
+                                            </th>
+                                            <th>
+                                                <span class="bx--table-header-label">Time</span>
+                                            </th>
+                                            <th>
+                                                <span class="bx--table-header-label">Estimated Hours</span>
+                                            </th>
+                                            <th>
+                                                <span class="bx--table-header-label">Location</span>
+                                            </th>
+                                            <!-- <th>
+                                                <span class="bx--table-header-label">Specific Crew</span>
+                                            </th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let input of mheForm.otherMachineries let i=index">
+                                            <td>{{i + 1}}</td>
+                                            <td>{{input.Description}}</td>
+                                            <td>{{input.Quantity}}</td>
+                                            <td>{{input.Time}}</td>
+                                            <td>{{input.EstimatedHours}}</td>
+                                            <td>{{input.Location}}</td>
+                                            <!-- <td>{{input.SpecificCrew}}</td> -->
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </ibm-table-container>
+                    </div>
+                </div>
+            </div>
+    
+            <div *ngIf="mheForm.externalItem.length > 0">
+                <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+                    <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph03">
+                        External Item
+                    </div>
+                </div>
+                <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-3">
+                    <div ibmCol [columnNumbers]="{ 'lg':10 }" class="ph03">
+                        <ibm-table-container>
+                            <div class="horizontal-overflow-table">
+                                <table class="bx--data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <span class="bx--table-header-label">No.</span>
+                                            </th>
+                                            <th>
+                                                <span class="bx--table-header-label">Quotation ID</span>
+                                            </th>
+                                            <th>
+                                                <span class="bx--table-header-label">Item</span>
+                                            </th>
+                                            <th>
+                                                <span class="bx--table-header-label">UOM</span>
+                                            </th>
+                                            <!-- <th>
+                                                <span class="bx--table-header-label">Qty.</span>
+                                            </th>
+                                            <th>
+                                                <span class="bx--table-header-label">Rent Period</span>
+                                            </th> -->
+                                            <th>
+                                                <span class="bx--table-header-label">Unit</span>
+                                            </th>
+                                            <th>
+                                                <span class="bx--table-header-label">Time</span>
+                                            </th>
+                                            <th>
+                                                <span class="bx--table-header-label">Location</span>
+                                            </th>
+                                            <th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let input of mheForm.externalItem let i=index">
+                                            <td>{{i + 1}}</td>
+                                            <td>{{input.quotation}}</td>
+                                            <td>{{input.Item}}</td>
+                                            <td>{{input.UOM}}</td>
+                                            <!-- <td>{{input.Quantity}}</td>
+                                            <td>{{input.RentPeriod}}</td> -->
+                                            <td>{{input.Unit}}</td>
+                                            <td>{{input.Time}}</td>
+                                            <td>{{input.Location}}</td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </ibm-table-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div *ngIf="mheForm.bookingType == 'Contract'">
+            <div  >
+                <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3" style="margin-top: 80px;">
+                    <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph03">
+                        Machinery (Contract)
+                    </div>
+                </div>
+                <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-3">
+                    <div ibmCol [columnNumbers]="{ 'lg':10 }" class="ph03">
+                        <ibm-table-container>
+                            <div class="horizontal-overflow-table">
+                                <table class="bx--data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <span class="bx--table-header-label">No.</span>
+                                            </th>
+                                            <th>
+                                                <span class="bx--table-header-label">Item</span>
+                                            </th>
+                                            <th>
+                                                <span class="bx--table-header-label">Quantity</span>
+                                            </th>
+                                         
+                                            <th>
+                                                <span class="bx--table-header-label">Location</span>
+                                            </th>
+                                            <th *ngIf="special == true">
+                                                <span class="bx--table-header-label">Specific Crew</span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let input of mheForm.machineryContract let i=index">
+                                            <td>{{i + 1}}</td>
+                                            <td>{{input.Item}}</td>
+                                            <td>{{input.Quantity}}</td>
+                                          
+                                            <td>{{input.Location}}</td>
+                                            <!-- <td>{{input.SpecificCrew}}</td> -->
+                                            <td *ngIf="special == true">
+                                                <div *ngIf="input.SpecificCrew == null">
+                                                    <div> - </div>
+                                                </div>
+                                                <div *ngIf="input.SpecificCrew != null">
+                                                    <div >{{input.SpecificCrew}}</div>
+                                                </div>
+                                            
+                                                
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </ibm-table-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       
+    
+    </div>
+
+    <div *ngIf="mheForm.requestType=='Console'" (submit) = "edit(editConsole)">
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Request Type
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{ mheForm.requestType }}
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Company Name
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{ mheForm.companyName }}
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Request By
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{ mheForm.requestBy }}
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Job Description
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{ mheForm.jobDescription }}
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Request on Behalf
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{ mheForm.requestOnBehalf }}
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Booking Date
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{ mheForm.bookingDate | date:'dd/MM/y' }}
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Estimated Duration(Hour)
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                <!-- - -->
+                {{ mheForm.estDuration }}
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Estimated Trip
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{ mheForm.estTrip }}
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Estimated Quantity of Goods
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                {{ mheForm.estGoods }}
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Remarks
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                
+                <div *ngIf="!mheForm.remarks">
+                    -
+                </div>
+                {{ mheForm.remarks }}
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Status
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                -
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+                Ref. No (Manual Form No)
+            </div>
+            <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+                <div *ngIf="!mheForm.refNo">
+                    -
+                </div>
+                {{ mheForm.refNo }}
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3" style="margin-top: 80px;">
+            <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph03">
+                Machinery - Console
+            </div>
+        </div>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-3">
+            <div ibmCol [columnNumbers]="{ 'lg':10 }" class="ph03">
+                <ibm-table-container>
+                    <div class="horizontal-overflow-table">
+                        <table class="bx--data-table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <span class="bx--table-header-label">No.</span>
+                                    </th>
+                                    <th>
+                                        <span class="bx--table-header-label">Item</span>
+                                    </th>
+                                    <th>
+                                        <span class="bx--table-header-label">Quantity</span>
+                                    </th>
+                                    <th>
+                                        <span class="bx--table-header-label">Time</span>
+                                    </th>
+                                    <th>
+                                        <span class="bx--table-header-label">Location</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <ng-container *ngFor="let input of consoleMachinery; let i=index" >
+                                    <tr *ngIf="input.Selected == true && input.Time && input.Location ">
+                                        <td>{{i + 1}}</td>
+                                        <td>{{input.Item}}</td>
+                                        <td>{{input.Quantity}}</td>
+                                        <td>{{input.Time}}</td>
+                                        <td>{{input.Location}}</td>
+                                    </tr>
+                                </ng-container>
+                            </tbody>
+                        </table>
+                    </div>
+                </ibm-table-container>
+            </div>
+        </div>
+    </div>
+   
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-5" [rightGutter]="false">
+        <div ibmCol [columnNumbers]="{ 'lg':12 }">
+            <hr>
+        </div>
+    </div>
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-1">
+        <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01 pt-3">
+            Total Estimated Price
+        </div>
+        <div ibmCol [columnNumbers]="{ 'lg':2 }" class="text-decoration-underline pt-3">
+            <!-- RM 12,000.00 -->
+            RM {{addZeroes(totalEstimatedPrice)}}
+        </div>
+        <div ibmCol [columnNumbers]="{ 'lg':2 }">
+            <app-detail-breakdown status="'Not Submit'"></app-detail-breakdown>
+        </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64  pb-64" [rightGutter]="false">
+        <div ibmCol [columnNumbers]="{ 'lg':10 }">
+            <div class="d-flex justify-content-end">
+                <button type="button" ibmButton="secondary" (click)="edit()">Edit</button>
+                <!-- <button type="submit" ibmButton="primary" (click)="submitForm()" class="ml-24">Submit</button> -->
+                <button #trigger ibmButton="primary" (click)="open = true" class="ml-24">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div ibmRow>
+        <div ibmCol [columnNumbers]="{ 'lg':10 }">
+            <ibm-modal
+                [open]="open"
+                (overlaySelected)="open = false">
+                <ibm-modal-header (closeSelect)="open = false">
+                </ibm-modal-header>
+                <section ibmModalContent>
+                    <h4>Are you sure you want to submit this request? Make sure all the details are correct before you submit.</h4>
+                </section>
+                <ibm-modal-footer>
+                    <button class="bx--btn bx--btn--secondary" (click)="open = false">Cancel</button>
+                    <button class="bx--btn bx--btn--primary" modal-primary-focus (click)="submitForm()">Submit</button>
+                </ibm-modal-footer>
+		    </ibm-modal>
+        </div>
+    </div>
+
+    <!-- <div class="notification-container"></div> -->
+</div>

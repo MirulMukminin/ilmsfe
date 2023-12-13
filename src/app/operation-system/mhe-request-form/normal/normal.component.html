@@ -1,0 +1,1689 @@
+<ibm-loading
+  *ngIf="isLoading"
+  [isActive]="isLoading"
+  size="normal"
+  [overlay]="overlay"
+></ibm-loading>
+<div ibmGrid class="bx--grid--full-width">
+  <form
+    #normalForm="ngForm"
+    (ngSubmit)="onSubmit(normalForm)"
+    autocomplete="off"
+  >
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3">
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+        <input
+          type="hidden"
+          [(ngModel)]="mheForm.requestType"
+          name="requestType"
+        />
+
+        <div class="form-item">
+          <ibm-label>Booking Type</ibm-label>
+          <ibm-radio-group
+            name="bookingType"
+            [(ngModel)]="mheForm.bookingType"
+            (change)="onChange($event)"
+          >
+            <ibm-radio
+              style="margin-right: 70px"
+              *ngFor="let radio of typeOfBooking"
+              [value]="radio.type"
+              [checked]="radio.checked"
+            >
+              {{ radio.type }}
+            </ibm-radio>
+          </ibm-radio-group>
+        </div>
+
+        <div
+          class="form-item"
+          *ngIf="mheForm.bookingType == 'Contract'"
+          #contractNoFocus
+          tabindex="1"
+        >
+          <ibm-dropdown
+            label="Contract No."
+            placeholder="Choose an option"
+            itemValueKey="content"
+            [dropUp]="false"
+            name="contractNo"
+            [(ngModel)]="mheForm.contractNo"
+            (selected)="selectContract($event)"
+            invalidText="Contract No. Required"
+            [invalid]="invalidContractNo"
+          >
+            <ibm-dropdown-list [items]="contractList"></ibm-dropdown-list>
+          </ibm-dropdown>
+        </div>
+
+        <div
+          class="form-item"
+          #bookingDateFocus
+          tabindex="2"
+          *ngIf="mheForm.bookingType == 'Contract'"
+        >
+          <div class="flex-container">
+            <div class="flex-child-date">
+              <ibm-label>Start Date</ibm-label>
+
+              <input
+                *ngIf="!mheForm.startDate"
+                ibmText
+                type="text"
+                placeholder="yyyy/mm/dd"
+                name="startDate"
+                readonly
+              />
+
+              <input
+                *ngIf="mheForm.startDate"
+                ibmText
+                type="text"
+                placeholder="yyyy/mm/dd"
+                name="startDate"
+                [(ngModel)]="mheForm.startDate"
+                [value]="mheForm.startDate"
+                readonly
+              />
+            </div>
+
+            <div class="flex-child-date">
+              <ibm-label>End Date</ibm-label>
+
+              <input
+                *ngIf="!mheForm.endDate"
+                ibmText
+                type="text"
+                placeholder="yyyy/mm/dd"
+                name="endDate"
+                readonly
+              />
+
+              <input
+                *ngIf="mheForm.endDate"
+                ibmText
+                type="text"
+                placeholder="yyyy/mm/dd"
+                name="endDate"
+                [(ngModel)]="mheForm.endDate"
+                [value]="mheForm.endDate"
+                readonly
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-item" #requestOnBehalfFocus tabindex="3">
+          <ibm-combo-box
+            label="Request on Behalf"
+            name="requestOnBehalf"
+            [items]="requestOnBehalfList"
+            (selected)="dropdownValueChange(mheForm.requestOnBehalf)"
+            [appendInline]="true"
+            [dropUp]="false"
+            placeholder="Choose an option"
+            [(ngModel)]="mheForm.requestOnBehalf"
+            invalidText="Request On Behalf Required"
+            [invalid]="invalidRequestOnBehalf"
+            itemValueKey="content"
+            required
+          >
+            <ibm-dropdown-list></ibm-dropdown-list>
+          </ibm-combo-box>
+        </div>
+
+        <div class="form-item" *ngIf="mheForm.bookingType !== 'Contract'">
+          <!-- <ibm-label [invalid]="invalidJobDescription" invalidText="Job Description Required">
+                        Job Description
+                        <textarea
+                            #jobDescFocus tabindex="4"
+                            ibmTextArea
+                            aria-label="textarea"
+                            maxlength="100"
+                            [rows]="6"
+                            name="jobDescription"
+                            [(ngModel)]="mheForm.jobDescription"
+                            [invalid]="invalidJobDescription"
+                            required
+                            (change)="inputValueChange(mheForm.jobDescription)"
+                        >
+                        </textarea>
+                    </ibm-label> -->
+          <label class="bx--label">Job Description</label
+          ><label
+            class="bx--label"
+            [ngStyle]="{ color: invalidNumericJobDesc ? '#da1e28' : '' }"
+            style="float: right"
+            >{{ numericJobDesc }}/100</label
+          >
+          <textarea
+            #jobDescFocus
+            tabindex="4"
+            ibmTextArea
+            aria-label="textarea"
+            maxlength="100"
+            [rows]="6"
+            name="jobDescription"
+            [(ngModel)]="mheForm.jobDescription"
+            [invalid]="invalidJobDescription"
+            required
+            (change)="inputValueChange(mheForm.jobDescription)"
+            (ngModelChange)="numericCount('jobDesc', mheForm.jobDescription)"
+            [ngStyle]="{
+              border: invalidJobDescription ? '2px solid #da1e28' : ''
+            }"
+          >
+          </textarea>
+          <div *ngIf="invalidNumericJobDesc" class="invalid-class-label">
+            Reach maximum characters
+          </div>
+          <div *ngIf="invalidJobDescription" class="invalid-class-label">
+            Job Description Required
+          </div>
+        </div>
+
+        <div class="form-item invalid-icon-50">
+          <ibm-label
+            [invalid]="invalidPONum"
+            invalidText="PO Number Required"
+            helperText="Please insert dash (-) if not applicable"
+          >
+            PO Number
+            <input
+              #poNumberFocus
+              tabindex="5"
+              ibmText
+              type="text"
+              name="PONum"
+              [(ngModel)]="mheForm.PONum"
+              [invalid]="invalidPONum"
+              required
+              (change)="inputValueChange(mheForm.PONum)"
+            />
+          </ibm-label>
+        </div>
+
+        <div
+          class="form-item"
+          *ngIf="mheForm.bookingType == 'Daily'"
+          #bookingDateFocus
+          tabindex="6"
+        >
+          <ibm-date-picker
+            label="Booking Date"
+            [placeholder]="placeholder"
+            [size]="size"
+            [dateFormat]="dateFormat"
+            [(ngModel)]="mheForm.singleDate"
+            name="singleDate"
+            [invalid]="invalidSingleDate"
+            [invalid]="invalidbackDated"
+            required
+            (change)="dateValueChange($event)"
+          >
+          </ibm-date-picker>
+          <div *ngIf="backDatedDate" class="invalid-class-label">
+            Please select today's date or after today's date
+          </div>
+          <div *ngIf="invalidSingleDate" class="invalid-class-label">
+            Date Required
+          </div>
+        </div>
+
+        <div>
+          <ibm-modal [open]="open" (overlaySelected)="open = false">
+            <ibm-modal-header (closeSelect)="open = false">
+              <p class="bx--modal-header__label bx--type-delta">Notice</p>
+              <p class="bx--modal-header__heading bx--type-beta">
+                Your Request will be Placed in The Waiting List
+              </p>
+            </ibm-modal-header>
+            <div class="bx--modal-content">
+              <p>
+                Any Next Day bookings made after <b>15:00</b> or made on the
+                same day will be included in the <b>Waiting List.</b>
+                <br /><br />
+                Your request will be considered according to the available slots
+                based on the arrangement that has been made for the selected
+                date.
+                <br /><br />
+                You may create another Next Day booking before 15:00 if you wish
+                to have your request scheduled as normal.
+                <br /><br />
+                In case there are no slots available, our personnel will be in
+                touch with you.
+                <br /><br />
+                To cancel your booking, kindly contact KSB.
+                <br /><br />
+                Thank you.
+              </p>
+            </div>
+            <ibm-modal-footer>
+              <ng-container>
+                <button
+                  ibmButton="primary"
+                  (click)="open = false"
+                  [attr.modal-primary-focus]="true"
+                >
+                  Continue
+                </button>
+              </ng-container>
+            </ibm-modal-footer>
+          </ibm-modal>
+        </div>
+
+        <div
+          class="form-item date-layout"
+          *ngIf="mheForm.bookingType == 'Recurring'"
+          style="padding-top: 12px"
+          #bookingDateFocus
+          tabindex="7"
+        >
+          <div
+            *ngFor="let newRange of rangeDateRow; let i = index"
+            class="d-flex"
+          >
+            <ibm-date-picker
+              style="padding-top: 32px"
+              label="Start Date"
+              rangeLabel="End Date"
+              [size]="size"
+              [range]="true"
+              [placeholder]="placeholder"
+              [dateFormat]="dateFormat"
+              name="rangeDate_{{ newRange.id }}"
+              [(ngModel)]="newRange.date"
+              [invalid]="dateWarning[i]"
+              [rangeInvalid]="rangeDateWarning[i]"
+              required
+              (change)="dateValueChange($event)"
+            >
+            </ibm-date-picker>
+            <div
+              *ngIf="
+                invalidbackDateds[i] &&
+                !rangeInvalidRangeDate[i] &&
+                !invalidRangeDate[i]
+              "
+              class="invalid-class-label"
+            >
+              Please select today's date or after today's date
+            </div>
+            <div *ngIf="invalidRangeDate[i]" class="invalid-class-label">
+              Date Required
+            </div>
+            <div
+              *ngIf="rangeInvalidRangeDate[i] && !invalidRangeDate[i]"
+              class="invalid-class-label"
+            >
+              Current recurring date is clash with the previous recurring date
+            </div>
+            <div *ngIf="invalidRangeSameDay[i]" class="invalid-class-label">
+              Selected date is not available. Please change to the next day date
+            </div>
+
+            <div class="icon-close" *ngIf="i > 0">
+              <div
+                ibmIcon="close--filled"
+                size="20"
+                (click)="deleteRangeDate(i)"
+              ></div>
+            </div>
+          </div>
+          <div class="pt-16">
+            <button
+              ibmButton="primary"
+              size="sm"
+              type="button"
+              (click)="addRangeDate()"
+            >
+              Add New Range
+            </button>
+          </div>
+        </div>
+
+        <div class="singleDate-notif">
+          <div class="pt-16" *ngIf="dateFlag == true">
+            <ibm-toast
+              *ngIf="nextDay == true"
+              style="width: 100%"
+              [notificationObj]="{
+                type: 'info',
+                template: customToastContent,
+                lowContrast: true,
+                title: 'Next-Day Booking is added to the waiting list',
+                myData: {
+                  subtitle:
+                    'Any bookings made for this date will be included in the waiting list.'
+                },
+                showClose: showClose
+              }"
+            >
+            </ibm-toast>
+            <ibm-toast
+              *ngIf="sameDay == true"
+              style="width: 100%"
+              [notificationObj]="{
+                type: 'info',
+                template: customToastContent,
+                lowContrast: true,
+                title: 'Same day booking is added to the waiting list',
+                myData: {
+                  subtitle:
+                    'Any bookings made for this date will be included in the waiting list.'
+                },
+                showClose: showClose
+              }"
+            >
+            </ibm-toast>
+            <ng-template #customToastContent let-data>
+              <div class="flex-container">
+                <div class="flex-child">
+                  <p class="ph01" style="margin-bottom: 0px" ibmToastTitle>
+                    {{ data.title }}
+                  </p>
+                  <p ibmToastSubtitle>{{ data.myData.subtitle }}</p>
+                </div>
+                <div class="flex-child secondary-toast-button">
+                  <button
+                    class="singleDate-notif-btn"
+                    ibmButton="ghost"
+                    size="sm"
+                    #trigger
+                    type="button"
+                    (click)="open = true"
+                  >
+                    More Info
+                  </button>
+                </div>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+
+        <div class="form-item" *ngIf="mheForm.bookingType == 'Daily'">
+          <ibm-combo-box
+            id="dropdown"
+            label="Vessel Name (Optional)"
+            name="vesselName"
+            type="multi"
+            [appendInline]="true"
+            [dropUp]="false"
+            placeholder="Choose an option"
+            [(ngModel)]="mheForm.vesselName"
+            [items]="vesselNameList"
+            itemValueKey="content"
+            (selected)="selectVessel($event)"
+          >
+            <ibm-dropdown-list #vessel></ibm-dropdown-list>
+          </ibm-combo-box>
+        </div>
+
+        <div class="form-item">
+          <!-- <ibm-label>
+                        Remarks (Optional)
+                        <textarea
+                            ibmTextArea
+                            aria-label="textarea"
+                            maxlength="100"
+                            [rows]="6"
+                            name="remarks"
+                            [(ngModel)]="mheForm.remarks"></textarea>
+                    </ibm-label> -->
+          <label class="bx--label">Remarks (Optional)</label
+          ><label
+            class="bx--label"
+            [ngStyle]="{ color: invalidNumericRemarks ? '#da1e28' : '' }"
+            style="float: right"
+            >{{ numericRemarks }}/100</label
+          >
+          <textarea
+            ibmTextArea
+            aria-label="textarea"
+            maxlength="100"
+            [rows]="6"
+            name="remarks"
+            [(ngModel)]="mheForm.remarks"
+            (ngModelChange)="numericCount('remarks', mheForm.remarks)"
+          >
+          </textarea>
+          <div *ngIf="invalidNumericRemarks" class="invalid-class-label">
+            Reach maximum characters
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      *ngIf="mheForm.bookingType !== 'Contract'"
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+        <div class="form-item">
+          <div *ngIf="noTableSelected" class="invalid-class-label">
+            <p class="ph01">Please request at least one item.</p>
+          </div>
+          <ibm-table-container>
+            <ibm-table-header>
+              <h4 ibmTableHeaderTitle>Machinery</h4>
+              <p ibmTableHeaderDescription>{{ description }}</p>
+            </ibm-table-header>
+            <ibm-table-toolbar>
+              <ibm-table-toolbar-content *ngIf="!checkLengthMachinery()">
+                <button
+                  style="
+                    padding: calc(0.375rem - 3px) 60px calc(0.375rem - 3px) 12px;
+                  "
+                  ibmButton="primary"
+                  size="sm"
+                  type="button"
+                  (click)="addMachineryRow()"
+                >
+                  Add Item
+                  <div class="icon-addAlt" ibmIcon="add--alt" size="20"></div>
+                </button>
+              </ibm-table-toolbar-content>
+              <div class="table-action" *ngIf="checkLengthMachinery()">
+                <div class="selectedItem">
+                  {{ counterMachinery }}
+                  <span *ngIf="counterMachinery == 1">item</span
+                  ><span *ngIf="counterMachinery > 1">items</span> selected
+                </div>
+                <div class="actions">
+                  <div class="del">
+                    <Button
+                      ibmButton="primary"
+                      size="sm"
+                      type="button"
+                      (click)="deleteMachinery()"
+                    >
+                      Delete
+                      <div
+                        class="icon-trashCan"
+                        ibmIcon="trash-can"
+                        size="20"
+                      ></div>
+                    </Button>
+                  </div>
+                  <div class="cancel">
+                    <button
+                      ibmButton="primary"
+                      size="sm"
+                      type="button"
+                      (click)="cancelMethodMachinery()"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </ibm-table-toolbar>
+            <div class="">
+              <table class="bx--data-table" #machineryFocus tabindex="8">
+                <thead>
+                  <tr>
+                    <th>No.</th>
+                    <th>Item</th>
+                    <th>Qty.</th>
+                    <th>Time</th>
+                    <th>Estimated Hours</th>
+                    <th>Location</th>
+                    <th *ngIf="special == true">Specific Crew</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngIf="machineryRow.length == 0"
+                    [ngClass]="{ 'invalid-tableRow': machineryTableInvalid }"
+                  >
+                    <td align="center" colspan="8">
+                      No data is entered yet. Please add new row
+                    </td>
+                  </tr>
+                  <tr
+                    *ngFor="
+                      let newMachinery of machineryRow;
+                      let postIndex = index
+                    "
+                    class="white-bg"
+                    [ngClass]="{ 'invalid-tableRow': machineryTableInvalid }"
+                  >
+                    <td>{{ postIndex + 1 }}</td>
+                    <td>
+                      <!-- <ibm-dropdown
+                                                placeholder="Select"
+                                                [dropUp]="false"
+                                                itemValueKey="content"
+                                                name="item_{{newMachinery.id}}"
+                                                [(ngModel)]="newMachinery.Description"
+                                                [invalid]="invalidItemMachinery[postIndex]"
+                                                invalidText="Item Required"
+                                                (selected)="dropdownValueChange(newMachinery.Description)"
+                                                (selected)="specificCrewDependency(newMachinery.Description, newMachinery.id, postIndex)"
+                                                (selected)="addRequired(postIndex)"
+                                            >
+                                                <ibm-dropdown-list [items]="itemList"></ibm-dropdown-list>
+                                            </ibm-dropdown> -->
+
+                      <ibm-combo-box
+                        id="dropdown"
+                        name="item_{{ newMachinery.id }}"
+                        [items]="itemList"
+                        (selected)="
+                          dropdownValueChange(newMachinery.Description)
+                        "
+                        (selected)="
+                          specificCrewDependency(
+                            newMachinery.Description,
+                            newMachinery.id,
+                            postIndex
+                          )
+                        "
+                        (selected)="addRequired(postIndex)"
+                        [appendInline]="true"
+                        [dropUp]="false"
+                        placeholder="Select"
+                        [(ngModel)]="newMachinery.Description"
+                        [invalid]="invalidItemMachinery[postIndex]"
+                        invalidText="Item Required"
+                        itemValueKey="content"
+                      >
+                        <ibm-dropdown-list></ibm-dropdown-list>
+                      </ibm-combo-box>
+                    </td>
+                    <td>
+                      <ibm-combo-box
+                        id="boActivityDropDown{{ newMachinery.id }}"
+                        name="bo_{{ newMachinery.id }}"
+                        [items]="boActivitiesList"
+                        (selected)="
+                          dropdownValueChange(newMachinery.Description)
+                        "
+                        (selected)="
+                          specificCrewDependency(
+                            newMachinery.Description,
+                            newMachinery.id,
+                            postIndex
+                          )
+                        "
+                        (selected)="addRequired(postIndex)"
+                        [appendInline]="true"
+                        [dropUp]="false"
+                        placeholder="Select"
+                        [(ngModel)]="newMachinery.boActivity"
+                        [invalid]="invalidItemMachinery[postIndex]"
+                        invalidText="Choose the activity!"
+                        itemValueKey="content"
+                        [disabled]="newMachinery.disableBoActivity"
+                      >
+                        <ibm-dropdown-list></ibm-dropdown-list>
+                      </ibm-combo-box>
+                    </td>
+                    <td>
+                      <ibm-number
+                        [step]="step"
+                        [min]="min"
+                        [max]="max"
+                        name="quantity_{{ newMachinery.id }}"
+                        [(ngModel)]="newMachinery.Quantity"
+                        [invalid]="invalidQuantityMachinery[postIndex]"
+                        invalidText="Quantity Required"
+                        [required]="requiredMachinery[postIndex]"
+                        (change)="inputValueChange(newMachinery.Quantity)"
+                        (click)="inputValueChange(newMachinery.Quantity)"
+                      >
+                      </ibm-number>
+                    </td>
+                    <td>
+                      <ibm-dropdown
+                        placeholder="Select"
+                        [dropUp]="false"
+                        itemValueKey="content"
+                        name="time_{{ newMachinery.id }}"
+                        [(ngModel)]="newMachinery.Time"
+                        invalidText="Time Required"
+                        [invalid]="invalidTimeMachinery[postIndex]"
+                        [required]="requiredMachinery[postIndex]"
+                        (selected)="dropdownValueChange(newMachinery.Time)"
+                      >
+                        <ibm-dropdown-list
+                          [items]="timeArr"
+                        ></ibm-dropdown-list>
+                      </ibm-dropdown>
+                    </td>
+                    <td>
+                      <ibm-number
+                        [step]="step"
+                        [min]="min"
+                        [max]="max"
+                        name="EHM_{{ newMachinery.id }}"
+                        [(ngModel)]="newMachinery.EstimatedHours"
+                        [invalid]="invalidEHMachinery[postIndex]"
+                        invalidText="Estimated Hours Required"
+                        [required]="requiredMachinery[postIndex]"
+                        (change)="inputValueChange(newMachinery.EstimatedHours)"
+                        (click)="inputValueChange(newMachinery.EstimatedHours)"
+                      >
+                      </ibm-number>
+                    </td>
+                    <td>
+                      <!-- <ibm-dropdown
+                                                placeholder="Select"
+                                                [dropUp]="false"
+                                                itemValueKey="content"
+                                                name="location_{{newMachinery.id}}"
+                                                [(ngModel)]="newMachinery.Location"
+                                                invalidText="Location Required"
+                                                [invalid]="invalidLocationMachinery[postIndex]"
+                                                [required]="requiredMachinery[postIndex]"
+                                                (selected)="dropdownValueChange(newMachinery.Location)"
+                                            >
+                                                <ibm-dropdown-list [items]="sitesList"></ibm-dropdown-list>
+                                            </ibm-dropdown> -->
+
+                      <ibm-combo-box
+                        name="location_{{ newMachinery.id }}"
+                        [items]="sitesList"
+                        (selected)="dropdownValueChange(newMachinery.Location)"
+                        [appendInline]="true"
+                        [dropUp]="false"
+                        placeholder="Select"
+                        [(ngModel)]="newMachinery.Location"
+                        invalidText="Location Required"
+                        [invalid]="invalidLocationMachinery[postIndex]"
+                        [required]="requiredMachinery[postIndex]"
+                        itemValueKey="content"
+                        required
+                      >
+                        <ibm-dropdown-list></ibm-dropdown-list>
+                      </ibm-combo-box>
+                    </td>
+                    <td *ngIf="special == true">
+                      <ibm-dropdown
+                        placeholder="Select"
+                        [dropUp]="false"
+                        itemValueKey="content"
+                        [disabled]="disabled[newMachinery.id]"
+                        invalidText="Specific Crew Required"
+                        [invalid]="invalidSpecificCrew[postIndex]"
+                        (selected)="specificCrewValue(postIndex, $event)"
+                      >
+                        <ibm-dropdown-list
+                          [items]="machineSpecificCrewList[newMachinery.id]"
+                        ></ibm-dropdown-list>
+                      </ibm-dropdown>
+                      <input
+                        type="hidden"
+                        name="specificCrew_{{ newMachinery.id }}"
+                        [(ngModel)]="newMachinery.SpecificCrew"
+                      />
+                    </td>
+                    <td>
+                      <ibm-checkbox
+                        name="checkbox_{{ newMachinery.id }}"
+                        [(ngModel)]="newMachinery.Selected"
+                        (ngModelChange)="machineryCheckboxChange($event)"
+                      >
+                      </ibm-checkbox>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </ibm-table-container>
+        </div>
+      </div>
+    </div>
+
+    <div
+      *ngIf="mheForm.bookingType !== 'Contract'"
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+        <div class="form-item">
+          <ibm-table-container>
+            <ibm-table-header>
+              <h4 ibmTableHeaderTitle>Manpower</h4>
+              <p ibmTableHeaderDescription>{{ description }}</p>
+            </ibm-table-header>
+            <ibm-table-toolbar>
+              <ibm-table-toolbar-content *ngIf="!checkLengthManPower()">
+                <button
+                  style="
+                    padding: calc(0.375rem - 3px) 60px calc(0.375rem - 3px) 12px;
+                  "
+                  ibmButton="primary"
+                  size="sm"
+                  type="button"
+                  (click)="addManPowerRow()"
+                >
+                  Add Item
+                  <div class="icon-addAlt" ibmIcon="add--alt" size="20"></div>
+                </button>
+              </ibm-table-toolbar-content>
+              <div class="table-action" *ngIf="checkLengthManPower()">
+                <div class="selectedItem">
+                  {{ counterManpower }}
+                  <span *ngIf="counterManpower == 1">item</span
+                  ><span *ngIf="counterManpower > 1">items</span> selected
+                </div>
+                <div class="actions">
+                  <div class="del">
+                    <Button
+                      ibmButton="primary"
+                      size="sm"
+                      type="button"
+                      (click)="deleteManPower()"
+                    >
+                      Delete
+                      <div
+                        class="icon-trashCan"
+                        ibmIcon="trash-can"
+                        size="20"
+                      ></div>
+                    </Button>
+                  </div>
+                  <div class="cancel">
+                    <button
+                      ibmButton="primary"
+                      size="sm"
+                      type="button"
+                      (click)="cancelMethodManPower()"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </ibm-table-toolbar>
+            <div class="">
+              <table class="bx--data-table" #manpowerFocus tabindex="9">
+                <thead>
+                  <tr>
+                    <th>
+                      <span class="bx--table-header-label">No.</span>
+                    </th>
+                    <th>
+                      <span class="bx--table-header-label">Item</span>
+                    </th>
+                    <th>
+                      <span class="bx--table-header-label">Qty.</span>
+                    </th>
+                    <th>
+                      <span class="bx--table-header-label">Time</span>
+                    </th>
+                    <th>
+                      <span class="bx--table-header-label"
+                        >Estimated Hours</span
+                      >
+                    </th>
+                    <th>
+                      <span class="bx--table-header-label">Location</span>
+                    </th>
+                    <th *ngIf="special == true">
+                      <span class="bx--table-header-label">Specific Crew</span>
+                    </th>
+                    <th>
+                      <span class="bx--table-header-label">Action</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngIf="manPowerRow.length == 0"
+                    [ngClass]="{ 'invalid-tableRow': manPowerTableInvalid }"
+                  >
+                    <td align="center" colspan="8">
+                      No data is entered yet. Please add new row
+                    </td>
+                  </tr>
+                  <tr
+                    *ngFor="let manPower of manPowerRow; let postIndex = index"
+                    class="white-bg"
+                    [ngClass]="{ 'invalid-tableRow': manPowerTableInvalid }"
+                  >
+                    <td>{{ postIndex + 1 }}</td>
+                    <td>
+                      <!-- <ibm-dropdown
+                                                placeholder="Select"
+                                                [dropUp]="false"
+                                                itemValueKey="content"
+                                                name="item_{{manPower.id}}"
+                                                [(ngModel)]="manPower.Item"
+                                                [invalid]="invalidItemManPower[postIndex]"
+                                                invalidText="Item Required"
+                                                (selected)="dropdownValueChange(manPower.Item)"
+                                                (selected)="MPspecificCrewDependency(manPower.Item, manPower.id)"
+                                                (selected)="addRequired(postIndex)"
+                                            >
+                                                <ibm-dropdown-list [items]="manPoweritemList"></ibm-dropdown-list>
+                                            </ibm-dropdown> -->
+
+                      <ibm-combo-box
+                        id="dropdown"
+                        name="item_{{ manPower.id }}"
+                        [items]="manPoweritemList"
+                        (selected)="dropdownValueChange(manPower.Item)"
+                        (selected)="
+                          MPspecificCrewDependency(manPower.Item, manPower.id)
+                        "
+                        (selected)="addRequired(postIndex)"
+                        [appendInline]="true"
+                        [dropUp]="false"
+                        placeholder="Select"
+                        [(ngModel)]="manPower.Item"
+                        [invalid]="invalidItemManPower[postIndex]"
+                        invalidText="Item Required"
+                        itemValueKey="content"
+                      >
+                        <ibm-dropdown-list></ibm-dropdown-list>
+                      </ibm-combo-box>
+                    </td>
+                    <td>
+                      <ibm-number
+                        [step]="step"
+                        [min]="min"
+                        [max]="max"
+                        name="quantity_{{ manPower.id }}"
+                        [(ngModel)]="manPower.Quantity"
+                        [invalid]="invalidQuantityManPower[postIndex]"
+                        invalidText="Quantity Required"
+                        [required]="requiredManPower[postIndex]"
+                        (change)="inputValueChange(manPower.Quantity)"
+                        (click)="inputValueChange(manPower.Quantity)"
+                      >
+                      </ibm-number>
+                    </td>
+                    <td>
+                      <ibm-dropdown
+                        placeholder="Select"
+                        [dropUp]="false"
+                        itemValueKey="content"
+                        name="time_{{ manPower.id }}"
+                        [(ngModel)]="manPower.Time"
+                        invalidText="Time Required"
+                        [invalid]="invalidTimeManPower[postIndex]"
+                        [required]="requiredManPower[postIndex]"
+                        (selected)="dropdownValueChange(manPower.Time)"
+                      >
+                        <ibm-dropdown-list
+                          [items]="timeArr"
+                        ></ibm-dropdown-list>
+                      </ibm-dropdown>
+                    </td>
+                    <td>
+                      <ibm-number
+                        [step]="step"
+                        [min]="min"
+                        [max]="max"
+                        name="EHMP_{{ manPower.id }}"
+                        [(ngModel)]="manPower.EstimatedHours"
+                        invalidText="Estimated Hours Required"
+                        [invalid]="invalidEHManPower[postIndex]"
+                        [required]="requiredManPower[postIndex]"
+                        (change)="inputValueChange(manPower.EstimatedHours)"
+                        (click)="inputValueChange(manPower.EstimatedHours)"
+                      >
+                      </ibm-number>
+                    </td>
+                    <td>
+                      <!-- <ibm-dropdown
+                                                placeholder="Select"
+                                                [dropUp]="false"
+                                                itemValueKey="content"
+                                                name="location_{{manPower.id}}"
+                                                [(ngModel)]="manPower.Location"
+                                                invalidText="Location Required"
+                                                [invalid]="invalidLocationManPower[postIndex]"
+                                                [required]="requiredManPower[postIndex]"
+                                                (selected)="dropdownValueChange(manPower.Location)"
+                                            >
+                                                <ibm-dropdown-list [items]="sitesList"></ibm-dropdown-list>
+                                            </ibm-dropdown> -->
+
+                      <ibm-combo-box
+                        id="dropdown"
+                        name="location_{{ manPower.id }}"
+                        [items]="sitesList"
+                        (selected)="dropdownValueChange(manPower.Location)"
+                        [appendInline]="true"
+                        [dropUp]="false"
+                        placeholder="Select"
+                        [(ngModel)]="manPower.Location"
+                        invalidText="Location Required"
+                        [invalid]="invalidLocationManPower[postIndex]"
+                        [required]="requiredManPower[postIndex]"
+                        itemValueKey="content"
+                        required
+                      >
+                        <ibm-dropdown-list></ibm-dropdown-list>
+                      </ibm-combo-box>
+                    </td>
+                    <td *ngIf="special == true">
+                      <ibm-dropdown
+                        placeholder="Select"
+                        [dropUp]="false"
+                        itemValueKey="content"
+                        [disabled]="MPdisabled[manPower.id]"
+                        (selected)="MPspecificCrewValue(postIndex, $event)"
+                        invalidText="Specific Crew Required"
+                        [invalid]="invalidMPSpecificCrew[postIndex]"
+                      >
+                        <ibm-dropdown-list
+                          [items]="manPowerSpecificCrewList[manPower.id]"
+                        ></ibm-dropdown-list>
+                      </ibm-dropdown>
+                      <input
+                        type="hidden"
+                        name="specificCrew_{{ manPower.id }}"
+                        [(ngModel)]="manPower.SpecificCrew"
+                      />
+                    </td>
+                    <td>
+                      <ibm-checkbox
+                        name="checkbox_{{ manPower.id }}"
+                        [(ngModel)]="manPower.Selected"
+                        (ngModelChange)="manpowerCheckboxChange($event)"
+                      >
+                      </ibm-checkbox>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </ibm-table-container>
+        </div>
+      </div>
+    </div>
+
+    <div
+      *ngIf="mheForm.bookingType !== 'Contract'"
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+        <div class="form-item">
+          <ibm-table-container>
+            <ibm-table-header>
+              <h4 ibmTableHeaderTitle>Equipment</h4>
+              <p ibmTableHeaderDescription>{{ description }}</p>
+            </ibm-table-header>
+            <ibm-table-toolbar>
+              <ibm-table-toolbar-content *ngIf="!checkLengthOtherMachineries()">
+                <button
+                  style="
+                    padding: calc(0.375rem - 3px) 60px calc(0.375rem - 3px) 12px;
+                  "
+                  ibmButton="primary"
+                  size="sm"
+                  type="button"
+                  (click)="addOtherMachineriesRow()"
+                >
+                  Add Item
+                  <div class="icon-addAlt" ibmIcon="add--alt" size="20"></div>
+                </button>
+              </ibm-table-toolbar-content>
+              <div class="table-action" *ngIf="checkLengthOtherMachineries()">
+                <div class="selectedItem">
+                  {{ counterEquipment }}
+                  <span *ngIf="counterEquipment == 1">item</span
+                  ><span *ngIf="counterEquipment > 1">items</span> selected
+                </div>
+                <div class="actions">
+                  <div class="del">
+                    <Button
+                      ibmButton="primary"
+                      size="sm"
+                      type="button"
+                      (click)="deleteOtherMachineries()"
+                    >
+                      Delete
+                      <div
+                        class="icon-trashCan"
+                        ibmIcon="trash-can"
+                        size="20"
+                      ></div>
+                    </Button>
+                  </div>
+                  <div class="cancel">
+                    <button
+                      ibmButton="primary"
+                      size="sm"
+                      type="button"
+                      (click)="cancelMethodOtherMachineries()"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </ibm-table-toolbar>
+            <div class="">
+              <table class="bx--data-table" #othermachineryFocus tabindex="10">
+                <thead>
+                  <tr>
+                    <th>
+                      <span class="bx--table-header-label">No.</span>
+                    </th>
+                    <th>
+                      <span class="bx--table-header-label">Item</span>
+                    </th>
+                    <th>
+                      <span class="bx--table-header-label">Qty.</span>
+                    </th>
+                    <th>
+                      <span class="bx--table-header-label">Time</span>
+                    </th>
+                    <th>
+                      <span class="bx--table-header-label"
+                        >Estimated Hours</span
+                      >
+                    </th>
+                    <th>
+                      <span class="bx--table-header-label">Location</span>
+                    </th>
+                    <th>
+                      <span class="bx--table-header-label">Action</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngIf="
+                      !otherMachineriesRow || otherMachineriesRow.length == 0
+                    "
+                    [ngClass]="{
+                      'invalid-tableRow': otherMachineriesTableInvalid
+                    }"
+                  >
+                    <td align="center" colspan="8">
+                      No data is entered yet. Please add new row
+                    </td>
+                  </tr>
+
+                  <tr
+                    *ngFor="
+                      let otherMachine of otherMachineriesRow;
+                      let postIndex = index
+                    "
+                    [ngClass]="{
+                      'invalid-tableRow': otherMachineriesTableInvalid
+                    }"
+                    class="white-bg"
+                  >
+                    <td>{{ postIndex + 1 }}</td>
+                    <td>
+                      <!-- <ibm-dropdown
+                                                placeholder="Select"
+                                                [dropUp]="false"
+                                                itemValueKey="content"
+                                                [invalid]="invalidItemOtherMachine[postIndex]"
+                                                invalidText="Item Required"
+                                                name="item_{{otherMachine.id}}"
+                                                [(ngModel)]="otherMachine.Description"
+                                                (selected)="addRequired(postIndex)"
+                                                (selected)="descriptionItem(otherMachine.Description,postIndex)"
+                                            >
+                                                <ibm-dropdown-list [items]="equipmentItemList"></ibm-dropdown-list>
+                                            </ibm-dropdown> -->
+
+                      <ibm-combo-box
+                        class="dropdown"
+                        id="dropdown"
+                        name="item_{{ otherMachine.id }}"
+                        [items]="equipmentItemList"
+                        (selected)="addRequired(postIndex)"
+                        (selected)="
+                          descriptionItem(otherMachine.Description, postIndex)
+                        "
+                        [appendInline]="true"
+                        [dropUp]="false"
+                        placeholder="Select"
+                        [(ngModel)]="otherMachine.Description"
+                        [invalid]="invalidItemOtherMachine[postIndex]"
+                        invalidText="Item Required"
+                        itemValueKey="content"
+                      >
+                        <ibm-dropdown-list></ibm-dropdown-list>
+                      </ibm-combo-box>
+                    </td>
+                    <td>
+                      <ibm-number
+                        [step]="step"
+                        [min]="min"
+                        [max]="max"
+                        [invalid]="invalidQuantityOtherMachine[postIndex]"
+                        invalidText="Quantity Required"
+                        name="quantity_{{ otherMachine.id }}"
+                        [(ngModel)]="otherMachine.Quantity"
+                        [required]="requiredOtherMachineries[postIndex]"
+                        (change)="inputValueChange(otherMachine.Quantity)"
+                        (click)="inputValueChange(otherMachine.Quantity)"
+                      ></ibm-number>
+                    </td>
+                    <td>
+                      <ibm-dropdown
+                        class="dropdown"
+                        placeholder="Select"
+                        [dropUp]="false"
+                        itemValueKey="content"
+                        [invalid]="invalidTimeOtherMachine[postIndex]"
+                        invalidText="Time Required"
+                        name="time_{{ otherMachine.id }}"
+                        [(ngModel)]="otherMachine.Time"
+                        [required]="requiredOtherMachineries[postIndex]"
+                        (selected)="dropdownValueChange(otherMachine.Time)"
+                      >
+                        <ibm-dropdown-list
+                          [items]="timeArr"
+                        ></ibm-dropdown-list>
+                      </ibm-dropdown>
+                    </td>
+                    <td>
+                      <ibm-number
+                        [step]="step"
+                        [min]="min"
+                        [max]="max"
+                        [invalid]="invalidEHOtherMachine[postIndex]"
+                        invalidText="Estimated Hours Required"
+                        name="EHOM_{{ otherMachine.id }}"
+                        [(ngModel)]="otherMachine.EstimatedHours"
+                        [required]="requiredOtherMachineries[postIndex]"
+                        (change)="inputValueChange(otherMachine.EstimatedHours)"
+                        (click)="inputValueChange(otherMachine.EstimatedHours)"
+                      ></ibm-number>
+                    </td>
+                    <td>
+                      <!-- <ibm-dropdown
+                                                placeholder="Select"
+                                                [dropUp]="false"
+                                                itemValueKey="content"
+                                                [invalid]="invalidLocationOtherMachine[postIndex]"
+                                                invalidText="Location Required"
+                                                name="location_{{otherMachine.id}}"
+                                                [(ngModel)]="otherMachine.Location"
+                                                [required]="requiredOtherMachineries[postIndex]"
+                                                (selected)="dropdownValueChange(otherMachine.Location)"
+                                            >
+                                                <ibm-dropdown-list [items]="sitesList"></ibm-dropdown-list>
+                                            </ibm-dropdown> -->
+
+                      <ibm-combo-box
+                        class="dropdown"
+                        id="dropdown"
+                        name="location_{{ otherMachine.id }}"
+                        [items]="sitesList"
+                        (selected)="dropdownValueChange(otherMachine.Location)"
+                        [appendInline]="true"
+                        [dropUp]="false"
+                        placeholder="Select"
+                        [(ngModel)]="otherMachine.Location"
+                        invalidText="Location Required"
+                        [invalid]="invalidLocationOtherMachine[postIndex]"
+                        [required]="requiredOtherMachineries[postIndex]"
+                        itemValueKey="content"
+                        required
+                      >
+                        <ibm-dropdown-list></ibm-dropdown-list>
+                      </ibm-combo-box>
+                    </td>
+                    <td>
+                      <ibm-checkbox
+                        name="checkbox_{{ otherMachine.id }}"
+                        [(ngModel)]="otherMachine.Selected"
+                        (ngModelChange)="equipmentCheckboxChange($event)"
+                      >
+                      </ibm-checkbox>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </ibm-table-container>
+        </div>
+      </div>
+    </div>
+
+    <div
+      *ngIf="mheForm.bookingType !== 'Contract' && QuotationList.length > 0"
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+        <div class="form-item" #externalFocus tabindex="11">
+          <ibm-table-container>
+            <ibm-table-header>
+              <h4 ibmTableHeaderTitle>External Item</h4>
+              <p ibmTableHeaderDescription>
+                Please contact KSB for any external request
+              </p>
+              <p ibmTableHeaderDescription>{{ description }}</p>
+            </ibm-table-header>
+            <ibm-table-toolbar>
+              <ibm-table-toolbar-content *ngIf="!checkLengthExternalItem()">
+                <button
+                  style="
+                    padding: calc(0.375rem - 3px) 60px calc(0.375rem - 3px) 12px;
+                  "
+                  ibmButton="primary"
+                  size="sm"
+                  type="button"
+                  (click)="addExternalItemRow()"
+                >
+                  Add Item
+                  <div class="icon-addAlt" ibmIcon="add--alt" size="20"></div>
+                </button>
+              </ibm-table-toolbar-content>
+              <div class="table-action" *ngIf="checkLengthExternalItem()">
+                <div class="selectedItem">
+                  {{ counterExternal }}
+                  <span *ngIf="counterExternal == 1">item</span
+                  ><span *ngIf="counterExternal > 1">items</span> selected
+                </div>
+                <div class="actions">
+                  <div class="del">
+                    <Button
+                      ibmButton="primary"
+                      size="sm"
+                      type="button"
+                      (click)="deleteExternalItem()"
+                    >
+                      Delete
+                      <div
+                        class="icon-trashCan"
+                        ibmIcon="trash-can"
+                        size="20"
+                      ></div>
+                    </Button>
+                  </div>
+                  <div class="cancel">
+                    <button
+                      ibmButton="primary"
+                      size="sm"
+                      type="button"
+                      (click)="cancelMethodExternalItem()"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </ibm-table-toolbar>
+            <div class="">
+              <table class="bx--data-table" #externalFocus tabindex="8">
+                <thead>
+                  <tr>
+                    <th>
+                      <span class="bx--table-header-label">No.</span>
+                    </th>
+                    <th>
+                      <span class="bx--table-header-label">Quotation ID</span>
+                    </th>
+                    <th>
+                      <span class="bx--table-header-label">Item</span>
+                    </th>
+                    <th>
+                      <span class="bx--table-header-label">UOM</span>
+                    </th>
+                    <!-- <th>
+                                            <span class="bx--table-header-label">Qty.</span>
+                                        </th>
+                                        <th>
+                                            <span class="bx--table-header-label">Rent Period</span>
+                                        </th> -->
+                    <th>
+                      <span class="bx--table-header-label">Unit</span>
+                    </th>
+                    <th>
+                      <span class="bx--table-header-label">Time</span>
+                    </th>
+                    <th>
+                      <span class="bx--table-header-label">Location</span>
+                    </th>
+                    <th>
+                      <span class="bx--table-header-label">Action</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngIf="externalItemRow.length == 0"
+                    [ngClass]="{ 'invalid-tableRow': externalItemTableInvalid }"
+                  >
+                    <td align="center" colspan="10">
+                      No data is entered yet. Please add new row
+                    </td>
+                  </tr>
+                  <tr
+                    *ngFor="
+                      let external of externalItemRow;
+                      let postIndex = index
+                    "
+                    [ngClass]="{ 'invalid-tableRow': externalItemTableInvalid }"
+                    class="white-bg"
+                  >
+                    <td>{{ postIndex + 1 }}</td>
+                    <td>
+                      <ibm-dropdown
+                        class="dropdown"
+                        placeholder="Select"
+                        [dropUp]="false"
+                        itemValueKey="content"
+                        [invalid]="invalidQuotationIDExternalItem[postIndex]"
+                        invalidText="Quotation Required"
+                        name="quotationID_{{ external.id }}"
+                        [(ngModel)]="external.quotation"
+                        (selected)="addRequired(postIndex)"
+                        (selected)="
+                          itemExternalDependency(
+                            external.quotation,
+                            external.id,
+                            postIndex
+                          )
+                        "
+                      >
+                        <ibm-dropdown-list
+                          [items]="QuotationList"
+                        ></ibm-dropdown-list>
+                      </ibm-dropdown>
+                    </td>
+                    <td>
+                      <!-- <ibm-dropdown
+                                                placeholder="Select"
+                                                [dropUp]="false"
+                                                itemValueKey="content"
+                                                [invalid]="invalidItemExternalItem[postIndex]"
+                                                invalidText="Item Required"
+                                                name="item_{{external.id}}"
+                                                [(ngModel)]="external.Item"
+                                                [required]="requiredExternalItem[postIndex]"
+                                                (selected)="dropdownValueChange(external.Item)"
+                                            >
+                                                <ibm-dropdown-list [items]="items"></ibm-dropdown-list>
+                                            </ibm-dropdown> -->
+                      <input
+                        ibmText
+                        type="text"
+                        placeholder="EA"
+                        name="item_{{ external.id }}"
+                        [(ngModel)]="external.Item"
+                        [value]="external.Item"
+                        readonly
+                      />
+                    </td>
+                    <td>
+                      <!-- <ibm-label
+                                                [invalid]="invalidUOMExternalItem[postIndex]"
+                                                invalidText="UOM Required"
+                                            >
+                                                <input
+                                                    ibmText
+                                                    type="text"
+                                                    placeholder="EA"
+                                                    [invalid]="invalidUOMExternalItem[postIndex]"
+                                                    name="UOM_{{external.id}}"
+                                                    id = "{{external.id}}"
+                                                    [(ngModel)]="external.UOM"
+                                                    [required]="requiredExternalItem[postIndex]"
+                                                    (change)="inputValueChange(external.UOM)"
+                                                >
+
+                                            </ibm-label> -->
+                      <input
+                        ibmText
+                        type="text"
+                        placeholder="EA"
+                        name="UOM_{{ external.id }}"
+                        [(ngModel)]="external.UOM"
+                        [value]="external.UOM"
+                        readonly
+                      />
+                    </td>
+                    <!-- <td style="width: 9%;"> -->
+                    <!-- <ibm-label
+                                                [invalid]="invalidQuantityExternalItem[postIndex]"
+                                                invalidText="Qty Required"
+                                            >
+                                                <input
+                                                    ibmText
+                                                    type="text"
+                                                    placeholder="1"
+                                                    [invalid]="invalidQuantityExternalItem[postIndex]"
+                                                    name="quantity_{{external.id}}"
+                                                    [(ngModel)]="external.Quantity"
+                                                    [required]="requiredExternalItem[postIndex]"
+                                                    (change)="inputValueChange(external.Quantity)"
+                                                >
+                                            </ibm-label> -->
+
+                    <!-- <ibm-number
+                                            [step]="step"
+                                            [min]="min"
+                                            [max]="maxQty[postIndex]"
+                                            [invalid]="invalidQuantityExternalItem[postIndex]"
+                                            invalidText="Invalid Qty."
+                                            name="quantity_{{external.id}}"
+                                            [(ngModel)]="external.Quantity"
+                                            [required]="requiredExternalItem[postIndex]"
+                                            (change)="inputValueChange(external.Quantity)"
+                                            (click)="inputValueChange(external.Quantity)"
+                                            [attr.required]=" null"
+                                        ></ibm-number> -->
+
+                    <!-- <input
+                                            ibmText
+                                            type="number"
+                                            placeholder="EA"
+                                            name="quantity_{{external.id}}"
+                                            [(ngModel)]="external.Quantity"
+                                            [value]="external.Quantity"
+                                            readonly> -->
+                    <!-- </td> -->
+                    <!-- <td style="width: 10%;"> -->
+                    <!-- <ibm-label
+                                                [invalid]="invalidRentPeriodExternalItem[postIndex]"
+                                                invalidText="Rent Period Required"
+                                            >
+                                                <input
+                                                    ibmText
+                                                    type="number"
+                                                    min="0"
+                                                    max="99999"
+                                                    [invalid]="invalidRentPeriodExternalItem[postIndex]"
+                                                    name="rentPeriod_{{external.id}}"
+                                                    [(ngModel)]="external.RentPeriod"
+                                                    [required]="requiredExternalItem[postIndex]"
+                                                    (change)="inputValueChange(external.RentPeriod)"
+                                                >
+                                            </ibm-label> -->
+
+                    <!-- <ibm-number
+                                            [step]="step"
+                                            [min]="min"
+                                            [max]="10"
+                                            [invalid]="invalidRentPeriodExternalItem[postIndex]"
+                                            invalidText="Invalid Rent Period"
+                                            name="rentPeriod_{{external.id}}"
+                                            [(ngModel)]="external.RentPeriod"
+                                            [required]="requiredExternalItem[postIndex]"
+                                            (change)="inputValueChange(external.RentPeriod)"
+                                            (click)="inputValueChange(external.RentPeriod)"
+                                            [attr.required]=" null"
+                                        ></ibm-number>
+
+                                        </td> -->
+                    <td>
+                      <!-- <ibm-dropdown
+                                                placeholder="Select"
+                                                [dropUp]="false"
+                                                itemValueKey="content"
+                                                [invalid]="invalidUnitExternalItem[postIndex]"
+                                                invalidText="Unit Required"
+                                                name="unit_{{external.id}}"
+                                                [(ngModel)]="external.Unit"
+                                                [required]="requiredExternalItem[postIndex]"
+                                                (selected)="dropdownValueChange(external.Unit)"
+                                            >
+                                                <ibm-dropdown-list [items]="Unit"></ibm-dropdown-list>
+                                            </ibm-dropdown> -->
+
+                      <input
+                        ibmText
+                        type="number"
+                        placeholder="EA"
+                        name="unit_{{ external.id }}"
+                        [(ngModel)]="external.Unit"
+                        [value]="external.Unit"
+                        readonly
+                      />
+                    </td>
+                    <td>
+                      <ibm-dropdown
+                        class="dropdown"
+                        placeholder="Select"
+                        [dropUp]="false"
+                        itemValueKey="content"
+                        [invalid]="invalidTimeExternalItem[postIndex]"
+                        invalidText="Time Required"
+                        name="time_{{ external.id }}"
+                        [(ngModel)]="external.Time"
+                        [required]="requiredExternalItem[postIndex]"
+                        (selected)="dropdownValueChange(external.Time)"
+                      >
+                        <ibm-dropdown-list
+                          [items]="timeArr"
+                        ></ibm-dropdown-list>
+                      </ibm-dropdown>
+                    </td>
+                    <td>
+                      <!-- <ibm-dropdown
+                                                placeholder="Select"
+                                                [dropUp]="false"
+                                                itemValueKey="content"
+                                                [invalid]="invalidLocationExternalItem[postIndex]"
+                                                invalidText="Location Required"
+                                                name="location_{{external.id}}"
+                                                [(ngModel)]="external.Location"
+                                                [required]="requiredExternalItem[postIndex]"
+                                                (selected)="dropdownValueChange(external.Location)"
+                                            >
+                                                <ibm-dropdown-list [items]="sitesList"></ibm-dropdown-list>
+                                            </ibm-dropdown> -->
+
+                      <ibm-combo-box
+                        class="dropdown"
+                        id="dropdown"
+                        name="location_{{ external.id }}"
+                        [items]="sitesList"
+                        (selected)="dropdownValueChange(external.Location)"
+                        [appendInline]="true"
+                        [dropUp]="false"
+                        placeholder="Select"
+                        [(ngModel)]="external.Location"
+                        invalidText="Location Required"
+                        [invalid]="invalidLocationExternalItem[postIndex]"
+                        [required]="requiredExternalItem[postIndex]"
+                        itemValueKey="content"
+                        required
+                      >
+                        <ibm-dropdown-list></ibm-dropdown-list>
+                      </ibm-combo-box>
+                    </td>
+                    <td>
+                      <ibm-checkbox
+                        name="checkbox_{{ external.id }}"
+                        [(ngModel)]="external.Selected"
+                        (ngModelChange)="externalCheckboxChange($event)"
+                      >
+                      </ibm-checkbox>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </ibm-table-container>
+        </div>
+      </div>
+    </div>
+
+    <div
+      *ngIf="mheForm.bookingType == 'Contract'"
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+        <div class="form-item">
+          <div ibmCol [columnNumbers]="{ lg: 12 }" class="ph03">
+            Machinery (Contract)
+          </div>
+          <ibm-table-container>
+            <div class="pt-8">
+              <table class="bx--data-table">
+                <thead>
+                  <tr>
+                    <th>No.</th>
+                    <th>Item</th>
+                    <th>Qty.</th>
+                    <th>Location</th>
+                    <th *ngIf="special == true">Specific Crew</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngIf="machineryContractRow.length == 0">
+                    <td align="center" colspan="8">No data is available</td>
+                  </tr>
+                  <tr
+                    *ngFor="
+                      let newMachinery of machineryContractRow;
+                      let postIndex = index
+                    "
+                    class="white-bg"
+                  >
+                    <td>{{ postIndex + 1 }}</td>
+                    <td>{{ newMachinery.Item }}</td>
+                    <td>{{ newMachinery.Quantity }}</td>
+                    <td>{{ newMachinery.Location }}</td>
+                    <td *ngIf="special == true">
+                      {{ newMachinery.SpecificCrew }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </ibm-table-container>
+        </div>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32 pb-64"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 10, md: 10, sm: 6 }">
+        <div class="form-item">
+          <div class="btn-action">
+            <button
+              type="button"
+              ibmButton="secondary"
+              style="margin-right: 24px"
+              routerLink="/operation-system/mhe-request-list"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              ibmButton="primary"
+              style="margin-right: 24px"
+            >
+              Preview
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

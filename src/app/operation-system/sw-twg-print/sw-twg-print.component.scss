@@ -1,0 +1,139 @@
+.underline-text {
+    text-decoration: underline;
+}
+
+.underline-bold-text {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+tr.spaceUnder>td {
+    padding-bottom: 5px;
+}
+
+.bold-text {
+    font-weight: bold;
+}
+
+.waste-table {
+    width: 100%;
+}
+
+.waste-table tr>td {
+    padding: 10px;
+}
+
+.waste-table tr>td:first-child {
+    width: 5%;
+}
+
+.waste-table tr>td:nth-child(2) {
+    width: 10%;
+}
+
+.waste-table tr>td:nth-child(3) {
+    width: 70%;
+}
+
+.waste-table tr>td:nth-child(4) {
+    width: 15%;
+}
+
+.waste-info-table {
+    width: 100%;
+}
+
+.waste-info-table tr>td {
+    padding: 10px;
+}
+
+.waste-info-table tr>td:first-child {
+    width: 15%;
+}
+
+.waste-info-table tr>td:nth-child(2) {
+    width: 85%;
+}
+
+.waste-user-info-table {
+    width: 100%;
+}
+
+.waste-user-info-table tr>td {
+    padding: 10px;
+}
+
+.waste-user-info-table thead>tr:first-child>td {
+    padding-bottom: 25px;
+}
+
+.waste-user-info-table tbody>tr>td:not(:nth-child(2)):not(:nth-child(4)) {
+    width: 15%;
+}
+
+.waste-user-info-table tbody>tr:not(:nth-child(6))>td:not(:nth-child(1)):not(:nth-child(3)) {
+    width: 35%;
+    padding-left: 15px;
+    padding-right: 50px;
+}
+
+.blank-line {
+    border-bottom: 1px solid black;
+}
+
+.dotted-line {
+    border-bottom: 1px dashed black;
+}
+
+.waste-signature-table {
+    width: 100%;
+}
+
+.waste-signature-table tr>td {
+    width: 50%;
+}
+
+.waste-signature-table thead>tr:first-child>td {
+    padding-right: 25%;
+    padding-top: 70px;
+}
+
+.waste-signature-table tbody>tr>td {
+    padding-top: 10px;
+}
+
+.formNoContainer {
+    float: right;
+    border: 1px solid black;
+}
+
+::ng-deep {
+    @media print {
+        body * {
+            visibility: hidden;
+        }
+        .printable,
+        .printable * {
+            visibility: visible;
+            // padding: 0px;
+            // margin: 3px;
+        }
+        .print-no-padding {
+            padding: 0px;
+        }
+        .page-break {
+            page-break-after: always;
+            // padding: 0px;
+            // margin: 0px;
+        }
+        button {
+            display: none !important;
+        }
+        table {
+            page-break-inside: avoid;
+        }
+        #topPartPrint {
+            display: none;
+        }
+    }
+}

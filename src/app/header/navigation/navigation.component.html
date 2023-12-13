@@ -1,0 +1,699 @@
+<ibm-loading
+  *ngIf="isLoading"
+  [isActive]="isLoading"
+  size="normal"
+  [overlay]="isLoading"
+>
+</ibm-loading>
+
+<ibm-sidenav class="gray-10-bg" [expanded]="expand">
+  <ibm-sidenav-item
+    [route]="['/dashboard']"
+    title="Dashboard"
+    class="moduleMenu"
+  >
+    Dashboard
+  </ibm-sidenav-item>
+
+  <!-- <ibm-sidenav-menu
+    *ngIf="mheCustomer || marineCustomer || wdCustomer"
+    title="Operation System"
+    class="operationSystemMenu moduleMenu"
+  > -->
+  <ibm-sidenav-menu
+    title="Operation System"
+    class="operationSystemMenu moduleMenu"
+  >
+    <!-- <ibm-sidenav-item [route]="['/operation-system/vessel-plan-schedule']">Vessel Planning & Scheduling (Marine)</ibm-sidenav-item> -->
+    <!-- Using Carbon tag -->
+    <!-- MHE -->
+    <div *ngIf="mheCustomer">
+      <ibm-sidenav-item
+        [route]="['/operation-system/mhe-request-list']"
+        title="MHE"
+      >
+        <img
+          class="mr-4 nav-icon"
+          src="./assets/images/navigation-icon/MHE.svg"
+        />
+        <span style="font-weight: bolder">MHE</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/mhe-request-list']"
+        title="Current Request"
+      >
+        <span class="ml-24">- Current Request</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/mhe-endorse-request-list']"
+        title="Endorsed Request"
+      >
+        <span class="ml-24">- Endorsed Request</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/mhe-request-form']"
+        title="Request Form"
+      >
+        <span class="ml-24">- Request Form</span>
+      </ibm-sidenav-item>
+    </div>
+
+    <!-- Marine -->
+    <!-- <div *ngIf="marineCustomer"> -->
+    <div>
+      <ibm-sidenav-item
+        [route]="['/operation-system/marine-berth-request-list']"
+        title="Marine"
+      >
+        <img
+          class="mr-4 nav-icon"
+          src="./assets/images/navigation-icon/marine.svg"
+        />
+        <span style="font-weight: bolder">Marine</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/marine-berth-request-form']"
+        title="Berth Request Form"
+      >
+        <span class="ml-24">- Berth Request Form</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/marine-berth-request-list']"
+        title="Current Berth Request"
+      >
+        <span class="ml-24">- Current Berth Request</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/marine-berth-occupancy-docket-list']"
+        title="Berth Occupancy Docket"
+      >
+        <!-- <span class="ml-24">- Berth Occupancy Docket</span> -->
+        <span class="ml-24">- Vessel List</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/marine-endorse-bod-list']"
+        title="Endorsed BOD"
+      >
+        <span class="ml-24">- Endorsed BOD</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/marine-fuelwater-request-form']"
+        title="Fuel/Water Request Form"
+      >
+        <span class="ml-24">- Fuel/Water Request Form</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/marine-fuel-water-request-list']"
+        title="Current Fuel/Water Request"
+      >
+        <span class="ml-24">- Current Fuel/Water Request</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/marine-endorse-fuelwater-list']"
+        title="Endorse Fuel/Water Request"
+      >
+        <span class="ml-24">- Endorsed Fuel/Water</span>
+      </ibm-sidenav-item>
+      <!-- <ibm-sidenav-item
+      [route]="['/operation-system/marine-service-request-form']"
+      title="Service Request (Wharfage) Form"
+    >
+      <span class="ml-24">- Service Request (Wharfage) Form</span>
+    </ibm-sidenav-item> -->
+      <ibm-sidenav-item
+        [route]="['/operation-system/marine-service-request-list']"
+        title="Service Request (Wharfage) List"
+      >
+        <span class="ml-24">- Service Request (Wharfage) List</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/marine-material-requisition-list']"
+        title="Material Requisition List"
+      >
+        <span class="ml-24">- Material Requisition List</span>
+      </ibm-sidenav-item>
+    </div>
+
+    <!-- Waste Disposal -->
+    <div *ngIf="wdCustomer">
+      <ibm-sidenav-item
+        [route]="['/operation-system/waste-disposal-list']"
+        title="Waste Disposal"
+      >
+        <img
+          class="mr-4 nav-icon"
+          src="./assets/images/navigation-icon/waste-disposal.svg"
+        />
+        <span style="font-weight: bolder">Waste Disposal</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/waste-disposal-list']"
+        title="Current Request"
+      >
+        <span class="ml-24">- Current Request</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/waste-disposal-form']"
+        title="Waste Disposal Form"
+      >
+        <span class="ml-24">- Waste Disposal Form</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/waste-disposal-endorse-list']"
+        title="Endorsed Request"
+      >
+        <span class="ml-24">- Endorsed Request</span>
+      </ibm-sidenav-item>
+    </div>
+
+    <!-- Tier 3 dropdown using carbon class and manual function -->
+    <!-- <ul class="bx--side-nav__items p-0">
+        <li class="bx--side-nav__item">
+          <button class=" bx--side-nav__submenu" type="button" aria-expanded="true"
+            (click)="toggleDisplay()"
+            routerLink="/operation-system/mhe-request-list"
+          >
+            <span class="bx--side-nav__submenu-title nav-style">
+              MHE
+            </span>
+            <div
+              class="bx--side-nav__icon bx--side-nav__icon--small bx--side-nav__submenu-chevron">
+              <svg [@rotatedState]='state' aria-hidden="true" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+                <path d="M16 22L6 12l1.414-1.414L16 19.172l8.586-8.586L26 12 16 22z" />
+              </svg>
+            </div>
+          </button>
+          <ul class="bx--side-nav__menu" [class.display-none]="displayDropDown">
+            <li class="bx--side-nav__menu-item">
+              <a class="bx--side-nav__link" routerLink="/operation-system/mhe-request-form">
+                <span class="bx--side-nav__link-text">
+                  - Request Form
+                </span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul> -->
+
+    <!-- <div *ngIf="customer || ilmsRestApi">
+        <ibm-sidenav-item [route]="['/operation-system/goods-recieving-list']" title="ICYS">
+          <img class="mr-4 nav-icon" src="./assets/images/navigation-icon/MHE.svg"/>
+          <span style="font-weight: bolder;">ICYS Operations</span>
+        </ibm-sidenav-item>
+        <ibm-sidenav-item [route]="['/operation-system/goods-recieving-list']" title="Current Request">
+          <span class="ml-24">- Goods Requests</span>
+        </ibm-sidenav-item>
+        <ibm-sidenav-item [route]="['/operation-system/goods-recieving-form']" title="Goods Recieving Form">
+          <span class="ml-24">- Goods Form</span>
+        </ibm-sidenav-item>
+        <ibm-sidenav-item [route]="['/operation-system/goods-recieving-endorsed-list']" title="Endorsed Request">
+          <span class="ml-24">- Endorsed Goods</span>
+        </ibm-sidenav-item>
+        <ibm-sidenav-item [route]="['/operation-system/goods-release-list']" title="Current Requests">
+          <span class="ml-24">-  Release Requests</span>
+        </ibm-sidenav-item>
+        <ibm-sidenav-item [route]="['/operation-system/goods-release-form']" title="Goods Release Form">
+          <span class="ml-24">- Release Form</span>
+        </ibm-sidenav-item>
+        <ibm-sidenav-item [route]="['/operation-system/goods-release-endorsed-list']" title="Endorsed Release">
+          <span class="ml-24">- Endorsed Release</span>
+        </ibm-sidenav-item>
+        <ibm-sidenav-item [route]="['/operation-system/icys-inventory-items']" title="ICYS Inventory Items">
+          <span class="ml-24">- ICYS Inventory Items</span>
+        </ibm-sidenav-item>
+        <ibm-sidenav-item [route]="['operation-system/icys-transactions']" title="ICYS Transactions">
+          <span class="ml-24">- ICYS Transactions</span>
+        </ibm-sidenav-item>
+      </div> -->
+
+    <!-- <ibm-sidenav-item *ngIf="customer || ilmsRestApi" title="Inward/ Outward">
+      <img
+        class="mr-4 nav-icon"
+        src="./assets/images/navigation-icon/Inward_outward.svg"
+      />
+      <span style="font-weight: bolder">Inward / Outward</span>
+    </ibm-sidenav-item> -->
+  </ibm-sidenav-menu>
+
+  <!-- <ibm-sidenav-menu title="Warehouse Management System">
+    <ibm-sidenav-item *ngIf="customer || ilmsRestApi" title="Integrated Yard / Warehouse">
+      <img class="mr-4 nav-icon" src="./assets/images/navigation-icon/Integrated-warehouse.svg"/>
+      <span style="font-weight: bolder;">Integrated Yard / Warehouse</span>
+    </ibm-sidenav-item>
+    <ibm-sidenav-item *ngIf="customer || ilmsRestApi" title="Inland Services">
+      <img class="mr-4 nav-icon" src="./assets/images/navigation-icon/Inland.svg"/>
+      <span style="font-weight: bolder;">Inland Services</span>
+    </ibm-sidenav-item>
+    <ibm-sidenav-item *ngIf="customer || ilmsRestApi" title="Integrated Chemical Warehouse">
+      <img class="mr-4 nav-icon" src="./assets/images/navigation-icon/Integrated-Chemical.svg"/>
+      <span style="font-weight: bolder;">Integrated Chemical Warehouse</span>
+    </ibm-sidenav-item>
+
+
+
+
+
+        <ibm-sidenav-item *ngIf="customer || ilmsRestApi" title="Inward/ Outward">
+            <img class="mr-4 nav-icon" src="./assets/images/navigation-icon/Inward_outward.svg" />
+            <span style="font-weight: bolder;">Inward / Outward</span>
+        </ibm-sidenav-item>
+    </ibm-sidenav-menu> -->
+
+  <ibm-sidenav-menu
+    *ngIf="
+      psbCustomer || cwcyCustomer || cfsCustomer || icwCustomer || swmCustomer
+    "
+    title="Warehouse Management"
+    class="wmsMenu moduleMenu"
+  >
+    <!-- PSB -->
+    <div *ngIf="psbCustomer">
+      <ibm-sidenav-item
+        [route]="['/wms/psb-inventory-list']"
+        title="Petroleum Supply Base"
+      >
+        <img
+          class="mr-4 nav-icon"
+          src="./assets/images/navigation-icon/Petroluem.svg"
+        />
+        <span style="font-weight: bolder">Petroleum Supply Base</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/wms/psb-goods-in-out-list']"
+        title="Goods In / Goods Out"
+      >
+        <span class="ml-24"></span>- Goods In / Goods Out
+      </ibm-sidenav-item>
+      <!-- <ibm-sidenav-item [route]="['/wms/psb-goods-in-out-list']"
+        >- Daily Movement</ibm-sidenav-item
+      > -->
+      <ibm-sidenav-item
+        [route]="['/wms/psb-transfer-owner-list']"
+        title="Transfer Ownership"
+      >
+        <span class="ml-24">- Transfer Ownership</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/wms/psb-transfer-location-list']"
+        title="Transfer Location"
+      >
+        <span class="ml-24">- Transfer Location</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/wms/psb-build-parts-list']"
+        title="Build from Parts"
+      >
+        <span class="ml-24">- Build from Parts</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item [route]="['/wms/psb-report']" title="Build from Parts">
+        <span class="ml-24">- Report</span>
+      </ibm-sidenav-item>
+    </div>
+
+    <!-- CYCW -->
+    <div *ngIf="cwcyCustomer">
+      <ibm-sidenav-item
+        [route]="['/operation-system/cwcy-goods-receiving-request-list']"
+        title="CWCY"
+      >
+        <img
+          class="mr-4 nav-icon"
+          src="./assets/images/navigation-icon/MHE.svg"
+        />
+        <span style="font-weight: bolder">Common Warehouse & Common Yard</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/cwcy-goods-receiving-request-list']"
+        title="Goods Storage Requests"
+      >
+        <span class="ml-24">- Goods Storage Requests</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/cwcy-goods-receiving-form']"
+        title="Goods Storage Form"
+      >
+        <span class="ml-24">- Goods Storage Form</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="[
+          '/operation-system/cwcy-endorsed-goods-receiving-request-list'
+        ]"
+        title="Endorsed Goods Storage Request"
+      >
+        <span class="ml-24">- Endorsed Goods Storage Request</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/cwcy-goods-releasing-request-list']"
+        title="Goods Release Requests"
+      >
+        <span class="ml-24">- Goods Release Requests</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/cwcy-goods-release-form']"
+        title="Goods Release Form"
+      >
+        <span class="ml-24">- Goods Release Form</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/cwcy-endorsed-goods-release-request-list']"
+        title="Endorsed Release"
+      >
+        <span class="ml-24">- Endorsed Goods Release Request</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/cwcy-cw-inventories']"
+        title="CW Inventory Items"
+      >
+        <span class="ml-24">- CW Inventory Items</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/cwcy-cy-inventories']"
+        title="CY Inventory Items"
+      >
+        <span class="ml-24">- CY Inventory Items</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['operation-system/cwcy-cw-transactions']"
+        title="CWCY Transactions"
+      >
+        <span class="ml-24">- CW Transactions</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['operation-system/cwcy-cy-transactions']"
+        title="CWCY Transactions"
+      >
+        <span class="ml-24">- CY Transactions</span>
+      </ibm-sidenav-item>
+    </div>
+
+    <!-- CFS -->
+    <div *ngIf="cfsCustomer">
+      <ibm-sidenav-item title="Centralised Food Services">
+        <img
+          class="mr-4 nav-icon"
+          src="./assets/images/navigation-icon/CFS.svg"
+        />
+        <span style="font-weight: bolder">Centralised Food Services</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/cfs-request-list/all']"
+        title="Current Request"
+      >
+        <span class="ml-24">- Current Request</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/cfs-request-form']"
+        title="Storage Registration Form"
+      >
+        <span class="ml-24">- New Container Registration Form</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/cfs-other-activity-form']"
+        title="Other Activity Request Form"
+      >
+        <span class="ml-24">- Other Activity Request Form</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/cfs-endorsed-list']"
+        title="Endorsed Request"
+      >
+        <span class="ml-24">- Endorsed Request</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/cfs-container-list']"
+        title="Container List"
+      >
+        <span class="ml-24">- Container List</span>
+      </ibm-sidenav-item>
+    </div>
+
+    <!-- ICW -->
+    <div *ngIf="icwCustomer">
+      <ibm-sidenav-item
+        [route]="['/operation-system/icw-request-storage-list']"
+        title="ICW"
+      >
+        <img
+          class="mr-4 nav-icon"
+          src="./assets/images/navigation-icon/MHE.svg"
+        />
+        <span style="font-weight: bolder">ICW Operations</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/icw-request-storage-list']"
+        title="Storage Request"
+      >
+        <span class="ml-24">- Storage Requests</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/icw-request-storage-form']"
+        title="Storage Form"
+      >
+        <span class="ml-24">- Storage Form</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/icw-request-storage-endorsed-list']"
+        title="Endorsed Storage Request"
+      >
+        <span class="ml-24">- Endorsed Storage Request</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/icw-transfer-list']"
+        title="Transfer Request"
+      >
+        <span class="ml-24">- Transfer Requests</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/icw-transfer-form']"
+        title="Transfer Form"
+      >
+        <span class="ml-24">- Transfer Form</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/icw-transfer-endorsed-list']"
+        title="Endorsed Transfer Request"
+      >
+        <span class="ml-24">- Endorsed Transfer Request</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/icw-as-list']"
+        title="Additional Services Request"
+      >
+        <span class="ml-24">- Additional Services Requests</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/icw-as-form']"
+        title="Additional Services Form"
+      >
+        <span class="ml-24">- Additional Service Form</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/icw-as-endorsed-list']"
+        title="Endorsed Additional Services Request"
+      >
+        <span class="ml-24">- Endorsed Additional Services Request</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/icw-inventory-balances']"
+        title="Inventory Balances"
+      >
+        <span class="ml-24">- Inventory Balances</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/icw-warehouse-space-utilization']"
+        title="Warehouse Space Utilization"
+      >
+        <span class="ml-24">- Warehouse Space Utilization</span>
+      </ibm-sidenav-item>
+      <!-- <ibm-sidenav-item [route]="['/operation-system/icw-inventory-items']" title="Endorsed Request">
+          <span class="ml-24">- Inventory Items</span>
+        </ibm-sidenav-item> -->
+      <!-- <ibm-sidenav-item [route]="['/operation-system/icw-inventory-transactions']" title="Endorsed Request">
+          <span class="ml-24">- Inventory Transactions</span>
+        </ibm-sidenav-item> -->
+    </div>
+
+    <!-- SW -->
+    <div *ngIf="swmCustomer">
+      <ibm-sidenav-item title="Schedule Waste">
+        <img
+          class="mr-4 nav-icon"
+          src="./assets/images/navigation-icon/Schedule waste.svg"
+        />
+        <span style="font-weight: bolder">Schedule Waste</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/sw-inbound-outbound-list']"
+        title="Inbound / Outbound"
+      >
+        <span class="ml-24">- Inbound / Outbound</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/sw-inbound-so-report-list']"
+        title="Inbound SO Report"
+      >
+        <span class="ml-24">- Inbound SO Report</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/sw-additional-service-report-list']"
+        title="Additional Services Report"
+      >
+        <span class="ml-24">- Additional Services Report</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/sw-outbound-so-report-list']"
+        title="Outbound SO Report"
+      >
+        <span class="ml-24">- Outbound SO Report</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/sw-twg-list']"
+        title="TWG List"
+      >
+        <span class="ml-24">- TWG List</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/sw-current-inventory-list']"
+        title="Current Inventory"
+      >
+        <span class="ml-24">- Current Inventory</span>
+      </ibm-sidenav-item>
+    </div>
+
+    <!-- <ibm-sidenav-item
+      *ngIf="customer || ilmsRestApi"
+      title="Integrated Yard / Warehouse"
+    >
+      <img
+        class="mr-4 nav-icon"
+        src="./assets/images/navigation-icon/Integrated-warehouse.svg"
+      />
+      <span style="font-weight: bolder">Integrated Yard / Warehouse</span>
+    </ibm-sidenav-item>
+    <ibm-sidenav-item *ngIf="customer || ilmsRestApi" title="Inland Services">
+      <img
+        class="mr-4 nav-icon"
+        src="./assets/images/navigation-icon/Inland.svg"
+      />
+      <span style="font-weight: bolder">Inland Services</span>
+    </ibm-sidenav-item>
+    <ibm-sidenav-item
+      *ngIf="customer || ilmsRestApi"
+      title="Integrated Chemical Warehouse"
+    >
+      <img
+        class="mr-4 nav-icon"
+        src="./assets/images/navigation-icon/Integrated-Chemical.svg"
+      />
+      <span style="font-weight: bolder">Integrated Chemical Warehouse</span>
+    </ibm-sidenav-item> -->
+  </ibm-sidenav-menu>
+
+  <!-- <ibm-sidenav-menu title="Manpower & Asset Management">
+    <ibm-sidenav-item>Attendance</ibm-sidenav-item>
+    <ibm-sidenav-item>Gang Setting</ibm-sidenav-item>
+    <ibm-sidenav-item>Operator Monthly Planner</ibm-sidenav-item>
+    <ibm-sidenav-item>Forklift & Skylift Setting</ibm-sidenav-item>
+    <ibm-sidenav-item>Search Employee Schedule</ibm-sidenav-item>
+  </ibm-sidenav-menu> -->
+
+  <ibm-sidenav-menu
+    *ngIf="crewCustomer"
+    title="Inland Services"
+    class="inlandMenu moduleMenu"
+  >
+    <div *ngIf="crewCustomer">
+      <ibm-sidenav-item *ngIf="customer || ilmsRestApi" title="Inland Services">
+        <img
+          class="mr-4 nav-icon"
+          src="./assets/images/navigation-icon/Inland.svg"
+        />
+        <span style="font-weight: bolder">Crew Transfer</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/ct-sign-on-list']"
+        title="Sign On Request List"
+      >
+        <span class="ml-24">- Sign On Request List</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/ct-sign-on-form']"
+        title="Sign On Request Form"
+      >
+        <span class="ml-24">- Sign On Request Form</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/ct-endorsed-sign-on-list']"
+        title="Endorsed Sign On Request List"
+      >
+        <span class="ml-24">- Endorsed Sign On Request List</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/ct-sign-off-list']"
+        title="Sign Off Request List"
+      >
+        <span class="ml-24">- Sign Off Request List</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/ct-sign-off-form']"
+        title="Sign Off Request Form"
+      >
+        <span class="ml-24">- Sign Off Request Form</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['/operation-system/ct-endorsed-sign-off-list']"
+        title="Endorsed Sign Off Request List"
+      >
+        <span class="ml-24">- Endorsed Sign Off Request List</span>
+      </ibm-sidenav-item>
+    </div>
+  </ibm-sidenav-menu>
+  <ibm-sidenav-menu
+    *ngIf="crewCustomer"
+    title="Property Rental"
+    class="inlandMenu moduleMenu"
+  >
+    <div *ngIf="crewCustomer">
+      <ibm-sidenav-item
+        [route]="['property-rental/request-list']"
+        title="Property Request List"
+      >
+        <span class="ml-12">Property Request List</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['property-rental/rental-request-form']"
+        title="Rental Request Form"
+      >
+        <span class="ml-12">Rental Request Form</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['property-rental/termination-list']"
+        title="Termination List"
+      >
+        <span class="ml-12">Termination List</span>
+      </ibm-sidenav-item>
+      <ibm-sidenav-item
+        [route]="['property-rental/property-list']"
+        title="Property List"
+      >
+        <span class="ml-12">Property List</span>
+      </ibm-sidenav-item>
+    </div>
+  </ibm-sidenav-menu>
+  <!-- <ibm-sidenav-menu title="Setting" class="moduleMenu">
+    <ibm-sidenav-item
+      [route]="['/settings/my-profile']"
+      *ngIf="customer || ilmsRestApi"
+      title="My Profile"
+    >
+      My Profile
+    </ibm-sidenav-item>
+    <ibm-sidenav-item
+      [route]="['/settings/user-registration']"
+      *ngIf="customer || ilmsRestApi"
+      title="User Registration"
+    >
+      User Registration
+    </ibm-sidenav-item>
+  </ibm-sidenav-menu> -->
+</ibm-sidenav>

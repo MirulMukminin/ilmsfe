@@ -1,0 +1,566 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~carbon-components/scss/globals/scss/styles";
+@import "~carbon-components/scss/globals/scss/vendor/@carbon/type/scss/font-family";
+@import "~carbon-components/scss/globals/scss/typography";
+$feature-flags: (
+  grid-columns-16: true,
+);
+// body{
+//  @include carbon--font-family('sans');
+// }
+//color
+.bx--loading-overlay {
+  z-index: 999999 !important;
+}
+
+.gray-10-bg {
+  background-color: #f3f3f3;
+}
+
+//override carbon class
+.bx--content {
+  background-color: #ffffff;
+}
+
+.bx--breadcrumb .bx--link {
+  display: flex;
+  align-items: center;
+}
+
+//fix overflow table on mobile view
+.horizontal-overflow-table {
+  overflow-x: auto;
+}
+
+//global class
+// refer to this link for typography https://www.carbondesignsystem.com/guidelines/typography/productive
+// refer to this link for spacing https://www.carbondesignsystem.com/guidelines/spacing/overview
+.d-flex-row {
+  display: flex;
+}
+
+.sans-semibold-14 {
+  font-size: 14px;
+  @include carbon--font-weight("semibold");
+}
+
+.bs01 {
+  @include carbon--type-style("body-short-01");
+}
+
+.bl01 {
+  @include carbon--type-style("body-long-01");
+}
+
+.bl02 {
+  @include carbon--type-style("body-long-02");
+}
+
+.ph01 {
+  @include carbon--type-style("productive-heading-01");
+}
+
+.ph02 {
+  @include carbon--type-style("productive-heading-02");
+}
+
+.ph03 {
+  @include carbon--type-style("productive-heading-03");
+}
+
+.ph05 {
+  @include carbon--type-style("productive-heading-05");
+}
+
+.ht01 {
+  @include carbon--type-style("helper-text-01");
+}
+
+.customLink {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #0353e9;
+  font-size: 13px;
+}
+
+.customLink2 {
+  cursor: pointer;
+  text-decoration: none !important;
+  color: #0353e9;
+  font-size: 13px;
+}
+
+.customLink2:hover {
+  color: #0043ce;
+  text-decoration: underline !important;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.p-2 {
+  padding: $spacing-01;
+}
+
+.p-4 {
+  padding: $spacing-02;
+}
+
+.p-8 {
+  padding: $spacing-03;
+}
+
+.p-12 {
+  padding: $spacing-04;
+}
+
+.p-16 {
+  padding: $spacing-05;
+}
+
+.p-24 {
+  padding: $spacing-06;
+}
+
+.p-32 {
+  padding: $spacing-07;
+}
+
+.p-40 {
+  padding-top: $spacing-08;
+}
+
+.p-48 {
+  padding: $spacing-09;
+}
+
+.p-64 {
+  padding: $spacing-10;
+}
+
+.m-2 {
+  margin: $spacing-01;
+}
+
+.m-4 {
+  margin: $spacing-02;
+}
+
+.m-8 {
+  margin: $spacing-03;
+}
+
+.m-12 {
+  margin: $spacing-04;
+}
+
+.m-16 {
+  margin: $spacing-05;
+}
+
+.m-24 {
+  margin: $spacing-06;
+}
+
+.m-32 {
+  margin: $spacing-07;
+}
+
+.m-40 {
+  margin: $spacing-08;
+}
+
+.m-48 {
+  margin: $spacing-09;
+}
+
+.m-64 {
+  margin: $spacing-10;
+}
+
+.pt-2 {
+  padding-top: $spacing-01;
+}
+
+.pt-4 {
+  padding-top: $spacing-02;
+}
+
+.pt-8 {
+  padding-top: $spacing-03;
+}
+
+.pt-12 {
+  padding-top: $spacing-04;
+}
+
+.pt-16 {
+  padding-top: $spacing-05;
+}
+
+.pt-24 {
+  padding-top: $spacing-06;
+}
+
+.pt-32 {
+  padding-top: $spacing-07;
+}
+
+.pt-40 {
+  padding-top: $spacing-08;
+}
+
+.pt-48 {
+  padding-top: $spacing-09;
+}
+
+.pt-64 {
+  padding-top: $spacing-10;
+}
+
+.pb-2 {
+  padding-bottom: $spacing-01;
+}
+
+.pb-4 {
+  padding-bottom: $spacing-02;
+}
+
+.pb-8 {
+  padding-bottom: $spacing-03;
+}
+
+.pb-12 {
+  padding-bottom: $spacing-04;
+}
+
+.pb-16 {
+  padding-bottom: $spacing-05;
+}
+
+.pb-24 {
+  padding-bottom: $spacing-06;
+}
+
+.pb-32 {
+  padding-bottom: $spacing-07;
+}
+
+.pb-40 {
+  padding-bottom: $spacing-08;
+}
+
+.pb-48 {
+  padding-bottom: $spacing-09;
+}
+
+.pb-64 {
+  padding-bottom: $spacing-10;
+}
+
+.mt-2 {
+  margin-top: $spacing-01;
+}
+
+.mt-4 {
+  margin-top: $spacing-02;
+}
+
+.mt-8 {
+  margin-top: $spacing-03;
+}
+
+.mt-12 {
+  margin-top: $spacing-04;
+}
+
+.mt-16 {
+  margin-top: $spacing-05;
+}
+
+.mt-24 {
+  margin-top: $spacing-06;
+}
+
+.mt-32 {
+  margin-top: $spacing-07;
+}
+
+.mt-40 {
+  margin-top: $spacing-08;
+}
+
+.mt-48 {
+  margin-top: $spacing-09;
+}
+
+.mt-64 {
+  margin-top: $spacing-10;
+}
+
+.mb-2 {
+  margin-bottom: $spacing-01;
+}
+
+.mb-4 {
+  margin-bottom: $spacing-02;
+}
+
+.mb-8 {
+  margin-bottom: $spacing-03;
+}
+
+.mb-12 {
+  margin-bottom: $spacing-04;
+}
+
+.mb-16 {
+  margin-bottom: $spacing-05;
+}
+
+.mb-24 {
+  margin-bottom: $spacing-06;
+}
+
+.mb-32 {
+  margin-bottom: $spacing-07;
+}
+
+.mb-40 {
+  margin-bottom: $spacing-08;
+}
+
+.mb-48 {
+  margin-bottom: $spacing-09;
+}
+
+.mb-64 {
+  margin-bottom: $spacing-10;
+}
+
+.pr-2 {
+  padding-right: $spacing-01;
+}
+
+.pr-4 {
+  padding-right: $spacing-02;
+}
+
+.pr-8 {
+  padding-right: $spacing-03;
+}
+
+.pr-12 {
+  padding-right: $spacing-04;
+}
+
+.pr-16 {
+  padding-right: $spacing-05;
+}
+
+.pr-24 {
+  padding-right: $spacing-06;
+}
+
+.pr-32 {
+  padding-right: $spacing-07;
+}
+
+.pr-40 {
+  padding-right: $spacing-08;
+}
+
+.pr-48 {
+  padding-right: $spacing-09;
+}
+
+.pr-64 {
+  padding-right: $spacing-10;
+}
+
+.pl-2 {
+  padding-left: $spacing-01;
+}
+
+.pl-4 {
+  padding-left: $spacing-02;
+}
+
+.pl-8 {
+  padding-left: $spacing-03;
+}
+
+.pl-12 {
+  padding-left: $spacing-04;
+}
+
+.pl-16 {
+  padding-left: $spacing-05;
+}
+
+.pl-24 {
+  padding-left: $spacing-06;
+}
+
+.pl-32 {
+  padding-left: $spacing-07;
+}
+
+.pl-40 {
+  padding-left: $spacing-08;
+}
+
+.pl-48 {
+  padding-left: $spacing-09;
+}
+
+.pl-64 {
+  padding-left: $spacing-10;
+}
+
+.mr-2 {
+  margin-right: $spacing-01;
+}
+
+.mr-4 {
+  margin-right: $spacing-02;
+}
+
+.mr-8 {
+  margin-right: $spacing-03;
+}
+
+.mr-12 {
+  margin-right: $spacing-04;
+}
+
+.mr-16 {
+  margin-right: $spacing-05;
+}
+
+.mr-24 {
+  margin-right: $spacing-06;
+}
+
+.mr-32 {
+  margin-right: $spacing-07;
+}
+
+.mr-40 {
+  margin-right: $spacing-08;
+}
+
+.mr-48 {
+  margin-right: $spacing-09;
+}
+
+.mr-64 {
+  margin-right: $spacing-10;
+}
+
+.ml-2 {
+  margin-left: $spacing-01;
+}
+
+.ml-4 {
+  margin-left: $spacing-02;
+}
+
+.ml-8 {
+  margin-left: $spacing-03;
+}
+
+.ml-12 {
+  margin-left: $spacing-04;
+}
+
+.ml-16 {
+  margin-left: $spacing-05;
+}
+
+.ml-24 {
+  margin-left: $spacing-06;
+}
+
+.ml-32 {
+  margin-left: $spacing-07;
+}
+
+.ml-40 {
+  margin-left: $spacing-08;
+}
+
+.ml-48 {
+  margin-left: $spacing-09;
+}
+
+.ml-64 {
+  margin-left: $spacing-10;
+}
+
+a[routerlink] {
+  color: #0353e9;
+  text-decoration: none !important;
+}
+
+a[routerlink]:hover {
+  color: #0043ce;
+  text-decoration: underline !important;
+}
+
+.bx--content-switcher-btn::after {
+  background-color: revert !important;
+}
+
+@media print {
+  #myBtn {
+    display: none !important;
+  }
+}
+
+@media (min-width: 66rem) {
+  .bx--offset-lg-3 {
+    margin-left: 15rem;
+  }
+}
+
+// td[title="COMPLETED"] {
+//   background-color: #0f0 !important;
+// }
+// td[title="SUBMITTED"] {
+//   background-color: #fdff9a !important;
+// }
+// td[title="IN PROGRESS"] {
+//   background-color: #9ae5ff !important;
+// }
+// td[title="PENDING ENDORSEMENT"] {
+//   background-color: #ff9382 !important;
+// }
+// td[title="ENDORSED"] {
+//   background-color: #0f0 !important;
+// }
+// td[title="CANCELED"],
+// td[title="CANCELED"] *,
+// td[title="CANCELLED"],
+// td[title="CANCELLED"] * {
+//   background-color: #ba0b0b !important;
+//   color: white !important;
+// }
+// td[title="INITIATED"] {
+//   background-color: #ffdba6 !important;
+// }
+// td[title="BOOKED"] {
+//   background-color: #9affb0 !important;
+// }
+// td[title="IN PROGRESS"],
+// td[title="IN_PROGRESS"] {
+//   background-color: #9ae5ff !important;
+// }
+// td[title="SENT"] {
+//   background-color: #3fe19b !important;
+// }
+
+// .bx--side-nav.bx--side-nav--rail:not(.bx--side-nav--fixed):hover,
+// .bx--side-nav--expanded {
+//   width: 20% !important;
+// }

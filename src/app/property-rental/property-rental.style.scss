@@ -1,0 +1,467 @@
+//main body wrapper
+.body {
+  margin-left: 18rem;
+  margin-right: 1.5rem;
+}
+
+//breadcrumb
+.breadcrumb {
+  margin-top: 5rem;
+  background-color: transparent;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.28572;
+  letter-spacing: 0.16px;
+  --breadcrumb-padding-x: 0.5rem;
+  .breadcrumb-item {
+    margin-left: 0px;
+    color: rgb(29, 77, 167);
+    cursor: pointer;
+  }
+
+  .breadcrumb-item.home,
+  .breadcrumb-item.current {
+    text-decoration: none;
+    color: black;
+    cursor: default;
+  }
+
+  .breadcrumb-item + .breadcrumb-item {
+    padding-left: var(--breadcrumb-padding-x);
+  }
+
+  .breadcrumb-item + .breadcrumb-item::before {
+    padding-right: var(--breadcrumb-padding-x);
+    float: left;
+    color: black;
+    content: "/";
+  }
+}
+//end of breadcrumb
+
+//common texts
+.category-title {
+  font-size: 1.25rem;
+  padding-top: 40px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0;
+}
+
+.page-title {
+  font-size: 1.25rem;
+  padding-top: 40px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0;
+
+  .page-description {
+    padding-top: 0px;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: 0;
+  }
+}
+//end of common texts
+
+//user details table (for form)
+table.user-details {
+  margin-top: 40px;
+  width: 60%;
+  font-size: 1rem;
+  text-align: left;
+  vertical-align: middle;
+  tr {
+    height: 60px;
+    th.table-header {
+      background-color: transparent;
+      font-weight: 600;
+      width: 40%;
+    }
+
+    td.table-data {
+      background-color: transparent;
+      vertical-align: middle;
+    }
+  }
+}
+//end of user details table
+
+//form section
+.section-title {
+  padding-top: 40px;
+}
+.form-section {
+  padding-top: 40px;
+}
+
+//input type: text
+.input-box {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.28572;
+  letter-spacing: 0.16px;
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+  width: 50%;
+  height: 2.5rem;
+  padding: 0 1rem;
+  border: none;
+  border-bottom: 1px solid #8d8d8d;
+  background-color: #f4f4f4;
+  color: #161616;
+  transition: background-color 70ms cubic-bezier(0.2, 0, 0.38, 0.9),
+    outline 70ms cubic-bezier(0.2, 0, 0.38, 0.9);
+
+  margin-top: 10px;
+}
+
+input[readonly] {
+  cursor: default;
+}
+
+//label for input type:text
+.input-label {
+  font-size: 0.75rem;
+  font-weight: 400;
+  display: block;
+  margin-top: 20px;
+  color: #525252;
+  line-height: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.input-box.long {
+  height: 5em;
+}
+
+//input type:radio
+.input-radio {
+  margin-top: 10px;
+  margin-bottom: 0.5rem;
+}
+
+//label for input type:radio
+.radio-label {
+  display: block;
+  font-size: 0.75rem;
+}
+
+//custom radio input
+.container {
+  display: inline-block;
+  position: relative;
+  padding-left: 35px;
+  margin-top: 22px;
+  margin-bottom: 0.5rem;
+  margin-right: 3rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 1.15rem;
+  width: 1.125rem;
+  background-color: transparent;
+  border-radius: 50%;
+  border: 1px solid #161616;
+}
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+.container input:checked ~ .checkmark {
+  background-color: transparent;
+}
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+.container .checkmark:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center horizontally and vertically */
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: black;
+}
+//end of custom radio input
+
+//table default styles
+table {
+  width: 100%;
+  margin-top: 40px;
+  padding-bottom: 40px;
+}
+.table-title {
+  padding-top: 40px;
+}
+//searchbar and buttons
+.table-head.flex-container {
+  display: flex;
+}
+
+.table-head {
+  padding-top: 40px;
+  width: 100%;
+  height: 48px;
+}
+
+//searchbar
+.search-container {
+  width: 5%;
+  height: inherit;
+  background-color: transparent;
+}
+.search-icon {
+  margin: 1rem;
+}
+.search-bar {
+  width: 55%;
+  height: inherit;
+  border: none;
+  background-color: transparent;
+}
+.search-bar:hover {
+  background-color: #e5e5e5;
+}
+::placeholder {
+  padding-left: 2rem;
+  font-size: 0.875rem;
+}
+
+//head button
+.btn-refresh {
+  position: relative;
+  background-color: #0f62fe;
+}
+
+.btn-new-request {
+  position: relative;
+  background-color: #393939;
+}
+
+.btn-new-request,
+.btn-refresh {
+  width: 20%;
+  height: inherit;
+  border: none;
+  cursor: pointer;
+}
+.btn-text {
+  position: absolute;
+  color: white;
+  left: 0.5rem;
+  bottom: 1rem;
+}
+
+.btn-icon {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.5rem;
+}
+
+.table-header {
+  background-color: #e0e0e0;
+  color: #161616;
+  height: 3rem;
+  vertical-align: middle;
+}
+.table-header-data {
+  text-align: center;
+  vertical-align: middle;
+}
+.table-data {
+  background: #f4f4f4;
+}
+.table-data-item {
+  height: 3rem;
+  max-height: fit-content;
+  vertical-align: middle;
+  text-align: center;
+}
+input[type="file"] {
+  //custom input type:file
+  display: none;
+}
+.table-file-upload {
+  border: 1px solid #ccc;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: fit-content;
+  margin: 0 auto;
+  background-color: #0f62fe;
+  color: #fff;
+  font-size: 0.875rem; //end of custom input type:file
+}
+
+//submit button
+.btn-submit {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.28572;
+  letter-spacing: 0.16px;
+  max-width: 20rem;
+  min-height: 3rem;
+  flex-shrink: 0;
+  padding: calc(0.875rem - 3px) 63px calc(0.875rem - 3px) 15px;
+  border-radius: 0;
+  cursor: pointer;
+  border: none;
+  text-align: left;
+  text-decoration: none;
+  background-color: #0f62fe;
+  color: #fff;
+}
+
+.footer {
+  //whitespace to ensure footer does not cover the content
+  height: 5vh;
+}
+
+//terminate button
+.btn-terminate {
+  border: 1px solid #ccc;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: fit-content;
+  margin: 0 auto;
+  background-color: #0f62fe;
+  color: #fff;
+  font-size: 0.875rem;
+}
+
+.btn-terminate:disabled {
+  background: grey;
+  cursor: default;
+}
+
+//request list table
+
+.table-request-list tr.table-data:hover {
+  background: #acacac;
+}
+
+//rental request form table
+.rental-request-table .table-data-index {
+  display: block;
+  text-align: center;
+}
+
+.rental-request-table {
+  margin-top: 0px;
+}
+
+.rental-request-table td.table-data-item {
+  text-align: left;
+}
+
+.request-preview-table {
+  width: 60%;
+}
+
+.request-preview-table .table-data,
+.request-preview-table .table-header {
+  background-color: transparent;
+}
+
+.request-preview-table .table-data {
+  vertical-align: middle;
+  padding-left: 2rem;
+  text-align: left;
+}
+
+.request-preview-table .table-header {
+  vertical-align: middle;
+  text-align: left;
+  padding-left: 3rem;
+  font-weight: 600;
+}
+
+.request-preview-table .table-item {
+  min-height: 4rem;
+  max-height: max-content;
+}
+
+.buttons.request-view {
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 3rem;
+  margin-top: 10px;
+}
+
+.buttons .table-file-upload {
+  all: revert;
+  border: 1px solid #ccc;
+  padding: 6px 12px;
+  cursor: pointer;
+  width: fit-content;
+  background-color: #0f62fe;
+  color: #fff;
+  font-size: 0.875rem;
+}
+
+.buttons .btn-back {
+  background-color: #393939;
+  color: #fff;
+  border: 1px solid #ccc;
+  width: fit-content;
+  font-size: 0.875rem;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.buttons .btn-cancel {
+  background-color: #b40000;
+  color: #fff;
+  border: 1px solid #ccc;
+  width: fit-content;
+  font-size: 0.875rem;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.buttons .btn-endorse {
+  background-color: #009225;
+  color: #fff;
+  border: 1px solid #ccc;
+  width: fit-content;
+  font-size: 0.875rem;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.termination-list-table .table-data:hover {
+  background: #acacac;
+}

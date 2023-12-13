@@ -1,0 +1,103 @@
+<!-- Modal -->
+<div ibmRow>
+  <div ibmCol [columnNumbers]="{ lg: 10 }">
+    <ibm-modal [open]="creditOpen" (overlaySelected)="creditOpen = false">
+      <ibm-modal-header (closeSelect)="creditOpen = false">
+        <p ibmModalHeaderLabel class="bx--type-delta">Notice</p>
+      </ibm-modal-header>
+      <section ibmModalContent>
+        <h4>Your Credit Balance Is Low</h4>
+        <br />
+        <p>
+          Please top-up your credit to schedule your booking as usual.<br />
+        </p>
+        <br />
+        <p>
+          Your request booking will be put
+          <span class="bold-text">on hold</span> until your credit is topped up
+          or your payment to PBKSB is confirmed. <br />
+          Details of payment can be wired through the details below.
+        </p>
+        <br />
+        <p>
+          <span class="bold-text">
+            KSB ACC Number: 5630 2800 0682 (MAYBANK BERHAD)
+            <br />
+            ACC Name: PANGKALAN BEKALAN KEMAMAN SDN BHD
+            <br />
+            Email: financeksb@epicgroup.com.my
+          </span>
+          <br />
+          (Please email the proof of payment to this address)
+        </p>
+        <br />
+        <p>
+          For any enquiries please call our operation hotline:
+          <br /><br />
+          <span class="bold-text">Operation Counter No: 09-8602343/2344</span>
+        </p>
+      </section>
+      <ibm-modal-footer>
+        <button class="bx--btn bx--btn--primary" routerLink="/dashboard">
+          Back to Dashboard
+        </button>
+        <!-- <button
+          class="bx--btn bx--btn--secondary"
+          (click)="redirectToPrevious()"
+        >
+          Cancel
+        </button>
+        <button class="bx--btn bx--btn--primary" (click)="creditOpen = false">
+          Proceed
+        </button> -->
+      </ibm-modal-footer>
+    </ibm-modal>
+
+    <ibm-modal [open]="blockedOpen">
+      <ibm-modal-header>
+        <p ibmModalHeaderLabel class="bx--type-delta">Notice</p>
+      </ibm-modal-header>
+      <section ibmModalContent>
+        <h4>
+          Your Account Is Blocked From Making Any Service Request In ILMS Due to
+          Unendorsed Jobs
+        </h4>
+        <br />
+        <p>
+          For any completed jobs, they require an endorsement from your side.
+        </p>
+        <br />
+        <p>
+          Any completed jobs that are
+          <span class="bold-text">not endorsed within 3 days,</span> your
+          account will automatically <span class="bold-text">blocked</span> from
+          making any new request.
+        </p>
+        <br />
+        <p>
+          Please check your dashboard to see the unendorsed jobs or go straight
+          to
+          <a class="modal-link" routerLink="/operation-system/mhe-request-list"
+            >MHE</a
+          >
+          page and look for your previous requests with the status of "<span
+            class="red-bold"
+            >Pending Endorsement</span
+          >" and endorse the related jobs to lift your account from being
+          blocked.
+        </p>
+        <br />
+        <p>
+          For any enquiries please call
+          <br /><br />
+          <span class="bold-text">Operation Hotline No: 09-8602343/2344</span>
+        </p>
+      </section>
+      <ibm-modal-footer>
+        <button class="bx--btn bx--btn--primary" routerLink="/dashboard">
+          Back to Dashboard
+        </button>
+      </ibm-modal-footer>
+    </ibm-modal>
+  </div>
+</div>

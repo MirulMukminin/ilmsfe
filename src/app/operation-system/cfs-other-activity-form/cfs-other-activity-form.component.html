@@ -1,0 +1,382 @@
+<div ibmGrid class="bx--grid--full-width" style="padding-bottom: 133px">
+  <form #cfsOtherForm="ngForm" (ngSubmit)="onSubmit(cfsOtherForm)">
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 10, md: 10, sm: 10 }">
+        <ibm-breadcrumb [noTrailingSlash]="true">
+          <ibm-breadcrumb-item [current]="true">
+            Operation System
+          </ibm-breadcrumb-item>
+          <ibm-breadcrumb-item>
+            <a routerLink="/operation-system/cfs-request-list"
+              >Centralised Food Services</a
+            >
+          </ibm-breadcrumb-item>
+          <ibm-breadcrumb-item [current]="true">
+            Request Form
+          </ibm-breadcrumb-item>
+        </ibm-breadcrumb>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 10, md: 10, sm: 6 }">
+        <span class="ph03">CFS Request Form</span>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+        <div class="d-flex">
+          <div class="w-40">
+            <span class="ph01 text-bold">Company Name</span>
+          </div>
+          <div>
+            <span class="bs01">{{ companyName }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+        <div class="d-flex">
+          <div class="w-40"><span class="ph01 text-bold">Request By</span></div>
+          <div>
+            <span class="bs01">{{ requestBy }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+      [leftGutter]="false"
+      *ngIf="isEdit"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+        <div class="d-flex">
+          <div class="w-40"><span class="ph01 text-bold">Form No</span></div>
+          <div>
+            <span class="bs01">{{ formNo }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+      [leftGutter]="false"
+      *ngIf="isEdit"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+        <div class="d-flex">
+          <div class="w-40"><span class="ph01 text-bold">Status</span></div>
+          <div>
+            <!-- <span class="bs01">{{ status }}</span> -->
+            <span
+              [ngStyle]="{
+                color: status.toLowerCase().includes('pending')
+                  ? 'red'
+                  : '#161616'
+              }"
+              >{{ status }}</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+        <div #dateElement tabindex="1">
+          <ibm-date-picker
+            name="date"
+            label="Date"
+            [placeholder]="'Select Date'"
+            size="md"
+            [dateFormat]="'d/m/Y'"
+            [invalid]="invalidDate"
+            [invalidText]="invalidDateText"
+            [(ngModel)]="date"
+          >
+          </ibm-date-picker>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+      *ngIf="showNoti"
+    >
+      <div>
+        <ibm-notification
+          [notificationObj]="notiCutoffCollection"
+        ></ibm-notification>
+      </div>
+    </div> -->
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 4, md: 6, sm: 6 }">
+        <div>
+          <ibm-combo-box
+            label="Time"
+            placeholder="Select"
+            itemValueKey="content"
+            [dropUp]="false"
+            name="time"
+            invalidText="Time Required"
+            required
+            [(ngModel)]="time"
+            [invalid]="invalidTime"
+            [items]="timeList"
+            (selected)="inputValueChange()"
+            #timeElement
+            tabindex="2"
+          >
+            <ibm-dropdown-list></ibm-dropdown-list>
+          </ibm-combo-box>
+        </div>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 4, md: 6, sm: 6 }">
+        <ibm-label
+          helperText="Please insert dash(-) if not applicable"
+          [invalid]="poNumberInvalid"
+          invalidText="Required"
+        >
+          PO Number
+          <input
+            ibmText
+            name="PONo"
+            [(ngModel)]="poNumber"
+            [invalid]="poNumberInvalid"
+            required
+            (change)="inputValueChange()"
+            #poNORef
+            tabindex="5"
+          />
+        </ibm-label>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 12, sm: 12 }">
+        <ibm-tab-header-group
+          [followFocus]="followFocus"
+          [isNavigation]="isNavigation"
+          [cacheActive]="cacheActive"
+        >
+          <ibm-tab-header
+            (selected)="onTabSelected($event)"
+            [paneReference]="plugOnOff"
+            >Plug On/Off Food Containers
+            <svg
+              ibmIcon="checkbox--checked--filled"
+              size="20"
+              title=""
+              isFocusable="false"
+              style="margin-left: 1rem"
+              *ngIf="plugOnCheckbox"
+            ></svg>
+          </ibm-tab-header>
+          <ibm-tab-header [paneReference]="loadingCabling"
+            >Loading & Cabling Containers
+            <svg
+              ibmIcon="checkbox--checked--filled"
+              size="20"
+              title=""
+              isFocusable="false"
+              style="margin-left: 1rem"
+              *ngIf="loadingCheckbox"
+            ></svg>
+          </ibm-tab-header>
+          <ibm-tab-header [paneReference]="housekeeping"
+            >Housekeeping, Cleaning & Stuffing
+            <svg
+              ibmIcon="checkbox--checked--filled"
+              size="20"
+              title=""
+              isFocusable="false"
+              style="margin-left: 1rem"
+              *ngIf="housekeepingCheckbox"
+            ></svg>
+          </ibm-tab-header>
+          <ibm-tab-header [paneReference]="repair"
+            >Repair Container
+            <svg
+              ibmIcon="checkbox--checked--filled"
+              size="20"
+              title=""
+              isFocusable="false"
+              style="margin-left: 1rem"
+              *ngIf="repairCheckbox"
+            ></svg
+          ></ibm-tab-header>
+        </ibm-tab-header-group>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 12, sm: 12 }">
+        <ibm-tab #plugOnOff>
+          <app-cfs-plug-on-off
+            [companyName]="companyName"
+            [orderNo]="this.formNo"
+            [isEdit]="isEdit"
+            (plugOnTabFilled)="showCheckbox($event)"
+          ></app-cfs-plug-on-off>
+        </ibm-tab>
+
+        <ibm-tab #loadingCabling>
+          <app-cfs-loading-cabling
+            [companyName]="companyName"
+            [orderNo]="formNo"
+            [locationData]="locationData"
+            [vesselData]="vesselData"
+            [isEdit]="isEdit"
+            (loadingTabFilled)="showLoadingCheckbox($event)"
+          ></app-cfs-loading-cabling>
+        </ibm-tab>
+
+        <ibm-tab #housekeeping>
+          <app-cfs-housekeeping
+            [companyName]="companyName"
+            [orderNo]="formNo"
+            [isEdit]="isEdit"
+            (housekeepingTabFilled)="showHousekeepingCheckbox($event)"
+          ></app-cfs-housekeeping>
+        </ibm-tab>
+
+        <ibm-tab #repair>
+          <app-cfs-repair
+            [companyName]="companyName"
+            [orderNo]="formNo"
+            [isEdit]="isEdit"
+            (repairTabFilled)="showRepairCheckbox($event)"
+          ></app-cfs-repair>
+        </ibm-tab>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 12, sm: 12 }">
+        <ibm-tab #loadingCabling> Tab Content 2 </ibm-tab>
+        <ibm-tab #housekeeping> Tab Content 3 </ibm-tab>
+        <ibm-tab #repair> Tab Content 4 </ibm-tab>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3"
+      [leftGutter]="false"
+      [rightGutter]="false"
+    >
+      <div
+        ibmCol
+        [columnNumbers]="{ lg: 12 }"
+        class="d-flex-row pt-64"
+        style="justify-content: flex-start"
+      >
+        <button
+          ibmButton="secondary"
+          class="mr-24"
+          size="xl"
+          (click)="redirectToPrevious()"
+          type="button"
+        >
+          Cancel
+        </button>
+
+        <button ibmButton="primary" type="button" (click)="submitClick()">
+          Submit
+        </button>
+      </div>
+    </div>
+
+    <ibm-modal [open]="open" size="sm" (overlaySelected)="open = false">
+      <ibm-modal-header ibmModalHeaderHeading (closeSelect)="open = false">
+        <h4 style="font-weight: bold">Confirmation</h4>
+      </ibm-modal-header>
+      <div ibmModalContent class="bx--modal-content">
+        <div>
+          <h4>Are you sure you want to submit?</h4>
+          <h4>Kindly make sure all details are correct.</h4>
+        </div>
+        <!-- <div *ngIf="requestPriority === 'urgent'">
+          <h4>This is a urgent request.</h4>
+          <h4>Additional Charges are applicable.</h4>
+          <h4>Kindly make sure all details are correct.</h4>
+        </div>
+        <div *ngIf="requestPriority === 'emergency'">
+          <h4>This is a emergency request.</h4>
+          <h4>Additional Charges are applicable.</h4>
+          <h4>Kindly contact KSB (09-860 2222) to process immediately.</h4>
+        </div> -->
+      </div>
+      <br /><br />
+
+      <ibm-modal-footer>
+        <ng-container>
+          <button ibmButton="secondary" type="button" (click)="open = false">
+            Cancel
+          </button>
+          <button
+            ibmButton="primary"
+            type="button"
+            (click)="submitForm()"
+            [attr.modal-primary-focus]="true"
+          >
+            Confirm
+          </button>
+        </ng-container>
+      </ibm-modal-footer>
+    </ibm-modal>
+  </form>
+</div>

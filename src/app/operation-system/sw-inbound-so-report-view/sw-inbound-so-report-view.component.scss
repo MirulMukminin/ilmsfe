@@ -1,0 +1,29 @@
+::ng-deep {
+  .bx--btn--sm {
+    padding: 3px 16px 3px 16px;
+  }
+
+  .bx--data-table tbody tr td,
+  .bx--data-table tbody tr th {
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .bx--inline-notification__icon {
+    display: flex;
+  }
+}
+
+.bx--inline-notification {
+  height: 5rem;
+  width: 40rem;
+}
+
+.bx--inline-notification__details {
+  height: 5rem;
+  width: 40rem;
+}
+
+.text-red {
+  color: red;
+}

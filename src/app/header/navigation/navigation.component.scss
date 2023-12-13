@@ -1,0 +1,113 @@
+.nav-icon {
+  vertical-align: bottom;
+}
+
+:host ::ng-deep {
+  .listItem {
+    white-space: pre-wrap;
+    display: inline-block;
+  }
+
+  .bx--side-nav__submenu[aria-expanded="true"] + .bx--side-nav__menu {
+    max-height: none;
+  }
+
+  // .propRentalMenu,
+  // .propRentalMenu button,
+  // .propRentalMenu a {
+  //   background-color: #ffe59a;
+  // }
+
+  // .propRentalMenu .bx--side-nav__item:hover,
+  // .propRentalMenu .bx--side-nav__item a.bx--side-nav__link:hover {
+  //   background-color: #ffdf81;
+  //   color: black;
+  // }
+
+  // .propRentalMenu .bx--side-nav__item a.bx--side-nav__link:focus {
+  //   background-color: #f5b184;
+  //   color: black;
+  // }
+
+  // .wmsMenu,
+  // .wmsMenu button,
+  // .wmsMenu a {
+  //   background-color: #c7deb6;
+  // }
+
+  // .wmsMenu .bx--side-nav__item:hover,
+  // .wmsMenu .bx--side-nav__item a.bx--side-nav__link:hover {
+  //   background-color: #b9d6a4;
+  //   color: black;
+  // }
+
+  // .wmsMenu .bx--side-nav__item a.bx--side-nav__link:focus {
+  //   background-color: #aacd91;
+  //   color: black;
+  // }
+
+  .moduleMenu:nth-child(even),
+  .moduleMenu:nth-child(even) button,
+  .moduleMenu:nth-child(even) a {
+    background-color: #4670c5;
+    color: white;
+  }
+
+  .moduleMenu:nth-child(even) .bx--side-nav__item:hover,
+  .moduleMenu:nth-child(even) .bx--side-nav__item a.bx--side-nav__link:hover {
+    background-color: #385a9e;
+    color: white;
+  }
+
+  .moduleMenu:nth-child(even) a *,
+  .moduleMenu:nth-child(even) .bx--side-nav__item a.bx--side-nav__link:hover * {
+    color: white;
+  }
+
+  .moduleMenu:nth-child(even) .bx--side-nav__item a.bx--side-nav__link:focus,
+  .moduleMenu:nth-child(even)
+    .bx--side-nav__item
+    a.bx--side-nav__link:focus
+    .bx--side-nav__link-text {
+    background-color: #314e8a;
+    color: white;
+  }
+
+  .moduleMenu:nth-child(even) .bx--side-nav__icon > svg {
+    fill: white;
+  }
+
+  .moduleMenu:nth-child(odd),
+  .moduleMenu:nth-child(odd) button,
+  .moduleMenu:nth-child(odd) a {
+    background-color: #dce3f4;
+  }
+
+  .moduleMenu:nth-child(odd) .bx--side-nav__item:hover,
+  .moduleMenu:nth-child(odd) .bx--side-nav__item a.bx--side-nav__link:hover {
+    background-color: #c6ccdc;
+  }
+
+  .moduleMenu:nth-child(odd) .bx--side-nav__item a.bx--side-nav__link:focus {
+    background-color: #b0b6c3;
+  }
+
+  .bx--side-nav--ux .bx--side-nav__items::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .bx--side-nav--ux .bx--side-nav__items::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .bx--side-nav--ux .bx--side-nav__items::-webkit-scrollbar-thumb {
+    background-color: grey;
+    border-radius: 20px;
+    // border: 3px solid lightgray;
+  }
+
+  .bx--side-nav--ux .bx--side-nav__items {
+    scrollbar-width: thin;
+    scrollbar-color: grey transparent;
+  }
+}

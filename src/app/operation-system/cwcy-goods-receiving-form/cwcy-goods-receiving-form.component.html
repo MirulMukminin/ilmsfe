@@ -1,0 +1,595 @@
+<ibm-loading
+  *ngIf="isLoading"
+  [isActive]="isLoading"
+  size="normal"
+  [overlay]="overlay"
+>
+</ibm-loading>
+<div ibmGrid class="bx--grid--full-width" style="padding-bottom: 133px">
+  <form #recievingGoodsForm="ngForm" (ngSubmit)="onSubmit(recievingGoodsForm)">
+    <div ibmRow class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 16 }">
+        <ibm-breadcrumb [noTrailingSlash]="true">
+          <ibm-breadcrumb-item [current]="true" href="#1">
+            Operation System
+          </ibm-breadcrumb-item>
+          <ibm-breadcrumb-item [current]="true" href="#1">
+            Common Warehouse & Common Yard
+          </ibm-breadcrumb-item>
+          <ibm-breadcrumb-item>
+            <a
+              style="text-decoration: none"
+              [routerLink]="[
+                '/operation-system/cwcy-goods-receiving-request-list'
+              ]"
+              >Goods Storage Requests</a
+            >
+          </ibm-breadcrumb-item>
+          <ibm-breadcrumb-item [current]="true" href="#1">
+            Request Form
+          </ibm-breadcrumb-item>
+        </ibm-breadcrumb>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32">
+      <div ibmCol [columnNumbers]="{ max: 16, xlg: 16, lg: 16 }" class="ph03">
+        Goods Storage Request Form
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-16"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+        <div class="d-flex">
+          <div class="w-40">
+            <span class="ph01 text-bold">Company Name</span>
+          </div>
+          <div>
+            <span class="bs01">{{ companyName }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-16"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+        <div class="d-flex">
+          <div class="w-40"><span class="ph01 text-bold">Request By</span></div>
+          <div>
+            <span class="bs01">{{ requestBy }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-16"
+      [leftGutter]="false"
+      *ngIf="isEdit"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+        <div class="d-flex">
+          <div class="w-40"><span class="ph01 text-bold">Request No</span></div>
+          <div>
+            <span class="bs01">{{ requestNo }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-16"
+      [leftGutter]="false"
+      *ngIf="isEdit"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+        <div class="d-flex">
+          <div class="w-40"><span class="ph01 text-bold">Status</span></div>
+          <div>
+            <span class="bs01">{{ status }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 6 }">
+        <div class="form-item" #agentElement tabindex="1">
+          <ibm-combo-box
+            label="Agent"
+            placeholder="Select"
+            itemValueKey="content"
+            [dropUp]="false"
+            name="agents"
+            [invalid]="agentInvalid"
+            [invalidText]="agentInvalidText"
+            required
+            [(ngModel)]="agent"
+            [items]="agentList"
+            (selected)="inputValueChange($event)"
+          >
+            <ibm-dropdown-list></ibm-dropdown-list>
+          </ibm-combo-box>
+        </div>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+        <ibm-label
+          [invalid]="reqNameInvalid"
+          invalidText="Requester Name is Required"
+        >
+          Requester's Name
+          <input
+            ibmText
+            name="requesterName"
+            [(ngModel)]="reqName"
+            required
+            [invalid]="reqNameInvalid"
+            (change)="inputValueChange($event)"
+            #reqNameElement
+            tabindex="2"
+          />
+        </ibm-label>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+        <ibm-label
+          [invalid]="reqICInvalid"
+          invalidText="Requester's Ic is Required"
+        >
+          Requester's IC
+          <input
+            ibmText
+            name="reqic"
+            [(ngModel)]="reqIC"
+            [invalid]="reqICInvalid"
+            required
+            (change)="inputValueChange($event)"
+            #reqIcElement
+            tabindex="3"
+          />
+        </ibm-label>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+        <ibm-label
+          [invalid]="reqTelInvalid"
+          invalidText="Requester's Phone is Required"
+        >
+          Requester's Phone
+          <input
+            ibmText
+            name="reqphone"
+            [(ngModel)]="reqTel"
+            [invalid]="reqTelInvalid"
+            required
+            (change)="inputValueChange($event)"
+            #reqPhoneElement
+            tabindex="4"
+          />
+        </ibm-label>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 4, md: 4, sm: 4 }">
+        <div #dateElement tabindex="5">
+          <ibm-date-picker
+            name="date"
+            label="Date"
+            [placeholder]="'Select Date'"
+            size="md"
+            [dateFormat]="'d/m/Y'"
+            [invalid]="dateInvalid"
+            [invalidText]="dateInvalidText"
+            [(ngModel)]="date"
+            (valueChange)="dateChange($event)"
+          >
+          </ibm-date-picker>
+        </div>
+      </div>
+      <div ibmCol [columnNumbers]="{ lg: 3 }">
+        <div class="form-item">
+          <ibm-combo-box
+            label="Time"
+            placeholder="Select"
+            itemValueKey="content"
+            [dropUp]="false"
+            name="time"
+            [invalid]="timeInvalid"
+            [invalidText]="timeInvalidText"
+            required
+            [(ngModel)]="time"
+            (selected)="inputValueChange($event)"
+            [items]="timeList"
+            #timeElement
+            tabindex="6"
+          >
+            <ibm-dropdown-list></ibm-dropdown-list>
+          </ibm-combo-box>
+        </div>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 6 }">
+        <div class="form-item">
+          <ibm-combo-box
+            label="Storage Locations"
+            placeholder="Select"
+            itemValueKey="content"
+            [dropUp]="false"
+            name="storage-locations"
+            [invalid]="locationInvalid"
+            [invalidText]="locationInvalidText"
+            required
+            [(ngModel)]="location"
+            (selected)="inputValueChange($event)"
+            (selected)="locationChanged($event)"
+            [items]="storageLocationSelect"
+            #storageLocationElement
+            tabindex="7"
+          >
+            <ibm-dropdown-list></ibm-dropdown-list>
+          </ibm-combo-box>
+        </div>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 6 }">
+        <div class="form-item">
+          <ibm-combo-box
+            label="Request Type"
+            placeholder="Select"
+            itemValueKey="content"
+            [dropUp]="false"
+            name="request-type"
+            [invalid]="reqTypeInvalid"
+            [invalidText]="reqTypeInvalidText"
+            required
+            [(ngModel)]="requestType"
+            (selected)="inputValueChange($event)"
+            [items]="reqTypeSelect"
+            #storageLocationElement
+            tabindex="7"
+          >
+            <ibm-dropdown-list></ibm-dropdown-list>
+          </ibm-combo-box>
+        </div>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 4, md: 6, sm: 6 }">
+        <ibm-label
+          helperText="Please insert dash(-) if not applicable"
+          [invalid]="poNumberInvalid"
+          invalidText="Required"
+        >
+          PO Number
+          <input
+            ibmText
+            name="PONo"
+            [(ngModel)]="poNumber"
+            [invalid]="poNumberInvalid"
+            required
+            (change)="inputValueChange($event)"
+            #poNORef
+            tabindex="5"
+          />
+        </ibm-label>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3"
+      [leftGutter]="false"
+      [rightGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 12 }">
+        <ibm-table-container style="margin-top: 4rem">
+          <ibm-table-header>
+            <h4>Goods Storage Request Items</h4>
+            <p>Please add item details in the table below.</p>
+          </ibm-table-header>
+          <ibm-table-toolbar>
+            <ibm-table-toolbar-content *ngIf="!checkSelected()">
+              <button
+                ibmButton="primary"
+                size="sm"
+                type="button"
+                (click)="addRow()"
+              >
+                <span style="margin-right: 42px">Add Item</span>
+                <div class="icon-addAlt" ibmIcon="add--alt" size="20"></div>
+              </button>
+            </ibm-table-toolbar-content>
+            <div class="table-action" *ngIf="checkSelected()">
+              <div class="actions">
+                <div class="del">
+                  <button
+                    ibmButton="primary"
+                    size="sm"
+                    type="button"
+                    (click)="deleteRow()"
+                  >
+                    Delete
+                    <div
+                      class="icon-trashCan"
+                      ibmIcon="trash-can"
+                      size="20"
+                    ></div>
+                  </button>
+                </div>
+                <div class="cancel">
+                  <button
+                    ibmButton="primary"
+                    size="sm"
+                    type="button"
+                    (click)="onCancel()"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          </ibm-table-toolbar>
+          <div class="">
+            <table class="bx--data-table" #itemDetailTable tabindex="6">
+              <thead>
+                <tr>
+                  <th class="bx--table-header-label">No.</th>
+                  <th class="bx--table-header-label">Description</th>
+                  <th class="bx--table-header-label">Qty</th>
+                  <th class="bx--table-header-label">UOM</th>
+                  <th class="bx--table-header-label">Remarks</th>
+                  <th class="bx--table-header-label">{{ lbl_weight }}</th>
+                  <th class="bx--table-header-label">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngIf="itemList.length == 0"
+                  [ngClass]="{ 'invalid-tableRow': externalItemTableInvalid }"
+                >
+                  <td align="center" colspan="10">
+                    No data is entered yet. Please add new row
+                  </td>
+                </tr>
+
+                <tr
+                  *ngFor="let item of itemList; let itemIndex = index"
+                  class="white-bg"
+                >
+                  <td>{{ itemIndex + 1 }}.</td>
+
+                  <td>
+                    <ibm-label
+                      [invalid]="item.invalidDescription"
+                      invalidText="Required"
+                      ><input
+                        ibmText
+                        [name]="'description_' + itemIndex"
+                        [(ngModel)]="item.description"
+                        tabindex="6"
+                        (change)="inputValueChange($event)"
+                        [invalid]="item.invalidDescription"
+                        #descriptionRef
+                        tabindex="8"
+                    /></ibm-label>
+                  </td>
+                  <td>
+                    <ibm-number
+                      name="qty_{{ itemIndex }}"
+                      [step]="1"
+                      [min]="1"
+                      [max]="100"
+                      invalidText="Quantity Required"
+                      required
+                      [(ngModel)]="item.quantity"
+                    >
+                    </ibm-number>
+                    <!-- <ibm-label
+                      ><input
+                        ibmText
+                        [name]="'qty_' + itemIndex"
+                        [(ngModel)]="item.quantity"
+                        tabindex="6"
+                        (change)="inputValueChange($event)"
+                    /></ibm-label> -->
+                  </td>
+
+                  <td>
+                    <ibm-combo-box
+                      placeholder="Select"
+                      itemValueKey="content"
+                      [dropUp]="false"
+                      [name]="'uom_' + itemIndex"
+                      [invalid]="item.invalidUOM"
+                      invalidText="Required"
+                      #uomElement
+                      required
+                      [(ngModel)]="item.UOM"
+                      [items]="uomList"
+                      (selected)="inputValueChange($event)"
+                      #UOMRef
+                      tabindex="9"
+                    >
+                      <ibm-dropdown-list></ibm-dropdown-list>
+                    </ibm-combo-box>
+                  </td>
+
+                  <td>
+                    <ibm-label
+                      ><input
+                        ibmText
+                        [name]="'remarks_' + itemIndex"
+                        [(ngModel)]="item.remarks"
+                        tabindex="6"
+                        (change)="inputValueChange($event)"
+                    /></ibm-label>
+                  </td>
+
+                  <td>
+                    <div class="weightDiv">
+                      <ibm-number
+                        name="weight_{{ itemIndex }}"
+                        [invalid]="item.invalidWeight"
+                        invalidText="Required"
+                        required
+                        [(ngModel)]="item.weight"
+                        (change)="inputValueChange($event)"
+                        #weightRef
+                        tabindex="9"
+                      >
+                      </ibm-number>
+                    </div>
+                    <!-- <ibm-label
+                      ><input
+                        ibmText
+                        [name]="'weight' + itemIndex"
+                        [(ngModel)]="item.weight"
+                        tabindex="6"
+                        (change)="inputValueChange($event)"
+                    /></ibm-label> -->
+                  </td>
+
+                  <td>
+                    <ibm-checkbox
+                      [hideLabel]="true"
+                      name="checkbox_{{ itemIndex }}"
+                      [(ngModel)]="item.selected"
+                    ></ibm-checkbox>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ibm-table-container>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3"
+      [leftGutter]="false"
+      [rightGutter]="false"
+    >
+      <div
+        ibmCol
+        [columnNumbers]="{ lg: 12 }"
+        class="d-flex-row pt-64"
+        style="justify-content: flex-start"
+      >
+        <button
+          ibmButton="secondary"
+          class="mr-24"
+          size="xl"
+          (click)="redirectToPrevious()"
+          type="button"
+        >
+          Cancel
+        </button>
+        <!-- <button
+          ibmButton="secondary"
+          class="mr-24"
+          size="xl"
+          type="button"
+          (click)="onClear()"
+        >
+          Clear
+        </button> -->
+
+        <button ibmButton="primary" type="button" (click)="submitClick()">
+          Submit
+        </button>
+      </div>
+    </div>
+
+    <ibm-modal [open]="open" size="sm" (overlaySelected)="open = false">
+      <ibm-modal-header ibmModalHeaderHeading (closeSelect)="open = false">
+        <h4 style="font-weight: bold">Confirmation</h4>
+      </ibm-modal-header>
+      <div ibmModalContent class="bx--modal-content">
+        <div>
+          <h4>Are you sure you want to submit?</h4>
+          <h4>Kindly make sure all details are correct.</h4>
+        </div>
+        <!-- <div *ngIf="requestPriority === 'urgent'">
+          <h4>This is a urgent request.</h4>
+          <h4>Additional Charges are applicable.</h4>
+          <h4>Kindly make sure all details are correct.</h4>
+        </div>
+        <div *ngIf="requestPriority === 'emergency'">
+          <h4>This is a emergency request.</h4>
+          <h4>Additional Charges are applicable.</h4>
+          <h4>Kindly contact KSB (09-860 2222) to process immediately.</h4>
+        </div> -->
+        <br />
+      </div>
+
+      <ibm-modal-footer>
+        <ng-container>
+          <button ibmButton="secondary" (click)="open = false">Cancel</button>
+          <button
+            ibmButton="primary"
+            type="submit"
+            [attr.modal-primary-focus]="true"
+          >
+            Confirm
+          </button>
+        </ng-container>
+      </ibm-modal-footer>
+    </ibm-modal>
+  </form>
+</div>

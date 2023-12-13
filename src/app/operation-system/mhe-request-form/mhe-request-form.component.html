@@ -1,0 +1,122 @@
+<app-mhe-notification-modal [modalType]="modalStatus"></app-mhe-notification-modal>
+
+<div ibmGrid class="bx--grid--full-width">
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+        <div ibmCol [columnNumbers]="{ 'lg':10, 'md':10, 'sm':10 }">
+            <ibm-breadcrumb [noTrailingSlash]="true">
+                <ibm-breadcrumb-item [current]="true">
+                    Base Operations
+                </ibm-breadcrumb-item>
+                <ibm-breadcrumb-item>
+                    <a routerLink="/operation-system/mhe-request-list">MHE</a>
+                </ibm-breadcrumb-item>
+                <ibm-breadcrumb-item [current]="true">
+                    Request Form
+                </ibm-breadcrumb-item>
+            </ibm-breadcrumb>
+        </div>
+    </div>
+
+    <app-booking-time-counter></app-booking-time-counter>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+        <div ibmCol [columnNumbers]="{ 'lg':10, 'md':10, 'sm': 6 }">
+            <span class="ph03">MHE Request Form</span>
+        </div>
+    </div>
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+        <div ibmCol [columnNumbers]="{'lg': 6, 'md': 6, 'sm': 6}">
+            <div class="d-flex">
+                <div class="w-40"><span class="ph01 text-bold">Company Name</span></div>
+                <div><span class="bs01">{{companyName}}</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+        <div ibmCol [columnNumbers]="{'lg': 6, 'md': 6, 'sm': 6}">
+            <div class="d-flex">
+                <div class="w-40"><span class="ph01 text-bold">Request By</span></div>
+                <div><span class="bs01">{{requestByName}}</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64">
+        <div ibmCol [columnNumbers]="{ 'lg': 6, 'md': 6, 'sm': 6 }">
+            <fieldset class="bx--fieldset">
+                <ibm-label>Request Type</ibm-label>
+                <ibm-radio-group [(ngModel)]="requestType" (change)="onChange($event)">
+                    <ibm-radio value="Normal" [checked]="checked">
+                        Normal
+                    </ibm-radio>
+                    <ibm-radio value="Console" [checked]="checkedConsole" (click)="onClickCancelConsole()">
+                        Console
+                    </ibm-radio>
+                </ibm-radio-group>
+
+            </fieldset>
+        </div>
+    </div>
+
+    <div>
+        <ibm-modal [open]="open" (overlaySelected)="open = false">
+            <ibm-modal-header (closeSelect)="open = false">
+                <p class="bx--modal-header__label bx--type-delta">Notice</p>
+                <p class="bx--modal-header__heading bx--type-beta">Do Not Request For Consolidation Service Unless The Following Conditions Are Fulfilled</p>
+            </ibm-modal-header>
+            <div class="bx--modal-content">
+
+                <ul>
+                    <li>a) You have called operation counter and confirmed availability of related machinery on desired times. <b>Operation Hotline No : 09-8602343/2344</b> </li>
+                    <li>b) You believed the service requires not more than two hours to complete.</li>
+                    <li>c) You estimate the goods movement would be less than a trailer-full load. </li>
+                    <li>d) You confirmed that goods are already packed and ready for movement.</li>
+                </ul>
+
+                <ibm-modal-header >
+                <p class="bx--modal-header__heading bx--type-beta">Other Informations</p>
+                    </ibm-modal-header>
+                <ul>
+                    <li>a) Consolidation Service will be provided based on the following regulations:</li>
+                    <li>
+                        <ul>
+                            <li>• From 0800 to 1600 during normal working days only</li>
+                            <li>• No service provided during off days & public holidays</li>
+                        </ul>
+                    </li>
+                    <li>b) Charges will be as per tariff</li>
+                    <li>
+                        <ul>
+                            <li>• Duration of usage</li>
+                            <li>• Expected trip(s)</li>
+                            <li>• Expected quantity of goods</li>
+                        </ul>
+                    </li>
+                    <li>d) Consolidation service is base on estimate quantity of goods not duration of usage</li>
+                </ul>
+
+            </div>
+            <ibm-modal-footer>
+                <ng-container>
+                    <button class="bx--btn bx--btn--secondary"
+                    (click)="onClickCancel($event)"
+                    (click)="onClickCancelConsole()">
+                    Cancel</button>
+                    <button
+                        ibmButton="primary"
+                        (click)="open = false"
+                        [attr.modal-primary-focus]="true">
+                        Continue
+                    </button>
+                </ng-container>
+            </ibm-modal-footer>
+        </ibm-modal>
+    </div>
+
+</div>
+
+<app-normal [requestByName]="requestByName" [companyName]="companyName" *ngIf="requestType == 'Normal'" ></app-normal>
+<app-console [requestByName]="requestByName" [companyName]="companyName" *ngIf="requestType == 'Console'"></app-console>
+<!-- <app-console [requestByName]="requestByName" [companyName]="companyName" *ngIf="requestConsole == true"></app-console> -->
+<app-mhe-notification-modal [modalType]="modalStatus"></app-mhe-notification-modal>

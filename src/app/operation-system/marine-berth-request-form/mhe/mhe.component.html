@@ -1,0 +1,94 @@
+<div ibmRow class="pt-32" style="padding-left: 1rem !important;">
+    <div ibmCol [columnNumbers]="{'lg': 12, 'md': 10, 'sm': 6}">
+        <ibm-tile [theme]="'dark'">
+            <span ibmTableHeaderTitle class="ph03">MHE Request</span>
+            <p ibmTableHeaderDescription>Current MHE service requested in ILMS application</p>
+        </ibm-tile>
+    </div>
+</div>
+<app-booking-time-counter></app-booking-time-counter>
+<div ibmRow class="pt-32" style="padding-left: 1rem !important;">
+    <div ibmCol [columnNumbers]="{ 'lg': 6, 'md': 6, 'sm': 6 }">
+        <div style="padding-bottom: 32px;" #workProgramElement tabindex="1">
+            <ibm-dropdown
+              label="Work Programme"
+              placeholder="Choose an option"
+              itemValueKey="content"
+              [dropUp]="false"
+              name="workProgram"
+              [(ngModel)]="workProgram"
+              invalidText="Work Programme Required"
+              [invalid]="invalidProgram"
+              (selected)="inputValueChange()"
+            >
+              <ibm-dropdown-list [items]="programme"></ibm-dropdown-list>
+            </ibm-dropdown>
+          </div>
+
+        <fieldset class="bx--fieldset">
+            <ibm-label>Request Type</ibm-label>
+            <ibm-radio-group [(ngModel)]="requestType" (change)="onChange($event)">
+                <ibm-radio style="margin-right: 70px" value="Normal" [checked]="checked">
+                    Normal
+                </ibm-radio>
+                <ibm-radio value="Console" [checked]="checkedConsole" (click)="onClickCancelConsole()" [disabled]="true">
+                    Console
+                </ibm-radio>
+            </ibm-radio-group>
+        </fieldset>
+    </div>
+
+
+    <div>
+        <ibm-modal [open]="open" (overlaySelected)="open = false">
+            <ibm-modal-header (closeSelect)="open = false">
+                <p class="bx--modal-header__label bx--type-delta">Notice</p>
+                <p class="bx--modal-header__heading bx--type-beta">Do Not Request For Consolidation Service Unless The Following Conditions Are Fulfilled</p>
+            </ibm-modal-header>
+            <div class="bx--modal-content">
+
+                <ul>
+                    <li>a) You have called operation counter and confirmed availability of related machinery on desired times. <b>Operation Hotline No : 09-8634578</b> </li>
+                    <li>b) You believed the service requires not more than two hours to complete.</li>
+                    <li>c) You estimate the goods movement would be less than a trailer-full load. </li>
+                    <li>d) You confirmed that goods are already packed and ready for movement.</li>
+                </ul>
+
+                <ibm-modal-header>
+                    <p class="bx--modal-header__heading bx--type-beta">Other Informations</p>
+                </ibm-modal-header>
+                <ul>
+                    <li>a) Consolidation Service will be provided based on the following regulations:</li>
+                    <li>
+                        <ul>
+                            <li>• From 0800 to 1600 during normal working days only</li>
+                            <li>• No service provided during off days & public holidays</li>
+                        </ul>
+                    </li>
+                    <li>b) Charges will be as per tariff</li>
+                    <li>c) Indicate in your requisition from the following info:-</li>
+                    <li>
+                        <ul>
+                            <li>• Duration of usage</li>
+                            <li>• Expected trip(s)</li>
+                            <li>• Expected quantity of goods</li>
+                        </ul>
+                    </li>
+                    <li>d) Consolidation service is base on estimate quantity of goods not duration of usage</li>
+                </ul>
+
+            </div>
+            <ibm-modal-footer>
+                <ng-container>
+                    <button class="bx--btn bx--btn--secondary" (click)="onClickCancel($event)" (click)="onClickCancelConsole()">
+                    Cancel</button>
+                    <button ibmButton="primary" (click)="open = false" [attr.modal-primary-focus]="true">
+                        Continue
+                    </button>
+                </ng-container>
+            </ibm-modal-footer>
+        </ibm-modal>
+    </div>
+</div>
+<app-berth-normal [poNumber]="poNum" [workProgram]="workProgram" (invalidWorkProgram)="checkWorkProgram($event)" (stepChanged2)="stepChangedHandler($event)" *ngIf="requestType == 'Normal'"></app-berth-normal>
+<app-berth-console (stepChanged2)="stepChangedHandler($event)" [requestByName]="requestByName" [companyName]="companyName" *ngIf="requestType == 'Console'"></app-berth-console>

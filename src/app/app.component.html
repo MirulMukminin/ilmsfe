@@ -1,0 +1,35 @@
+<app-header *ngIf="showHead"></app-header>
+<main (mousemove)="onMouseMove($event)" class="bx--content">
+  <!--<app-navigation></app-navigation>-->
+  <router-outlet></router-outlet>
+  <div class="notification-container"></div>
+  <div>
+    <ibm-modal [open]="open" (overlaySelected)="open = false">
+      <ibm-modal-header (closeSelect)="open = false">
+        <p class="bx--modal-header__label bx--type-delta">Notice</p>
+        <p class="bx--modal-header__heading bx--type-beta">Session Timeout</p>
+      </ibm-modal-header>
+      <div class="bx--modal-content">
+        <p class="bx--modal-header__heading bx--type-beta">
+          One minute left before session termination. Click 'Continue' to
+          proceed.
+        </p>
+      </div>
+      <ibm-modal-footer>
+        <ng-container>
+          <button class="bx--btn bx--btn--secondary" (click)="logout()">
+            Logout
+          </button>
+          <button
+            ibmButton="primary"
+            (click)="open = false"
+            [attr.modal-primary-focus]="true"
+          >
+            Continue
+          </button>
+        </ng-container>
+      </ibm-modal-footer>
+    </ibm-modal>
+  </div>
+</main>
+<app-footer *ngIf="showHead"></app-footer>

@@ -1,0 +1,315 @@
+<!-- <div *ngIf="general.length < 1">
+  <div ibmRow class="pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 12 }">No data available</div>
+  </div>
+</div> -->
+
+<!-- <div *ngIf="general.length > 0"> -->
+<div>
+  <!----------------------------------   Table ----------------------------------->
+
+  <div>
+    <div ibmRow class="pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+        <div class="form-item">
+          <ibm-table-container *ngIf="!openEdit">
+            <ibm-table-header>
+              <h4 ibmTableHeaderTitle>General Works</h4>
+
+              <span ibmTableHeaderDescription
+                >To cancel any job, select the Action checkbox and press Cancel
+                Job button on the console. Any cancellation made less than 2
+                hours from arrival time will be charged.
+              </span>
+            </ibm-table-header>
+            <ibm-table-toolbar>
+              <ibm-table-toolbar-content>
+                <div class="table-action" *ngIf="checkLengthList()">
+                  <div class="selectedItem">
+                    {{ counter }} <span *ngIf="counter == 1">item</span
+                    ><span *ngIf="counter > 1">items</span> selected
+                  </div>
+                  <div class="actions">
+                    <div class="del">
+                      <button
+                        ibmButton="primary"
+                        size="sm"
+                        type="button"
+                        (click)="openModal('cancel')"
+                      >
+                        Cancel Job
+                        <div
+                          class="icon-trashCan"
+                          ibmIcon="trash-can"
+                          size="20"
+                        ></div>
+                      </button>
+                    </div>
+                    <div class="cancel">
+                      <button
+                        ibmButton="primary"
+                        size="sm"
+                        type="button"
+                        (click)="cancelList()"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </ibm-table-toolbar-content>
+            </ibm-table-toolbar>
+
+            <div class="horizontal-overflow-table">
+              <table class="bx--data-table">
+                <thead>
+                  <tr>
+                    <th>No.</th>
+                    <th>Item</th>
+                    <th>Remarks</th>
+                    <th>Status</th>
+                    <th *ngIf="!isAgent">Action</th>
+                  </tr>
+                </thead>
+                <tbody class="white-bg">
+                  <tr *ngFor="let list of general; let index = index">
+                    <td>{{ index + 1 }}.</td>
+                    <td>{{ list.itemDisplay | titlecase }}</td>
+                    <td>{{ list.remarks }}</td>
+                    <td>
+                      <span
+                        [ngStyle]="{
+                          color: list.status.toLowerCase().includes('pending')
+                            ? 'red'
+                            : '#161616'
+                        }"
+                        >{{ list.status }}</span
+                      >
+                    </td>
+                    <td *ngIf="!isAgent">
+                      <ibm-checkbox
+                        name="checkbox_{{ list.id }}"
+                        [(ngModel)]="list.select"
+                        [hideLabel]="true"
+                        (ngModelChange)="listCheckbox($event)"
+                        [disabled]="list.disabled"
+                      >
+                      </ibm-checkbox>
+                    </td>
+                  </tr>
+                  <tr *ngIf="general.length < 1">
+                    <td align="center" colspan="9" class="no-data">
+                      No data available
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </ibm-table-container>
+
+          <ibm-table-container *ngIf="openEdit">
+            <ibm-table-header>
+              <h4 ibmTableHeaderTitle>General Works Request</h4>
+
+              <span ibmTableHeaderDescription
+                >Please fill in the forms below for any service request from
+                KSB</span
+              >
+            </ibm-table-header>
+
+            <div>
+              <table class="bx--data-table">
+                <thead>
+                  <tr>
+                    <th style="width: 60px"></th>
+                    <th style="width: 20%">Item</th>
+                    <th>Remarks</th>
+                  </tr>
+                </thead>
+
+                <tbody
+                  [ngClass]="{ 'invalid-class': generalWorksInvalid }"
+                  class="white-bg"
+                >
+                  <tr
+                    *ngFor="
+                      let generalWorks of listOfGeneralWorks;
+                      let postIndex = index
+                    "
+                    class="white-bg"
+                  >
+                    <td>
+                      <ibm-checkbox
+                        name="checkbox_{{ generalWorks.id }}"
+                        [(ngModel)]="generalWorks.Selected"
+                        (ngModelChange)="onSelected(generalWorks.Item, $event)"
+                        [disabled]="
+                          generalWorks.indicator ||
+                          (flagCharge &&
+                            (generalWorks.Item.toLowerCase() == 'mooring' ||
+                              generalWorks.Item.toLowerCase() == 'unmooring'))
+                        "
+                      >
+                      </ibm-checkbox>
+                    </td>
+                    <td>
+                      {{ generalWorks.Item }}
+                    </td>
+                    <td class="w-130">
+                      <ibm-label
+                        [invalid]="invalidRemarks[postIndex]"
+                        invalidText="Remarks Required"
+                        class="pb-10"
+                      >
+                        <input
+                          ibmText
+                          type="text"
+                          name="remarks{{ generalWorks.id }}"
+                          value="{{ generalWorks.Remarks }}"
+                          [invalid]="invalidRemarks[postIndex]"
+                          [(ngModel)]="generalWorks.Remarks"
+                          (ngModelChange)="validateRemarks(postIndex)"
+                          required
+                          maxlength="100"
+                          [disabled]="generalWorks.status?.includes('cancel')"
+                          [disabled]="
+                            flagCharge &&
+                            (generalWorks.Item.toLowerCase() == 'mooring' ||
+                              generalWorks.Item.toLowerCase() == 'unmooring')
+                          "
+                        />
+                      </ibm-label>
+                    </td>
+                  </tr>
+                </tbody>
+                <div
+                  style="width: 200px"
+                  *ngIf="generalWorksInvalid"
+                  class="invalid-class-label"
+                >
+                  Please select one or more item
+                </div>
+              </table>
+            </div>
+          </ibm-table-container>
+        </div>
+        <div class="d-flex justify-content-start pt-64 pb-32">
+          <div *ngIf="!openEdit">
+            <button
+              type="button"
+              ibmButton="secondary"
+              style="margin-right: 24px; width: 178px; height: 40px"
+              routerLink="/operation-system/marine-berth-request-list"
+            >
+              Back
+            </button>
+            <button
+              *ngIf="displayEdit && !isAgent"
+              type="button"
+              ibmButton="secondary"
+              style="width: 178px; height: 40px"
+              (click)="openEdit = true"
+              [disabled]="general.length < 1"
+              [disabled]="disabledEdit"
+            >
+              Edit
+            </button>
+          </div>
+
+          <div *ngIf="openEdit">
+            <button
+              type="button"
+              ibmButton="secondary"
+              style="margin-right: 24px; width: 178px; height: 40px"
+              (click)="openEdit = false"
+              (click)="clearSelect()"
+            >
+              Back
+            </button>
+            <button
+              *ngIf="!flagCharge || !updateWarning"
+              type="button"
+              ibmButton="secondary"
+              style="width: 178px; height: 40px"
+              (click)="onUpdate()"
+            >
+              Update
+            </button>
+            <button
+              *ngIf="flagCharge && updateWarning"
+              type="button"
+              ibmButton="secondary"
+              style="width: 178px; height: 40px"
+              (click)="openModal('update')"
+            >
+              Update
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div ibmRow>
+    <div ibmCol [columnNumbers]="{ lg: 10 }">
+      <ibm-modal [open]="open" (overlaySelected)="open = false">
+        <ibm-modal-header (closeSelect)="open = false"> </ibm-modal-header>
+        <section
+          ibmModalContent
+          *ngIf="(!flagCharge || !cancelWarning) && cancelModal"
+        >
+          <h3 style="font-weight: bold">Cancel Confirmation</h3>
+          <h4>Are you sure you want to cancel this job request?</h4>
+          <h4>Any cancellation of job cannot be undone after this.</h4>
+        </section>
+        <section
+          ibmModalContent
+          *ngIf="flagCharge && cancelWarning && cancelModal"
+        >
+          <h3 style="font-weight: bold">Cancel Confirmation</h3>
+          <h4>
+            Charges could be applied to this job request cancellation under
+            certain conditions.
+          </h4>
+          <h4>Any cancellation of job request cannot be undone after this.</h4>
+          <h4>
+            For more information, please contact Marine Admin - Tel: 09-863 4378
+          </h4>
+        </section>
+        <section
+          ibmModalContent
+          *ngIf="flagCharge && updateWarning && !cancelModal"
+        >
+          <h3 style="font-weight: bold">Update Confirmation</h3>
+          <h4>Are you sure you want to update this job request?</h4>
+          <h4>
+            Charges could be applied to this job request update under certain
+            conditions.
+          </h4>
+          <h4>
+            For more information, please contact Marine Admin - Tel: 09-863 4378
+          </h4>
+        </section>
+        <ibm-modal-footer>
+          <button class="bx--btn bx--btn--secondary" (click)="open = false">
+            Back
+          </button>
+          <button
+            *ngIf="cancelModal"
+            class="bx--btn bx--btn--primary"
+            (click)="deleteList()"
+          >
+            Cancel Request
+          </button>
+          <button
+            *ngIf="!cancelModal"
+            class="bx--btn bx--btn--primary"
+            (click)="onUpdate()"
+          >
+            Update Request
+          </button>
+        </ibm-modal-footer>
+      </ibm-modal>
+    </div>
+  </div>
+</div>

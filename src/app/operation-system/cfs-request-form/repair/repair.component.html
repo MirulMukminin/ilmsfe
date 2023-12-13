@@ -1,0 +1,345 @@
+<div ibmGrid class="bx--grid--full-width" style="padding-bottom: 133px">
+  <form #repairForm="ngForm" (ngSubmit)="onSubmit(repairForm)">
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+        <div #dateElement tabindex="1">
+          <ibm-date-picker
+            name="date"
+            label="Date"
+            [placeholder]="'Select Date'"
+            size="md"
+            [dateFormat]="'d/m/Y'"
+            [invalid]="dateInvalid"
+            [invalidText]="dateInvalidText"
+            [(ngModel)]="date"
+            (ngModelChange)="dateChange()"
+          >
+          </ibm-date-picker>
+        </div>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+      *ngIf="showNoti"
+    >
+      <div>
+        <ibm-notification
+          [notificationObj]="notiCutoffCollection"
+        ></ibm-notification>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+        <div>
+          <ibm-combo-box
+            label="Time"
+            placeholder="Select"
+            itemValueKey="content"
+            [dropUp]="false"
+            name="time"
+            invalidText="Time Required"
+            required
+            [(ngModel)]="time"
+            [invalid]="invalidTime"
+            [items]="timeList"
+            (selected)="inputValueChange()"
+            #timeElement
+            tabindex="2"
+          >
+            <ibm-dropdown-list></ibm-dropdown-list>
+          </ibm-combo-box>
+        </div>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-lg-3 bx--offset-xlg-2 mt-32"
+      [leftGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+        <div>
+          <ibm-combo-box
+            label="Location"
+            placeholder="Select"
+            itemValueKey="content"
+            [dropUp]="false"
+            name="location"
+            invalidText="Location Required"
+            required
+            [(ngModel)]="location"
+            [invalid]="locationInvalid"
+            [items]="locationList"
+            (selected)="inputValueChange()"
+            #locationElement
+            tabindex="3"
+          >
+            <ibm-dropdown-list></ibm-dropdown-list>
+          </ibm-combo-box>
+        </div>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 mt-32 pt-24"
+      [leftGutter]="false"
+      [rightGutter]="false"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 12 }">
+        <div class="form-item width-unset">
+          <ibm-table-container>
+            <ibm-table-header>
+              <h4 ibmTableHeaderTitle>Repair Container Details</h4>
+              <p ibmTableHeaderDescription>
+                Please add required details in the table below. To remove,
+                select the check box and press remove button in the console
+              </p>
+            </ibm-table-header>
+            <ibm-table-toolbar>
+              <ibm-table-toolbar-content *ngIf="!checkSelected()">
+                <button
+                  ibmButton="primary"
+                  size="sm"
+                  type="button"
+                  (click)="addRow()"
+                >
+                  <span style="margin-right: 42px">Add Item</span>
+                  <div class="icon-addAlt" ibmIcon="add--alt" size="20"></div>
+                </button>
+              </ibm-table-toolbar-content>
+              <div class="table-action" *ngIf="checkSelected()">
+                <div class="actions">
+                  <div class="del">
+                    <button
+                      ibmButton="primary"
+                      size="sm"
+                      type="button"
+                      (click)="deleteRow()"
+                    >
+                      Delete
+                      <div
+                        class="icon-trashCan"
+                        ibmIcon="trash-can"
+                        size="20"
+                      ></div>
+                    </button>
+                  </div>
+                  <div class="cancel">
+                    <button
+                      ibmButton="primary"
+                      size="sm"
+                      type="button"
+                      (click)="cancelAction()"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </ibm-table-toolbar>
+
+            <div class="">
+              <table class="bx--data-table">
+                <thead>
+                  <tr>
+                    <th class="header1">No.</th>
+                    <th class="header2">Container No.</th>
+                    <th class="header2">Repair</th>
+                    <th class="header3">Repair Note</th>
+                    <th class="header3">Inside Bonded</th>
+                    <th class="header3">Outside Bonded</th>
+                    <th class="header5">Remarks</th>
+                    <th class="header5">Action</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr
+                    *ngIf="repairDetails.length === 0"
+                    [ngClass]="{ 'invalid-tableRow': goodsInTableInvalid }"
+                  >
+                    <td align="center" colspan="5">
+                      No data is entered yet. Please add new row
+                    </td>
+                  </tr>
+                  <tr
+                    *ngFor="
+                      let rowDetails of repairDetails;
+                      let postIndex = index
+                    "
+                    class="white-bg"
+                    [ngClass]="{ 'invalid-tableRow': goodsInTableInvalid }"
+                  >
+                    <!-- <tr class="white-bg"> -->
+                    <td>{{ postIndex + 1 }}.</td>
+
+                    <td>
+                      <ibm-combo-box
+                        placeholder="Select"
+                        itemValueKey="content"
+                        [dropUp]="false"
+                        name="containerNo_{{ postIndex }}"
+                        invalidText="Required"
+                        required
+                        [(ngModel)]="rowDetails.containerNo"
+                        [invalid]="rowDetails.invalidContainerNo"
+                        (selected)="inputValueChange()"
+                        (search)="onSearch($event, postIndex)"
+                        [items]="containerNoList"
+                        tabindex="4"
+                        #containerNoRef
+                      >
+                        <ibm-dropdown-list></ibm-dropdown-list>
+                      </ibm-combo-box>
+                      <!-- <ibm-label
+                        invalidText="Required"
+                        [invalid]="rowDetails.invalidContainerNo"
+                        ><input
+                          ibmText
+                          size="sm"
+                          [name]="'containerNo' + postIndex"
+                          [(ngModel)]="rowDetails.containerNo"
+                      /></ibm-label> -->
+                    </td>
+
+                    <td>
+                      <ibm-checkbox
+                        name="repair_{{ postIndex }}"
+                        [(ngModel)]="rowDetails.repairRequired"
+                      >
+                      </ibm-checkbox>
+                    </td>
+
+                    <td>
+                      <ibm-label
+                        invalidText="Required"
+                        [invalid]="rowDetails.invalidRepair"
+                        ><input
+                          ibmText
+                          [name]="'repair_' + postIndex"
+                          [(ngModel)]="rowDetails.repair"
+                      /></ibm-label>
+                    </td>
+
+                    <td>
+                      <ibm-radio-group
+                        name="choice_{{ postIndex }}"
+                        [(ngModel)]="rowDetails.outsideInsideBonded"
+                      >
+                        <ibm-radio
+                          value="Inside Bonded"
+                          [checked]="true"
+                        ></ibm-radio>
+                      </ibm-radio-group>
+                    </td>
+
+                    <td>
+                      <ibm-radio-group
+                        name="choice_{{ postIndex }}"
+                        [(ngModel)]="rowDetails.outsideInsideBonded"
+                      >
+                        <ibm-radio
+                          value="Outside Bonded"
+                          [checked]="false"
+                        ></ibm-radio>
+                      </ibm-radio-group>
+                    </td>
+
+                    <td>
+                      <ibm-label
+                        invalidText="Required"
+                        [invalid]="rowDetails.invalidRemarks"
+                        ><input
+                          ibmText
+                          [name]="'remarks' + postIndex"
+                          [(ngModel)]="rowDetails.remarks"
+                      /></ibm-label>
+                    </td>
+
+                    <td>
+                      <ibm-checkbox
+                        name="checkbox_{{ postIndex }}"
+                        [(ngModel)]="rowDetails.selected"
+                      >
+                      </ibm-checkbox>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </ibm-table-container>
+        </div>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3"
+      [leftGutter]="false"
+      [rightGutter]="false"
+    >
+      <div
+        ibmCol
+        [columnNumbers]="{ lg: 12 }"
+        class="d-flex-row pt-64"
+        style="justify-content: flex-start"
+      >
+        <button
+          ibmButton="secondary"
+          class="mr-24"
+          size="xl"
+          routerLink="/operation-system/cfs-request-list"
+          type="button"
+        >
+          Cancel
+        </button>
+
+        <button
+          ibmButton="primary"
+          type="button"
+          (click)="open = true"
+          [disabled]="repairDetails.length < 1"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+
+    <ibm-modal [open]="open" size="sm" (overlaySelected)="open = false">
+      <ibm-modal-header ibmModalHeaderHeading (closeSelect)="open = false">
+        <h4 style="font-weight: bold">Confirmation</h4>
+      </ibm-modal-header>
+      <div ibmModalContent class="bx--modal-content">
+        <h4>Are you sure you want to submit?</h4>
+        <h4>Kindly make sure all details are correct.</h4>
+      </div>
+      <br /><br />
+
+      <ibm-modal-footer>
+        <ng-container>
+          <button ibmButton="secondary" (click)="open = false">Cancel</button>
+          <button
+            ibmButton="primary"
+            type="submit"
+            [attr.modal-primary-focus]="true"
+          >
+            Confirm
+          </button>
+        </ng-container>
+      </ibm-modal-footer>
+    </ibm-modal>
+  </form>
+</div>

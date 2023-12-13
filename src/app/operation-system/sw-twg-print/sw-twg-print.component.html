@@ -1,0 +1,300 @@
+<div ibmGrid class="bx--grid--full-width" style="padding-bottom: 133px">
+  <div
+    id="topPartPrint"
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 10, md: 10, sm: 10 }">
+      <ibm-breadcrumb [noTrailingSlash]="true">
+        <ibm-breadcrumb-item [current]="true">
+          Operation System
+        </ibm-breadcrumb-item>
+
+        <ibm-breadcrumb-item [current]="true">
+          Schedule Waste Management
+        </ibm-breadcrumb-item>
+
+        <ibm-breadcrumb-item [current]="true"> TWG Form </ibm-breadcrumb-item>
+      </ibm-breadcrumb>
+    </div>
+  </div>
+
+  <div class="printable">
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32 print-no-padding"
+    >
+      <div
+        ibmCol
+        [columnNumbers]="{ lg: 12, md: 12, sm: 12 }"
+        class="pl-0 pr-0 p-16"
+        style="width: 100%"
+      >
+        <div class="formNoContainer gray-10-bg p-16">
+          <div class="ph01">
+            TWG Form No:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{
+              twgFormNo
+            }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+      <div
+        ibmCol
+        [columnNumbers]="{ lg: 6, md: 6, sm: 6 }"
+        class="ph01 underline-text"
+      >
+        {{ companyName }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3">
+      <div
+        ibmCol
+        [columnNumbers]="{ lg: 2, md: 2, sm: 2 }"
+        class="ph01 underline-text"
+      >
+        {{ topAddress }}
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 6 }">
+        <table>
+          <tbody>
+            <tr class="spaceUnder">
+              <td>Telephone No.:</td>
+              <td class="pl-12">{{ telNo }}</td>
+            </tr>
+            <tr>
+              <td>Fax No.:</td>
+              <td class="pl-12">{{ faxNo }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-40">
+      <div ibmCol [columnNumbers]="{ lg: 6 }">
+        <span class="bold-text">Ketua Pengarah</span>
+        <br />Jabatan Alam Sekitar<br />
+        Aras 3-7, Blok C4<br />
+        Pusat Pentadbiran Kerajaan Persekutuan<br />
+        62662 Putrajaya <br /><br /><br /><br /><br /><br />
+        <span class="bold-text">Tuan,</span>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 12 }" class="ph01">
+        PENGESAHAN PENGGUNAAN PREMIS *KEMUDAHAN PENSTORAN LUAR TAPAK BUANGAN
+        TERJADUAL
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 12 }">
+        Saya dengan ini mengesahkan bahawa syarikat / kilang iaitu
+        <span class="underline-bold-text">{{ companyName }}</span> menghasilkan
+        buangan terjadual :-
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 12 }">
+        <table class="waste-table">
+          <thead class="bold-text">
+            <tr>
+              <td>No.</td>
+              <td>Waste Code</td>
+              <td>Descriptions</td>
+              <td>Qty. (MT/Month)</td>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let wasteTable of wasteTableList; let index = index">
+              <td>{{ index + 1 }}.</td>
+              <td class="bold-text">{{ wasteTable.wasteCode }}</td>
+              <td>{{ wasteTable.description }}</td>
+              <td class="bold-text">{{ wasteTable.quantity }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 12 }">
+        2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sehubungan dengan ini
+        pihak kami bersetuju melantik
+        <span class="underline-bold-text">{{ appointedCompanyName }}</span> bagi
+        mengangkut buangan tersebut untuk dihantar ke premis penerima buangan
+        iaitu :-
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 12 }">
+        <table class="waste-info-table">
+          <tbody>
+            <tr>
+              <td colspan="2">Alamat:</td>
+              <td class="underline-bold-text" colspan="2">
+                {{ appointedCompanyAddress }}
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">No. Lesen:</td>
+              <td class="underline-bold-text" colspan="2">
+                {{ licenseNo }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 12 }">
+        3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Saya mengakui dan
+        mengesahkan bahawa maklumat yang dinyatakan di atas adalah benar dan
+        sah.
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 12 }">
+        <table class="waste-user-info-table">
+          <thead>
+            <tr>
+              <td style="width: 50%" class="bold-text" colspan="2">
+                Pegawai yang bertanggungjawab:
+              </td>
+              <td style="width: 50%" class="bold-text" colspan="2">Saksi:</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Nama:</td>
+              <td>
+                <p class="blank-line"></p>
+              </td>
+              <td>Nama:</td>
+              <td>
+                <p class="blank-line"></p>
+              </td>
+            </tr>
+            <tr>
+              <td>Jawatan:</td>
+              <td>
+                <p class="blank-line"></p>
+              </td>
+              <td>Jawatan:</td>
+              <td>
+                <p class="blank-line"></p>
+              </td>
+            </tr>
+            <tr>
+              <td>No. K/P:</td>
+              <td>
+                <p class="blank-line"></p>
+              </td>
+              <td>No. K/P:</td>
+              <td>
+                <p class="blank-line"></p>
+              </td>
+            </tr>
+            <tr>
+              <td>Tarikh:</td>
+              <td>
+                <p class="blank-line"></p>
+              </td>
+              <td>Tarikh:</td>
+              <td>
+                <p class="blank-line"></p>
+              </td>
+            </tr>
+            <tr>
+              <td>Tandatangan:</td>
+              <td>
+                <p class="blank-line"></p>
+              </td>
+              <td>Tandatangan:</td>
+              <td>
+                <p class="blank-line"></p>
+              </td>
+            </tr>
+            <tr>
+              <td>Cop Rasmi Syarikat:</td>
+              <td></td>
+              <td>Cop Rasmi Syarikat:</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64">
+      <div ibmCol [columnNumbers]="{ lg: 12 }" class="ph01">
+        <p class="blank-line"></p>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 12 }" class="ph01">
+        Untuk kegunaan Jabatan Alam Sekitar
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+      <div ibmCol [columnNumbers]="{ lg: 12 }">
+        Diluluskan / Tidak diluluskan
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64">
+      <div ibmCol [columnNumbers]="{ lg: 12 }">
+        <table class="waste-signature-table">
+          <thead>
+            <tr>
+              <td>
+                <p class="dotted-line"></p>
+              </td>
+              <td>
+                <p class="dotted-line"></p>
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>b.p. Ketua Pengarah Alam Sekitar</td>
+              <td>Tarikh</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64">
+    <div ibmCol [columnNumbers]="{ lg: 12 }">
+      <div class="d-flex justify-content-end">
+        <button
+          type="button"
+          ibmButton="secondary"
+          class="mr-32"
+          (click)="onClose()"
+        >
+          Close
+        </button>
+        <button type="button" ibmButton="primary" (click)="onPrint()">
+          Print
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

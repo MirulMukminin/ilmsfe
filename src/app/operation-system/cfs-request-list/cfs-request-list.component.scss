@@ -1,0 +1,96 @@
+@import "~carbon-components/scss/globals/scss/vendor/@carbon/type/scss/font-family";
+@import "~carbon-components/scss/globals/scss/typography";
+@import "/src/app/statusCss.scss";
+
+.pt-33 {
+  padding-top: 33px;
+}
+
+.white-bg {
+  background-color: #fff;
+}
+
+.pe-bg {
+  background-color: red;
+}
+
+:host ::ng-deep {
+  td.ng-star-inserted {
+    white-space: pre-line;
+  }
+}
+
+.icon-addAlt {
+  //position: relative;
+  left: 40px;
+  top: 2px;
+}
+
+.icon-search {
+  margin-right: 12px;
+  margin-top: 16px;
+}
+
+::ng-deep {
+  .bx--content-switcher {
+    justify-content: flex-start !important;
+  }
+
+  .bx--content-switcher-btn {
+    width: max-content !important;
+  }
+  // .bx--toolbar-content {
+  //     background-color: white;
+  // }
+  .bx--data-table .bx--form-item {
+    flex-direction: row;
+  }
+
+  .bx--data-table .bx--list-box input[role="combobox"],
+  .bx--data-table .bx--list-box input[type="text"],
+  .bx--data-table .bx--dropdown,
+  .bx--data-table .bx--list-box,
+  .bx--data-table .bx--number input[type="number"],
+  .bx--data-table .bx--number__control-btn::before,
+  .bx--data-table .bx--number__control-btn::after,
+  .bx--data-table .bx--text-input,
+  .bx--data-table .bx--select-input {
+    background: #f4f4f4;
+  }
+
+  .bx--search--sm .bx--search-input,
+  .bx--search--sm.bx--search--expandable.bx--search--expanded .bx--search-input,
+  .bx--search--sm .bx--search-close,
+  .bx--search--sm ~ .bx--search-button,
+  .bx--search--sm.bx--search--expandable,
+  .bx--search--sm.bx--search--expandable .bx--search-magnifier {
+    height: 48px;
+  }
+  .bx--btn--sm {
+    padding: 3px 16px 3px 16px;
+  }
+  @media only screen and (min-width: 768px) {
+    .bx--search-magnifier {
+      margin-right: 1rem;
+      margin-left: 1rem;
+    }
+    .addNew {
+      width: 180px;
+    }
+  }
+  @media only screen and (max-width: 767px) {
+    .bx--search-magnifier {
+      margin-right: 0rem;
+      margin-left: 0rem;
+      width: 50px;
+    }
+    .bx--search--sm .bx--search-input,
+    .bx--search--sm.bx--search--expandable.bx--search--expanded
+      .bx--search-input {
+      padding: 0 1rem;
+    }
+    .addNew {
+      width: 145px;
+    }
+  }
+}

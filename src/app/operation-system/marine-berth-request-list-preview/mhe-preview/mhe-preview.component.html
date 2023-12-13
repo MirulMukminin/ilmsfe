@@ -1,0 +1,630 @@
+<div *ngIf="!requestNo">
+  <div ibmRow class="pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 12 }">No data available</div>
+  </div>
+</div>
+
+<div *ngIf="requestNo">
+  <div ibmRow class="pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }" class="pl-0 pr-0">
+      <span class="ph03">MHE Request Form Preview</span>
+    </div>
+  </div>
+  <div ibmRow class="pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Request Number</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ requestNo }}
+    </div>
+  </div>
+  <div ibmRow class="pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Work Programme</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ workProgram }}
+    </div>
+  </div>
+  <div ibmRow class="pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Request Type</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ requestType | titlecase }}
+    </div>
+  </div>
+  <div ibmRow class="pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Job Description</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ jobDesc }}
+    </div>
+  </div>
+  <div ibmRow class="pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Request on Behalf</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ requestBehalf }}
+    </div>
+  </div>
+  <div ibmRow class="pt-32" *ngIf="requestType != 'CONSOLE'">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Booking Type</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ bookingType | titlecase }}
+    </div>
+  </div>
+  <!-- <div ibmRow class="pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Booking Date</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ bookingDate }}
+    </div>
+  </div> -->
+
+  <div *ngIf="bookingType == 'RECURRING'" ibmRow class="pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Booking Date</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      <span *ngFor="let item of recurringDate; let i = index">
+        {{ item.startDate | date: "dd/MM/yyyy" }} -
+        {{ item.endDate | date: "dd/MM/yyyy" }}
+        <span *ngIf="i != recurringDate.length - 1">,</span>
+      </span>
+    </div>
+  </div>
+
+  <div
+    *ngIf="bookingType != 'RECURRING' || bookingType == ''"
+    ibmRow
+    class="pt-32"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Booking Date</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ bookingDate }}
+    </div>
+  </div>
+
+  <div ibmRow class="pt-32" *ngIf="requestType != 'NORMAL'">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+      Estimated Duration
+    </div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ estDuration }}
+    </div>
+  </div>
+
+  <div ibmRow class="pt-32" *ngIf="requestType != 'NORMAL'">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Estimated Trip</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ estTrip }}
+    </div>
+  </div>
+
+  <div ibmRow class="pt-32" *ngIf="requestType != 'NORMAL'">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+      Estimated Quantity of Goods
+    </div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ estQty }}
+    </div>
+  </div>
+
+  <div ibmRow class="pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Remarks</div>
+    <div *ngIf="remarks !== ''" ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ remarks }}
+    </div>
+    <div *ngIf="remarks == ''" ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      -
+    </div>
+  </div>
+
+  <div ibmRow class="pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Status</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ status | titlecase }}
+    </div>
+  </div>
+
+  <!----------------------------------   Machinery Table ----------------------------------->
+
+  <div *ngIf="machinery.length > 0 && !openEdit">
+    <div ibmRow class="pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+        <div class="form-item">
+          <ibm-table-container>
+            <ibm-table-header>
+              <h4 ibmTableHeaderTitle>Machinery</h4>
+
+              <span ibmTableHeaderDescription
+                >To cancel any job, select the Action checkbox and press Cancel
+                Job button on the console. Any cancellation made less than 1
+                hour from job time will be charged.
+              </span>
+            </ibm-table-header>
+            <ibm-table-toolbar>
+              <ibm-table-toolbar-content>
+                <div class="table-action" *ngIf="checkLengthItem('machinery')">
+                  <div class="selectedItem">
+                    {{ counterMachinery }}
+                    <span *ngIf="counterMachinery == 1">item</span
+                    ><span *ngIf="counterMachinery > 1">items</span> selected
+                  </div>
+                  <div class="actions">
+                    <div class="del">
+                      <button
+                        ibmButton="primary"
+                        size="sm"
+                        type="button"
+                        (click)="deleteItem('machinery', 'counterMachinery')"
+                      >
+                        Cancel Job
+                        <div
+                          class="icon-trashCan"
+                          ibmIcon="trash-can"
+                          size="20"
+                        ></div>
+                      </button>
+                    </div>
+                    <div class="cancel">
+                      <button
+                        ibmButton="primary"
+                        size="sm"
+                        type="button"
+                        (click)="cancelItem('machinery', 'counterMachinery')"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </ibm-table-toolbar-content>
+            </ibm-table-toolbar>
+            <div class="horizontal-overflow-table">
+              <table class="bx--data-table">
+                <thead>
+                  <tr>
+                    <th>No.</th>
+                    <th>Item</th>
+                    <!-- <th>Work Programme</th> -->
+                    <th>Qty.</th>
+                    <th>Time</th>
+                    <th *ngIf="requestType != 'CONSOLE'">Est. Hours</th>
+                    <th>Location</th>
+                    <th *ngIf="requestType != 'CONSOLE'">Specific Crew</th>
+                    <th>Job Ticket</th>
+                    <th>Usage (Hrs)</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let list of machinery; let index = index">
+                    <td>{{ index + 1 }}.</td>
+                    <td>{{ list.item }}</td>
+                    <!-- <td>{{ list.work }}</td> -->
+                    <td>{{ list.qty }}</td>
+                    <td>{{ list.time }}</td>
+                    <td *ngIf="requestType != 'CONSOLE'">{{ list.estHrs }}</td>
+                    <td>{{ list.location }}</td>
+                    <td *ngIf="requestType != 'CONSOLE'">{{ list.crew }}</td>
+                    <td>{{ list.jobTicket }}</td>
+                    <td>{{ list.usageHours }}</td>
+                    <td>{{ list.status }}</td>
+                    <td>
+                      <ibm-checkbox
+                        name="checkbox_{{ list.id }}"
+                        [(ngModel)]="list.select"
+                        [hideLabel]="true"
+                        (ngModelChange)="
+                          listCheckboxItem($event, 'counterMachinery')
+                        "
+                        [disabled]="list.disabled"
+                      >
+                      </ibm-checkbox>
+                    </td>
+                  </tr>
+                  <tr *ngIf="machinery.length < 1">
+                    <td align="center" colspan="12" class="no-data">
+                      No data available
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </ibm-table-container>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!----------------------------------  Manpower Table ------------------------------------>
+  <div *ngIf="manpower.length > 0 && !openEdit">
+    <div ibmRow class="pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+        <div class="form-item">
+          <ibm-table-container>
+            <ibm-table-header>
+              <h4 ibmTableHeaderTitle>Manpower</h4>
+
+              <span ibmTableHeaderDescription
+                >To cancel any job, select the Action checkbox and press Cancel
+                Job button on the console. Any cancellation made less than 1
+                hour from job time will be charged.
+              </span>
+            </ibm-table-header>
+            <ibm-table-toolbar>
+              <ibm-table-toolbar-content>
+                <div class="table-action" *ngIf="checkLengthItem('manpower')">
+                  <div class="selectedItem">
+                    {{ counterManpower }}
+                    <span *ngIf="counterManpower == 1">item</span
+                    ><span *ngIf="counterManpower > 1">items</span> selected
+                  </div>
+                  <div class="actions">
+                    <div class="del">
+                      <button
+                        ibmButton="primary"
+                        size="sm"
+                        type="button"
+                        (click)="deleteItem('manpower', 'counterManpower')"
+                      >
+                        Cancel Job
+                        <div
+                          class="icon-trashCan"
+                          ibmIcon="trash-can"
+                          size="20"
+                        ></div>
+                      </button>
+                    </div>
+                    <div class="cancel">
+                      <button
+                        ibmButton="primary"
+                        size="sm"
+                        type="button"
+                        (click)="cancelItem('manpower', 'counterManpower')"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </ibm-table-toolbar-content>
+            </ibm-table-toolbar>
+
+            <div class="horizontal-overflow-table">
+              <table class="bx--data-table">
+                <thead>
+                  <tr>
+                    <th>No.</th>
+                    <th>Item</th>
+                    <!-- <th>Work Programme</th> -->
+                    <th>Qty.</th>
+                    <th>Time</th>
+                    <th>Est. Hours</th>
+                    <th>Location</th>
+                    <th>Specific Crew</th>
+                    <th>Job Ticket</th>
+                    <th>Usage (Hrs)</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let list of manpower; let index = index">
+                    <td>{{ index + 1 }}.</td>
+                    <td>{{ list.item }}</td>
+                    <!-- <td>{{ list.work }}</td> -->
+                    <td>{{ list.qty }}</td>
+                    <td>{{ list.time }}</td>
+                    <td>{{ list.estHrs }}</td>
+                    <td>{{ list.location }}</td>
+                    <td>{{ list.crew }}</td>
+                    <td>{{ list.jobTicket }}</td>
+                    <td>{{ list.usageHours }}</td>
+                    <td>{{ list.status }}</td>
+                    <td>
+                      <ibm-checkbox
+                        name="checkbox_{{ list.id }}"
+                        [(ngModel)]="list.select"
+                        [hideLabel]="true"
+                        (ngModelChange)="
+                          listCheckboxItem($event, 'counterManpower')
+                        "
+                        [disabled]="list.disabled"
+                      >
+                      </ibm-checkbox>
+                    </td>
+                  </tr>
+                  <tr *ngIf="manpower.length < 1">
+                    <td align="center" colspan="10" class="no-data">
+                      No data available
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </ibm-table-container>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!----------------------------------  Equipment Table ------------------------------------>
+  <div *ngIf="equipment.length > 0 && !openEdit">
+    <div ibmRow class="pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+        <div class="form-item">
+          <ibm-table-container>
+            <ibm-table-header>
+              <h4 ibmTableHeaderTitle>Equipment</h4>
+
+              <span ibmTableHeaderDescription
+                >To cancel any job, select the Action checkbox and press Cancel
+                Job button on the console. Any cancellation made less than 1
+                hour from job time will be charged.
+              </span>
+            </ibm-table-header>
+            <ibm-table-toolbar>
+              <ibm-table-toolbar-content>
+                <div class="table-action" *ngIf="checkLengthItem('equipment')">
+                  <div class="selectedItem">
+                    {{ counterEquipment }}
+                    <span *ngIf="counterEquipment == 1">item</span
+                    ><span *ngIf="counterEquipment > 1">items</span> selected
+                  </div>
+                  <div class="actions">
+                    <div class="del">
+                      <button
+                        ibmButton="primary"
+                        size="sm"
+                        type="button"
+                        (click)="deleteItem('equipment', 'counterEquipment')"
+                      >
+                        Cancel Job
+                        <div
+                          class="icon-trashCan"
+                          ibmIcon="trash-can"
+                          size="20"
+                        ></div>
+                      </button>
+                    </div>
+                    <div class="cancel">
+                      <button
+                        ibmButton="primary"
+                        size="sm"
+                        type="button"
+                        (click)="cancelItem('equipment', 'counterEquipment')"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </ibm-table-toolbar-content>
+            </ibm-table-toolbar>
+
+            <div class="horizontal-overflow-table">
+              <table class="bx--data-table">
+                <thead>
+                  <tr>
+                    <th>No.</th>
+                    <th>Item</th>
+                    <!-- <th>Work Programme</th> -->
+                    <th>Qty.</th>
+                    <th>Time</th>
+                    <th>Est. Hours</th>
+                    <th>Location</th>
+                    <th>Job Ticket</th>
+                    <th>Usage (Hrs)</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let list of equipment; let index = index">
+                    <td>{{ index + 1 }}.</td>
+                    <td>{{ list.item }}</td>
+                    <!-- <td>{{ list.work }}</td> -->
+                    <td>{{ list.qty }}</td>
+                    <td>{{ list.time }}</td>
+                    <td>{{ list.estHrs }}</td>
+                    <td>{{ list.location }}</td>
+                    <td>{{ list.jobTicket }}</td>
+                    <td>{{ list.usageHours }}</td>
+                    <td>{{ list.status }}</td>
+                    <td>
+                      <ibm-checkbox
+                        name="checkbox_{{ list.id }}"
+                        [(ngModel)]="list.select"
+                        [hideLabel]="true"
+                        (ngModelChange)="
+                          listCheckboxItem($event, 'counterEquipment')
+                        "
+                        [disabled]="list.disabled"
+                      >
+                      </ibm-checkbox>
+                    </td>
+                  </tr>
+                  <tr *ngIf="equipment.length < 1">
+                    <td align="center" class="no-data" colspan="10">
+                      No data available
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </ibm-table-container>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!----------------------------------  External Item Table ------------------------------------>
+  <div *ngIf="externalItem.length > 0 && !openEdit">
+    <div ibmRow class="pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+        <div class="form-item">
+          <ibm-table-container>
+            <ibm-table-header>
+              <h4 ibmTableHeaderTitle>External Item</h4>
+
+              <span ibmTableHeaderDescription
+                >To cancel any job, select the Action checkbox and press Cancel
+                Job button on the console. Any cancellation made less than 1
+                hour from job time will be charged.
+              </span>
+            </ibm-table-header>
+            <ibm-table-toolbar>
+              <ibm-table-toolbar-content>
+                <div
+                  class="table-action"
+                  *ngIf="checkLengthItem('externalItem')"
+                >
+                  <div class="selectedItem">
+                    {{ counterExternal }}
+                    <span *ngIf="counterExternal == 1">item</span
+                    ><span *ngIf="counterExternal > 1">items</span> selected
+                  </div>
+                  <div class="actions">
+                    <div class="del">
+                      <button
+                        ibmButton="primary"
+                        size="sm"
+                        type="button"
+                        (click)="deleteItem('externalItem', 'counterExternal')"
+                      >
+                        Cancel Job
+                        <div
+                          class="icon-trashCan"
+                          ibmIcon="trash-can"
+                          size="20"
+                        ></div>
+                      </button>
+                    </div>
+                    <div class="cancel">
+                      <button
+                        ibmButton="primary"
+                        size="sm"
+                        type="button"
+                        (click)="cancelItem('externalItem', 'counterExternal')"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </ibm-table-toolbar-content>
+            </ibm-table-toolbar>
+
+            <div class="horizontal-overflow-table">
+              <table class="bx--data-table">
+                <thead>
+                  <tr>
+                    <th>No.</th>
+                    <th>ID</th>
+                    <th>Item</th>
+                    <th>UOM</th>
+                    <th>Qty.</th>
+                    <th>Rent Period</th>
+                    <th>Unit</th>
+                    <th>Time</th>
+                    <th>Location</th>
+                    <th>Job Ticket</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let list of externalItem; let index = index">
+                    <td>{{ index + 1 }}.</td>
+                    <td>{{ list.quotation_id }}</td>
+                    <td>{{ list.item }}</td>
+                    <td>{{ list.uom }}</td>
+                    <td>{{ list.qty }}</td>
+                    <td>{{ list.rent_period }}</td>
+                    <td>{{ list.unit }}</td>
+                    <td>{{ list.time }}</td>
+                    <td>{{ list.location }}</td>
+                    <td>{{ list.jobTicket }}</td>
+                    <td>{{ list.status }}</td>
+                    <td>
+                      <ibm-checkbox
+                        name="checkbox_{{ list.id }}"
+                        [(ngModel)]="list.select"
+                        [hideLabel]="true"
+                        (ngModelChange)="
+                          listCheckboxItem($event, 'counterExternal')
+                        "
+                        [disabled]="list.disabled"
+                      >
+                      </ibm-checkbox>
+                    </td>
+                  </tr>
+                  <tr *ngIf="externalItem.length < 1">
+                    <td align="center" colspan="10" class="no-data">
+                      No data available
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </ibm-table-container>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-mhe-preview-console
+    [mheFormID]="mheFormID"
+    [array]="arrayData"
+    *ngIf="openEdit == true && requestType != 'NORMAL'"
+    (openEdit)="updateMHE($event)"
+  ></app-mhe-preview-console>
+
+  <app-mhe-preview-normal
+    [mheFormID]="mheFormID"
+    [array]="arrayData"
+    *ngIf="openEdit == true && requestType == 'NORMAL'"
+    (openEdit)="updateMHE($event)"
+  ></app-mhe-preview-normal>
+
+  <div ibmRow>
+    <div class="d-flex justify-content-start pt-64 pb-32">
+      <div *ngIf="!openEdit">
+        <button
+          type="button"
+          ibmButton="secondary"
+          style="margin-right: 24px; width: 178px; height: 40px"
+          routerLink="/operation-system/marine-berth-request-list"
+        >
+          Back
+        </button>
+        <!-- <button
+          type="button"
+          ibmButton="secondary"
+          style="width: 178px; height: 40px"
+          (click)="openEdit = true"
+          [disabled]="
+            machinery.length < 1 &&
+            manpower.length < 1 &&
+            equipment.length < 1 &&
+            externalItem.length < 1
+          "
+        >
+          Edit
+        </button> -->
+      </div>
+
+      <div *ngIf="openEdit">
+        <button
+          type="button"
+          ibmButton="secondary"
+          style="margin-right: 24px; width: 178px; height: 40px"
+          (click)="openEdit = false"
+        >
+          Back
+        </button>
+        <button
+          type="button"
+          ibmButton="secondary"
+          style="width: 178px; height: 40px"
+          (click)="onUpdate()"
+        >
+          Update
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,87 @@
+@import "~carbon-components/scss/globals/scss/vendor/@carbon/type/scss/font-family";
+@import "~carbon-components/scss/globals/scss/typography";
+@import "/src/app/statusCss.scss";
+
+.pt-33 {
+  padding-top: 33px;
+}
+
+.white-bg {
+  background-color: #fff;
+}
+
+.icon-addAlt {
+  //position: relative;
+  left: 40px;
+  top: 2px;
+}
+
+.icon-search {
+  margin-right: 12px;
+  margin-top: 16px;
+}
+
+// :host ::ng-deep {
+//   td[title="APPROVED"] {
+//     background-color: #0f0 !important;
+//   }
+//   td[title="INITIATE"] {
+//     background-color: #ffdba6 !important;
+//   }
+//   td[title="SUBMITTED"] {
+//     background-color: #fdff9a !important;
+//   }
+//   td[title="PENDING APPROVAL"] {
+//     background-color: #ff9382 !important;
+//   }
+//   td[title="ENDORSED"] {
+//     background-color: #0f0 !important;
+//   }
+//   td[title="CANCELED"],
+//   td[title="CANCELLED"],
+//   td[title="REJECTED"] {
+//     background-color: #ba0b0b !important;
+//     color: white !important;
+//   }
+// }
+
+::ng-deep {
+  // .bx--toolbar-content {
+  //     background-color: white;
+  // }
+  .bx--search--sm .bx--search-input,
+  .bx--search--sm.bx--search--expandable.bx--search--expanded .bx--search-input,
+  .bx--search--sm .bx--search-close,
+  .bx--search--sm ~ .bx--search-button,
+  .bx--search--sm.bx--search--expandable,
+  .bx--search--sm.bx--search--expandable .bx--search-magnifier {
+    height: 48px;
+  }
+  .bx--btn--sm {
+    padding: 3px 16px 3px 16px;
+  }
+  @media only screen and (min-width: 768px) {
+    .bx--search-magnifier {
+      margin-right: 1rem;
+      margin-left: 1rem;
+    }
+    .addNew {
+      width: 180px;
+    }
+  }
+  @media only screen and (max-width: 767px) {
+    .bx--search-magnifier {
+      margin-right: 0rem;
+      margin-left: 0rem;
+      width: 50px;
+    }
+    .bx--search--sm .bx--search-input,
+    .bx--search--sm.bx--search--expandable.bx--search--expanded
+      .bx--search-input {
+      padding: 0 1rem;
+    }
+    .addNew {
+      width: 145px;
+    }
+  }
+}

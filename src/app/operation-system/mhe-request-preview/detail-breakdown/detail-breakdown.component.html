@@ -1,0 +1,96 @@
+<button [ibmButton]="'ghost'" (click)="open = true" class="ghostBtn">
+  Detail Breakdown
+</button>
+
+<ibm-modal size="md" [open]="open" (overlaySelected)="open = false">
+  <ibm-modal-header (closeSelect)="open = false" class="d-flex">
+    <span class="ph03 mb-2 d-flex">Booking Price Estimation Breakdown</span>
+    <span class="ht01 d-flex"
+      >The price shown below is an estimation for your service request. The
+      final price will be sent to you once the work is done.</span
+    >
+  </ibm-modal-header>
+
+  <section *ngIf="itemList && !TotalEstimatedPrice && totalPrice" ibmModalContent class="pt-4">
+    <div class="horizontal-overflow-table">
+      <table class="w-100">
+        <tr class="ht01" style="color: #525252">
+          <td class="mb-5" colspan="2">Items</td>
+          <td align="center">Quantity</td>
+          <td align="center">Est. Hours</td>
+          <td style="width: 60px">Price</td>
+        </tr>
+
+        <tr *ngFor="let items of itemList.items; let i = index">
+          <ng-container *ngIf="items.subnumber === 1">
+            <td style="width: 18px">{{  items.number + 1}}.</td>
+            <td>{{ items.item }}</td>
+            <td align="center">{{ items.quantity }}</td>
+            <td align="center">{{ items.estimatedHours }}</td>
+            <td style="text-align: right;">{{ items.price}}</td>
+          </ng-container>
+          <ng-container *ngIf="items.subnumber !== 1">
+            <td style="width: 18px"></td>
+            <td>{{ items.item }}</td>
+            <td align="center">{{ items.quantity }}</td>
+            <td align="center">{{ items.estimatedHours }}</td>
+            <td style="text-align: right;">{{ items.price}}</td>
+          </ng-container>
+        </tr>
+      </table>
+    </div>
+    <hr class="mt-4" />
+    <div class="position-relative mb-5">
+      <div class="position-absolute top-0 start-0">Total Est. Price:</div>
+      <div class="ph01 position-absolute top-0 end-0">
+        RM{{ totalPrice }}
+      </div>
+    </div>
+  </section>
+
+  <section *ngIf="itemArray && TotalEstimatedPrice || TotalEstimatedPrice == '0'" ibmModalContent class="pt-4">
+    <div class="horizontal-overflow-table">
+      <table class="w-100">
+        <tr class="ht01" style="color: #525252">
+          <td class="mb-5" colspan="2">Items</td>
+          <td align="center">Quantity</td>
+          <td align="center">Est. Hours</td>
+          <td style="width: 60px">Price</td>
+        </tr>
+
+        <tr *ngFor="let items of itemArray; let i = index">
+          <ng-container *ngIf="items.subnumber === 1">
+            <td style="width: 18px">{{ items.number + 1 }}.</td>
+            <td>{{ items.item }}</td>
+            <td align="center">{{ items.quantity }}</td>
+            <td align="center">{{ items.estimatedHours }}</td>
+            <td style="text-align: right;">{{ items.price }}</td>
+          </ng-container>
+          <ng-container *ngIf="items.subnumber !== 1">
+            <td style="width: 18px"></td>
+            <td>{{ items.item }}</td>
+            <td align="center">{{ items.quantity }}</td>
+            <td align="center">{{ items.estimatedHours }}</td>
+            <td style="text-align: right;">{{ items.price }}</td>
+          </ng-container>
+        </tr>
+      </table>
+    </div>
+    <hr class="mt-4" />
+    <div class="position-relative mb-5">
+      <div class="position-absolute top-0 start-0">Total Est. Price:</div>
+      <div class="ph01 position-absolute top-0 end-0">
+        RM{{ TotalEstimatedPrice }}
+      </div>
+    </div>
+  </section>
+  <ibm-modal-footer>
+    <button
+      class="bx--btn bx--btn--primary closeBtn"
+      modal-primary-focus
+      (click)="open = false"
+    >
+      Close
+    </button>
+  </ibm-modal-footer>
+</ibm-modal>

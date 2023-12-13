@@ -1,0 +1,62 @@
+// @import "~carbon-components/scss/globals/scss/vendor/@carbon/type/scss/font-family";
+// @import "~carbon-components/scss/globals/scss/typography";
+@import "~bootstrap/dist/css/bootstrap.css";
+
+.pt-33 {
+    padding-top: 34px;
+}
+
+.pt-32 {
+    padding-top: 32px;
+}
+
+.pt-48 {
+    padding-top: 48px;
+}
+
+.w-35{
+    width: 20rem;
+}
+
+.mt-56{
+    margin-top: 56px;
+}
+
+.white-bg {
+    background-color: #fff;
+}
+
+.pt-32 {
+    // padding-top: $spacing-07;
+}
+
+.pt-16 {
+    padding-top: 36px;
+}
+
+.bx--col, .bx--col-max {
+    max-width: 25%;
+}
+
+::ng-deep {
+    .bx--content-switcher {
+        // width: 300px !important;
+    }
+
+    .bx--content-switcher-btn:focus{
+        box-shadow: unset;
+    }
+
+    .bx--content-switcher-btn{
+        border: 0px !important;
+        text-align: center;
+        padding: 11px 16px 11px 16px;
+        background-color: #f3f3f3;
+        display: inline;
+        width: 163px;
+    }
+
+    .bx--btn{
+        min-height: 40px;
+    }
+}

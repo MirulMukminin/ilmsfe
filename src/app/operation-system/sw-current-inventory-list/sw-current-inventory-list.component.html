@@ -1,0 +1,107 @@
+<div ibmGrid class="bx--grid--full-width pb-64">
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3  pt-32">
+        <div ibmCol [columnNumbers]="{ lg: 12, md: 12, sm: 12 }">
+            <ibm-breadcrumb [noTrailingSlash]="true">
+                <ibm-breadcrumb-item [current]="true">
+                    Operation System
+                </ibm-breadcrumb-item>
+                <ibm-breadcrumb-item [current]="true">
+                    Schedule Waste Management
+                </ibm-breadcrumb-item>
+                <ibm-breadcrumb-item [current]="true">
+                    Current Inventory
+                </ibm-breadcrumb-item>
+            </ibm-breadcrumb>
+        </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+
+        <div ibmCol [columnNumbers]="{ lg: 12, md: 12, sm: 12 }" class="pl-0 pr-0 p-16" style="width: 100%;">
+
+            <div class="bookingTimeCounter gray-10-bg p-16">
+
+                <div class="display-flex-row">
+
+                    <div ibmIcon="hourglass" size="20"></div>
+                    <span style="font-size: 16px; font-weight: 600;" class="pl-8">Schedule Waste Inventory Summary</span>
+
+                </div>
+
+                <div class="counter pt-16 display-flex-row">
+                    <table class="summary-inventory-table">
+                        <thead>
+                            <tr>
+                                <td>
+                                    Waste near Expired Date
+                                </td>
+                                <td>
+                                    Waste exceed expired date
+                                </td>
+                                <td>
+                                    Total Qty. near expiry date
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <span class="swmSummaryQty" [ngClass]="{ 'red-text': wasteNearExpiredDate > 0 }">{{wasteNearExpiredDate}}</span>
+                                </td>
+                                <td>
+                                    <span class="swmSummaryQty" [ngClass]="{ 'red-text': wasteExceedExpiredDate > 0 }">{{wasteExceedExpiredDate}}</span>
+                                </td>
+                                <td>
+                                    <span class="swmSummaryQty" [ngClass]="{ 'red-text': totalQtyNearExpiredDate > 0 }">{{totalQtyNearExpiredDate}}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- <div class="swmSummaryItem">
+                        <span>Waste near Expired Date</span>
+                        <br>
+                        <br>
+                        <span class="swmSummaryQty" [ngClass]="{ 'red-text': wasteNearExpiredDate > 0 }">{{wasteNearExpiredDate}}</span>
+                    </div>
+                    <div class="swmSummaryItem">
+                        <span>Waste exceed expired date</span>
+                        <br>
+                        <br>
+                        <span class="swmSummaryQty" [ngClass]="{ 'red-text': wasteExceedExpiredDate > 0 }">{{wasteExceedExpiredDate}}</span>
+                    </div>
+                    <div class="swmSummaryItem">
+                        <span>Total Qty. near expiry date</span>
+                        <br>
+                        <br>
+                        <span class="swmSummaryQty" [ngClass]="{ 'red-text': totalQtyNearExpiredDate > 0 }">{{totalQtyNearExpiredDate}}</span>
+                    </div> -->
+                </div>
+                <div>
+                    <span class="bl01 italic-font">*expired within 2 months</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+
+        <div ibmCol [columnNumbers]="{'lg': 6, 'md': 6, 'sm': 6}" class="switcher-style">
+            <ibm-content-switcher (selected)="selected($event)">
+                <button ibmContentOption id="SummaryTable" name="SummaryTable">Summary Table</button>
+                <button ibmContentOption id="InventoryTable" name="InventoryTable">Inventory Table</button>
+            </ibm-content-switcher>
+        </div>
+
+    </div>
+
+    <div *ngIf="switch == 'SummaryTable'">
+        <app-sw-summary-table-list></app-sw-summary-table-list>
+    </div>
+
+    <div *ngIf="switch == 'InventoryTable'">
+        <app-sw-inventory-table-list></app-sw-inventory-table-list>
+    </div>
+
+
+</div>

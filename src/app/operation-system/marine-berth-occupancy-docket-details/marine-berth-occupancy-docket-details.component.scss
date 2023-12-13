@@ -1,0 +1,168 @@
+@import "~carbon-components/scss/globals/scss/vendor/@carbon/type/scss/font-family";
+@import "~carbon-components/scss/globals/scss/typography";
+
+.pt-16 {
+  padding-top: 16px;
+}
+
+.pt-24 {
+  padding-top: 24px;
+}
+
+.pt-33 {
+  padding-top: 33px;
+}
+
+.pt-40 {
+  padding-top: 40px;
+}
+
+.pt-64 {
+  padding-top: 64px;
+}
+
+.pr-124 {
+  padding-right: 124px;
+}
+
+.pb-40 {
+  padding-bottom: 40px;
+}
+
+.pb-60 {
+  padding-bottom: 60px;
+}
+
+th[colspan="2"] {
+  text-align: center;
+}
+
+.berthingInfo th {
+  text-align: center;
+}
+
+.berthingInfo td:not(:first-child) {
+  text-align: center;
+}
+
+.table-action {
+  background: #0f62fe;
+  width: 100%;
+}
+
+.actions {
+  display: flex;
+  float: right;
+}
+
+.del,
+.cancel {
+  padding-top: 7px;
+}
+
+.del button {
+  border-right: 2px solid white;
+}
+
+.cancel button,
+.del button {
+  padding: 0px 20px;
+}
+
+.del img {
+  left: -39%;
+  position: relative;
+  top: 15%;
+}
+
+.icon-printer {
+  position: relative;
+  left: 9px;
+  top: 1px;
+}
+
+.icon-trashCan {
+  position: relative;
+  left: 9px;
+  top: 1px;
+}
+
+.icon-addAlt {
+  position: relative;
+  left: 40px;
+  top: 2px;
+}
+
+table tbody .tr-border {
+  border-top: 1px solid #f4f4f4;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.form-item {
+  padding-bottom: 32px;
+}
+
+.downloadBtn {
+  text-align: left;
+  padding: 0;
+}
+
+.downloadBtn:hover {
+  background-color: transparent;
+}
+.selectedItem {
+  top: 15px;
+  position: absolute;
+  left: 20px;
+  color: #ffff;
+}
+
+::ng-deep {
+  .stepOneModal ibm-overlay .bx--modal .bx--modal-container {
+    background-color: #ffffff;
+    width: 629px;
+  }
+  .stepOneModal
+    ibm-overlay
+    .bx--modal
+    .bx--modal-container
+    .bx--modal-content
+    .bx--text-input__field-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  .stepOneModal
+    ibm-overlay
+    .bx--modal
+    .bx--modal-container
+    .bx--modal-content
+    .bx--text-input__field-wrapper
+    .form-item
+    .bx--dropdown__wrapper
+    .bx--list-box,
+  .stepOneModal
+    ibm-overlay
+    .bx--modal
+    .bx--modal-container
+    .bx--modal-content
+    .bx--text-input__field-wrapper
+    .form-item
+    .bx--form-item
+    .bx--text-input__field-wrapper
+    .bx--text-input {
+    background-color: #f4f4f4;
+  }
+  .stepOneModal
+    ibm-overlay
+    .bx--modal
+    .bx--modal-container
+    .bx--modal-content--overflow-indicator {
+    background-image: linear-gradient(to bottom, transparent, #ffff);
+    height: unset;
+  }
+
+  .invalid-file .bx--file .bx--file-browse-btn {
+    outline: 2px solid #da1e28;
+    outline-offset: -2px;
+  }
+}

@@ -1,0 +1,135 @@
+.icon-addAlt {
+    position: relative;
+    top: 2px;
+    left: 40px;
+}
+
+.ml-1 {
+    margin-left: 1rem;
+}
+
+.white-bg td {
+    background: #ffff;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.printable-special {
+    display: none;
+}
+
+.pb-133 {
+    padding-bottom: 133px;
+}
+
+::ng-deep {
+    .no-data-border {
+        border: 2px solid red;
+    }
+    .bx--data-table .bx--text-input,
+    .bx--data-table .bx--select-input {
+        background-color: #f4f4f4;
+    }
+    .bx--modal-container--lg {
+        height: 90%;
+        background-color: white;
+    }
+    .bx--modal-content--overflow-indicator {
+        background-image: none;
+    }
+    .bx--modal-content {
+        margin-bottom: 32px;
+    }
+    .bx--modal-container .bx--modal-header,
+    .bx--modal-container .bx--modal-content,
+    .bx--modal-container .bx--modal-content__regular-content {
+        padding-right: 3%;
+    }
+    .modal-width ibm-overlay .bx--modal .bx--modal-container {
+        height: 1000px;
+        width: 80%;
+        max-width: 1200px;
+    }
+    .modal-width ibm-overlay .bx--modal .bx--modal-container .bx--modal-content .bx--text-input__field-wrapper ibm-combo-box .bx--list-box__wrapper .bx--list-box--expanded ibm-dropdown-list .bx--list-box__menu {
+        margin-top: 0px;
+    }
+    .modal-width ibm-overlay .bx--modal .bx--modal-container .bx--modal-content--overflow-indicator {
+        background-image: unset;
+    }
+    .printBodyDisplay {
+        display: block;
+    }
+    @media print {
+        body * {
+            visibility: hidden;
+        }
+        .printable-special {
+            display: revert !important;
+        }
+        #topPartPrint {
+            display: none;
+        }
+        .printBodyHidden {
+            display: none;
+        }
+        .printable * {
+            visibility: visible;
+            padding: 0px;
+            margin: 3px;
+        }
+        .page-break {
+            page-break-after: auto;
+            // padding: 0px;
+            // margin: 0px;
+        }
+        // button {
+        //     display: none !important;
+        // }
+        table {
+            // page-break-inside: avoid;
+        }
+        .bx--modal-container {
+            position: absolute;
+            left: auto;
+            top: auto;
+            margin: auto;
+            padding: auto;
+            display: block !important;
+        }
+        .bx--modal-header {
+            padding-left: 15px;
+        }
+        .horizontal-overflow-table {
+            padding-left: 15px;
+        }
+        .pb-133 {
+            padding-bottom: 0px !important;
+        }
+        .bx--data-table-header__title,
+        .bx--data-table-header {
+            background-color: white;
+        }
+         ::-webkit-scrollbar {
+            display: none;
+        }
+        table {
+            page-break-after: auto;
+        }
+        tr {
+            page-break-inside: avoid;
+            page-break-after: auto;
+        }
+        td {
+            page-break-inside: avoid;
+            page-break-after: auto;
+        }
+        thead {
+            display: table-row-group;
+        }
+        tfoot {
+            display: table-footer-group;
+        }
+    }
+}

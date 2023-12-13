@@ -1,0 +1,103 @@
+@import "~carbon-components/scss/globals/scss/vendor/@carbon/type/scss/font-family";
+@import "~carbon-components/scss/globals/scss/typography";
+
+.pr-0 {
+  padding-right: 0px;
+}
+
+.pt-16 {
+  padding-top: 16px;
+}
+
+.pt-24 {
+  padding-top: 24px;
+}
+
+.pt-33 {
+  padding-top: 33px;
+}
+
+.pb-60 {
+  padding-bottom: 60px;
+}
+
+.pt-40 {
+  padding-top: 40px;
+}
+
+.mr-24 {
+  margin-right: 24px;
+}
+
+.ml-60 {
+  margin-left: 60px;
+}
+
+.bx--data-table-header {
+  padding: 1rem 0px 3rem 1rem;
+}
+
+.white-bg {
+  background-color: #fff;
+}
+
+// ---- Horizontal scroll -----
+.horizontal-overflow-table {
+  // display: flex;
+  overflow-x: scroll !important;
+  overflow-y: hidden;
+}
+
+ibm-table {
+  flex-shrink: 0;
+}
+// -------------------------
+
+// Scroll bar
+::-webkit-scrollbar {
+  height: 10px;
+  width: 4px;
+  background-color: #f4f4f4;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background-color: #d5d5d5;
+}
+::-webkit-scrollbar-track-piece {
+  background-color: transparent;
+}
+
+.icon-editAlt {
+  //position: relative;
+  left: 40px;
+  top: 2px;
+}
+
+.icon-search {
+  margin-right: 12px;
+  margin-top: 16px;
+}
+
+::ng-deep {
+  // .bx--toolbar-content {
+  //     background-color: white;
+  // }
+  .bx--search--sm .bx--search-input,
+  .bx--search--sm.bx--search--expandable.bx--search--expanded .bx--search-input,
+  .bx--search--sm .bx--search-close,
+  .bx--search--sm ~ .bx--search-button,
+  .bx--search--sm.bx--search--expandable,
+  .bx--search--sm.bx--search--expandable .bx--search-magnifier {
+    height: 48px;
+  }
+  .bx--search-magnifier {
+    margin-right: 1rem;
+    margin-left: 1rem;
+  }
+  .bx--btn--sm {
+    padding: 3px 16px 3px 16px;
+  }
+  #table-header-0-0-0 {
+    width: 75px;
+  }
+}

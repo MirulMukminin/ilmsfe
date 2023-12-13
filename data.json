@@ -1,0 +1,302 @@
+{
+  "propertyRental": {
+    "propertyList": [
+      {
+        "propertyId": 0,
+        "propertyType": "Warehouse",
+        "propertyName": "Warehouse A",
+        "propertySpace": 80,
+        "contractId": 0,
+        "propertyStatus": "Contracted"
+      },
+      {
+        "propertyId": 1,
+        "propertyType": "Warehouse",
+        "propertyName": "Warehouse B",
+        "propertySpace": 100,
+        "contractId": 1,
+        "propertyStatus": "Contract Ended"
+      },
+      {
+        "propertyId": 2,
+        "propertyType": "Warehouse",
+        "propertyName": "Warehouse C",
+        "propertySpace": 120,
+        "contractId": 2,
+        "propertyStatus": "Termination in Progress"
+      },
+      {
+        "propertyId": 3,
+        "propertyType": "Office",
+        "propertyName": "Office A",
+        "propertySpace": 80,
+        "contractId": 3,
+        "propertyStatus": "Contracted"
+      },
+      {
+        "propertyId": 4,
+        "propertyType": "Office",
+        "propertyName": "Office B",
+        "propertySpace": 100,
+        "contractId": null,
+        "propertyStatus": "Available"
+      },
+      {
+        "propertyId": 5,
+        "propertyType": "Office",
+        "propertyName": "Office C",
+        "propertySpace": 120,
+        "contractId": 4,
+        "propertyStatus": "Contracted"
+      }
+    ],
+    "requestList": [
+      {
+        "formType": "prRequestForm",
+        "formId": 0,
+        "formNo": "PR1001",
+        "formStatus": "Submitted",
+        "requestPeriod": "1 year",
+        "propertyId": 0,
+        "contractId": 0,
+        "userId": 0,
+        "activities": {
+          "activitiesScope": "Store spare parts",
+          "activitiesCurrentOrganization": "Exxon Mobile",
+          "activitiesShareholdersPercentage": 60,
+          "activitiesShareholderNonMalaysian": 0,
+          "activitiesShareholderMalaysian": 100,
+          "activitiesShareholderBumiputera": 80,
+          "activitiesShareholderNonBumiputera": 20,
+          "activitiesDetails": "Reprehenderit deserunt laborum aute fugiat anim dolor exercitation amet mollit. Consequat aliqua anim sit aute id in. Mollit mollit ut mollit ad Lorem consectetur minim ea id velit. Deserunt consequat quis elit dolore ut ullamco consequat voluptate qui sit duis."
+        }
+      },
+      {
+        "formType": "prRequestForm",
+        "formId": 1,
+        "formNo": "PR1002",
+        "formStatus": "Submitted",
+        "requestPeriod": "1 year",
+        "propertyId": 1,
+        "contractId": 1,
+        "userId": 0,
+        "activities": {
+          "activitiesScope": "Store spare parts",
+          "activitiesCurrentOrganization": "Exxon Mobile",
+          "activitiesShareholdersPercentage": 60,
+          "activitiesShareholderNonMalaysian": 0,
+          "activitiesShareholderMalaysian": 100,
+          "activitiesShareholderBumiputera": 80,
+          "activitiesShareholderNonBumiputera": 20,
+          "activitiesDetails": "Reprehenderit deserunt laborum aute fugiat anim dolor exercitation amet mollit. Consequat aliqua anim sit aute id in. Mollit mollit ut mollit ad Lorem consectetur minim ea id velit. Deserunt consequat quis elit dolore ut ullamco consequat voluptate qui sit duis."
+        }
+      },
+      {
+        "formType": "prRequestForm",
+        "formId": 2,
+        "formNo": "PR1003",
+        "formStatus": "Submitted",
+        "requestPeriod": "1 year",
+        "propertyId": 2,
+        "contractId": 2,
+        "userId": 0,
+        "activities": {
+          "activitiesScope": "Store spare parts",
+          "activitiesCurrentOrganization": "Exxon Mobile",
+          "activitiesShareholdersPercentage": 60,
+          "activitiesShareholderNonMalaysian": 0,
+          "activitiesShareholderMalaysian": 100,
+          "activitiesShareholderBumiputera": 80,
+          "activitiesShareholderNonBumiputera": 20,
+          "activitiesDetails": "Reprehenderit deserunt laborum aute fugiat anim dolor exercitation amet mollit. Consequat aliqua anim sit aute id in. Mollit mollit ut mollit ad Lorem consectetur minim ea id velit. Deserunt consequat quis elit dolore ut ullamco consequat voluptate qui sit duis."
+        }
+      },
+      {
+        "formType": "prRequestForm",
+        "formId": 3,
+        "formNo": "PR1004",
+        "formStatus": "Submitted",
+        "requestPeriod": "1 year",
+        "propertyId": 3,
+        "contractId": 3,
+        "userId": 2,
+        "activities": {
+          "activitiesScope": "Store spare parts",
+          "activitiesCurrentOrganization": "Exxon Mobile",
+          "activitiesShareholdersPercentage": 60,
+          "activitiesShareholderNonMalaysian": 0,
+          "activitiesShareholderMalaysian": 100,
+          "activitiesShareholderBumiputera": 80,
+          "activitiesShareholderNonBumiputera": 20,
+          "activitiesDetails": "Reprehenderit deserunt laborum aute fugiat anim dolor exercitation amet mollit. Consequat aliqua anim sit aute id in. Mollit mollit ut mollit ad Lorem consectetur minim ea id velit. Deserunt consequat quis elit dolore ut ullamco consequat voluptate qui sit duis."
+        }
+      },
+      {
+        "formType": "prRequestForm",
+        "formId": 4,
+        "formNo": "PR1005",
+        "formStatus": "Submitted",
+        "requestPeriod": "1 year",
+        "propertyId": 5,
+        "contractId": 4,
+        "userId": 0,
+        "activities": {
+          "activitiesScope": "Store spare parts",
+          "activitiesCurrentOrganization": "Exxon Mobile",
+          "activitiesShareholdersPercentage": 60,
+          "activitiesShareholderNonMalaysian": 0,
+          "activitiesShareholderMalaysian": 100,
+          "activitiesShareholderBumiputera": 80,
+          "activitiesShareholderNonBumiputera": 20,
+          "activitiesDetails": "Reprehenderit deserunt laborum aute fugiat anim dolor exercitation amet mollit. Consequat aliqua anim sit aute id in. Mollit mollit ut mollit ad Lorem consectetur minim ea id velit. Deserunt consequat quis elit dolore ut ullamco consequat voluptate qui sit duis."
+        }
+      }
+    ],
+    "terminationList": [
+      {
+        "formNo": "PR-T-1001",
+        "formId": 0,
+        "propertyId": 0,
+        "status": "Submitted",
+        "reason": "End of Contract",
+        "reqTerminationDate": "22/08/2022",
+        "payment": 2302.2,
+        "remarks": "Will pay ASAP",
+        "action": "Property clearance",
+        "userId": 0
+      },
+      {
+        "formNo": "PR-T-1002",
+        "formId": 1,
+        "propertyId": 1,
+        "status": "Submitted",
+        "reason": "End of Contract",
+        "reqTerminationDate": "22/08/2022",
+        "payment": 2302.2,
+        "remarks": "Will pay ASAP",
+        "action": "Property clearance",
+        "userId": 0
+      },
+      {
+        "formNo": "PR-T-1003",
+        "formId": 2,
+        "propertyId": 2,
+        "status": "Submitted",
+        "reason": "End of Contract",
+        "reqTerminationDate": "22/08/2022",
+        "payment": 2302.2,
+        "remarks": "Will pay ASAP",
+        "action": "Property clearance",
+        "userId": 0
+      },
+      {
+        "formNo": "PR-T-1004",
+        "formId": 3,
+        "propertyId": 3,
+        "status": "Submitted",
+        "reason": "End of Contract",
+        "reqTerminationDate": "22/08/2022",
+        "payment": 2302.2,
+        "remarks": "Will pay ASAP",
+        "action": "Property clearance",
+        "userId": 1
+      },
+      {
+        "formNo": "PR-T-1005",
+        "formId": 4,
+        "propertyId": 5,
+        "status": "Submitted",
+        "reason": "End of Contract",
+        "reqTerminationDate": "22/08/2022",
+        "payment": 2302.2,
+        "remarks": "Will pay ASAP",
+        "action": "Property clearance",
+        "userId": 0
+      }
+    ],
+    "user": [
+      {
+        "userId": 0,
+        "username": "user_exxon",
+        "companyId": 0
+      }
+    ],
+    "company": [
+      {
+        "companyId": 0,
+        "companyName": "Exxon Mobile",
+        "companyAddress": "Adipisicing ullamco adipisicing enim ut adipisicing laboris incididunt irure in. Qui ea sunt do non eu anim in. Tempor adipisicing reprehenderit amet reprehenderit nulla enim veniam minim non duis mollit. Fugiat nulla reprehenderit laborum velit. Enim incididunt eu velit do minim. Nostrud dolore mollit mollit eu irure consectetur.",
+        "companyPhone": "012-23333322",
+        "companyContactPerson": "Jefferson",
+        "companyContactPersonDesignation": "Business Representative",
+        "companyContactPersonEmail": "jefferson@test.com",
+        "companyDirector": "Ali",
+        "companyDirectorAddress": "Labore occaecat amet sunt ut id pariatur. Tempor esse minim magna eiusmod esse nostrud id commodo cillum culpa exercitation Lorem non. Minim dolor laboris id cupidatat mollit. Dolor aliqua anim elit consectetur aliquip eiusmod laborum. Lorem amet est incididunt esse aliqua nulla pariatur.",
+        "companyPrincipal": "Magna dolore proident mollit occaecat.",
+        "companyTurnover": "Proident et eu ex consectetur non amet duis id."
+      }
+    ],
+    "contracts": [
+      {
+        "contractId": 0,
+        "contractPeriod": "1 year",
+        "contractDate": "1/12/2022",
+        "contractEndDate": "1/12/2023",
+        "contractOrganization": {
+          "companyId": 0,
+          "userId": 0
+        },
+        "contractBank": "CIMB",
+        "contractBankAddress": "Officia minim Lorem laborum velit dolor voluptate esse cupidatat qui nisi laborum minim. Anim tempor tempor sit aliqua esse officia pariatur aliquip nostrud. Laborum veniam velit sit commodo amet eu amet aliquip aute consectetur ut. Irure dolore minim adipisicing nisi esse proident incididunt est ea consectetur nisi ipsum. Ullamco reprehenderit voluptate officia minim sit anim sit. Magna culpa ut deserunt id ea voluptate aliquip ea enim proident do sunt aute fugiat."
+      },
+      {
+        "contractId": 1,
+        "contractPeriod": "1 year",
+        "contractDate": "1/12/2022",
+        "contractEndDate": "1/12/2023",
+        "contractOrganization": {
+          "companyId": 0,
+          "userId": 0
+        },
+        "contractBank": "CIMB",
+        "contractBankAddress": "Officia minim Lorem laborum velit dolor voluptate esse cupidatat qui nisi laborum minim. Anim tempor tempor sit aliqua esse officia pariatur aliquip nostrud. Laborum veniam velit sit commodo amet eu amet aliquip aute consectetur ut. Irure dolore minim adipisicing nisi esse proident incididunt est ea consectetur nisi ipsum. Ullamco reprehenderit voluptate officia minim sit anim sit. Magna culpa ut deserunt id ea voluptate aliquip ea enim proident do sunt aute fugiat."
+      },
+      {
+        "contractId": 2,
+        "contractPeriod": "1 year",
+        "contractDate": "1/12/2022",
+        "contractEndDate": "1/12/2023",
+        "contractOrganization": {
+          "companyId": 0,
+          "userId": 0
+        },
+        "contractBank": "CIMB",
+        "contractBankAddress": "Officia minim Lorem laborum velit dolor voluptate esse cupidatat qui nisi laborum minim. Anim tempor tempor sit aliqua esse officia pariatur aliquip nostrud. Laborum veniam velit sit commodo amet eu amet aliquip aute consectetur ut. Irure dolore minim adipisicing nisi esse proident incididunt est ea consectetur nisi ipsum. Ullamco reprehenderit voluptate officia minim sit anim sit. Magna culpa ut deserunt id ea voluptate aliquip ea enim proident do sunt aute fugiat."
+      },
+      {
+        "contractId": 3,
+        "contractPeriod": "1 year",
+        "contractDate": "1/12/2022",
+        "contractEndDate": "1/12/2023",
+        "contractOrganization": {
+          "companyId": 0,
+          "userId": 0
+        },
+        "contractBank": "CIMB",
+        "contractBankAddress": "Officia minim Lorem laborum velit dolor voluptate esse cupidatat qui nisi laborum minim. Anim tempor tempor sit aliqua esse officia pariatur aliquip nostrud. Laborum veniam velit sit commodo amet eu amet aliquip aute consectetur ut. Irure dolore minim adipisicing nisi esse proident incididunt est ea consectetur nisi ipsum. Ullamco reprehenderit voluptate officia minim sit anim sit. Magna culpa ut deserunt id ea voluptate aliquip ea enim proident do sunt aute fugiat."
+      },
+      {
+        "contractId": 4,
+        "contractPeriod": "1 year",
+        "contractDate": "1/12/2022",
+        "contractEndDate": "1/12/2023",
+        "contractOrganization": {
+          "companyId": 0,
+          "userId": 0
+        },
+        "contractBank": "CIMB",
+        "contractBankAddress": "Officia minim Lorem laborum velit dolor voluptate esse cupidatat qui nisi laborum minim. Anim tempor tempor sit aliqua esse officia pariatur aliquip nostrud. Laborum veniam velit sit commodo amet eu amet aliquip aute consectetur ut. Irure dolore minim adipisicing nisi esse proident incididunt est ea consectetur nisi ipsum. Ullamco reprehenderit voluptate officia minim sit anim sit. Magna culpa ut deserunt id ea voluptate aliquip ea enim proident do sunt aute fugiat."
+      }
+    ]
+  }
+}

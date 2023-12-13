@@ -1,0 +1,345 @@
+<div ibmGrid class="bx--grid--full-width" style="padding-bottom: 133px;">
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+        <div ibmCol [columnNumbers]="{'lg': 10, 'md': 10, 'sm': 10}">
+            <ibm-breadcrumb [noTrailingSlash]="true">
+                <ibm-breadcrumb-item [current]="true">
+                    Warehouse Management System
+                </ibm-breadcrumb-item>
+                <ibm-breadcrumb-item [routerLink]="['/wms/psb-inventory-list']" class="customLink" style="text-decoration: none;">
+                    Petroleum Supply Base
+                </ibm-breadcrumb-item>
+                <ibm-breadcrumb-item [routerLink]="['/wms/psb-transfer-owner-list']" class="customLink" style="text-decoration: none;">
+                    Transfer Ownership
+                </ibm-breadcrumb-item>
+                <ibm-breadcrumb-item [current]="true">
+                    Seller Form
+                </ibm-breadcrumb-item>
+            </ibm-breadcrumb>
+        </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+        <div ibmCol [columnNumbers]="{'lg': 6, 'md': 6, 'sm': 6}" class="">
+            <div class="title">
+                <span class="ph03">Transfer Ownership Seller Form</span>
+            </div>
+        </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+        <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+            Company Name
+        </div>
+        <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bs01">
+            {{companyName}}
+        </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24">
+        <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+            Request By
+        </div>
+        <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bs01">
+            {{requestBy}}
+        </div>
+    </div>
+
+    <form #sellerFormValue="ngForm" (ngSubmit)="onSubmit(sellerFormValue)">
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+            <div ibmCol [columnNumbers]="{'lg': 6, 'md': 6, 'sm': 6}" class="">
+
+                <div class="form-item dropdown-style">
+
+                    <ibm-combo-box name="buyer" label="Buyer" [items]="buyerArrList" (selected)="dropddownValueChange()" [appendInline]="true" [dropUp]="false" placeholder="Choose an option" [invalid]="invalidBuyer" invalidText="Buyer Required" [(ngModel)]="sellerForm.buyer"
+                        itemValueKey="content" required>
+                        <ibm-dropdown-list></ibm-dropdown-list>
+                    </ibm-combo-box>
+                </div>
+
+                <div class="form-item invalid-icon-50">
+                    <ibm-label helperText="Please insert dash (-) in not applicable" [invalid]="invalidPONumber" invalidText="PO Number Required">
+                        PO Number
+                        <input ibmText type="text" name="poNumber" [(ngModel)]="sellerForm.poNumber" [invalid]="invalidPONumber" (change)="inputValueChange()">
+                    </ibm-label>
+                </div>
+
+                <div class="form-item invalid-icon-50">
+                    <ibm-label [invalid]="invalidInvoiceNumber" invalidText="Invoice Number Required">
+                        Invoice Number
+                        <input ibmText type="text" name="invoiceNumber" [(ngModel)]="sellerForm.invoiceNumber" [invalid]="invalidInvoiceNumber" (change)="inputValueChange()">
+                    </ibm-label>
+                </div>
+
+                <!-- <div class="form-item invalid-icon-50">
+                    <ibm-label
+                        [invalid]="invalidSellingPrice"
+                        invalidText="Selling Price Required"
+                    >
+                        Selling Price (RM)
+                        <input 
+                            ibmText
+                            type="text"
+                            name="sellingPrice"
+                            [(ngModel)]="sellerForm.sellingPrice"
+                            [invalid]="invalidSellingPrice"
+                            (change)="inputValueChange()"
+                        >
+                    </ibm-label>
+                </div> -->
+
+                <div class="form-item">
+                    <ibm-date-picker label="Sale Date" [placeholder]="placeholder" [size]="size" [dateFormat]="dateFormat" name="saleDate" [(ngModel)]="sellerForm.saleDate" required [invalid]="invalidDate" (change)=" dateValueChange($event)">
+                    </ibm-date-picker>
+                    <!-- <div *ngIf="invalidbackDated" class="invalid-class-label">Please select today's date or after today's date</div> -->
+                    <div *ngIf="invalidDate" class="invalid-class-label">Date Required</div>
+                </div>
+
+                <div class="form-item">
+                    <ibm-label>Category</ibm-label>
+                    <ibm-radio-group name="category" [(ngModel)]="sellerForm.category">
+                        <ibm-radio *ngFor="let radio of typeOfCategory" [value]="radio.type" [checked]="radio.checked">
+                            {{radio.type | titlecase}}
+                        </ibm-radio>
+                    </ibm-radio-group>
+                </div>
+
+                <!-- <div class="form-item">
+                    <ibm-label>Type of Goods</ibm-label>
+                    <ibm-radio-group name="typeOfGoods" [(ngModel)]="sellerForm.typeOfGoods" (change)="onChangeGoods($event)">
+                        <ibm-radio value="DANGEROUS_CHEMICAL" [checked]="true">
+                            Dangerous Chemical
+                        </ibm-radio>
+                    </ibm-radio-group>
+                </div>
+
+                <div class="form-item invalid-icon-50">
+                    <ibm-radio-group name="typeOfGoods" [(ngModel)]="sellerForm.typeOfGoods" (change)="onChangeGoods($event)">
+                        <ibm-radio value="OTHERS">
+                            Others
+                        </ibm-radio>
+                    </ibm-radio-group>
+                    <ibm-label 
+                        helperText="Please specify the Types of Goods"
+                        [invalid]="invalidOthersText"
+                        invalidText="Please specify the Types of Goods"
+                    >
+                        <input 
+                            ibmText 
+                            type="text"
+                            name="othersText"
+                            [disabled]="disabledOtherText"
+                            [(ngModel)]="sellerForm.othersText"
+                            [required]="requiredOthersText"
+                            [invalid]="invalidOthersText"
+                            (change)="inputValueChange()"
+                        >
+                    </ibm-label>
+                </div> -->
+
+                <div class="form-item">
+                    <!-- <ibm-file-uploader [ngClass]="{'invalid-file': invalidFile}" -->
+                    <ibm-file-uploader title="Upload Related Documents" description="Max. file size is 500kb. Supported file types are .jpg, .png, and .pdf" [accept]="accept" [multiple]="multiple" [(files)]="files" [size]="sizeUploder" drop="true" dropText="Drag and drop ﬁles here or click to upload"
+                        (filesChange)="onDropped($event)" [disabled]="disabled">
+                    </ibm-file-uploader>
+                    <!-- <div *ngIf="invalidFile" class="invalid-class-label">File Required</div> -->
+                </div>
+
+                <div class="form-item">
+                    <!-- <ibm-label>
+                        Remarks (Optional)
+                        <textarea 
+                            ibmTextArea 
+                            maxlength="100" 
+                            [rows]="6" 
+                            aria-label="textarea" 
+                            name="remarks"
+                            [(ngModel)]="sellerForm.remarks"
+                        ></textarea>
+                    </ibm-label> -->
+
+
+                    <label class="bx--label">Remarks (Optional)</label><label class="bx--label" [ngStyle]="{'color' : invalidNumericRemarks ? '#da1e28' : ''}" style="float: right;">{{numericRemarks}}/100</label>
+                    <textarea ibmTextArea aria-label="textarea" maxlength="100" [rows]="6" name="remarks" [(ngModel)]="sellerForm.remarks" (ngModelChange)="numericCount('remarks', sellerForm.remarks)">
+                    </textarea>
+                    <div *ngIf="invalidNumericRemarks" class="invalid-class-label">
+                        Reach maximum characters
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3" [rightGutter]="false">
+            <div ibmCol [columnNumbers]="{'lg': 12, 'md': 10, 'sm': 5}">
+
+                <ibm-table-container style="margin-top: 4rem">
+
+                    <ibm-table-header>
+                        <h4 ibmTableHeaderTitle>Goods to Sell</h4>
+                        <p ibmTableHeaderDescription>Please add required goods in the table below. To remove, select the check box and press remove button in the console</p>
+                    </ibm-table-header>
+
+                    <ibm-table-toolbar>
+                        <div class="table-action" *ngIf="checkSelectedGoodsLength()">
+                            <div class="selectedItem">
+                                {{counter}} <span *ngIf="counter == 1">item</span><span *ngIf="counter > 1">items</span> selected
+                            </div>
+                            <div class="actions">
+                                <div class="del">
+                                    <Button ibmButton="primary" size="sm" type="button" (click)="deleteGoodsDetails()">
+                                        Delete
+                                        <div class="icon-trashCan" ibmIcon="trash-can" size="20"></div>
+                                    </Button>
+                                </div>
+                                <div class="cancel">
+                                    <button ibmButton="primary" size="sm" type="button" (click)="cancelMethod()">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                        <ibm-table-toolbar-content *ngIf="!checkSelectedGoodsLength()">
+                            <button ibmButton="primary" (click)="open = true" size="sm" type="button" class="addRequest-btn">
+                                <span>Add Item</span>
+                                <div class="icon-addAlt" ibmIcon="add--alt" size="20"></div>
+                            </button>
+                        </ibm-table-toolbar-content>
+                    </ibm-table-toolbar>
+
+                    <table class="bx--data-table">
+
+                        <thead>
+                            <tr>
+                                <th class="bx--table-header-label">
+                                    No.
+                                </th>
+                                <th class="bx--table-header-label">
+                                    Goods Description
+                                </th>
+                                <th class="bx--table-header-label">
+                                    Form Type
+                                </th>
+                                <th class="bx--table-header-label">
+                                    Form No.
+                                </th>
+                                <th class="bx--table-header-label" style="text-align: right">
+                                    Qty.
+                                </th>
+                                <th class="bx--table-header-label">
+                                    Location
+                                </th>
+                                <th class="bx--table-header-label">
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr *ngIf="!selectedGoods.length" [ngClass]="{'invalid-tableRow': goodsToSellTableInvalid}">
+                                <td colspan="7" align="center">No data is entered yet. Please Add a New entry.</td>
+                            </tr>
+                            <tr *ngFor="let data of selectedGoods; let rowIdx = index">
+                                <td>{{rowIdx + 1}}</td>
+                                <td>{{data.items}}</td>
+                                <td>{{data.formtype}}</td>
+                                <td>{{data.regNo}}</td>
+                                <td style="text-align: right">
+                                    <ibm-number [step]="step" [min]="min" [max]="data.maxQty" name="qty_{{data.id}}" [(ngModel)]="data.qty" [invalid]="invalidQuantity[rowIdx]" invalidText="Invalid Quantity" [attr.required]="required || null" (ngModelChange)="inputValueChange()" [required]="requiredQuantity[rowIdx]">
+                                        <!-- {{data.qty}} -->
+                                    </ibm-number>
+                                </td>
+                                <td>{{data.location}}</td>
+                                <td>
+                                    <ibm-checkbox name="currentQty_{{data.id}}" [(ngModel)]="data.selected" (ngModelChange)="goodsCheckboxChange($event)"></ibm-checkbox>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+                </ibm-table-container>
+
+            </div>
+        </div>
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+            <div ibmCol [columnNumbers]="{'lg': 6, 'md': 6, 'sm': 6}">
+                <button ibmButton="secondary" size="md" type="button" routerLink="/wms/psb-transfer-owner-list">Cancel</button>
+                <button class="ml-1" ibmButton="primary" size="md" type="submit">Preview</button>
+            </div>
+        </div>
+    </form>
+
+    <div ibmRow>
+        <div ibmCol [columnNumbers]="{'lg': 12, 'md': 10, 'sm': 6}">
+            <ibm-modal [open]="open" (overlaySelected)="open = false" class="modal-width">
+                <ibm-modal-header (closeSelect)="open = false" style="width: 944; height: 669;">
+                    <span class="bx--modal-header__label bx--type-delta">Add New</span>
+                    <p class="bx--modal-header__heading bx--type-beta">Goods Details</p>
+                </ibm-modal-header>
+                <div class="bx--modal-content">
+                    <div class="bx--text-input__field-wrapper" style="align-items: flex-end;">
+                        <ibm-combo-box class="combobox" name="goodsFormNumber" label="Form No." [items]="goodsFormNumber" (selected)="selectK8($event)" [appendInline]="true" [dropUp]="false">
+                            <ibm-dropdown-list></ibm-dropdown-list>
+                        </ibm-combo-box>
+
+
+                    </div>
+
+                    <div ibmRow class="pt-32">
+                        <div ibmCol [columnNumbers]="{'lg': 12, 'md': 10, 'sm': 6}">
+                            <ibm-table-container class="table-style">
+                                <div class="horizontal-overflow-table">
+                                    <table ibmTable [sortable]="false">
+                                        <thead ibmTableHead>
+                                            <tr>
+                                                <th scope="col" ibmTableHeadCell *ngFor="let column of goodDetailsModel.header" [column]="column" 
+                                                [ngStyle]="{
+                                                    'text-align': (i == 4 || i== 5 || i == 6) ? 'right' : 'left'
+                                                  }">
+
+                                                </th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr *ngIf="!goodsDetailsList.length">
+                                                <td colspan="9" align="center">No data available. Please load data.</td>
+                                            </tr>
+                                            <tr *ngFor="let gdData of goodsDetailsList; let postIndex=index;" class="white-bg" >
+                                                <td>
+                                                    <ibm-checkbox name="checkbox_{{ gdData.id }}" [(ngModel)]="gdData.gdSelect">
+                                                    </ibm-checkbox>
+                                                </td>
+                                                <td>{{ postIndex + 1 }}</td>
+                                                <td>{{gdData.gdFormType}}</td>
+                                                <td>{{gdData.formNum}}</td>
+                                                <td>{{gdData.goodsDesc}}</td>
+                                                <td style="text-align: right">{{gdData.oriQuantity}}</td>
+                                                <td style="text-align: right">{{gdData.currentQuantity}}</td>
+                                                <td style="text-align: right">{{gdData.value}}</td>
+                                                <td>{{gdData.gdLocation}}</td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </ibm-table-container>
+                        </div>
+                    </div>
+                </div>
+
+                <ibm-modal-footer>
+                    <ng-container>
+                        <button class="bx--btn bx--btn--secondary" (click)="open = false">Close</button>
+                        <button ibmButton="primary" (click)="addGoods()">
+                    Add Goods to Parts
+                </button>
+                    </ng-container>
+                </ibm-modal-footer>
+
+            </ibm-modal>
+
+        </div>
+    </div>
+
+</div>

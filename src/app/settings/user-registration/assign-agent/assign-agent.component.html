@@ -1,0 +1,120 @@
+<div ibmGrid class="bx--grid--full-width" style="padding-bottom: 133px;">
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-33">
+        <div ibmCol [columnNumbers]="{'lg': 6, 'md': 6, 'sm': 6}">
+            <ibm-breadcrumb [noTrailingSlash]="true">
+                <ibm-breadcrumb-item [current]="true" href="#1">
+                    Settings
+                </ibm-breadcrumb-item>
+                <ibm-breadcrumb-item href="#2">
+                    <a routerLink="/settings/user-registration"> 
+                        User Registration
+                    </a>
+                </ibm-breadcrumb-item>
+                <ibm-breadcrumb-item [current]="true" href="#2">
+                    Assign Agent
+                </ibm-breadcrumb-item>
+            </ibm-breadcrumb>
+        </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+        <div ibmCol [columnNumbers]="{'lg': 6, 'md': 6, 'sm': 6}">
+            <div class="title">
+                <span class="ph03">Assign Agent</span>
+            </div>
+        </div>
+    </div>
+
+    <form>
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+            <div ibmCol [columnNumbers]="{'lg': 4, 'md': 4, 'sm': 4}">
+                <div class="form-item">
+                    <ibm-combo-box
+                    label="Agent Name"
+                    placeholder="Choose an option"
+                    itemValueKey="content"
+                    [dropUp]="false"
+                    [appendInline]="true"
+                    name="requestOnBehalf"
+                    required
+                    invalidText="Agent Required" 
+                    [invalid]="invalidAgent"
+                    (selected)="selectedAgent($event)"
+                    >
+                    <ibm-dropdown-list [items]="agentName"></ibm-dropdown-list>
+                    </ibm-combo-box>
+                </div>
+
+                <div class="form-item">
+                    <ibm-label>
+                        Login ID
+                        <input ibmText type="text" name="loginId" [(ngModel)]="loginId">
+                    </ibm-label>
+                </div>
+
+                <div class="form-item">
+                    <ibm-label 
+                    [invalid]="invalidEmail"
+                    invalidText="Email Required">
+                        Email
+                        <input ibmText type="email" name="email" [(ngModel)]="email" 
+                        [invalid]="invalidEmail" required>
+                    </ibm-label>
+                </div>
+
+                <div class="form-item">
+                    <ibm-label>
+                        Phone Number
+                        <input ibmText type="number" [(ngModel)]="phoneNumber" name="phoneNumber">
+                    </ibm-label>
+                </div>
+
+                <div class="form-item">
+                    <ibm-label>Account Status</ibm-label>
+                    <ibm-radio-group
+                        aria-label="radiogroup" name="status"
+                    >
+                        <ibm-radio
+                            value="active"
+                            [checked]="active === true || active === undefined ? true : false"
+                            [disabled]="active === true || active === undefined ? false : true"
+                        >
+                            Active
+                        </ibm-radio>
+                        <ibm-radio
+                            value="inactive"
+                            [checked]="active === false ? true : false"
+                            [disabled]="active === false ? false : true"
+                        >
+                            Inactive
+                        </ibm-radio>
+                    </ibm-radio-group>
+                </div>
+
+                <div class="form-item display-flex-col pt-5">
+                    <div class="d-flex" style="align-items: flex-end;">
+                        <!-- <div class="width-50"><span class="eh01">Registration Date:</span></div> -->
+                        <div class="width-50"><span class="eh01">Assign Date:</span></div>
+                        <div>{{currentDate | date:'dd/MM/yyyy' }}</div>
+                    </div>
+                    <div class="pt-32">
+                        <!-- <div class="width-50"><span class="eh01">In-Active Date:</span></div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+            <div ibmCol [columnNumbers]="{'lg': 10, 'md': 10, 'sm': 6}">
+                <div class="form-item btn-spacing">
+                    <button type="button" class="mb-3 mb-sm-0 mb-md-0 mb-lg-0 mb-xl-0" ibmButton="secondary" size="md" [routerLink]="['../']">Cancel</button>
+                    <!-- <button class="mb-3 mb-sm-0 mb-md-0 mb-lg-0 mb-xl-0" ibmButton="ghost" size="md">Delete</button> -->
+                    <button type="button" ibmButton="primary" size="md" (click)="validateInput()">Save</button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+</div>

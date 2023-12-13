@@ -1,0 +1,219 @@
+<div
+  ibmRow
+  class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-16 printable"
+>
+  <div
+    ibmRow
+    class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-24 printable-special"
+  >
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 12, sm: 12 }">
+      <div style="width: 100%">
+        <table>
+          <tbody>
+            <tr>
+              <td style="vertical-align: middle">
+                <img
+                  src="./assets/images/KSB_Logo.png"
+                  alt="KSB logo"
+                  style="width: 80px"
+                />
+              </td>
+              <td style="padding-top: 25px; padding-bottom: 20px">
+                <p class="title-text">
+                  PANGKALAN BEKALAN KEMAMAN SDN. BHD. (69363-D)
+                </p>
+                <p class="ph01" style="padding-top: 5px">
+                  A Subsidiary of Eastern Pacific Industrial Corporation Bhd.
+                </p>
+                <p class="letter-header-Text">
+                  P.O Box 64, 24007 Kemaman, Terengganu Darul Iman, Malaysia
+                </p>
+                <p class="letter-header-Text">
+                  Tel : 09 - 860 2343, 860 2344 Fax : 09 - 869 1191
+                </p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }" class="pl-0 pr-0">
+    <ibm-table-container class="table-style">
+      <ibm-table-header class="white-bg pb-64">
+        <span ibmTableHeaderTitle class="ph03">Inventory</span>
+        <p ibmTableHeaderDescription>Current Inventory</p>
+      </ibm-table-header>
+
+      <ibm-table-toolbar class="topPartPrint">
+        <ibm-table-toolbar-content class="white-bg">
+          <ibm-table-toolbar-search
+            (valueChange)="searchFilter($event)"
+            (clear)="searchFilter($event)"
+          >
+          </ibm-table-toolbar-search>
+          <button
+            ibmButton="primary"
+            size="sm"
+            type="button"
+            class="addNew"
+            (click)="downloadExcel()"
+          >
+            Download Excel
+            <div class="icon-btn" ibmIcon="document--export" size="20"></div>
+          </button>
+          <button
+            ibmButton="secondary"
+            *ngIf="sortingOn"
+            size="sm"
+            type="button"
+            (click)="userInfo()"
+            (click)="sortingOn = false"
+          >
+            <span style="margin-right: 42px"> Reset Sorting</span>
+            <div class="icon-addAlt" ibmIcon="filter--reset" size="20"></div>
+          </button>
+          <button
+            ibmButton="secondary"
+            size="sm"
+            type="button"
+            class="addNew"
+            (click)="userInfo()"
+          >
+            Refresh
+            <div class="icon-addAlt" ibmIcon="renew" size="20"></div>
+          </button>
+        </ibm-table-toolbar-content>
+      </ibm-table-toolbar>
+
+      <div class="horizontal-overflow-table">
+        <ibm-table
+          class="raw-table-styling"
+          [model]="model"
+          [striped]="false"
+          (sort)="doSort($event)"
+          [showSelectionColumn]="false"
+        ></ibm-table>
+      </div>
+
+      <ibm-pagination
+        class="raw-table-styling topPartPrint"
+        [model]="model"
+        [itemsPerPageOptions]="itemsPerPageOptions"
+        (selectPage)="selectPage($event)"
+      >
+      </ibm-pagination>
+    </ibm-table-container>
+    <div style="margin: auto; width: 50%" style="display: none">
+      <table id="excel-table" style="display: none">
+        <tr>
+          <th>No.</th>
+          <th>Tariff Code</th>
+          <th>Goods Description</th>
+          <th>Category</th>
+          <th>Total Qty.</th>
+          <th style="text-align: right">Value (RM)</th>
+          <th style="text-align: right">Total Value (RM)</th>
+        </tr>
+        <tr *ngFor="let value of CurrentInventoryTransactionListPrint">
+          <td>
+            {{ value.number }}
+          </td>
+          <td>
+            {{ value.CustomsCode }}
+          </td>
+          <td>
+            {{ value.GoodsDescription }}
+          </td>
+          <td>
+            {{ value.Category }}
+          </td>
+          <td>
+            {{ value.TotalQty }}
+          </td>
+          <td style="text-align: right">
+            {{ addZeroes(value.ValueRM) }}
+          </td>
+          <td style="text-align: right">
+            {{ addZeroes(value.TotalValueRM) }}
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div
+  ibmRow
+  class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-64 topPartPrint"
+>
+  <div ibmCol [columnNumbers]="{ lg: 12 }">
+    <div class="d-flex justify-content-end">
+      <button
+        type="button"
+        ibmButton="secondary"
+        class="mr-32"
+        (click)="redirectToPrevious()"
+      >
+        Back
+      </button>
+      <button type="button" ibmButton="secondary" (click)="onPrint()">
+        Print
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- <div ibmCol [columnNumbers]="{'lg': 12, 'md': 10, 'sm': 6}" class="printable">
+    <table class="print-table">
+        <thead>
+            <tr>
+                <td>
+                    No.
+                </td>
+                <td>
+                    Tariff Code
+                </td>
+                <td>
+                    Goods Description
+                </td>
+                <td>
+                    Category
+                </td>
+                <td>
+                    Total Qty.
+                </td>
+                <td>
+                    Value (RM)
+                </td>
+                <td>
+                    Total Value (RM)
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr *ngFor="let value of dataset; let postIndex=index;">
+                <td>{{value.number}}</td>
+                <td>
+                    {{value.CustomsCode}}
+                </td>
+                <td>
+                    {{value.GoodsDescription}}
+                </td>
+                <td>
+                    {{value.Category}}
+                </td>
+                <td>
+                    {{value.TotalQty}}
+                </td>
+                <td>
+                    {{value.ValueRM}}
+                </td>
+                <td>
+                    {{value.TotalValueRM}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div> -->

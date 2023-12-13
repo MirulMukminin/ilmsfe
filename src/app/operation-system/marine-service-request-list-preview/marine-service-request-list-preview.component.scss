@@ -1,0 +1,113 @@
+
+tbody tr {
+    height: 4rem;
+  }
+  
+  .table-action {
+    background: #0f62fe;
+    width: 100%;
+}
+
+  
+  .actions {
+    display: flex;
+    float: right;
+  }
+  
+  .del,
+  .cancel {
+    padding-top: 7px;
+  }
+  
+  .del button {
+    border-right: 2px solid white;
+  }
+  
+  .cancel button, .del button {
+    padding: 0px 20px;
+  }
+  
+
+  .icon-trashCan {
+    position: relative;
+    left: 9px;
+    top: 1px;
+  }
+  
+  .icon-addAlt {
+    position: relative;
+    left: 40px;
+    top: 2px;
+  }
+  
+  .full-width {
+    width: 100%
+  }
+  
+  .form-item {
+    padding-bottom: 32px;
+  }
+
+  .selectedItem {
+    top: 15px;
+    position: absolute;
+    left: 20px;
+    color: #ffff;
+}
+
+.downloadBtn{
+  text-align: left;
+  padding: 0;
+}
+
+.downloadBtn:hover{
+  background-color:transparent;
+}
+
+.singleDate-notif-btn {
+  width: 7rem;
+  margin-top: 1.6rem;
+}
+
+.singleDate-notif .bx--inline-notification--info::before {
+  display: none;
+}
+
+
+  
+  ::ng-deep {
+    .bx--inline-notification--low-contrast.bx--inline-notification--success::before, 
+    .bx--inline-notification--low-contrast.bx--inline-notification--error::before {
+      border: none;
+    }
+  
+    .addNewDocPreviewModal ibm-overlay .bx--modal .bx--modal-container {
+      background-color: #ffffff;
+      width: 629px;
+    }
+    .addNewDocPreviewModal ibm-overlay .bx--modal .bx--modal-container .bx--modal-content .bx--text-input__field-wrapper {
+        display: flex;
+        flex-direction: column;
+    }
+    .addNewDocPreviewModal ibm-overlay .bx--modal .bx--modal-container .bx--modal-content .bx--text-input__field-wrapper .form-item .bx--dropdown__wrapper .bx--list-box,
+    .addNewDocPreviewModal ibm-overlay .bx--modal .bx--modal-container .bx--modal-content .bx--text-input__field-wrapper .form-item .bx--form-item .bx--text-input__field-wrapper .bx--text-input {
+        background-color: #f4f4f4;
+    }
+    .addNewDocPreviewModal ibm-overlay .bx--modal .bx--modal-container .bx--modal-content--overflow-indicator {
+        background-image: linear-gradient(to bottom, transparent, #ffff);
+        height: unset;
+    }
+
+    .bx--tabs--scrollable .bx--tabs--scrollable__nav {
+        width: 100%;
+    }
+    .bx--tabs--scrollable__nav-link {
+        width: 100% !important;
+    }
+    
+    .tab .bx--tab-content {
+      padding: 0rem !important;
+    }
+  }
+  
+  

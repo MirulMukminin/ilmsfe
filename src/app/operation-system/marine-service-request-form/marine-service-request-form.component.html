@@ -1,0 +1,794 @@
+<ibm-loading
+  *ngIf="isLoading"
+  [isActive]="isLoading"
+  size="normal"
+  [overlay]="overlay"
+>
+</ibm-loading>
+
+<div ibmGrid class="bx--grid--full-width">
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 10, md: 10, sm: 6 }">
+      <ibm-breadcrumb [noTrailingSlash]="true">
+        <ibm-breadcrumb-item [current]="true">
+          Operations System
+        </ibm-breadcrumb-item>
+
+        <ibm-breadcrumb-item> Marine </ibm-breadcrumb-item>
+
+        <ibm-breadcrumb-item [current]="true">
+          Service Request Form
+        </ibm-breadcrumb-item>
+      </ibm-breadcrumb>
+    </div>
+  </div>
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 10, md: 10, sm: 6 }">
+      <span class="ph03">Service Request Form</span>
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Company Name</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ companyName }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Request By</div>
+    <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+      {{ requestByName }}
+    </div>
+  </div>
+
+  <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">
+      <fieldset>
+        <ibm-label>Terminal</ibm-label>
+        <ibm-radio-group
+          [(ngModel)]="terminal"
+          (change)="onSelectTerminal($event)"
+        >
+          <ibm-radio value="KSB" [checked]="true"> KSB </ibm-radio>
+          <ibm-radio value="WW">WW</ibm-radio>
+          <ibm-radio value="KTSB">KTSB</ibm-radio>
+        </ibm-radio-group>
+      </fieldset>
+    </div>
+  </div>
+
+  <form
+    #serviceForms="ngForm"
+    (ngSubmit)="test(serviceForms)"
+    autocomplete="off"
+  >
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+        <div class="form-item" #vessel tabindex="1">
+          <ibm-combo-box
+            id="dropdown"
+            label="Vessel Name"
+            name="vesselName"
+            [appendInline]="true"
+            [dropUp]="false"
+            placeholder="Choose an option"
+            [(ngModel)]="serviceForm.vesselName"
+            [invalid]="invalidVessel"
+            invalidText="Vessel Name is required"
+            [items]="vesselNameList"
+            itemValueKey="content"
+            required
+          >
+            <ibm-dropdown-list></ibm-dropdown-list>
+          </ibm-combo-box>
+        </div>
+
+        <div class="form-item" #requestOnBehalf tabindex="2">
+          <ibm-combo-box
+            id="dropdown"
+            label="Request on Behalf (Optional)"
+            name="requestOnBehalf"
+            [appendInline]="true"
+            [dropUp]="false"
+            placeholder="Choose an option"
+            [(ngModel)]="serviceForm.requestOnBehalf"
+            [items]="requestOnBehalfList"
+            itemValueKey="content"
+          >
+            <ibm-dropdown-list></ibm-dropdown-list>
+          </ibm-combo-box>
+        </div>
+
+        <div class="form-item invalid-icon-50" #PONum tabindex="3">
+          <ibm-label
+            [invalid]="invalidPONum"
+            helperText="Please insert dash (-) if not applicable"
+            invalidText="PO Number is required"
+          >
+            PO Number
+            <input
+              ibmText
+              type="text"
+              [(ngModel)]="serviceForm.PONum"
+              name="PONum"
+              required
+              maxlength="100"
+              [invalid]="invalidPONum"
+            />
+          </ibm-label>
+        </div>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 3, md: 3, sm: 3 }">
+        <div class="" #eaDate tabindex="4">
+          <ibm-date-picker
+            label="Est. Arrival Date"
+            [placeholder]="placeholder"
+            [(ngModel)]="serviceForm.eaDate"
+            (change)="eaDateChange()"
+            name="eaDate"
+            [size]="size"
+            [dateFormat]="dateFormat"
+            [invalid]="invalidEABackdated || invalidEADate"
+          >
+          </ibm-date-picker>
+          <div *ngIf="invalidEABackdated" class="invalid-class-label">
+            Please select today's date or after today's date
+          </div>
+          <div *ngIf="invalidEADate" class="invalid-class-label">
+            Est. Arrival Date is required
+          </div>
+        </div>
+      </div>
+
+      <div ibmCol [columnNumbers]="{ lg: 3, md: 3, sm: 3 }">
+        <div class="" #eta tabindex="5">
+          <ibm-dropdown
+            class="dropdownTime"
+            label="ETA"
+            placeholder="Select"
+            itemValueKey="content"
+            [(ngModel)]="serviceForm.eta"
+            (selected)="validateBooking()"
+            name="eta"
+            [dropUp]="false"
+            [invalid]="invalidETA"
+          >
+            <ibm-dropdown-list [items]="timeEta"></ibm-dropdown-list>
+          </ibm-dropdown>
+          <div *ngIf="invalidETA" class="invalid-class-label">
+            ETA is required
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 3, md: 3, sm: 3 }">
+        <div class="" #edDate tabindex="4">
+          <ibm-date-picker
+            label="Est. Departure Date"
+            [(ngModel)]="serviceForm.edDate"
+            (change)="edDateChange()"
+            name="edDate"
+            [placeholder]="placeholder"
+            [size]="size"
+            [dateFormat]="dateFormat"
+            [invalid]="invalidEDBackdated || invalidEDDate"
+            [invalid]="invalidEaEdDate"
+          >
+          </ibm-date-picker>
+          <div *ngIf="invalidEDBackdated" class="invalid-class-label">
+            Please select today's date or after today's date
+          </div>
+          <div *ngIf="invalidEDDate" class="invalid-class-label">
+            Est. Departure Date is required
+          </div>
+          <div
+            *ngIf="invalidEaEdDate && !invalidEDBackdated"
+            class="invalid-class-label"
+          >
+            Selected date for Est. Departure must be greater than or same as the
+            Est. Arrival date
+          </div>
+        </div>
+      </div>
+
+      <div ibmCol [columnNumbers]="{ lg: 3, md: 3, sm: 3 }">
+        <div class="" #etd tabindex="7">
+          <ibm-dropdown
+            class="dropdownTime"
+            label="ETD"
+            [(ngModel)]="serviceForm.etd"
+            (selected)="validateBooking()"
+            name="etd"
+            placeholder="Select"
+            itemValueKey="content"
+            [dropUp]="false"
+            [invalid]="invalidETD"
+            [invalid]="invalidEaEdTime"
+            required
+          >
+            <ibm-dropdown-list [items]="timeEtd"></ibm-dropdown-list>
+          </ibm-dropdown>
+          <div *ngIf="invalidETD" class="invalid-class-label">
+            ETD is required
+          </div>
+          <div *ngIf="invalidEaEdTime" class="invalid-class-label">
+            Selected time for ETD must be greater than the ETA
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }">
+        <div class="form-item">
+          <label class="bx--label">Remarks (Optional)</label
+          ><label
+            class="bx--label"
+            [ngStyle]="{ color: invalidNumeric ? '#da1e28' : '' }"
+            style="float: right"
+            >{{ numericCounter }}/100</label
+          >
+          <textarea
+            ibmTextArea
+            aria-label="textarea"
+            maxlength="100"
+            placeholder="Placeholder text"
+            [rows]="6"
+            [(ngModel)]="serviceForm.remarks"
+            (ngModelChange)="numericCount(serviceForm.remarks)"
+            name="remarks"
+            [ngStyle]="{ border: invalidNumeric ? '2px solid #da1e28' : '' }"
+          >
+          </textarea>
+          <div *ngIf="invalidNumeric" class="invalid-class-label">
+            Reach maximum characters
+          </div>
+        </div>
+
+        <div #agent tabindex="10">
+          <ibm-combo-box
+            id="dropdown"
+            label="Assign Agent "
+            name="agent"
+            [appendInline]="true"
+            [dropUp]="false"
+            placeholder="Choose an option"
+            [(ngModel)]="serviceForm.agent"
+            [invalid]="invalidAgent"
+            invalidText="Agent is required"
+            [items]="assignAgentList"
+            itemValueKey="content"
+            required
+          >
+            <ibm-dropdown-list></ibm-dropdown-list>
+          </ibm-combo-box>
+        </div>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+        <div class="form-item">
+          <ibm-table-container>
+            <ibm-table-header>
+              <h4 ibmTableHeaderTitle>Documents List</h4>
+              <p ibmTableHeaderDescription>
+                Please add related documents in the table below. For example:
+                K4, K5, Delivery Order, Other Documents. <br />
+                To remove, select the checkbox and press remove button in the
+                console
+              </p>
+            </ibm-table-header>
+            <ibm-table-toolbar>
+              <ibm-table-toolbar-content>
+                <div class="table-action" *ngIf="checkLengthDocList()">
+                  <div class="selectedItem">
+                    {{ counterDocList }}
+                    <span *ngIf="counterDocList == 1">item</span
+                    ><span *ngIf="counterDocList > 1">items</span> selected
+                  </div>
+                  <div class="actions">
+                    <div class="del">
+                      <button
+                        ibmButton="primary"
+                        size="sm"
+                        type="button"
+                        (click)="deleteDocList()"
+                      >
+                        Remove
+                        <div
+                          class="icon-trashCan"
+                          ibmIcon="trash-can"
+                          size="20"
+                        ></div>
+                      </button>
+                    </div>
+                    <div class="cancel">
+                      <button
+                        ibmButton="primary"
+                        size="sm"
+                        type="button"
+                        (click)="cancelDocList()"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="!checkLengthDocList()">
+                  <button
+                    *ngIf="
+                      status.toLowerCase().includes('init') ||
+                      status.includes('start')
+                    "
+                    ibmButton="primary"
+                    type="button"
+                    style="width: 178px"
+                    (click)="openModalAddItem()"
+                  >
+                    Add New
+                    <div class="icon-addAlt" ibmIcon="add--alt" size="20"></div>
+                  </button>
+                </div>
+              </ibm-table-toolbar-content>
+            </ibm-table-toolbar>
+          </ibm-table-container>
+
+          <div class="horizontal-overflow-table">
+            <table class="bx--data-table">
+              <thead>
+                <tr>
+                  <th>No.</th>
+                  <th>Doc. Type</th>
+                  <th>Doc. ID</th>
+                  <th>Uploaded By</th>
+                  <th>Date/Time</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let list of documentPreview; let index = index">
+                  <td>{{ index + 1 }}</td>
+                  <td *ngIf="list.docPath">
+                    <a
+                      style="text-decoration: none"
+                      (click)="openFile(list.docPath)"
+                      href="javascript:void(0);"
+                      target="_blank"
+                      >{{ list.docType }}</a
+                    >
+                  </td>
+                  <td *ngIf="list.idApi">
+                    <button
+                      type="button"
+                      ibmButton="ghost"
+                      class="downloadBtn"
+                      (click)="downloadFiles(list.idApi, list.docID)"
+                    >
+                      {{ list.docType }}
+                    </button>
+                  </td>
+                  <!-- <td>{{list.wasteCode}}</td> -->
+                  <td>{{ list.docID }}</td>
+                  <td>{{ list.uploadBy }}</td>
+                  <td>{{ list.dateTime | date : "dd/MM/y HH:mm" }}</td>
+                  <td>
+                    <ibm-checkbox
+                      *ngIf="
+                        status.toLowerCase().includes('init') ||
+                        status.includes('start')
+                      "
+                      name="checkbox_{{ list.id }}"
+                      [(ngModel)]="list.select"
+                      [hideLabel]="true"
+                      (ngModelChange)="docListCheckbox($event)"
+                    >
+                    </ibm-checkbox>
+                  </td>
+                </tr>
+                <tr *ngIf="documentPreview.length < 1">
+                  <td align="center" colspan="6" class="no-data">
+                    No data is entered yet. Please add a new entry.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div ibmRow class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32">
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+        <div class="form-item">
+          <ibm-table-container class="table-style">
+            <ibm-tab-header-group
+              [type]="type"
+              [followFocus]="followFocus"
+              [cacheActive]="cacheActive"
+              [isNavigation]="isNavigation"
+            >
+              <ibm-tab-header
+                [paneReference]="generalWorkContent"
+                class="full-width"
+                (click)="$event.preventDefault()"
+                tabindex="1"
+              >
+                General Works
+              </ibm-tab-header>
+              <ibm-tab-header
+                [paneReference]="underdeckContent"
+                class="full-width"
+                (click)="$event.preventDefault()"
+                tabindex="2"
+              >
+                <!-- Underdeck -->
+                Scope Of Work
+              </ibm-tab-header>
+            </ibm-tab-header-group>
+
+            <ibm-tab #generalWorkContent tabIndex="3">
+              <div>
+                <ibm-table-header>
+                  <h4 ibmTableHeaderTitle style="font-size: 1.25rem">
+                    General Works Request
+                  </h4>
+
+                  <span ibmTableHeaderDescription
+                    >Please fill in the forms below for any service request from
+                    KSB</span
+                  >
+                </ibm-table-header>
+
+                <div>
+                  <table class="bx--data-table">
+                    <thead>
+                      <tr>
+                        <th style="width: 60px">Select</th>
+                        <th style="width: 20%">Item</th>
+                        <th>Remarks</th>
+                      </tr>
+                    </thead>
+
+                    <tbody
+                      [ngClass]="{ 'invalid-class': generalWorksInvalid }"
+                      class="white-bg"
+                    >
+                      <tr
+                        *ngFor="
+                          let generalWorks of listOfGeneralWorks;
+                          let postIndex = index
+                        "
+                        class="white-bg"
+                      >
+                        <td>
+                          <ibm-checkbox
+                            name="checkbox_{{ generalWorks.id }}"
+                            [(ngModel)]="generalWorks.Selected"
+                            (ngModelChange)="onSelected()"
+                          >
+                          </ibm-checkbox>
+                        </td>
+                        <td>
+                          {{ generalWorks.Item }}
+                        </td>
+                        <td class="w-130">
+                          <ibm-label
+                            [invalid]="invalidRemarks[postIndex]"
+                            invalidText="Remarks Required"
+                            class="pb-10"
+                          >
+                            <input
+                              ibmText
+                              type="text"
+                              name="remarks{{ generalWorks.id }}"
+                              value="{{ generalWorks.Remarks }}"
+                              [invalid]="invalidRemarks[postIndex]"
+                              [(ngModel)]="generalWorks.Remarks"
+                              maxlength="100"
+                              required
+                            />
+                          </ibm-label>
+                        </td>
+                      </tr>
+                    </tbody>
+                    <div
+                      style="width: 200px"
+                      *ngIf="generalWorksInvalid"
+                      class="invalid-class-label"
+                    >
+                      Please select one or more item
+                    </div>
+                  </table>
+                </div>
+              </div>
+            </ibm-tab>
+
+            <ibm-tab #underdeckContent tabIndex="4">
+              <div>
+                <ibm-table-header>
+                  <h4 ibmTableHeaderTitle>Scope of Work Request</h4>
+
+                  <span ibmTableHeaderDescription
+                    >Please fill in the forms below for any service request from
+                    KSB</span
+                  >
+                </ibm-table-header>
+
+                <div>
+                  <table class="bx--data-table">
+                    <thead>
+                      <tr>
+                        <th class="header1">Select</th>
+                        <th class="header2">Item</th>
+                        <th class="header5">Quantity In (MT)</th>
+                        <th class="header5">Quantity Out (MT)</th>
+                        <th class="header6"></th>
+                      </tr>
+                    </thead>
+
+                    <tbody
+                      class="white-bg"
+                      [ngClass]="{ 'invalid-class': underDeckInvalid }"
+                    >
+                      <tr
+                        *ngFor="
+                          let underDeck of listOfUnderDeck;
+                          let postIndex = index
+                        "
+                        class="white-bg"
+                      >
+                        <td>
+                          <ibm-checkbox
+                            name="checkbox_{{ underDeck.id }}"
+                            [(ngModel)]="underDeck.Selected"
+                            (ngModelChange)="onSelectedUnderdeck()"
+                          >
+                          </ibm-checkbox>
+                        </td>
+                        <td>
+                          {{ underDeck.Item }}
+                        </td>
+
+                        <td class="w-130">
+                          <ibm-label
+                            [invalid]="invalidTonnes[postIndex]"
+                            invalidText="Tonnes Required"
+                            class="pb-10"
+                            style="flex-wrap: wrap"
+                          >
+                            <input
+                              ibmText
+                              type="number"
+                              min="0"
+                              name="quantity_in_{{ underDeck.id }}"
+                              value="{{ underDeck.requestQuantityIn}"
+                              [(ngModel)]="underDeck.requestQuantityIn"
+                              (ngModelChange)="validateTonnes(postIndex)"
+                              required
+                            />
+                          </ibm-label>
+                        </td>
+
+                        <td class="w-130">
+                          <ibm-label
+                            [invalid]="invalidTonnes[postIndex]"
+                            invalidText="Tonnes Required"
+                            class="pb-10"
+                            style="flex-wrap: wrap"
+                          >
+                            <input
+                              ibmText
+                              type="number"
+                              min="0"
+                              name="quantity_out_{{ underDeck.id }}"
+                              value="{{ underDeck.requestQuantityOut}"
+                              [(ngModel)]="underDeck.requestQuantityOut"
+                              (ngModelChange)="validateTonnes(postIndex)"
+                              required
+                            />
+                          </ibm-label>
+                        </td>
+                      </tr>
+                    </tbody>
+                    <div
+                      style="width: 200px"
+                      *ngIf="underDeckInvalid"
+                      class="invalid-class-label"
+                    >
+                      Please select one or more item
+                    </div>
+                  </table>
+                </div>
+              </div>
+            </ibm-tab>
+          </ibm-table-container>
+        </div>
+      </div>
+    </div>
+
+    <div
+      ibmRow
+      class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-32 pb-32"
+    >
+      <div ibmCol [columnNumbers]="{ lg: 12, md: 12, sm: 12 }">
+        <div class="form-item">
+          <div class="btn-action">
+            <button
+              [disabled]="clickedSubmit"
+              type="button"
+              ibmButton="secondary"
+              style="margin-right: 24px"
+              (click)="open = true"
+            >
+              Cancel
+            </button>
+            <!-- <button ibmButton="primary" type="submit" >Save</button> -->
+            <!-- <button [disabled]="clickedSubmit" style="float: right;" *ngIf="status.toLowerCase().includes('init') || status.includes('start')" type="button" ibmButton="primary" type="submit" (click)="skipWorkProgram = true">Preview</button> -->
+            <!-- <button class="bx--btn bx--btn--primary" type="submit" style="float: right;" routerLink="/operation-system/marine-service-request-form-preview">Next</button> -->
+            <button
+              ibmButton="primary"
+              class="bx--btn bx--btn--primary"
+              type="submit"
+              style="float: right"
+            >
+              Save & Preview
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- Modal -->
+<div ibmRow>
+  <div ibmCol [columnNumbers]="{ lg: 10 }">
+    <ibm-modal [open]="open" (overlaySelected)="open = false">
+      <ibm-modal-header (closeSelect)="open = false"> </ibm-modal-header>
+      <section ibmModalContent>
+        <h4 style="font-weight: bold">Confirmation</h4>
+        <h4>Are you sure want to leave this page?</h4>
+        <h4>Any changes or updates will be lost</h4>
+      </section>
+      <ibm-modal-footer>
+        <button class="bx--btn bx--btn--secondary" (click)="open = false">
+          Cancel
+        </button>
+        <button
+          class="bx--btn bx--btn--primary"
+          modal-primary-focus
+          routerLink="/operation-system/marine-service-request-list"
+        >
+          Confirm
+        </button>
+      </ibm-modal-footer>
+    </ibm-modal>
+  </div>
+</div>
+
+<ibm-modal
+  class="stepOneModal"
+  [open]="stepOneOpenModal"
+  [trigger]="triggerOneOpenModal"
+  (overlaySelected)="stepOneOpenModal = false"
+>
+  <ibm-modal-header (closeSelect)="stepOneOpenModal = false">
+    <p class="bx--modal-header__label bx--type-delta"></p>
+    <p
+      class="bx--modal-header__heading bx--type-beta ph03"
+      style="font-weight: 600"
+    >
+      Add New Document
+    </p>
+  </ibm-modal-header>
+  <div class="bx--modal-content">
+    <div class="bx--text-input__field-wrapper">
+      <div class="form-item">
+        <ibm-dropdown
+          label="Document Type"
+          placeholder="Please Select"
+          [appendInline]="true"
+          [dropUp]="false"
+          name="docType"
+          #types
+          (selected)="selectDoc($event)"
+          itemValueKey="content"
+          required
+          [invalid]="invalidDocType"
+          invalidText="Document Type is required"
+        >
+          <ibm-dropdown-list [items]="documentTypeList"></ibm-dropdown-list>
+        </ibm-dropdown>
+      </div>
+
+      <div class="form-item invalid-icon-50">
+        <ibm-label helperText="Please insert dash (-) if not applicable">
+          Document ID
+          <input
+            ibmText
+            type="text"
+            placeholder="XXXXXXXXXXXX"
+            name="docID"
+            #docsID
+            (blur)="onblurDoc($event)"
+          />
+        </ibm-label>
+      </div>
+
+      <div class="form-item">
+        <ibm-file-uploader
+          [ngClass]="{ 'invalid-file': invalidUpload }"
+          title="Upload Related Documents"
+          description="Max. file size is 5mb. Supported file types are .jpg, .png, and .pdf"
+          [accept]="accept"
+          [multiple]="multiple"
+          [(files)]="files"
+          drop="true"
+          #inputFile
+          dropText="Drag and drop ﬁles here or click to upload"
+          name="upload"
+          (filesChange)="onDropped($event)"
+        >
+        </ibm-file-uploader>
+        <div *ngIf="invalidUpload" class="invalid-class-label">
+          File required
+        </div>
+      </div>
+    </div>
+  </div>
+  <ibm-modal-footer>
+    <ng-container>
+      <button
+        class="bx--btn bx--btn--secondary"
+        (click)="cancelModal()"
+        size="lg"
+      >
+        Cancel
+      </button>
+      <button
+        ibmButton="primary"
+        (click)="onSaveDocumentList()"
+        [attr.modal-primary-focus]="true"
+        size="lg"
+      >
+        Save
+      </button>
+    </ng-container>
+  </ibm-modal-footer>
+</ibm-modal>
+
+<div ibmRow>
+  <div ibmCol [columnNumbers]="{ lg: 10 }">
+    <ibm-modal [open]="modalTimeout" (overlaySelected)="modalTimeout = false">
+      <ibm-modal-header (closeSelect)="modalTimeout = false">
+        <h4 style="font-weight: bold">Session timeout</h4>
+      </ibm-modal-header>
+      <!-- <section ibmModalContent style="height: unset;"> -->
+      <section ibmModalContent>
+        <!-- <h3 ibmModalContentText class="bx--modal-content__regular-content modal-text">
+                  Oops! You need to relogin again and make a new request to continue<br>
+                </h3> -->
+        <h4 ibmModalContentText>
+          Failed to upload file. Please relogin again to upload file
+        </h4>
+      </section>
+      <ibm-modal-footer>
+        <!-- <button class="bx--btn bx--btn--secondary" (click)="modalTimeout = false">Back</button> -->
+        <button
+          type="submit"
+          class="bx--btn bx--btn--primary"
+          (click)="logout()"
+        >
+          Log Out
+        </button>
+      </ibm-modal-footer>
+    </ibm-modal>
+  </div>
+</div>

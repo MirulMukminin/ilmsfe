@@ -1,0 +1,9 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+::ng-deep {
+    .bx--tab-content {
+        padding: 0px;
+    }
+    .bx--modal-close:nth-child(2) {
+        display: none;
+    }
+}

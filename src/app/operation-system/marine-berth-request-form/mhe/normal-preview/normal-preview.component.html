@@ -1,0 +1,250 @@
+<div ibmRow class="pt-32">
+  <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }" class="pl-0 pr-0">
+    <span class="ph03">MHE Request Form Preview</span>
+  </div>
+</div>
+<div ibmRow class="pt-32">
+  <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Request Number</div>
+  <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">{{ requestNumber }}</div>
+</div>
+<div ibmRow class="pt-32">
+  <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Request Type</div>
+  <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">Normal</div>
+</div>
+<div ibmRow class="pt-32">
+  <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Job Description</div>
+  <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+    {{ job_description }}
+  </div>
+</div>
+<div ibmRow class="pt-32">
+  <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Request on Behalf</div>
+  <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+    {{ request_behalf }}
+  </div>
+</div>
+<div ibmRow class="pt-32">
+  <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Booking Type</div>
+  <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+    {{ booking_type | titlecase }}
+  </div>
+</div>
+<div *ngIf="booking_type == 'DAILY'" ibmRow class="pt-32">
+  <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Booking Date</div>
+  <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">{{ booking_date }}</div>
+</div>
+<div *ngIf="booking_type != 'DAILY'" ibmRow class="pt-32">
+  <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Booking Date</div>
+  <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+    <span *ngFor="let item of recurringDate; let i = index">
+      {{ item.startDate | date: "dd/MM/yyyy" }} -
+      {{ item.endDate | date: "dd/MM/yyyy" }}
+      <span *ngIf="i != recurringDate.length - 1">,</span>
+    </span>
+  </div>
+</div>
+<div ibmRow class="pt-32">
+  <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Remarks</div>
+  <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">{{ remarks }}</div>
+</div>
+<div ibmRow class="pt-32">
+  <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Status</div>
+  <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+    {{ status | titlecase }}
+  </div>
+</div>
+
+<!----------------------------------   Machinery Table ----------------------------------->
+
+<div *ngIf="machineryList.length > 0">
+  <div ibmRow class="pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+      <div class="form-item">
+        <span class="ph03">Machinery</span>
+        <ibm-table-container>
+          <div class="horizontal-overflow-table">
+            <table class="bx--data-table">
+              <thead>
+                <tr>
+                  <th>No.</th>
+                  <th>Item</th>
+                  <th>Work Programme</th>
+                  <th>Qty.</th>
+                  <th>Time</th>
+                  <th>Est.Hours</th>
+                  <th>Location</th>
+                  <th>Specific Crew</th>
+                  <!-- <th>Job Ticket</th> -->
+                  <th>Usage (Hrs)</th>
+                  <!-- <th>Status</th> -->
+                  <!-- <th>Action</th> -->
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of machineryList; let i = index">
+                  <td>{{ i + 1 }}.</td>
+                  <td>{{ item.item }}</td>
+                  <td>{{ item.program }}</td>
+                  <td>{{ item.qty }}</td>
+                  <td>{{ item.time }}</td>
+                  <td>{{ item.estHours }}</td>
+                  <td>{{ item.location }}</td>
+                  <td>{{ item.crew }}</td>
+                  <!-- <td>{{ item.job_ticket }}</td> -->
+                  <td>{{ item.usageHours }}</td>
+                  <!-- <td>Booked</td> -->
+                  <!-- <td><ibm-checkbox></ibm-checkbox></td> -->
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ibm-table-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!----------------------------------  Manpower Table ------------------------------------>
+<div *ngIf="manpowerList.length > 0">
+  <div ibmRow class="pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+      <div class="form-item">
+        <span class="ph03">Manpower</span>
+        <ibm-table-container>
+          <div class="horizontal-overflow-table">
+            <table class="bx--data-table">
+              <thead>
+                <tr>
+                  <th>No.</th>
+                  <th>Item</th>
+                  <th>Work Programme</th>
+                  <th>Qty.</th>
+                  <th>Time</th>
+                  <th>Est.Hours</th>
+                  <th>Location</th>
+                  <th>Specific Crew</th>
+                  <!-- <th>Job Ticket</th> -->
+                  <th>Usage (Hrs)</th>
+                  <!-- <th>Status</th> -->
+                  <!-- <th>Action</th> -->
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of manpowerList; let i = index">
+                  <td>{{ i + 1 }}.</td>
+                  <td>{{ item.item }}</td>
+                  <td>{{ item.program }}</td>
+                  <td>{{ item.qty }}</td>
+                  <td>{{ item.time }}</td>
+                  <td>{{ item.estHours }}</td>
+                  <td>{{ item.location }}</td>
+                  <td>{{ item.crew }}</td>
+                  <!-- <td>{{ item.job_ticket }}</td> -->
+                  <td>{{ item.usageHours }}</td>
+                  <!-- <td>Booked</td> -->
+                  <!-- <td><ibm-checkbox></ibm-checkbox></td> -->
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ibm-table-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!----------------------------------  Equipment Table ------------------------------------>
+<div *ngIf="equipmentList.length > 0">
+  <div ibmRow class="pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+      <div class="form-item">
+        <span class="ph03">Equipment</span>
+        <ibm-table-container>
+          <div class="horizontal-overflow-table">
+            <table class="bx--data-table">
+              <thead>
+                <tr>
+                  <th>No.</th>
+                  <th>Item</th>
+                  <th>Work Programme</th>
+                  <th>Qty.</th>
+                  <th>Time</th>
+                  <th>Est.Hours</th>
+                  <th>Location</th>
+                  <!-- <th>Job Ticket</th> -->
+                  <th>Usage (Hrs)</th>
+                  <!-- <th>Status</th> -->
+                  <!-- <th>Action</th> -->
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of equipmentList; let i = index">
+                  <td>{{ i + 1 }}.</td>
+                  <td>{{ item.item }}</td>
+                  <td>{{ item.program }}</td>
+                  <td>{{ item.qty }}</td>
+                  <td>{{ item.time }}</td>
+                  <td>{{ item.estHours }}</td>
+                  <td>{{ item.location }}</td>
+                  <!-- <td>{{ item.job_ticket }}</td> -->
+                  <td>{{ item.usageHours }}</td>
+                  <!-- <td>Booked</td> -->
+                  <!-- <td><ibm-checkbox></ibm-checkbox></td> -->
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ibm-table-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!----------------------------------  External Items Table ------------------------------------>
+<div *ngIf="externalItemList.length > 0">
+  <div ibmRow class="pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }">
+      <div class="form-item">
+        <span class="ph03">External Item</span>
+        <ibm-table-container>
+          <div class="horizontal-overflow-table">
+            <table class="bx--data-table">
+              <thead>
+                <tr>
+                  <th>No.</th>
+                  <th>ID</th>
+                  <th>Item</th>
+                  <th>UOM</th>
+                  <th>Qty.</th>
+                  <th>Rent Period</th>
+                  <th>Unit</th>
+                  <th>Time</th>
+                  <th>Location</th>
+                  <!-- <th>Job Ticket</th> -->
+                  <!-- <th>Status</th> -->
+                  <!-- <th>Action</th> -->
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of externalItemList; let i = index">
+                  <td>{{ i + 1 }}.</td>
+                  <td>{{ item.id }}</td>
+                  <td>{{ item.item }}</td>
+                  <td>{{ item.uom }}</td>
+                  <td>{{ item.qty }}</td>
+                  <td>{{ item.rent_period }}</td>
+                  <td>{{ item.unit }}</td>
+                  <td>{{ item.time }}</td>
+                  <td>{{ item.location }}</td>
+                  <!-- <td>{{ item.job_ticket }}</td> -->
+                  <!-- <td>Booked</td> -->
+                  <!-- <td><ibm-checkbox></ibm-checkbox></td> -->
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ibm-table-container>
+      </div>
+    </div>
+  </div>
+</div>

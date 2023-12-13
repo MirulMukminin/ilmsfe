@@ -1,0 +1,107 @@
+@import "~carbon-components/scss/globals/scss/vendor/@carbon/type/scss/font-family";
+@import "~carbon-components/scss/globals/scss/typography";
+
+.pr-0 {
+  padding-right: 0px;
+}
+
+.pb-60 {
+  padding-bottom: 60px;
+}
+
+.applyBtn {
+  margin-right: 24px;
+}
+
+.exportBtn {
+  float: right;
+}
+
+.btnDiv {
+  padding-top: 24px;
+}
+
+@media screen and (max-width: 768px) and (min-width: 480px) {
+  .btnDiv {
+    padding-top: 24px;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .exportBtn {
+    margin-left: auto;
+  }
+}
+
+@media screen and (max-width: 1055px) and (min-width: 768px) {
+  .btnDiv {
+    padding-top: 24px;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .exportBtn {
+    margin-left: auto;
+  }
+}
+@media screen and (max-width: 1150px) and (min-width: 1055px) {
+  .btnDiv {
+    padding-top: 24px;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .exportBtn {
+    margin-left: auto;
+  }
+
+  .applyBtn {
+    margin-right: 16px;
+    margin-left: 35%;
+  }
+}
+
+@media screen and (max-width: 1200px) and (min-width: 1150px) {
+  .btnDiv {
+    padding-top: 24px;
+    display: flex;
+    justify-content: flex-start;
+    width: 50%;
+  }
+
+  .exportBtn {
+    margin-left: auto;
+  }
+
+  .applyBtn {
+    margin-left: 30%;
+  }
+}
+
+//---- Horizontal scroll -----
+// .horizontal-overflow-table {
+//   display: flex;
+//   overflow-x: scroll !important;
+//   overflow-y: hidden;
+// }
+
+// ibm-table {
+//   flex-shrink: 0;
+// }
+// -------------------------
+
+::ng-deep {
+  .bx--date-picker--range .bx--date-picker-container,
+  .bx--date-picker--range .bx--date-picker__input {
+    width: unset;
+  }
+
+  .bx--date-picker {
+    padding-right: 14px;
+  }
+
+  .bx--btn--field,
+  .bx--btn--md {
+    width: 100px;
+  }
+}

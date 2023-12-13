@@ -1,0 +1,52 @@
+<div
+  ibmRow
+  class="bx--offset-max-2 bx--offset-xlg-2 bx--offset-lg-3 pt-34"
+  [ngClass]="{ 'mhe-custom-booking-counter': marineMheBookingCounterStatus }"
+>
+  <div
+    ibmCol
+    [columnNumbers]="{ lg: 6, md: 6, sm: 6 }"
+    class="pr-0 pl-0"
+    style="width: 100%"
+  >
+    <div class="bookingTimeCounter gray-10-bg p-16">
+      <div class="display-flex-row">
+        <div ibmIcon="hourglass" size="20"></div>
+        <span style="font-size: 16px; font-weight: 600" class="pl-8"
+          >Booking Time Counter</span
+        >
+      </div>
+
+      <div class="counter pt-16 display-flex-row">
+        <div class="time pr-15-percent">
+          <!-- <span class="ph05">{{hours}} hrs {{minutes}} mins</span> -->
+          <span class="ph05">{{ showTime }}</span>
+          <span class="bl01"> remaining for next day booking</span>
+          <br />
+          <!-- <p>{{ this.showTime }}</p> -->
+          <!-- <p>{{ this.showTime }}</p> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div ibmCol [columnNumbers]="{ lg: 6, md: 6, sm: 6 }" class="pl-0 pr-0">
+    <div
+      class="bookingTimeCounter gray-10-bg p-16 display-flex-col"
+      style="height: 100%"
+    >
+      <div class="time-left">
+        <div class="ctd">
+          <span class="bs01">Current Time / Date:</span>
+          <!-- <span class="ph01 pl-35"> 10:00 Tuesday, 03/05/2021</span> -->
+          <span class="ph01 pl-35"> {{ getDatetime }}</span>
+        </div>
+
+        <div class="btc">
+          <span class="bs01">Booking closing time:</span>
+          <span class="ph01 pl-29"> 15:00</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

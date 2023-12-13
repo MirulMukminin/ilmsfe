@@ -1,0 +1,89 @@
+<div ibmRow class="pt-32">
+  <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }" class="pl-0 pr-0">
+    <span class="ph03">Fuel / Water Request Form Preview</span>
+  </div>
+</div>
+<div ibmRow class="pt-32" *ngIf="fuelWaterList.length > 0">
+  <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Request Number</div>
+  <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+    {{ fwRequestNumber }}
+  </div>
+</div>
+<div ibmRow class="pt-32" *ngIf="fuelWaterList.length > 0">
+  <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Supply To</div>
+  <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+    {{ supply | titlecase }}
+  </div>
+</div>
+<div ibmRow class=" pt-32" *ngIf="fuelWaterList.length > 0">
+    <div ibmCol [columnNumbers]="{ 'lg':2 }" class="ph01">
+        Location
+    </div>
+    <div ibmCol [columnNumbers]="{ 'lg':6 }" class="bl01">
+        {{location | titlecase}}
+    </div>
+</div>
+<div ibmRow class="pt-32" *ngIf="fuelWaterList.length > 0">
+  <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">PO Number</div>
+  <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+    {{ po_number }}
+  </div>
+</div>
+<div ibmRow class="pt-32" *ngIf="fuelWaterList.length > 0">
+  <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Booking Date</div>
+  <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+    {{ booking_date }}
+  </div>
+</div>
+<div ibmRow class="pt-32" *ngIf="fuelWaterList.length > 0">
+  <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Remarks</div>
+  <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+    {{ remarks }}
+  </div>
+</div>
+<div ibmRow class="pt-32" *ngIf="fuelWaterList.length > 0">
+  <div ibmCol [columnNumbers]="{ lg: 2 }" class="ph01">Status</div>
+  <div ibmCol [columnNumbers]="{ lg: 6 }" class="bl01">
+    {{ status | titlecase }}
+  </div>
+</div>
+
+<!----------------------------------   Table ----------------------------------->
+
+<div>
+  <div ibmRow class="pt-32">
+    <div ibmCol [columnNumbers]="{ lg: 12, md: 10, sm: 6 }" class="pl-0 pr-0">
+      <div class="form-item">
+        <ibm-table-container>
+          <div class="horizontal-overflow-table">
+            <table class="bx--data-table">
+              <thead>
+                <tr>
+                  <th>No.</th>
+                  <th>Item</th>
+                  <th>Full Tank</th>
+                  <th>Booking Time</th>
+                  <th>Quantity (L)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of fuelWaterList; let i = index">
+                  <td>{{ i + 1 }}.</td>
+                  <td>{{ item.item | titlecase }}</td>
+                  <td>{{ item.full_tank }}</td>
+                  <td>{{ item.start_time }}</td>
+                  <td>{{ item.weight }}</td>
+                </tr>
+                <tr *ngIf="fuelWaterList.length <= 0">
+                  <td align="center" colspan="9" class="no-data">
+                    No data available
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ibm-table-container>
+      </div>
+    </div>
+  </div>
+</div>
